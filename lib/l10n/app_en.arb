@@ -2,18 +2,19 @@
   "q1": "what language you want app :",
   "en": "English",
   "ar": "Arabic",
-  "email": "Email",
-  "password": "Password",
 
-  "register": "Register",
-  "register_title": "Create new account...",
-  "register_subtitle": "Enter details below",
-  "name": "Name",
-
-  "new_note": "New Note",
-  "update_note": "Update Note",
-  "note_hint":"Enter title & info",
-  "title": "Title",
-  "info": "Info",
-  "save": "Save"
+  "welcome": "Welcome to the patient portal",
+  "quick_service": "Quick Service",
+  "consultation_request": "Consultation request",
+  "consultDec": "ask advice from any doctor",
+  "appointment": "Appointment Booking",
+  "appointment_dec": "Click here to book an appointment",
+  "doctors": "Doctors",
+  "doctor_desc": "Find a doctor in the list",
+  "opening_medical_file":"Opening a medical file",
+  "opening_medical_file_dec": "Click to open a new medical file",
+  "welcome2": "We are pleased to manage your medical file through:",
+  "login": "login",
+  "register": "new account",
+  "or":"Or"
 }

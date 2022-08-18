@@ -1,4 +1,5 @@
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
+import 'package:aphaa_app/screens/quick_services/quick_services.dart';
 import 'package:aphaa_app/screens/select_lang/select_language.dart';
 import 'package:aphaa_app/screens/splach/screen_2_splash.dart';
 import 'package:aphaa_app/screens/splach/splash_screen.dart';
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
                 // is not restarted.
                 primarySwatch: colorCustom,
               ),
-              home: SelectLanguage(),
+              home: QuickServices(),
             );
           });
     });

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../model/service.dart';
+
 MaterialColor colorCustom = MaterialColor(0xFF058638, color);
 const kPrimaryColor = Color(0xFF058638);
 
@@ -15,3 +17,10 @@ Map<int, Color> color = {
   800: Color(0xFF046E2D),
   900: Color(0xFF023817),
 };
+
+List<Service> service = [
+  Service('assets/images/consult.svg','طلب استشارة','طلب استشارة من أي طبيب'),
+  Service('assets/images/date.svg','حجز موعد','اضغط هنا لحجز موعد'),
+  Service('assets/images/doctor.svg','الأطباء','ابحث عن طبيب في القائمة'),
+  Service('assets/images/report.svg','فتح ملف طبي','اضغط لفتح ملف طبي جديد'),
+];
