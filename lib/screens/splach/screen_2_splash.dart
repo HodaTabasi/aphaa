@@ -13,19 +13,19 @@ class Screen2Splash extends StatelessWidget {
         child: Center(
             child: Column(
           children: [
-            Spacer(),
+            const Spacer(),
             Image.asset('assets/images/logo.png',),
             SizedBox(height: 40,),
-            Text(
+            const Text(
               '''مـــرحـــبــًا بــكــم فــي مـــســـتـــشـــفـــى
 أبــــهـــا الـــخـــاص الـــطـــبـــي''',
               style: TextStyle(color: Color(0xff0E4C8F), fontSize: 22,fontFamily: 'Tajawal',fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 60,),
-            Text('التطور والريادة',style: TextStyle(color: Color(0xff058638), fontSize: 16,fontFamily: 'atef',fontWeight: FontWeight.bold),
+            const SizedBox(height: 60,),
+            const Text('التطور والريادة',style: TextStyle(color: Color(0xff058638), fontSize: 16,fontFamily: 'atef',fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,),
-            SizedBox(height: 60,),
+            const SizedBox(height: 60,),
             AvatarGlow(
               endRadius: 35.0,
               showTwoGlows: true,
@@ -37,7 +37,7 @@ class Screen2Splash extends StatelessWidget {
                     height: 50,
                   ),
             ),
-            Spacer()
+            const Spacer()
           ],
         )),
       ),

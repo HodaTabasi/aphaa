@@ -1,0 +1,19 @@
+{
+  "q1": "what language you want app :",
+  "en": "English",
+  "ar": "Arabic",
+  "email": "Email",
+  "password": "Password",
+
+  "register": "Register",
+  "register_title": "Create new account...",
+  "register_subtitle": "Enter details below",
+  "name": "Name",
+
+  "new_note": "New Note",
+  "update_note": "Update Note",
+  "note_hint":"Enter title & info",
+  "title": "Title",
+  "info": "Info",
+  "save": "Save"
+}
