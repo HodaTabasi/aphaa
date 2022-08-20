@@ -16,5 +16,19 @@
   "welcome2": "We are pleased to manage your medical file through:",
   "login": "login",
   "register": "new account",
-  "or":"Or"
+  "or":"Or",
+
+   "head_of_consult_screen":"To request a consultation, please enter the following information:",
+   "pasent_name":"Patient Name",
+     "email":"Email",
+     "phone":"Phone Number",
+     "clenice_choesse":"Choose the clinic",
+     "dovtor_choesse":"Choose the doctor",
+     "consult_note":"Consultation text",
+     "consult_send":"Send Consultation",
+
+       "time":"Time",
+        "appoitment_date":"booking date",
+        "to":"to",
+        "head_of_appoitment_screen":"To book an appointment, please fill in the following information"
 }

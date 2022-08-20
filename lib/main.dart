@@ -1,6 +1,7 @@
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/quick_services/quick_services.dart';
 import 'package:aphaa_app/screens/select_lang/select_language.dart';
+import 'package:aphaa_app/screens/send_consult/consult_screen.dart';
 import 'package:aphaa_app/screens/splach/screen_2_splash.dart';
 import 'package:aphaa_app/screens/splach/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,6 +12,7 @@ import 'package:get/get.dart';
 
 import 'get/language_getx_controller.dart';
 import 'helper/constant.dart';
+import 'screens/Appointment Booking/appointement_booking.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,7 +62,7 @@ class MyApp extends StatelessWidget {
                 // is not restarted.
                 primarySwatch: colorCustom,
               ),
-              home: QuickServices(),
+              home: AppointmentBooking(),
             );
           });
     });
