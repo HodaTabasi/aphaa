@@ -1,4 +1,5 @@
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
+import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
 import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
                 // is not restarted.
                 primarySwatch: colorCustom,
               ),
-              home: ForgetPassword(),
+              home: HomeScreen(),
             );
           });
     });
