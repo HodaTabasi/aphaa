@@ -16,7 +16,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
-        title: Text(AppLocalizations.of(context)!.appointment,
+        title: Text(AppLocalizations.of(context)!.doctors,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
