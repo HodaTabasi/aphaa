@@ -1,4 +1,4 @@
-import 'package:aphaa_app/screens/select_lang/selected_item.dart';
+import 'package:aphaa_app/screens/main_screens/select_lang/selected_item.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

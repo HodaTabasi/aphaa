@@ -1,12 +1,12 @@
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/helper/helper.dart';
-import 'package:aphaa_app/screens/Appointment%20Booking/time_appoiment_item.dart';
+import 'package:aphaa_app/screens/main_screens/Appointment%20Booking/time_appoiment_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../general/dropdown_item.dart';
-import '../../general/edittext_item.dart';
+import '../../../general/dropdown_item.dart';
+import '../../../general/edittext_item.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 
@@ -147,6 +147,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> with Helpers {
       child: Container(
         // margin: EdgeInsets.symmetric(horizontal: 16.0),
         child: CalendarCarousel<Event>(
+          locale: 'ar',
           pageScrollPhysics: const NeverScrollableScrollPhysics(),
           onDayPressed: (DateTime date, List<Event> events) {
             // this.setState(() => _currentDate = date);

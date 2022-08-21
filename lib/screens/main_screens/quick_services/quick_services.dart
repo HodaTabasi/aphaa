@@ -1,12 +1,13 @@
 import 'package:aphaa_app/helper/constant.dart';
-import 'package:aphaa_app/screens/quick_services/or_widget.dart';
-import 'package:aphaa_app/screens/quick_services/register_button/both_togther.dart';
-import 'package:aphaa_app/screens/quick_services/service_item.dart';
+import 'package:aphaa_app/screens/main_screens/quick_services/register_button/both_togther.dart';
+import 'package:aphaa_app/screens/main_screens/quick_services/service_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../model/service.dart';
+
+import '../../../model/service.dart';
 import 'login_button/togther.dart';
+import 'or_widget.dart';
 
 class QuickServices extends StatelessWidget {
   @override

@@ -1,11 +1,11 @@
 import 'package:aphaa_app/general/dropdown_item.dart';
 import 'package:aphaa_app/helper/helper.dart';
-import 'package:aphaa_app/screens/send_consult/text_area.dart';
+import 'package:aphaa_app/screens/main_screens/send_consult/text_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../general/btn_layout.dart';
-import '../../general/edittext_item.dart';
+import '../../../general/btn_layout.dart';
+import '../../../general/edittext_item.dart';
 
 class SendConsultScreen extends StatefulWidget {
   @override
