@@ -1,6 +1,7 @@
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/Appointment%20Booking/appointement_booking.dart';
 import 'package:aphaa_app/screens/Doctor/doctors_screen.dart';
+import 'package:aphaa_app/screens/auth/create_account/create_account.dart';
 import 'package:aphaa_app/screens/open_medocal/opening_medical_file.dart';
 import 'package:aphaa_app/screens/quick_services/quick_services.dart';
 import 'package:aphaa_app/screens/select_lang/select_language.dart';
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
                 // is not restarted.
                 primarySwatch: colorCustom,
               ),
-              home: OpeningMedicalFile(),
+              home: CreateAccount(),
             );
           });
     });
