@@ -125,7 +125,6 @@ class _AppointmentBookingState extends State<AppointmentBooking> with Helpers {
                     ),
                   ),
                 ),
-
               ],
             ),
           ),
@@ -152,7 +151,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> with Helpers {
           onDayPressed: (DateTime date, List<Event> events) {
             // this.setState(() => _currentDate = date);
           },
-          weekendTextStyle: TextStyle(
+          weekendTextStyle: const TextStyle(
             color: Colors.green,
           ),
           thisMonthDayBorderColor: Colors.transparent,
