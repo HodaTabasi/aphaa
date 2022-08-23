@@ -1,5 +1,6 @@
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
+import 'package:aphaa_app/screens/in_level_screen/sick_level/sick_leave.dart';
 import 'package:aphaa_app/screens/main_screens/Doctor/doctor_details.dart';
 import 'package:aphaa_app/screens/main_screens/Doctor/my_doctor_screen.dart';
 import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart';
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
                 // is not restarted.
                 primarySwatch: colorCustom,
               ),
-              home: DoctorDetails(),
+              home: SickLeave(),
             );
           });
     });
