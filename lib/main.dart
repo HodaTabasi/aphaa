@@ -1,9 +1,15 @@
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
+import 'package:aphaa_app/screens/drawer_screens/offers/offers_screen.dart';
+import 'package:aphaa_app/screens/in_level_screen/Insurance_approvals/Insurance_approvals.dart';
+import 'package:aphaa_app/screens/in_level_screen/family/family_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/medical_recipes/medical_recipes.dart';
+import 'package:aphaa_app/screens/in_level_screen/offer_ditails/offer_details.dart';
+import 'package:aphaa_app/screens/in_level_screen/recordbookings/RecordBooking.dart';
 import 'package:aphaa_app/screens/in_level_screen/sick_level/sick_leave.dart';
 import 'package:aphaa_app/screens/in_level_screen/test_results/test_results.dart';
 import 'package:aphaa_app/screens/in_level_screen/vaccinations/vaccinations.dart';
+import 'package:aphaa_app/screens/in_level_screen/vital_signs/vital_signs.dart';
 import 'package:aphaa_app/screens/main_screens/Doctor/doctor_details.dart';
 import 'package:aphaa_app/screens/main_screens/Doctor/my_doctor_screen.dart';
 import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart';
@@ -64,7 +70,7 @@ class MyApp extends StatelessWidget {
                 // is not restarted.
                 primarySwatch: colorCustom,
               ),
-              home: Vaccinations(),
+              home: OfferDetails(),
             );
           });
     });

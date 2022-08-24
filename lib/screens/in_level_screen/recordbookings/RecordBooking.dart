@@ -1,23 +1,14 @@
-import 'package:aphaa_app/screens/in_level_screen/vaccinations/p_vaccinations_item.dart';
-import 'package:aphaa_app/screens/in_level_screen/vaccinations/vaccinations_item.dart';
+import 'package:aphaa_app/screens/in_level_screen/recordbookings/scedual_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Vaccinations extends StatefulWidget {
+class RexcordBooking extends StatefulWidget {
+
   @override
-  State<Vaccinations> createState() => _VaccinationsState();
+  State<RexcordBooking> createState() => _RexcordBookingState();
 }
 
-class _VaccinationsState extends State<Vaccinations>   with SingleTickerProviderStateMixin {
-  late TabController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = TabController(length: 2, vsync: this);
-  }
-
-
+class _RexcordBookingState extends State<RexcordBooking> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -27,7 +18,7 @@ class _VaccinationsState extends State<Vaccinations>   with SingleTickerProvider
         appBar: AppBar(
           elevation: 0,
           // leadingWidth: 40,
-          title: Text('التطعيمات',
+          title: Text('الحجوزات',
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -66,33 +57,33 @@ class _VaccinationsState extends State<Vaccinations>   with SingleTickerProvider
             SizedBox(
               height: 60,
               child: TabBar(
-                  indicatorWeight: 2,
-                  indicatorPadding: EdgeInsets.symmetric(horizontal: 15.w),
-                  padding: const EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 8),
-                  indicatorColor: const Color(0xff058638),
-                  labelStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
-                    fontFamily: 'Tajawal',
-                    fontWeight: FontWeight.bold,
-                  ),
-                  unselectedLabelStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
-                    fontFamily: 'Tajawal',
-                    fontWeight: FontWeight.normal,
-                  ),
-                  labelColor: Colors.black,
-                  // controller: controller,
-                  tabs: const [
-                    Tab(
-                      text: 'تطعيمات مجدولة',
-                    ),
-                    Tab(
-                      text: 'تطعيمات سابقة',
-                    ),
-                  ],
+                indicatorWeight: 2,
+                indicatorPadding: EdgeInsets.symmetric(horizontal: 15.w),
+                padding: const EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 8),
+                indicatorColor: const Color(0xff058638),
+                labelStyle: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontFamily: 'Tajawal',
+                  fontWeight: FontWeight.bold,
                 ),
+                unselectedLabelStyle: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontFamily: 'Tajawal',
+                  fontWeight: FontWeight.normal,
+                ),
+                labelColor: Colors.black,
+                // controller: controller,
+                tabs: const [
+                  Tab(
+                    text: 'الحجوزات المجدولة',
+                  ),
+                  Tab(
+                    text: 'الحجوزات السابقة',
+                  ),
+                ],
+              ),
 
             ),
             // create widgets for each tab bar here
@@ -105,7 +96,7 @@ class _VaccinationsState extends State<Vaccinations>   with SingleTickerProvider
                       // physics: NeverScrollableScrollPhysics(),
                       itemCount: 10,
                       itemBuilder: (context,index){
-                        return VaccinationItem();
+                        return ScedualBookingItem();
                       }),
                   // // second tab bar viiew widget
                   ListView.builder(
@@ -113,7 +104,7 @@ class _VaccinationsState extends State<Vaccinations>   with SingleTickerProvider
                       // physics: NeverScrollableScrollPhysics(),
                       itemCount: 10,
                       itemBuilder: (context,index){
-                        return  P_VaccinationItem();
+                        return  ScedualBookingItem();
                       }),
                 ],
               ),

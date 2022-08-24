@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../general/btn_layout.dart';
+import 'btn_layout.dart';
 
 class SliderWidget extends StatelessWidget {
   const SliderWidget({

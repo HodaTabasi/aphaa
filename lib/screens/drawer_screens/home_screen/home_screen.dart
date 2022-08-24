@@ -1,6 +1,6 @@
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/my_medical_file_item.dart';
-import 'package:aphaa_app/screens/drawer_screens/home_screen/slider_wedgit.dart';
+import 'package:aphaa_app/general/slider_wedgit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
