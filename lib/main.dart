@@ -21,6 +21,7 @@ import 'package:get/get.dart';
 
 import 'get/language_getx_controller.dart';
 import 'helper/constant.dart';
+import 'screens/in_level_screen/reservation_data/reservation_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,7 +71,7 @@ class MyApp extends StatelessWidget {
                 // is not restarted.
                 primarySwatch: colorCustom,
               ),
-              home: OfferDetails(),
+              home: ReservationData(),
             );
           });
     });
