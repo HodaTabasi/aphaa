@@ -1,6 +1,6 @@
-import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
 import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
@@ -28,10 +28,10 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
-        title: Text('تسجيل دخول ',
-            style: const TextStyle(
+        title: Text(AppLocalizations.of(context)!.login,
+            style:  TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             )),
@@ -39,55 +39,55 @@ class _LoginScreenState extends State<LoginScreen> {
         leading: InkWell(
           onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
-              margin: const EdgeInsets.all(15.0),
-              padding: const EdgeInsets.all(5.0),
+              margin:  EdgeInsets.all(15.0.r),
+              padding:  EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5)),
-              child: const Icon(
+                  borderRadius: BorderRadius.circular(5.r)),
+              child:  Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 15,
+                size: 15.sw,
               )),
         ),
       ),
       body: ListView(
         children: [
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: 20.h,
           ),
           Image.asset(
             'assets/images/logo.png',
-            width: 203,
-            height: 161,
+            width: 203.w,
+            height: 161.h,
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: 15.h,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.h,vertical: 8.w),
             child: Text(
-              'ادخل بيانات الدخول، للوصول لخدماتنا :',
-              style: const TextStyle(
+              AppLocalizations.of(context)!.enter_login_information_access_services,
+              style: TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.normal,
               ),
               textAlign: TextAlign.start,
             ),
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: 20.h,
           ),
           EditTextItem(
               'assets/images/Message.svg', AppLocalizations.of(context)!.email),
-          PasswordItem('assets/images/Lock.svg', 'كلمة المرور'),
+          PasswordItem('assets/images/Lock.svg', AppLocalizations.of(context)!.password),
           Padding(
-            padding: const EdgeInsets.only(left: 16.0,right: 0,top: 8),
+            padding:  EdgeInsets.only(left: 16.0.w,right: 0,top: 8.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -111,10 +111,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     Text(
-                      'تذكرني لاحقا',
-                      style: const TextStyle(
+                      AppLocalizations.of(context)!.remember_me_later,
+                      style:  TextStyle(
                         color: Colors.black,
-                        fontSize: 13,
+                        fontSize: 13.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.normal,
                       ),
@@ -125,10 +125,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 InkWell(
                   onTap: () => Navigator.pushNamed(context, ForgetPassword.routeName),
                   child: Text(
-                    'نسيت كلمة المرور؟',
-                    style: const TextStyle(
+                    AppLocalizations.of(context)!.forget_pass_hl,
+                    style:  TextStyle(
                       color: Colors.black,
-                      fontSize: 13,
+                      fontSize: 13.sp,
                       fontFamily: 'Tajawal',
                       fontWeight: FontWeight.w700,
                     ),
@@ -138,13 +138,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 30,
+           SizedBox(
+            height: 30.h,
           ),
-          BtnLayout('تسجيل دخول', () =>
+          BtnLayout(AppLocalizations.of(context)!.login, () =>
         Navigator.pushNamed(context, ButtomNavigations.routeName),),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 10.h,
           ),
           Center(
             child: InkWell(
@@ -152,20 +152,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.pushNamed(context, CreateAccount.routeName),
               child: Text.rich(
                 TextSpan(
-                  text: 'ليس لديك حساب ؟  ',
+                  text: AppLocalizations.of(context)!.no_account_have,
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Colors.black,
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontFamily: 'Tajawal'
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: ' انشاء حساب  ',
+                      text: AppLocalizations.of(context)!.create_account,
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         color: Color(0xff058638),
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontFamily: 'Tajawal'
                       ),
                     ),
@@ -174,8 +174,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: 20.h,
           ),
           Image.asset(
             "assets/images/image1.png",

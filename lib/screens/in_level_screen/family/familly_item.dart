@@ -1,43 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FamillyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return  Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+      margin:  EdgeInsets.symmetric(horizontal: 16.r,vertical: 8.r),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xff0E4C8F),width: 0.5),
-        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xff0E4C8F),width: 0.5.r),
+        borderRadius: BorderRadius.circular(8.r),
       ),
       child: IntrinsicHeight(
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14.0),
+              padding: EdgeInsets.symmetric(horizontal: 14.0.r),
               child:  SvgPicture.asset(
                   'assets/images/boy.svg',
                   semanticsLabel: 'Acme Logo'
               ),
             ),
-            const VerticalDivider(
-                width:2,
-                thickness:0.5,
+             VerticalDivider(
+                width:2.w,
+                thickness:0.5.r,
                 color:Color(0xff0E4C8F)
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding:  EdgeInsets.all(10.0.r),
                     child: Text(
-                      'رقم الملف :',
-                      style: const TextStyle(
+                      AppLocalizations.of(context)!.file_No,
+                      style:  TextStyle(
                         color: Color(0xff2D2D2D),
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.bold,
                       ),
@@ -45,14 +47,14 @@ class FamillyItem extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding:  EdgeInsets.all(10.0.r),
                     child: Text(
-                      'رقم الإقامة :',
-                      style: const TextStyle(
+                      AppLocalizations.of(context)!.residency_number,
+                      style:  TextStyle(
                         color: Color(0xff2D2D2D),
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.bold,
                       ),
@@ -60,14 +62,14 @@ class FamillyItem extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding:  EdgeInsets.all(10.0.r),
                     child: Text(
-                      'الاسم :',
-                      style: const TextStyle(
+                      AppLocalizations.of(context)!.the_name,
+                      style:  TextStyle(
                         color: Color(0xff2D2D2D),
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.bold,
                       ),
@@ -81,7 +83,22 @@ class FamillyItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
+                  child: Padding(
+                    padding:  EdgeInsets.all(10.0.r),
+                    child: Text(
+                      '#2053152',
+                      style:  TextStyle(
+                        color: Color(0xff2D2D2D),
+                        fontSize: 12.sp,
+                        fontFamily: 'Tajawal',
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
@@ -96,29 +113,14 @@ class FamillyItem extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      '#2053152',
-                      style: const TextStyle(
-                        color: Color(0xff2D2D2D),
-                        fontSize: 12,
-                        fontFamily: 'Tajawal',
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding:  EdgeInsets.all(10.0.r),
                     child: Text(
                       'محمود أحمد',
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: Color(0xff2D2D2D),
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.normal,
                       ),

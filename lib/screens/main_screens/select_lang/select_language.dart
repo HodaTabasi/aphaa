@@ -2,6 +2,7 @@ import 'package:aphaa_app/screens/main_screens/select_lang/selected_item.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../quick_services/quick_services.dart';
 
@@ -21,21 +22,21 @@ class _SelectLanguageState extends State<SelectLanguage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        leadingWidth: 90,
+        leadingWidth: 90.w,
         leading: Container(
           margin: const EdgeInsets.all(10.0),
           // padding: EdgeInsets.all(10.0),
           alignment: Alignment.center,
-          width: 80,
-          height: 80,
+          width: 80.w,
+          height: 80.h,
           decoration: BoxDecoration(
               color: const Color(0xff006F2C),
               borderRadius: BorderRadius.circular(10)),
-          child: const Text(
+          child:  Text(
             "العربية",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 14,
+              fontSize: 14.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             ),
@@ -47,8 +48,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
         children: [
           Column(
             children: [
-              const SizedBox(
-                height: 30,
+               SizedBox(
+                height: 30.h,
               ),
               Image.asset(
                 'assets/images/logo.png',
@@ -58,15 +59,15 @@ class _SelectLanguageState extends State<SelectLanguage> {
               ),
               Text(
                 AppLocalizations.of(context)!.q1,
-                style: const TextStyle(
+                style:  TextStyle(
                   color: Colors.black,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(
-                height: 10,
+               SizedBox(
+                height: 10.h,
               ),
               SelectedItem(
                   title: AppLocalizations.of(context)!.ar,
@@ -78,8 +79,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
                   value: 1,
                   groupValue: _value,
                   onChanged: (value) => setState(() => _value = value)),
-              const SizedBox(
-                height: 30,
+               SizedBox(
+                height: 30.h,
               ),
               AvatarGlow(
                 endRadius: 35.0,
@@ -91,7 +92,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                   onTap: () => Navigator.pushNamed(context, QuickServices.routeName),
                   child: Image.asset(
                     'assets/images/icon1.png',
-                    height: 50,
+                    height: 50.h,
                   ),
                 ),
               ),

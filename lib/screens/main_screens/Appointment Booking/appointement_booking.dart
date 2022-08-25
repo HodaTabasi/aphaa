@@ -4,6 +4,7 @@ import 'package:aphaa_app/screens/main_screens/Appointment%20Booking/time_appoim
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../general/dropdown_item.dart';
 import '../../../general/edittext_item.dart';
@@ -27,9 +28,9 @@ class _AppointmentBookingState extends State<AppointmentBooking> with Helpers {
         elevation: 0,
         // leadingWidth: 40,
         title: Text(AppLocalizations.of(context)!.appointment,
-            style: const TextStyle(
+            style:  TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             )),
@@ -37,33 +38,33 @@ class _AppointmentBookingState extends State<AppointmentBooking> with Helpers {
         leading: InkWell(
           onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
-              margin: const EdgeInsets.all(15.0),
-              padding: const EdgeInsets.all(5.0),
+              margin:  EdgeInsets.all(15.0.r),
+              padding:  EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
                   borderRadius: BorderRadius.circular(5)),
-              child: const Icon(
+              child:  Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 15,
+                size: 15.sp,
               )),
         ),
       ),
       body: ListView(
         children: [
-          const SizedBox(
-            height: 10,
+           SizedBox(
+            height: 10.h,
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:  EdgeInsets.all(16.0.r),
             child: Text(
               AppLocalizations.of(context)!.head_of_appoitment_screen,
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
@@ -86,21 +87,21 @@ class _AppointmentBookingState extends State<AppointmentBooking> with Helpers {
                 EditTextItem('assets/images/Calendar.svg', AppLocalizations.of(context)!.appoitment_date),
                 widget1(),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding:  EdgeInsets.all(16.0.r),
                   child: Row(
                     children: [
-                      const Icon(
+                       Icon(
                         Icons.access_time_outlined,
                         color: Colors.green,
-                        size: 23,
+                        size: 23.sp,
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                        padding:  EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0),
                         child: Text(
                           AppLocalizations.of(context)!.time,
-                          style: const TextStyle(
+                          style:  TextStyle(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontFamily: 'Tajawal',
                             fontWeight: FontWeight.normal,
                           ),
@@ -112,15 +113,15 @@ class _AppointmentBookingState extends State<AppointmentBooking> with Helpers {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    height: 100,
+                    height: 100.h,
                     // width: 80,
                     child: GridView.builder(
                       itemCount: 3,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding:  EdgeInsets.symmetric(horizontal: 10.r),
                       scrollDirection: Axis.horizontal,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 1,
-                        mainAxisSpacing: 10,
+                        mainAxisSpacing: 10.r,
                         childAspectRatio: 280/200
                       ),
                       itemBuilder: (context, index) {
@@ -132,7 +133,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> with Helpers {
               ],
             ),
           ),
-          const SizedBox(height: 10),
+           SizedBox(height: 10.h),
           BtnLayout(AppLocalizations.of(context)!.appointment, () {
             showAlertDialog(context);
           }),

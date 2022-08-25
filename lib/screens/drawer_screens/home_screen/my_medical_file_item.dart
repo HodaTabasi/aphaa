@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MyMedicalFileItem extends StatelessWidget {
@@ -16,8 +17,8 @@ class MyMedicalFileItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          border: Border.all(color: Color(0xff0E4C8F),width: 0.5),
+          borderRadius: BorderRadius.all(Radius.circular(10.r)),
+          border: Border.all(color: Color(0xff0E4C8F),width: 0.5.r),
           // boxShadow: [
           //   BoxShadow(
           //     offset: Offset(0, 10),
@@ -35,13 +36,13 @@ class MyMedicalFileItem extends StatelessWidget {
                 image,
                 semanticsLabel: 'Acme Logo'
             ),
-            const SizedBox(
-              height: 15,
+             SizedBox(
+              height: 15.h,
             ),
             Text(name,
               style:  TextStyle(
                 color: Color(0xff2B2B2B),
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.w600,
               ),),

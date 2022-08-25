@@ -1,6 +1,9 @@
+import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
@@ -20,10 +23,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
-        title: Text('نسيت كلمة المرور',
-            style: const TextStyle(
+        title: Text(AppLocalizations.of(context)!.forgot_your_password,
+            style:  TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             )),
@@ -31,14 +34,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         leading: InkWell(
           onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
-              margin: const EdgeInsets.all(15.0),
-              padding: const EdgeInsets.all(5.0),
+              margin:  EdgeInsets.all(15.0.r),
+              padding:  EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5)),
+                  borderRadius: BorderRadius.circular(5.r)),
               child: const Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
@@ -50,45 +53,46 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           children: [
             Column(
               children: [
-                const SizedBox(
-                  height: 20,
+                 SizedBox(
+                  height: 40.h,
                 ),
-                Image.asset(
-                  'assets/images/logo.png',
-                  width: 203,
-                  height: 161,
+                SvgPicture.asset(
+                    'assets/images/chanfe_pass.svg',
+                    semanticsLabel: 'Acme Logo'
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: 25.h,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
+                  padding:  EdgeInsets.symmetric(horizontal: 16.0.r,vertical: 8.r),
                   child: Text(
-                    'أدخل رقم الجوال المسجل في ملفك الطبي ',
-                    style: const TextStyle(
+                    AppLocalizations.of(context)!.mobile_registered_your_medical_file,
+                    style:  TextStyle(
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       fontFamily: 'Tajawal',
                       fontWeight: FontWeight.normal,
                     ),
                     textAlign: TextAlign.start,
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                 SizedBox(
+                  height: 20.h,
                 ),
                 EditTextItem(
                     'assets/images/phone.svg', AppLocalizations.of(context)!.phone),
 
-                const SizedBox(
-                  height: 30,
+                 SizedBox(
+                  height: 30.h,
                 ),
-                BtnLayout('استعادة كلمة المرور', () {}),
+                BtnLayout(AppLocalizations.of(context)!.restore_password,
+                      () => Navigator.pushNamed(context, OTPScreen.routeName),
+                ),
               ],
             ),
 
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
             Positioned(
               bottom: 0,

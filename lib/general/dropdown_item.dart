@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DropDownItem extends StatefulWidget {
@@ -17,30 +18,30 @@ class _DropDownItenState extends State<DropDownItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+      margin:  EdgeInsets.symmetric(horizontal: 16.r,vertical: 8.r),
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xff0E4C8F),width: 0.5),
-        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Color(0xff0E4C8F),width: 0.5.w),
+        borderRadius: BorderRadius.circular(8.r),
       ),
       child: IntrinsicHeight(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14.0),
+              padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
               child:   SvgPicture.asset(
                   widget.iconName,
                   semanticsLabel: 'Acme Logo'
               ),
             ),
-            const VerticalDivider(
-                width:2,
-                thickness:0.5,
+             VerticalDivider(
+                width:2.w,
+                thickness:0.5.w,
                 color:Color(0xff0E4C8F)
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
                 child: DropdownButton<String>(
                   isExpanded: true,
                   underline: SizedBox(),
@@ -48,7 +49,7 @@ class _DropDownItenState extends State<DropDownItem> {
                     widget.dropValue,
                     style: TextStyle(
                       color: Colors.grey.shade700,
-                      fontSize: 13,
+                      fontSize: 13.sp,
                       fontFamily: 'Tajawal',
                       fontWeight: FontWeight.bold,
                     ),
@@ -61,7 +62,7 @@ class _DropDownItenState extends State<DropDownItem> {
                           value,
                           style:  TextStyle(
                             color: Colors.grey.shade700,
-                            fontSize: 13,
+                            fontSize: 13.sp,
                             fontFamily: 'Tajawal',
                             fontWeight: FontWeight.bold,
                           )

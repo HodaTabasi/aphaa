@@ -2,7 +2,10 @@ import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_screen/payment_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/reservation_data/payment_way_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReservationData extends StatefulWidget {
   static String routeName = "/ReservationData";
@@ -19,31 +22,31 @@ class _ReservationDataState extends State<ReservationData> {
       appBar: AppBar(
           elevation: 0,
           // leadingWidth: 40,
-          title: Text('بيانات الحجز',
-              style: const TextStyle(
+          title: Text(AppLocalizations.of(context)!.reservation_data,
+              style:  TextStyle(
                 color: Colors.white,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               )),
           titleSpacing: 2,
           leading: Container(
-              margin: const EdgeInsets.all(15.0),
-              padding: const EdgeInsets.all(5.0),
+              margin:  EdgeInsets.all(15.0.r),
+              padding:  EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5)),
-              child: const Icon(
+                  borderRadius: BorderRadius.circular(5.r)),
+              child:  Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 15,
+                size: 15.sp,
               )),
           actions: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0.r),
               child: InkWell(
                 onTap: () {},
                 child: SvgPicture.asset(
@@ -55,53 +58,53 @@ class _ReservationDataState extends State<ReservationData> {
           ]),
       body: ListView(
         children: [
-          SizedBox(height: 20),
-          const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          SizedBox(height: 20.h),
+           Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Text(
-              'بيانات الحجز',
-              style: const TextStyle(
+              AppLocalizations.of(context)!.reservation_data,
+              style:  TextStyle(
                 color: Color(0xff2D2D2D),
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding:  EdgeInsets.all(10.0.r),
             child: Stack(children: [
               DecoratedBox(
                 decoration: BoxDecoration(
                   color: Color(0xffF5F8FB),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.h),
                 ),
                 child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding:  EdgeInsets.symmetric(vertical: 8.0.r),
                     child: ListTile(
                       leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(10.0.r),
                         child: Image.network(
                           'https://thumbs.dreamstime.com/b/special-offer-workplace-doctor-tablet-stethoscope-clipboard-wooden-desk-background-top-view-57765884.jpg',
-                          width: 80,
-                          height: 60,
+                          width: 80.w,
+                          height: 60.h,
                           fit: BoxFit.cover,
                         ),
                       ),
                       title: Text(
                         'زراعة أسنان',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           color: Color(0xff2D2D2D),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       subtitle: Text(
                         'اسم العيادة هنا',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           color: Color(0xff2D2D2D),
-                          fontSize: 13,
+                          fontSize: 13.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.w500,
                         ),
@@ -110,39 +113,39 @@ class _ReservationDataState extends State<ReservationData> {
               ),
               Positioned(
                 left: 0,
-                top: 20,
+                top: 20.h,
                 // bottom: 0,
                 // left: 0,
                 child: Container(
                   // width: 30,
                   // height: 35,
                   padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+                  margin: EdgeInsets.symmetric(horizontal: 0, vertical: 8.r),
                   decoration: BoxDecoration(
                       color: Color(0xff0E4C8F),
                       borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(8),
-                          topRight: Radius.circular(8))),
+                          bottomRight: Radius.circular(8.r),
+                          topRight: Radius.circular(8.r))),
                   child: Text(
-                    "الإجمالي : 500",
+                    "${AppLocalizations.of(context)!.the_total} : 500",
                     style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Tajawal',
-                        fontSize: 12),
+                        fontSize: 12.sp),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
             ]),
           ),
-          SizedBox(height: 20),
-          const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          SizedBox(height: 20.h),
+           Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Text(
-              'طريقة الدفع :',
-              style: const TextStyle(
+              AppLocalizations.of(context)!.payment_method,
+              style:  TextStyle(
                 color: Color(0xff2D2D2D),
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
@@ -174,7 +177,7 @@ class _ReservationDataState extends State<ReservationData> {
             onChanged: (value) => setState(() => _value = value),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -183,23 +186,23 @@ class _ReservationDataState extends State<ReservationData> {
                   semanticsLabel: 'Acme Logo',
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(8.0.r),
                   child: Text(
-                    "أضف بطاقة دفع جديدة",
+                    AppLocalizations.of(context)!.add_a_new_payment_card,
                     style: TextStyle(
-                        fontFamily: 'Tajawal', color: Colors.black, fontSize: 13),
+                        fontFamily: 'Tajawal', color: Colors.black, fontSize: 13.sp),
                   ),
                 )
               ],
             ),
           ),
-          const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+           Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Text(
-              'ملخص الطلب :',
-              style: const TextStyle(
+              AppLocalizations.of(context)!.request_summary,
+              style:  TextStyle(
                 color: Color(0xff2D2D2D),
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
@@ -213,10 +216,10 @@ class _ReservationDataState extends State<ReservationData> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'تكلفة الطلب',
-                  style: const TextStyle(
+                  AppLocalizations.of(context)!.order_cost,
+                  style:  TextStyle(
                     color: Color(0xff2D2D2D),
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.w400,
                   ),
@@ -225,9 +228,9 @@ class _ReservationDataState extends State<ReservationData> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     '100 ر.س',
-                    style: const TextStyle(
+                    style:  TextStyle(
                       color: Color(0xff2D2D2D),
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontFamily: 'Tajawal',
                       fontWeight: FontWeight.w500,
                     ),
@@ -238,27 +241,27 @@ class _ReservationDataState extends State<ReservationData> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'الضريبة (15%)',
-                  style: const TextStyle(
+                  AppLocalizations.of(context)!.tax,
+                  style:  TextStyle(
                     color: Color(0xff2D2D2D),
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(8.0.r),
                   child: Text(
                     '115 ر.س',
-                    style: const TextStyle(
+                    style:  TextStyle(
                       color: Color(0xff2D2D2D),
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontFamily: 'Tajawal',
                       fontWeight: FontWeight.w500,
                     ),
@@ -269,27 +272,27 @@ class _ReservationDataState extends State<ReservationData> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'الإجمالية ',
-                  style: const TextStyle(
+                  AppLocalizations.of(context)!.total_bill,
+                  style:  TextStyle(
                     color: Color(0xff2D2D2D),
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(8.0.r),
                   child: Text(
                     '115 ر.س',
-                    style: const TextStyle(
+                    style:  TextStyle(
                       color: Color(0xff2D2D2D),
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontFamily: 'Tajawal',
                       fontWeight: FontWeight.w500,
                     ),
@@ -299,11 +302,11 @@ class _ReservationDataState extends State<ReservationData> {
               ],
             ),
           ),
-          const SizedBox(height: 20,),
-          BtnLayout('الاستمرار للدفع ', () {
+           SizedBox(height: 20.h,),
+          BtnLayout(AppLocalizations.of(context)!.continue_to_pay, () {
             Navigator.pushNamed(context, PaymentScreen.routeName);
           }),
-          const SizedBox(height: 10,),
+           SizedBox(height: 10.h,),
         ],
       ),
     );

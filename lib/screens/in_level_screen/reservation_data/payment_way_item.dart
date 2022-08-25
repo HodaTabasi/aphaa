@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PaymentSelectedItem extends StatelessWidget {
@@ -24,7 +25,7 @@ class PaymentSelectedItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: isSelected ? Color(0x209bd5b4) : Color(0x209bd5b4),
-          borderRadius: BorderRadius.all(Radius.circular(13)),
+          borderRadius: BorderRadius.all(Radius.circular(13.r)),
           border: Border.all(
               color: isSelected ? Colors.transparent : Colors.transparent),
           boxShadow: [
@@ -35,18 +36,18 @@ class PaymentSelectedItem extends StatelessWidget {
             ),
           ],
         ),
-        padding: EdgeInsets.all(16),
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.all(16.r),
+        margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
               'assets/images/logo.png',
-              width: 60,
-              height: 30,
+              width: 60.w,
+              height: 30.h,
             ),
             Container(
-                margin: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+                margin: EdgeInsets.fromLTRB(8.0.r, 0.0.r, 8.0.r, 0.0.r),
                 child: Text(
                   "$title",
                   style: TextStyle(

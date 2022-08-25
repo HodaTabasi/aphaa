@@ -4,6 +4,7 @@ import 'package:aphaa_app/screens/auth/create_account/Choosere.dart';
 import 'package:aphaa_app/screens/auth/create_account/create_account_next.dart';
 import 'package:aphaa_app/screens/auth/create_account/text_filed.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../general/edittext_item.dart';
@@ -25,42 +26,42 @@ class _CreateAccountState extends State<CreateAccount> {
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
-        title: Text('انشاء حساب',
-            style: const TextStyle(
+        title: Text( AppLocalizations.of(context)!.create_account,
+            style: TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             )),
-        titleSpacing: 2,
+        titleSpacing: 2.r,
         centerTitle: true,
       ),
       body: ListView(
         scrollDirection: Axis.vertical,
         children: [
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: 20.h,
           ),
           Image.asset(
             'assets/images/logo.png',
-            width: 203,
-            height: 161,
+            width: 203.w,
+            height: 161.h,
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: 15.h,
           ),
           Text(
-            'لإنشاء الحساب ، يجب عليك تعبئة البيانات التالية',
-            style: const TextStyle(
+            AppLocalizations.of(context)!.create_the_account_you_following_data,
+            style: TextStyle(
               color: Colors.black,
-              fontSize: 15,
+              fontSize: 15.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.normal,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: 20.h,
           ),
           EditTextItem('assets/images/Profile.svg',
               AppLocalizations.of(context)!.pasent_name),
@@ -68,21 +69,21 @@ class _CreateAccountState extends State<CreateAccount> {
               'assets/images/Message.svg', AppLocalizations.of(context)!.email),
           EditTextItem(
               'assets/images/phone.svg', AppLocalizations.of(context)!.phone),
-          PasswordItem('assets/images/Lock.svg','كلمة المرور'),
-          PasswordItem('assets/images/Lock.svg','تأكيد كلمة المرور'),
+          PasswordItem('assets/images/Lock.svg',AppLocalizations.of(context)!.password),
+          PasswordItem('assets/images/Lock.svg',AppLocalizations.of(context)!.re_password),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:  EdgeInsets.all(16.0.r),
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: Color(0xffF5F8FB),
-                borderRadius: BorderRadius.circular(5)
+                borderRadius: BorderRadius.circular(5.r)
               ),
                 child: Choosere()),
           ),
           MyTextFeild(),
-          BtnLayout('التالي', () => Navigator.pushNamed(context, CreateAccountNext.routeName)),
-          const SizedBox(
-            height: 20,
+          BtnLayout(AppLocalizations.of(context)!.next, () => Navigator.pushNamed(context, CreateAccountNext.routeName)),
+          SizedBox(
+            height: 20.h,
           ),
           Image.asset(
             "assets/images/image1.png",

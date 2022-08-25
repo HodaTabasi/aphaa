@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../screens/in_level_screen/offer_ditails/offer_details.dart';
 import 'btn_layout.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SliderWidget extends StatelessWidget {
   const SliderWidget({
     Key? key,
@@ -11,19 +13,19 @@ class SliderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding:  EdgeInsets.all(8.0.r),
       child: Stack(
         // fit: StackFit.expand,
           children: [
             Container(
-              width: MediaQuery.of(context).size.width - 50,
-              height: 180,
+              width: MediaQuery.of(context).size.width - 50.w,
+              height: 180.h,
               padding:
-              EdgeInsets.only(left: 26, right: 26, top: 16, bottom: 10),
+              EdgeInsets.only(left: 26.r, right: 26.r, top: 16.r, bottom: 10.r),
               // margin: EdgeInsets.all(8),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                   image: DecorationImage(
                     fit:BoxFit.cover,
                     image: AssetImage('assets/images/Group40749.png'),
@@ -32,20 +34,20 @@ class SliderWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text('زراعة اسنان ',
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.bold,
                       )),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40.0, vertical: 8),
+                    padding:  EdgeInsets.symmetric(
+                        horizontal: 40.0.w, vertical: 8.h),
                     child: Text(
                       'هذا النص افتراضي هذا النص افتراضي هذا النص افتراضي ',
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.normal,
                       ),
@@ -55,13 +57,13 @@ class SliderWidget extends StatelessWidget {
                   SizedBox(
                       width: 150,
                       height: 70,
-                      child: BtnLayout('احجز الآن', () {
+                      child: BtnLayout(AppLocalizations.of(context)!.book_now, () {
                         Navigator.pushNamed(context, OfferDetails.routeName);
                       })),
                   Text('ينتهي العرض في 22.8.2022',
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.normal,
                       )),
@@ -79,8 +81,8 @@ class SliderWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(20),topRight:Radius.circular(8) )),
-                child: Text("20%",style: TextStyle(color: Colors.white,fontFamily: 'Tajawal',fontSize: 14)),
+                    BorderRadius.only(bottomLeft: Radius.circular(20.r),topRight:Radius.circular(8.r) )),
+                child: Text("20%",style: TextStyle(color: Colors.white,fontFamily: 'Tajawal',fontSize: 14.sp)),
               ),
             ),
           ]),

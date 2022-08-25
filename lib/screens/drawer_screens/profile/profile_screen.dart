@@ -3,8 +3,10 @@ import 'package:aphaa_app/screens/drawer_screens/profile/notificaton_item.dart';
 import 'package:aphaa_app/screens/in_level_screen/edit_insurance_data/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/edit_profile/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
+import 'package:aphaa_app/screens/main_screens/change_password/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -49,24 +51,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ListView(
         children: [
           SizedBox(
-            height: 30,
+            height: 30.h,
           ),
           Center(
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color:  Colors.transparent,
-                borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                borderRadius: BorderRadius.all(Radius.circular(80.0.r)),
                 border: Border.all(
                   color: Colors.blue,
-                  width: 1.0,
+                  width: 1.0.w,
                 ),
 
               ),
               child: Padding(
                 padding: EdgeInsets.all(15),
                 child: SizedBox(
-                  width: 100,
-                  height: 100,
+                  width: 100.w,
+                  height: 100.h,
                   child: CircleAvatar(
                     backgroundImage: NetworkImage('http://i.imgur.com/QSev0hg.jpg'),
                   ),
@@ -75,42 +77,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
           Text('محمد محمود',
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.normal,
               ),textAlign: TextAlign.center,),
           Text('#2031456',
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.normal,
               ),textAlign: TextAlign.center,),
           SizedBox(
-            height: 20,
+            height: 20.h,
           ),
-          TextItem('assets/images/EditSquare.svg','تعديل الملف الشخصي',()=>Navigator.pushNamed(context, EditProfile.routeName)),
-          TextItem('assets/images/pagemetrecord.svg','سجل المدفوعات',()=>Navigator.pushNamed(context, PaymentRecord.routeName)),
-          TextItem('assets/images/editf.svg','تعديل بيانات التأمين',()=>Navigator.pushNamed(context, EditInsuranceData.routeName)),
-          TextItem('assets/images/Lock.svg','تغيير كلمة المرور',()=>Navigator.pushNamed(context, EditProfile.routeName)),
-          NotificationItem('assets/images/Notification.svg', 'الإشعارات'),
-          TextItem('assets/images/Logout.svg','تسجيل خروج',isVisable: true,()=>Navigator.pushNamed(context, EditProfile.routeName)),
+          TextItem('assets/images/EditSquare.svg',AppLocalizations.of(context)!.edit_profile,()=>Navigator.pushNamed(context, EditProfile.routeName)),
+          TextItem('assets/images/pagemetrecord.svg',AppLocalizations.of(context)!.pay_book,()=>Navigator.pushNamed(context, PaymentRecord.routeName)),
+          TextItem('assets/images/editf.svg',AppLocalizations.of(context)!.edit_insurance_data,()=>Navigator.pushNamed(context, EditInsuranceData.routeName)),
+          TextItem('assets/images/Lock.svg',AppLocalizations.of(context)!.change_password,()=>Navigator.pushNamed(context, ChangePassword.routeName)),
+          NotificationItem('assets/images/Notification.svg',AppLocalizations.of(context)!.notifications),
+          TextItem('assets/images/Logout.svg',AppLocalizations.of(context)!.logout,isVisable: true,()=>Navigator.pushNamed(context, EditProfile.routeName)),
           SizedBox(
-            height: 30,
+            height: 30.h,
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:  EdgeInsets.all(16.0.r),
             child: DecoratedBox(decoration: BoxDecoration(
               color: Color(0xff1E934C),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(8.r),
             ),
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding:  EdgeInsets.all(12.0.r),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

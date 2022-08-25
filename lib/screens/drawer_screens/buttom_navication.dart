@@ -8,6 +8,9 @@ import 'Booking/my_appointment_booking.dart';
 import 'home_screen/home_screen.dart';
 import 'offers/offers_screen.dart';
 
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class ButtomNavigations extends StatefulWidget {
   static String routeName = "/bottom_navigation";
 
@@ -27,22 +30,23 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
     ProfileScreen(),
   ];
 
-  List<String> pageName = [
-    '',
-    'الحجوزات',
-    'اضافة موعد',
-    'العروض',
-    'الملف الشخصي',
-  ];
 
   @override
   Widget build(BuildContext context) {
+    List<String> pageName = [
+      '',
+      AppLocalizations.of(context)!.reservations,
+      AppLocalizations.of(context)!.add_appointment,
+      AppLocalizations.of(context)!.offers,
+      AppLocalizations.of(context)!.profile_personly,
+    ];
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: pageIndex == 0?AppBar(
           actions: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0.r),
               child: InkWell(
                 onTap: () {},
                 child: SvgPicture.asset(
@@ -53,7 +57,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
             ),
           ],
           leading: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:  EdgeInsets.all(8.0.r),
             child: CircleAvatar(
               child: Image.asset(
                 'assets/images/logo.png',
@@ -68,7 +72,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
               style: TextStyle(
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontFamily: 'Tajawal'),
               children: [
                 TextSpan(
@@ -76,7 +80,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                   style: TextStyle(
                       fontWeight: FontWeight.w800,
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontFamily: 'Tajawal'),
                 )
               ])),
@@ -84,9 +88,9 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
           elevation: 0,
           // leadingWidth: 40,
           title: Text(pageName[pageIndex],
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Colors.white,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               )),
@@ -125,6 +129,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                 pageIndex = val;
               });
             },
+            elevation: 10,
             items: [
               BottomNavigationBarItem(icon: SvgPicture.asset(
                   'assets/images/apphome.svg',

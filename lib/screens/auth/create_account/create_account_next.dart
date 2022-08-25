@@ -34,10 +34,10 @@ class _CreateAccountNextState extends State<CreateAccountNext>
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
-        title: Text('انشاء حساب',
-            style: const TextStyle(
+        title: Text( AppLocalizations.of(context)!.create_account,
+            style: TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             )),
@@ -45,18 +45,18 @@ class _CreateAccountNextState extends State<CreateAccountNext>
         leading: InkWell(
           onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
-              margin: const EdgeInsets.all(15.0),
-              padding: const EdgeInsets.all(5.0),
+              margin:  EdgeInsets.all(15.0.r),
+              padding:  EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
                   borderRadius: BorderRadius.circular(5)),
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 15,
+                size: 15.r,
               )),
         ),
       ),
@@ -64,38 +64,38 @@ class _CreateAccountNextState extends State<CreateAccountNext>
         // physics: NeverScrollableScrollPhysics(),
         children: [
           SizedBox(
-            height: 30,
+            height: 30.h,
           ),
           SvgPicture.asset(name,
               semanticsLabel: 'Acme Logo'),
           SizedBox(
-            height: 8,
+            height: 8.h,
           ),
           Divider(
-            height: 2,
+            height: 2.h,
             thickness: 1,
             endIndent: 16,
             indent: 16,
           ),
           SizedBox(
-            height: 8,
+            height: 8.h,
           ),
           SizedBox(
-            height: 50,
+            height: 50.h,
             child: TabBar(
               indicatorWeight: 2,
               indicatorPadding: EdgeInsets.symmetric(horizontal: 25.w),
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(10.r),
               indicatorColor: Color(0xff058638),
-              labelStyle: const TextStyle(
+              labelStyle:  TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
-              unselectedLabelStyle: const TextStyle(
+              unselectedLabelStyle:  TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.normal,
               ),
@@ -103,10 +103,10 @@ class _CreateAccountNextState extends State<CreateAccountNext>
               controller: controller,
               tabs: [
                 Tab(
-                  text: 'تامين',
+                  text: AppLocalizations.of(context)!.insurance,
                 ),
                 Tab(
-                  text: 'كاش',
+                  text: AppLocalizations.of(context)!.cash,
                 ),
               ],
               onTap:(val){
@@ -123,15 +123,15 @@ class _CreateAccountNextState extends State<CreateAccountNext>
               children: [
                 ListView(
                   children: [
-                    EditTextItem('assets/images/snum.svg', 'رقم التامين'),
+                    EditTextItem('assets/images/snum.svg', AppLocalizations.of(context)!.insurance_number),
                     EditTextItem(
-                        'assets/images/Calendarg.svg', 'تاريخ نهاية التامين'),
+                        'assets/images/Calendarg.svg', AppLocalizations.of(context)!.insurance_end_date),
                     DropDownItem(
-                        [], 'assets/images/company.svg', 'شركات التأمين'),
-                    BtnLayout('فحص صلاحية التامين الطبي',() =>
+                        [], 'assets/images/company.svg', AppLocalizations.of(context)!.insurance_companies),
+                    BtnLayout(AppLocalizations.of(context)!.medical_insurance_validity_check,() =>
                         Navigator.pushNamed(context, HomeScreen.routeName)),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Image.asset(
                       "assets/images/image1.png",
@@ -142,11 +142,11 @@ class _CreateAccountNextState extends State<CreateAccountNext>
                 Expanded(child :ListView(
                   children: [
                     EditTextItem(
-                        'assets/images/company.svg', 'جهة العمل'),
-                    BtnLayout('انشاء حساب',() =>
+                        'assets/images/company.svg', AppLocalizations.of(context)!.employer),
+                    BtnLayout(AppLocalizations.of(context)!.create_account,() =>
                         Navigator.pushNamed(context, ButtomNavigations.routeName),),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Image.asset(
                       "assets/images/image1.png",

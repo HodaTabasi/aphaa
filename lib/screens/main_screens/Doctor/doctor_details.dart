@@ -1,12 +1,15 @@
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/general/my_separator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../drawer_screens/Booking/my_appointment_booking.dart';
 import '../../in_level_screen/medical_recipes/medical_recipes.dart';
 import '../../in_level_screen/test_results/test_results.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DoctorDetails extends StatefulWidget {
   static String routeName = "/doctor_details";
@@ -37,10 +40,10 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       appBar: AppBar(
           elevation: 0,
           // leadingWidth: 40,
-          title: Text('أطبائي',
-              style: const TextStyle(
+          title: Text(AppLocalizations.of(context)!.my_doctor,
+              style:  TextStyle(
                 color: Colors.white,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               )),
@@ -48,23 +51,23 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           leading: InkWell(
             onTap: () => Navigator.of(context, rootNavigator: true).pop(),
             child: Container(
-                margin: const EdgeInsets.all(15.0),
-                padding: const EdgeInsets.all(5.0),
+                margin:  EdgeInsets.all(15.0.r),
+                padding:  EdgeInsets.all(5.0.r),
                 // alignment: Alignment.bottomLeft,
                 // width: 80,
                 // height: 500,
                 decoration: BoxDecoration(
                     color: const Color(0xff006F2C),
-                    borderRadius: BorderRadius.circular(5)),
-                child: const Icon(
+                    borderRadius: BorderRadius.circular(5.r)),
+                child:  Icon(
                   Icons.arrow_back_ios,
                   color: Colors.white,
-                  size: 15,
+                  size: 15.sp,
                 )),
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0.r),
               child: InkWell(
                 onTap: () {},
                 child: SvgPicture.asset(
@@ -77,20 +80,20 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       body: ListView(
         children: [
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
           Container(
-            height: 260,
-            margin: EdgeInsets.all(16),
+            height: 260.h,
+            margin: EdgeInsets.all(16.r),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              border: Border.all(color: Color(0xff0E4C8F), width: 0.8),
+              borderRadius: BorderRadius.all(Radius.circular(10.r)),
+              border: Border.all(color: Color(0xff0E4C8F), width: 0.8.r),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0.r),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
+                borderRadius: BorderRadius.circular(20.0.r),
                 child: Image.network(
                   'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80',
                   // width: 144,
@@ -101,24 +104,24 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           ),
           Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                 EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 8.0.r),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'د. محمد محمود',
-                  style: const TextStyle(
+                  style:  TextStyle(
                     color: Color(0xff2D2D2D),
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   'طبيب أسنان',
-                  style: const TextStyle(
+                  style:  TextStyle(
                     color: Color(0xff2D2D2D),
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.bold,
                   ),
@@ -126,32 +129,32 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 8),
+           Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50.0.r, vertical: 8.r),
             child: MySeparator(color: Color(0xff058638)),
           ),
-          const SizedBox(
-            height: 30,
+           SizedBox(
+            height: 30.h,
           ),
-          const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+           Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Text(
-              'نبذة عني :',
-              style: const TextStyle(
+              AppLocalizations.of(context)!.about_me,
+              style:  TextStyle(
                 color: Color(0xff2D2D2D),
-                fontSize: 15,
+                fontSize: 15.r,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Text(
               'هذا النص افتراض ، هذا النص افتراض ، هذا النص افتراضي ، هذا النص افتراضي',
-              style: const TextStyle(
+              style:  TextStyle(
                   color: Color(0xff2D2D2D),
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontFamily: 'Tajawal',
                   height: 2
                   // fontWeight: FontWeight.normal,
@@ -159,24 +162,24 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             ),
           ),
           SizedBox(
-            height: 15,
+            height: 15.h,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Row(
               children: [
                 Text(
-                  'تاريخ الزيارة :',
-                  style: const TextStyle(
+                  AppLocalizations.of(context)!.date_of_visit,
+                  style:  TextStyle(
                     color: Color(0xff2D2D2D),
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Spacer(),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(8.0.r),
                   child: InkWell(
                     onTap: () =>
                         Navigator.pushNamed(context, MedicalRecipes.routeName),
@@ -198,19 +201,19 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 10.h,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
             child: Row(
               children: [
                 Expanded(
                     child: BtnLayout(
-                        'احجز موعد',
+                        AppLocalizations.of(context)!.book_an_appointment,
                         () => Navigator.pushNamed(
                             context, MyAppointmentBooking.routeName))),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(8.0.r),
                   child: InkWell(
                     onTap: () {
                       showVidetAlertDialog(context);
@@ -238,7 +241,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     AlertDialog alert = AlertDialog(
       backgroundColor: Color(0xffF2F2F2),
       content: Container(
-          width: 300,height: 200,
+          width: 300.w,height: 200.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
         ),
@@ -250,7 +253,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     aspectRatio: _controller.value.aspectRatio,
                     child: VideoPlayer(_controller),
                   )
-                : Container(width: 300,height: 200,
+                : Container(width: 300.w,height: 200.h,
             ),
           ),
           Opacity(

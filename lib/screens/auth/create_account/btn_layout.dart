@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BtnLayout extends StatelessWidget {
   String title;
@@ -19,18 +20,18 @@ class BtnLayout extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Container(
-        margin: EdgeInsets.all(9.0),
+        margin: EdgeInsets.all(9.0.r),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(10.0.r),
           clipBehavior: Clip.hardEdge,
           child: ElevatedButton(
             style: ButtonStyle(
                 backgroundColor: isSelected
                     ? MaterialStateProperty.all(Color(0xff0E4C8F))
                     : MaterialStateProperty.all(Colors.transparent),
-                padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                padding: MaterialStateProperty.all(EdgeInsets.all(10.r)),
                 textStyle: MaterialStateProperty.all(
-                    TextStyle(fontSize: 14, color: Colors.white,fontFamily: 'Tajawal')),elevation: MaterialStateProperty.all(0),),
+                    TextStyle(fontSize: 14.sp, color: Colors.white,fontFamily: 'Tajawal')),elevation: MaterialStateProperty.all(0),),
             onPressed: () {
 
               // NavigationService.navigationService.navigateTo(GMap.routeName);

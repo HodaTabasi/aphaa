@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../helper/svg/svg.dart';
 
@@ -9,8 +10,8 @@ class GeneratedSubtraction1Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 152.0,
-      height: 48.0,
+      width: 152.0.w,
+      height: 48.0.h,
       child: SvgWidget(painters: [
         SvgPathPainter.fill()
           ..addPath(

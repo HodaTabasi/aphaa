@@ -1,6 +1,8 @@
 import 'package:aphaa_app/screens/in_level_screen/Insurance_approvals/screen_item.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class InsuranceButtomSheet extends StatefulWidget {
 
   @override
@@ -12,20 +14,20 @@ class _InsuranceButtomSheetState extends State<InsuranceButtomSheet> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         color: Colors.white,
       ),
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(8.r),
 
       child: Column(
         children: [
           Divider(
             color: Colors.black,
-            thickness: 10,
-            indent: 100,
-            endIndent: 100,
+            thickness: 10.r,
+            indent: 100.w,
+            endIndent: 100.w,
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 15.h,),
           InsuranceItem(),
           InsuranceItem()
         ],

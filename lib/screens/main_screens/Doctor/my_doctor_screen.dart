@@ -1,6 +1,7 @@
 import 'package:aphaa_app/screens/main_screens/Doctor/DoctorItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../Appointment Booking/doctor_filtter.dart';
@@ -19,10 +20,10 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
-        title: Text('أطبائي',
-            style: const TextStyle(
+        title: Text(AppLocalizations.of(context)!.my_doctor,
+            style:  TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             )),
@@ -30,23 +31,23 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
         leading: InkWell(
           onTap: () => Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
-              margin: const EdgeInsets.all(15.0),
-              padding: const EdgeInsets.all(5.0),
+              margin:  EdgeInsets.all(15.0.r),
+              padding:  EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5)),
-              child: const Icon(
+                  borderRadius: BorderRadius.circular(5.r)),
+              child:  Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 15,
+                size: 15.sp,
               )),
         ),
           actions: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0.r),
               child: InkWell(
                 onTap: () {},
                 child: SvgPicture.asset(
@@ -62,19 +63,19 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
           SizedBox(
             height: 20,
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10.h,),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:  EdgeInsets.all(8.0.r),
             child: GridView.builder(
               shrinkWrap: true,
               itemCount: 4,
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding:  EdgeInsets.symmetric(horizontal: 10.r),
               scrollDirection: Axis.vertical,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 15,
+                mainAxisSpacing: 15.h,
+                crossAxisSpacing: 15.w,
                 childAspectRatio: 240/330
               ),
               itemBuilder: (context, index) {

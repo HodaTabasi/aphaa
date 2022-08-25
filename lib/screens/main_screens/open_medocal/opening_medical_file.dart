@@ -1,6 +1,7 @@
 import 'package:aphaa_app/helper/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../general/btn_layout.dart';
@@ -20,10 +21,10 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers {
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
-        title: Text('فتح ملف طبي',
-            style: const TextStyle(
+        title: Text(AppLocalizations.of(context)!.opening_medical_file,
+            style:  TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             )),
@@ -31,18 +32,18 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers {
         leading: InkWell(
           onTap: () => Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
-              margin: const EdgeInsets.all(15.0),
-              padding: const EdgeInsets.all(5.0),
+              margin:  EdgeInsets.all(15.0.r),
+              padding:  EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5)),
-              child: const Icon(
+                  borderRadius: BorderRadius.circular(5.r)),
+              child:  Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 15,
+                size: 15.sp,
               )),
         ),
       ),
@@ -52,12 +53,12 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers {
             height: 10,
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:  EdgeInsets.all(16.0.r),
             child: Text(
               AppLocalizations.of(context)!.head_of_consult_screen,
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
@@ -69,20 +70,20 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers {
               children: [
                 EditTextItem('assets/images/Profile.svg',
                     AppLocalizations.of(context)!.pasent_name),
-                EditTextItem('assets/images/id.svg', 'الهوية / الإقامة'),
+                EditTextItem('assets/images/id.svg', AppLocalizations.of(context)!.identity_iqama),
                 EditTextItem('assets/images/phone.svg',
                     AppLocalizations.of(context)!.phone),
-                EditTextItem('assets/images/scure.svg', 'شركة التأمين / كاش'),
+                EditTextItem('assets/images/scure.svg', AppLocalizations.of(context)!.insurance_company_cash),
                 EditTextItem(
-                    'assets/images/scureId.svg', 'رقم بوليصية التأمين'),
+                    'assets/images/scureId.svg', AppLocalizations.of(context)!.insurance_policy_number),
                 Container(
                   width: double.infinity,
-                  height: 90,
+                  height: 90.h,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Color(0xff0E4C8F), width: 0.5),
+                    borderRadius: BorderRadius.circular(10.r),
+                    border: Border.all(color: Color(0xff0E4C8F), width: 0.5.w),
                   ),
-                  margin: EdgeInsets.all(16),
+                  margin: EdgeInsets.all(16.r),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -90,12 +91,12 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers {
                       SvgPicture.asset('assets/images/Upload.svg',
                           semanticsLabel: 'Acme Logo'),
                       SizedBox(
-                        height: 10,
+                        height: 10.h,
                       ),
-                      Text("إرفاق صورة عن الهوية",
+                      Text(AppLocalizations.of(context)!.attach_a_copy_of_your_id,
                           style: TextStyle(
                             color: Colors.grey.shade700,
-                            fontSize: 13,
+                            fontSize: 13.sp,
                             fontFamily: 'Tajawal',
                             fontWeight: FontWeight.bold,
                           )),
@@ -107,7 +108,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers {
             ),
           ),
           const SizedBox(height: 10),
-          BtnLayout('فتح ملف طبي', () {
+          BtnLayout(AppLocalizations.of(context)!.opening_medical_file, () {
             showAlertDialog(context);
           }),
           Image.asset(

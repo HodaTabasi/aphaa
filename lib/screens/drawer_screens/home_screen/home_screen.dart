@@ -1,4 +1,4 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/screens/drawer_screens/Booking/my_appointment_booking.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/my_medical_file_item.dart';
@@ -37,26 +37,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<Service> service = [
-      Service('assets/images/secment.svg', 'المؤشرات الحيوية', '',
+      Service('assets/images/secment.svg', AppLocalizations.of(context)!.vital_signs, '',
           VitalSigns.routeName),
-      Service('assets/images/result.svg', 'نتائج الفحوصات', '',
+      Service('assets/images/result.svg', AppLocalizations.of(context)!.test_results, '',
           TestResults.routeName),
-      Service('assets/images/dco40714.svg', 'أطبائي', '',
+      Service('assets/images/dco40714.svg', AppLocalizations.of(context)!.ny_doctor, '',
           MyDoctorsScreen.routeName),
-      Service('assets/images/40714.svg', 'مرافقات التأمين', '',
+      Service('assets/images/40714.svg', AppLocalizations.of(context)!.insurance_approvals, '',
           InsuranceApprovals.routeName),
-      Service('assets/images/407s14.svg', 'إجازاتي المرضية', '',
+      Service('assets/images/407s14.svg', AppLocalizations.of(context)!.my_sick_leave, '',
           SickLeave.routeName),
-      Service('assets/images/40697.svg', 'وصفاتي الطبية', '',
+      Service('assets/images/40697.svg', AppLocalizations.of(context)!.my_medical_recipes, '',
           MedicalRecipes.routeName),
       Service(
-          'assets/images/d40714.svg', 'التطعيمات', '', Vaccinations.routeName),
+          'assets/images/d40714.svg', AppLocalizations.of(context)!.vaccsien, '', Vaccinations.routeName),
     ];
 
     return  ListView(
           children: [
             SizedBox(
-              height: 200,
+              height: 200.h,
               child: ListView.builder(
                   itemCount: 2,
                   // shrinkWrap: true,
@@ -67,10 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('ملفي الطبي : ',
-                  style: const TextStyle(
+              child: Text(AppLocalizations.of(context)!.medical_file,
+                  style:  TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.bold,
                   )),
@@ -79,12 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               itemCount: 7,
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding:  EdgeInsets.symmetric(horizontal: 10.r),
               scrollDirection: Axis.vertical,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10.r,
+                  crossAxisSpacing: 10.r,
                   childAspectRatio: 300 / 200),
               itemBuilder: (context, index) {
                 return MyMedicalFileItem(
@@ -100,10 +100,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('ملف العائلة ',
-                  style: const TextStyle(
+              child: Text(AppLocalizations.of(context)!.family_file,
+                  style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.bold,
                   )),
@@ -112,31 +112,31 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               itemCount: 1,
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding:  EdgeInsets.symmetric(horizontal: 10.r),
               scrollDirection: Axis.vertical,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10.r,
+                  crossAxisSpacing: 10.r,
                   childAspectRatio: 300 / 200),
               itemBuilder: (context, index) {
                 return MyMedicalFileItem(
                   image: 'assets/images/family.svg',
-                  name: 'عائلتي',
+                  name: AppLocalizations.of(context)!.my_family,
                   prsee: () =>
                       Navigator.pushNamed(context, FamillyScreen.routeName),
                 );
               },
             ),
             SizedBox(
-              height: 20,
+              height: 20.h,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('سجل المواعيد ',
-                  style: const TextStyle(
+              padding:  EdgeInsets.all(8.0.r),
+              child: Text(AppLocalizations.of(context)!.appointment_book,
+                  style:  TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.bold,
                   )),
@@ -145,31 +145,31 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               itemCount: 1,
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding:  EdgeInsets.symmetric(horizontal: 10.r),
               scrollDirection: Axis.vertical,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10.r,
+                  crossAxisSpacing: 10.r,
                   childAspectRatio: 300 / 200),
               itemBuilder: (context, index) {
                 return MyMedicalFileItem(
                   image: 'assets/images/apphistory.svg',
-                  name: 'سجل المواعيد',
+                  name: AppLocalizations.of(context)!.appointment_book,
                   prsee: () =>
                       Navigator.pushNamed(context, RexcordBooking.routeName),
                 );
               },
             ),
             SizedBox(
-              height: 20,
+              height: 20.h,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('العروض الطبية ',
-                  style: const TextStyle(
+              padding:  EdgeInsets.all(8.0.r),
+              child: Text(AppLocalizations.of(context)!.medical_offers,
+                  style:  TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.bold,
                   )),
@@ -178,17 +178,17 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               itemCount: 1,
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding:  EdgeInsets.symmetric(horizontal: 10.r),
               scrollDirection: Axis.vertical,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10.r,
+                  crossAxisSpacing: 10.r,
                   childAspectRatio: 300 / 200),
               itemBuilder: (context, index) {
                 return MyMedicalFileItem(
                   image: 'assets/images/offers.svg',
-                  name: 'العروض الطبية',
+                  name: AppLocalizations.of(context)!.medical_offers,
                   prsee: () =>
                       Navigator.pushNamed(context, OfferScreen.routeName),
                 );

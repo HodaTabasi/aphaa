@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyPaymentTextFeild extends StatelessWidget {
 
@@ -17,18 +18,18 @@ class MyPaymentTextFeild extends StatelessWidget {
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(
-                    color: Color(0xff0E4C8F), width: 0.3),
+                borderSide:  BorderSide(
+                    color: Color(0xff0E4C8F), width: 0.3.w),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(
-                    color: Color(0xff0E4C8F), width: 0.3),
+                borderRadius: BorderRadius.circular(10.r),
+                borderSide:  BorderSide(
+                    color: Color(0xff0E4C8F), width: 0.3.w),
               ),
               hintText: hint,
               hintStyle: TextStyle(
                 color: Colors.grey.shade700,
-                fontSize: 13,
+                fontSize: 13.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.w500,
               )),

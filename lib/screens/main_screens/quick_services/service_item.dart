@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ServiceItem extends StatelessWidget {
@@ -16,7 +17,7 @@ class ServiceItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(10.r)),
           border: Border.all(color: Color(0xff0E4C8F)),
           // boxShadow: [
           //   BoxShadow(
@@ -26,8 +27,8 @@ class ServiceItem extends StatelessWidget {
           //   ),
           // ],
         ),
-        padding: EdgeInsets.all(16),
-        margin:  EdgeInsets.all(5),
+        padding: EdgeInsets.all(16.r),
+        margin:  EdgeInsets.all(5.r),
         child: Column(
           children: [
             Spacer(),
@@ -41,17 +42,17 @@ class ServiceItem extends StatelessWidget {
             Text(name,
               style:  TextStyle(
               color: Colors.black,
-              fontSize: 15,
+              fontSize: 15.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             ),),
-            const SizedBox(
-              height: 15,
+             SizedBox(
+              height: 15.h,
             ),
             Text(decration,
               style:  TextStyle(
                 color: Color(0xff595959),
-                fontSize: 12,
+                fontSize: 12.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.normal,
               ),),

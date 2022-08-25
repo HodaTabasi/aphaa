@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'btn_layout.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class Choosere extends StatefulWidget {
 
@@ -20,7 +22,7 @@ class _ChoosereState extends State<Choosere> {
         children: [
           Flexible(
               child: BtnLayout(
-                title: "مواطن",
+                title: AppLocalizations.of(context)!.citizen,
                 value: 0,
                 groupValue: _value,
                 onChanged: (value) => setState(() {
@@ -29,7 +31,7 @@ class _ChoosereState extends State<Choosere> {
               )),
           Flexible(
               child: BtnLayout(
-                  title: "مقيم",
+                  title: AppLocalizations.of(context)!.resident,
                   value: 1,
                   groupValue: _value,
                   onChanged: (value) => setState(() {

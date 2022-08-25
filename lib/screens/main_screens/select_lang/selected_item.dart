@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SelectedItem extends StatelessWidget {
   String title;
@@ -25,7 +26,7 @@ class SelectedItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: isSelected ?Color(0x209bd5b4):Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(13)),
+          borderRadius: BorderRadius.all(Radius.circular(13.r)),
             border: Border.all(color: isSelected ?Colors.transparent :Color(0x7C058638)),
           boxShadow: [
             BoxShadow(
@@ -35,8 +36,8 @@ class SelectedItem extends StatelessWidget {
             ),
           ],
         ),
-        padding: EdgeInsets.all(16),
-        margin: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+        padding: EdgeInsets.all(16.r),
+        margin: EdgeInsets.symmetric(horizontal: 16.r,vertical: 8.r),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

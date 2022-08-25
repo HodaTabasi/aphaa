@@ -30,5 +30,148 @@
    "time":"الوقت",
    "appoitment_date":"تاريخ الحجز",
    "to":"الى",
-   "head_of_appoitment_screen":"لحجز موعد يرجى تعبئة البيانات التالية"
+   "head_of_appoitment_screen":"لحجز موعد يرجى تعبئة البيانات التالية",
+   "resident":"مقيم",
+   "citizen":"مواطن",
+
+   "next":"التالي",
+   "password":"كلمة المرور",
+   "re_password":"تاكيد كلمة المرور",
+   "create_the_account_you_following_data":"لإنشاء الحساب ، يجب عليك تعبئة البيانات التالية",
+   "create_account":"انشاء حساب",
+
+    "insurance":"تــــأمــــيــــن",
+    "cash":"كــــــاش",
+    "insurance_number":"رقم التأمين",
+    "insurance_end_date":"تاريخ نهاية التأمين",
+    "insurance_companies":"شركات التأمين",
+    "medical_insurance_validity_check":"فحص صلاحية التامين الطبي",
+    "employer":"جهة العمل",
+    "residency_number":"رقم الاقامة",
+
+    "enter_login_information_access_services":"ادخل بيانات الدخول، للوصول لخدماتنا :",
+    "remember_me_later":"تذكرني لاحقا",
+    "forget_pass_hl":"نسيت كلمة المرور؟",
+    "no_account_have":"ليس لديك حساب ؟",
+    "congratulations":"تـــهــــانــــيــــنـــــا !",
+    "has_been_completed_successfully":"تـــمـــت عـــمـــلـــيــة الـــدفــع بـــنــجـــأح",
+    "home":"الرئيسية",
+
+    "vital_signs":"المؤشرات الحيوية",
+    "test_results":"نتائج الفحوصات",
+    "ny_doctor":"أطبائي",
+    "insurance_approvals":"موافقات التأمين",
+    "my_sick_leave":"إجازاتي المرضية",
+    "my_medical_recipes":"وصفاتي الطبية",
+    "vaccsien":"التطعيمات ",
+    "medical_file":"ملفي الطبي :  ",
+    "family_file":"ملف العائلة  ",
+    "my_family":"عائلتي ",
+    "appointment_book":"سجل المواعيد  ",
+    "medical_offers":"العروض الطبية ",
+    "book_now":"احجز الآن ",
+
+    "edit_profile":"تعديل الملف الشخصي ",
+    "pay_book":"سجل المدفوعات ",
+    "edit_insurance_data":"تعديل بيانات التأمين ",
+    "change_password":"تغيير كلمة المرور ",
+    "notifications":"الإشعارات ",
+    "logout":"تسجيل خروج ",
+
+    "reservations":"الحجوزات ",
+    "add_appointment":"اضافة موعد",
+    "offers":"العروض ",
+    "profile_personly":"الملف الشخصي ",
+    "save_change":"حفظ التعديلات ",
+    "file_No":"رقم الملف : ",
+
+    "residency_number":"رقم الإقامة :",
+    "the_name":"الاسم :",
+
+    "medical_file_number":"رقم الملف الطبي :",
+     "the_request":"الطلب :",
+     "invoice_number":"رقم الفاتورة: ",
+     "date_of_visit":"تاريخ الزيارة ",
+     "physician":"الطبيب المعالج  ",
+     "the_clinic":"العيادة:  ",
+     "the_hospital_been_discharged":"هل تم الصرف من المشفى ؟ ",
+     "medical_prescriptions":"الوصفات الطبية ",
+
+     "medicament_name":"اسم الدواء ",
+     "times_of_use":"مرات الاستخدام ",
+     "how_to_use":"كيفية الاستخدام",
+     "price":"السعر",
+     "total_bill":"إجمالي الفاتورة :",
+     "the_total":"المجموع",
+     "the total":"المجموع",
+     "tax":"الضريبة (15%)",
+     "aggregate":"الإجمالية ",
+
+     "about_me":"نبذة عني : ",
+
+     "payment_date":"تاريخ الدفع : ",
+     "payment_time":" وقت الدفع : ",
+     "the_doctor":" الطبيب : ",
+     "descraptipn":" الوصف : ",
+
+     "payment_data":"بيانات الدفع ",
+     "the_name_on_the_card":"الاسم على البطاقة ",
+     "pay_now":"ادفع الآن ",
+
+     "pay_now":"الحجوزات المجدولة ",
+     "scheduled_reservations":"الحجوزات المجدولة ",
+     "previous_bookings":"الحجوزات السابقة ",
+     "booking_date":"تاريخ الحجز :   ",
+     "booking_time":"وقت الحجز :   ",
+     "notes":"ملاحظات :  ",
+
+     "continue_to_pay":"الاستمرار للدفع ",
+     "order_cost":"تكلفة الطلب ",
+     "request_summary":"ملخص الطلب : ",
+     "add_a_new_payment_card":" أضف بطاقة دفع جديدة",
+     "payment_method":" طريقة الدفع :",
+     "reservation_data":" بيانات الحجز",
+     "duration":" المدة",
+
+     "sick_leave_for":"   إجازة مرضية لـ",
+     "sick_leaves":"  الإجازات المرضية",
+
+     "examination_date":"  تاريخ الفحص :",
+     "examination_type":"  نوع الفحص :",
+
+     "vaccination_name":" اسم التطعيم :",
+     "vaccination_date":" موعد التطعيم :",
+     "scheduled_vaccinations":" تطعيمات مجدولة ",
+     "previous_vaccinations":" تطعيمات سابقة ",
+
+     "pressure":" الضغط ",
+     "diabetes":" السكري ",
+     "height":" الطول ",
+     "weight":" الوزن ",
+     "visit_time":" وقت الزيارة : ",
+     "find_a_doctor":" البحث عن طبيب",
+     "my_doctor":" أطبائي",
+     "book_an_appointment":" احجز موعد",
+     "view_doctor_profile":" عرض ملف الطبيب",
+
+     "password_update":" تحديث كلمة المرور",
+     "password_updated_successfully":" تم تحديث كلمة المرور  بنجاح",
+     "forgot_your_password":" نسيت كلمة المرور",
+     "mobile_registered_your_medical_file":" أدخل رقم الجوال المسجل في ملفك الطبي",
+     "restore_password":" استعادة كلمة المرور",
+
+     "identity_iqama":" الهوية / الإقامة",
+     "insurance_company_cash":" شركة التأمين / كاش",
+     "insurance_policy_number":" رقم بوليصية التأمين",
+     "attach_a_copy_of_your_id":" إرفاق صورة عن الهوية",
+
+     "enter_code":" أدخل الكود",
+     "enter_the_verification_code_that_we_sent_to_your_mobile":" قم بادخال رمز التحقق الذي ارسلناه الي جوالك",
+     "re_transmitter":"اعادة الارسال",
+     "upload":"تحميل"
+
+
+
+
+
 }

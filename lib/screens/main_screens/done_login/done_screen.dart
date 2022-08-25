@@ -1,3 +1,4 @@
+import 'package:aphaa_app/screens/auth/login/login_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,8 +8,8 @@ import '../../../general/btn_layout.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DoneScreens extends StatelessWidget {
-  static String routeName = "/done";
+class LoginDoneScreens extends StatelessWidget {
+  static String routeName = "/done1";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +24,7 @@ class DoneScreens extends StatelessWidget {
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5.h)),
+                  borderRadius: BorderRadius.circular(5.r)),
               child:  Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
@@ -43,7 +44,7 @@ class DoneScreens extends StatelessWidget {
           ),
           Spacer(),
           Text(
-            AppLocalizations.of(context)!.congratulations,
+            AppLocalizations.of(context)!.password_update,
             style:  TextStyle(
               color: Colors.green,
               fontSize: 20.sp,
@@ -52,7 +53,7 @@ class DoneScreens extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          Text( AppLocalizations.of(context)!.has_been_completed_successfully,
+          Text(AppLocalizations.of(context)!.password_updated_successfully,
               style:  TextStyle(
                 color: Colors.black,
                 fontSize: 20.sp,
@@ -62,8 +63,8 @@ class DoneScreens extends StatelessWidget {
               textAlign: TextAlign.center),
           SizedBox(height: 30.h,),
           Spacer(),
-          BtnLayout(AppLocalizations.of(context)!.home, () {
-                Navigator.pushNamed(context, HomeScreen.routeName);
+          BtnLayout(AppLocalizations.of(context)!.login, () {
+                Navigator.pushNamed(context, LoginScreen.routeName);
           }),
           Spacer(),
           Image.asset(

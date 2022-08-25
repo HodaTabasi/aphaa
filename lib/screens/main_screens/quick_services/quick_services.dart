@@ -6,6 +6,7 @@ import 'package:aphaa_app/screens/main_screens/quick_services/register_button/bo
 import 'package:aphaa_app/screens/main_screens/quick_services/service_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../model/service.dart';
 import '../Appointment Booking/appointement_booking.dart';
@@ -43,21 +44,21 @@ class QuickServices extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        leadingWidth: 90,
+        leadingWidth: 90.w,
         leading: Container(
-          margin: const EdgeInsets.all(10.0),
+          margin:  EdgeInsets.all(10.0.r),
           // padding: EdgeInsets.all(10.0),
           alignment: Alignment.center,
-          width: 80,
-          height: 80,
+          width: 80.w,
+          height: 80.h,
           decoration: BoxDecoration(
               color: const Color(0xff006F2C),
-              borderRadius: BorderRadius.circular(10)),
-          child: const Text(
+              borderRadius: BorderRadius.circular(10.r)),
+          child:  Text(
             "العربية",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 14,
+              fontSize: 14.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             ),
@@ -68,55 +69,55 @@ class QuickServices extends StatelessWidget {
       body: ListView(
         scrollDirection: Axis.vertical,
         children: [
-          const SizedBox(
-            height: 30,
+           SizedBox(
+            height: 30.h,
           ),
           Image.asset(
             'assets/images/logo.png',
-            width: 203,
-            height: 161,
+            width: 203.w,
+            height: 161.h,
           ),
-          const SizedBox(
-            height: 15,
+           SizedBox(
+            height: 15.h,
           ),
           Text(
             AppLocalizations.of(context)!.welcome,
-            style: const TextStyle(
+            style:  TextStyle(
               color: Colors.black,
-              fontSize: 15,
+              fontSize: 15.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: 20.h,
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:  EdgeInsets.all(16.0.r),
             child: Text(
               AppLocalizations.of(context)!.quick_service,
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Colors.black,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          const SizedBox(
-            height: 5,
+           SizedBox(
+            height: 5.h,
           ),
           GridView.builder(
             shrinkWrap: true,
             itemCount: 4,
             physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding:  EdgeInsets.symmetric(horizontal: 10.r),
             scrollDirection: Axis.vertical,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
+              mainAxisSpacing: 10.w,
+              crossAxisSpacing: 10.h,
             ),
             itemBuilder: (context, index) {
               return ServiceItem(
@@ -134,16 +135,16 @@ class QuickServices extends StatelessWidget {
           ),
           Text(
             AppLocalizations.of(context)!.welcome2,
-            style: const TextStyle(
+            style:  TextStyle(
               color: Colors.black,
-              fontSize: 15,
+              fontSize: 15.sp,
               fontFamily: 'Tajawal',
               // fontWeight: FontWeight.normal,
             ),
             textAlign: TextAlign.center,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 25),
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 25.r),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

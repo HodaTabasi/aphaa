@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
@@ -20,10 +21,10 @@ class _EditProfileState extends State<EditProfile> {
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
-        title: Text('تعديل الملف الشخصي',
-            style: const TextStyle(
+        title: Text(AppLocalizations.of(context)!.edit_profile,
+            style:  TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontFamily: 'Tajawal',
               fontWeight: FontWeight.bold,
             )),
@@ -33,8 +34,8 @@ class _EditProfileState extends State<EditProfile> {
       body: Column(
             // shrinkWrap: true,
             children: [
-              const SizedBox(
-                height: 20,
+               SizedBox(
+                height: 20.h,
               ),
               EditTextItem('assets/images/Profile.svg',
                   AppLocalizations.of(context)!.pasent_name),
@@ -43,11 +44,11 @@ class _EditProfileState extends State<EditProfile> {
               EditTextItem(
                   'assets/images/phone.svg', AppLocalizations.of(context)!.phone),
               EditTextItem(
-                  'assets/images/company.svg', 'جهة العمل'),
-              const SizedBox(
-                height: 80,
+                  'assets/images/company.svg', AppLocalizations.of(context)!.employer),
+              SizedBox(
+                height: 80.h,
               ),
-              BtnLayout('حفظ التعديلات', () { }),
+              BtnLayout(AppLocalizations.of(context)!.save_change, () { }),
               Spacer(),
               Image.asset(
                 "assets/images/image1.png",

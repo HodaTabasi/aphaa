@@ -30,5 +30,153 @@
        "time":"Time",
         "appoitment_date":"booking date",
         "to":"to",
-        "head_of_appoitment_screen":"To book an appointment, please fill in the following information"
+        "head_of_appoitment_screen":"To book an appointment, please fill in the following information",
+
+        "resident":"Resident",
+        "citizen":"Citizen",
+
+        "next":"Next",
+        "password":"Password",
+        "re_password":"RePassword",
+        "create_the_account_you_following_data":"To create the account, you must fill in the following data",
+        "create_account":"Create Account",
+
+        "insurance":"insurance",
+        "insurance_number":"Insurance number",
+        "cash":"Cash",
+        "insurance_end_date":"Insurance end date",
+        "insurance_companies":"Insurance companies",
+        "medical_insurance_validity_check":"Medical insurance validity check",
+        "employer":"Employer",
+        "residency_number":"Residency number",
+
+        "enter_login_information_access_services":"Enter your login information to access our services:",
+        "remember_me_later":"Remember me Later",
+        "forget_pass_hl":"Forget Password ?",
+        "no_account_have":"you have no account ?",
+
+        "congratulations":"congratulations !",
+        "has_been_completed_successfully":"The payment process has been completed successfully",
+         "home":"Home",
+
+         "vital_signs":"vital signs ",
+          "test_results":"Test results ",
+          "ny_doctor":"my doctor",
+          "insurance_approvals":"Insurance approvals ",
+          "my_sick_leave":"my sick leave ",
+          "my_medical_recipes":"My medical recipes",
+          "vaccsien":"vaccsien ",
+          "medical_file":"medical file  :  ",
+          "family_file":"family file  ",
+          "my_family":"My Family ",
+          "appointment_book":"appointment book  ",
+          "medical_offers":"Medical offers ",
+          "book_now":"book now ",
+
+          "edit_profile":"edit profile ",
+          "pay_book":"pay book ",
+          "edit_insurance_data":"edit insurance data ",
+          "change_password":"change password ",
+          "notifications":"Notifications ",
+          "logout":"logout ",
+
+           "reservations":"Reservations ",
+           "add_appointment":"add appointment",
+           "offers":"offers ",
+           "profile_personly":"profile personly ",
+
+            "save_change":"save change ",
+            "file_No":"file No. : ",
+
+             "residency_number":"residency number",
+             "the_name":"Name :",
+
+             "medical_file_number":"medical file number :",
+             "the_request":"the request :",
+
+     "medical_file_number":"medical file number :",
+     "the_request":"the request :",
+     "invoice_number":"invoice number : ",
+     "date_of_visit":"date of visit :",
+     "physician":"physician :  ",
+     "the_clinic":"the clinic :  ",
+     "the_hospital_been_discharged":"the hospital been discharged ؟ ",
+
+      "medical_prescriptions":"medical prescriptions ",
+
+       "medicament_name":"medicament name ",
+        "times_of_use":"times of use ",
+        "how_to_use":"how to use",
+        "price":"price",
+        "total_bill":"total bill :",
+        "the_total":"the total",
+        "tax":"tax (15%)",
+        "aggregate":"aggregate ",
+
+        "about_me":"about me : ",
+
+         "payment_date":"payment date : ",
+         "payment_time":" payment time : ",
+         "the_doctor":" the doctor : ",
+         "descraptipn":" descraptipn : ",
+
+         "payment_data":"payment data ",
+          "the_name_on_the_card":"the name on the card ",
+          "pay_now":"pay now ",
+
+          "pay_now":"الحجوزات المجدولة ",
+           "scheduled_reservations":"scheduled reservations ",
+           "previous_bookings":"previous bookings ",
+          "booking_date":"booking date : ",
+           "booking_time":"booking time : ",
+           "notes":"notes :  ",
+
+           "continue_to_pay":"continue to pay ",
+           "order_cost":"order cost ",
+           "request_summary":"request summary : ",
+           "add_a_new_payment_card":" add a new payment card",
+           "payment_method":" payment method :",
+            "reservation_data":" reservation data",
+            "duration":" duration",
+
+             "sick_leave_for":"sick leave for",
+              "sick_leaves":"  sick leaves",
+
+             "examination_date":"  examination date :",
+             "examination_type":"  examination type :",
+
+             "vaccination_name":" vaccination name :",
+             "vaccination_date":" vaccination date :",
+             "scheduled_vaccinations":" scheduled vaccinations ",
+              "previous_vaccinations":" previous vaccinations ",
+
+               "pressure":" pressure ",
+               "diabetes":" diabetes ",
+               "height":" height ",
+               "weight":" weight ",
+               "visit_time":" visit time : ",
+                "find_a_doctor":"find a doctor ",
+               "my_doctor":" my doctor",
+               "book_an_appointment":" book an appointment",
+               "view_doctor_profile":" view doctor profile",
+
+                "password_update":"password update",
+               "password_updated_successfully":"password updated successfully",
+               "forgot_your_password":" forgot your password",
+               "mobile_registered_your_medical_file":" Enter the mobile number registered in your medical file",
+                "restore_password":" restore password",
+
+                "identity_iqama":" identity / iqama",
+                "insurance_company_cash":" insurance company / cash",
+                "insurance_policy_number":" insurance policy number",
+                "attach_a_copy_of_your_id":" attach a copy of your id",
+
+                "enter_code":" enter code",
+                "enter_the_verification_code_that_we_sent_to_your_mobile":" enter the verification code that we sent to your mobile",
+                 "re_transmitter":"re transmitter",
+                 "upload":"upload"
+
+
+
+
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../model/service.dart';
+import 'SizeConfig.dart';
 
 MaterialColor colorCustom = MaterialColor(0xFF058638, color);
 const kPrimaryColor = Color(0xFF058638);
@@ -17,6 +18,22 @@ Map<int, Color> color = {
   800: Color(0xFF046E2D),
   900: Color(0xFF023817),
 };
+final otpInputDecoration = InputDecoration(
+  contentPadding:
+  EdgeInsets.symmetric(vertical: getProportionateScreenWidth(15)),
+  border: outlineInputBorder(),
+  focusedBorder: outlineInputBorder(),
+  enabledBorder: outlineInputBorder(),
+  fillColor: Colors.white,
+  filled: true,
+);
+
+OutlineInputBorder outlineInputBorder() {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(getProportionateScreenWidth(15)),
+    borderSide: BorderSide(color: Color(0xffDCDCDC)),
+  );
+}
 
 // List<Service> service = [
 //   Service('assets/images/consult.svg','طلب استشارة','طلب استشارة من أي طبيب',''),

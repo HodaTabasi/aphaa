@@ -15,7 +15,7 @@ class BtnLayout extends StatelessWidget {
       width: double.infinity,
       child: Container(
         margin: EdgeInsets.all(16.0.r),
-        height: 50,
+        height: 50.h,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10.0.r),
           clipBehavior: Clip.hardEdge,

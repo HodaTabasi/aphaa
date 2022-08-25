@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../general/my_separator.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VitalButtomSheet extends StatefulWidget {
 
@@ -15,22 +18,22 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
     return SingleChildScrollView(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
           color: Colors.white,
         ),
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(8.r),
 
         child: Column(
           children: [
             Divider(
               color: Colors.black,
-              thickness: 10,
-              indent: 100,
-              endIndent: 100,
+              thickness: 10.w,
+              indent: 100.w,
+              endIndent: 100.w,
             ),
-            SizedBox(height: 15,),
+            SizedBox(height: 15.h,),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0.r),
               child: Row(
                 children: [
                   SvgPicture.asset(
@@ -38,11 +41,11 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                     semanticsLabel: 'Acme Logo',
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('الضغط',
-                        style: const TextStyle(
+                    padding:  EdgeInsets.all(8.0.r),
+                    child: Text(AppLocalizations.of(context)!.pressure,
+                        style:  TextStyle(
                           color: Colors.black,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.normal,
                         )),
@@ -51,15 +54,15 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                   DecoratedBox(
                     decoration: BoxDecoration(
                       color: Color(0xffF7F8FB),
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding:  EdgeInsets.all(16.0.r),
                       child: Text(
                         '140/100',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           color: Color(0xff2D2D2D),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.bold,
                         ),
@@ -68,12 +71,12 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 80.0,vertical: 8),
+             Padding(
+              padding: EdgeInsets.symmetric(horizontal: 80.r,vertical: 8.r),
               child: MySeparator(color: Color(0xff0E4C8F)),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0.r),
               child: Row(
                 children: [
                   SvgPicture.asset(
@@ -81,11 +84,11 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                     semanticsLabel: 'Acme Logo',
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('السكري',
-                        style: const TextStyle(
+                    padding:  EdgeInsets.all(8.0.r),
+                    child: Text(AppLocalizations.of(context)!.diabetes,
+                        style:  TextStyle(
                           color: Colors.black,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.normal,
                         )),
@@ -94,15 +97,15 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                   DecoratedBox(
                     decoration: BoxDecoration(
                       color: Color(0xffF7F8FB),
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding:  EdgeInsets.all(16.0.r),
                       child: Text(
                         '140/100',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           color: Color(0xff2D2D2D),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.bold,
                         ),
@@ -111,12 +114,12 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 80.0,vertical: 8),
+             Padding(
+              padding: EdgeInsets.symmetric(horizontal: 80.0.r,vertical: 8.r),
               child: MySeparator(color: Color(0xff0E4C8F)),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0.r),
               child: Row(
                 children: [
                   SvgPicture.asset(
@@ -124,11 +127,11 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                     semanticsLabel: 'Acme Logo',
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('الطول',
-                        style: const TextStyle(
+                    padding:  EdgeInsets.all(8.0.r),
+                    child: Text(AppLocalizations.of(context)!.height,
+                        style:  TextStyle(
                           color: Colors.black,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.normal,
                         )),
@@ -137,15 +140,15 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                   DecoratedBox(
                     decoration: BoxDecoration(
                       color: Color(0xffF7F8FB),
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding:  EdgeInsets.all(16.0.r),
                       child: Text(
                         '140/100',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           color: Color(0xff2D2D2D),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.bold,
                         ),
@@ -154,12 +157,12 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 80.0,vertical: 8),
+             Padding(
+              padding: EdgeInsets.symmetric(horizontal: 80.0.r,vertical: 8.r),
               child: MySeparator(color: Color(0xff0E4C8F)),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0.r),
               child: Row(
                 children: [
                   SvgPicture.asset(
@@ -167,11 +170,11 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                     semanticsLabel: 'Acme Logo',
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('الوزن',
-                        style: const TextStyle(
+                    padding:  EdgeInsets.all(8.0.r),
+                    child: Text(AppLocalizations.of(context)!.weight,
+                        style:  TextStyle(
                           color: Colors.black,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.normal,
                         )),
@@ -180,15 +183,15 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                   DecoratedBox(
                     decoration: BoxDecoration(
                       color: Color(0xffF7F8FB),
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding:  EdgeInsets.all(16.0.r),
                       child: Text(
                         '140/100',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           color: Color(0xff2D2D2D),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.bold,
                         ),
@@ -197,8 +200,8 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 80.0,vertical: 8),
+             Padding(
+              padding: EdgeInsets.symmetric(horizontal: 80.0.r,vertical: 8.r),
               child: MySeparator(color: Color(0xff0E4C8F)),
             ),
             Image.asset(

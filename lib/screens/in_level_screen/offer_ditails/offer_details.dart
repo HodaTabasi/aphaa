@@ -2,9 +2,13 @@ import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_screen/payment_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../reservation_data/reservation_data.dart';
+
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OfferDetails extends StatefulWidget {
 
@@ -22,30 +26,30 @@ class _OfferDetailsState extends State<OfferDetails> {
           elevation: 0,
           // leadingWidth: 40,
           title: Text('عرض زراعة الأسنان',
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Colors.white,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               )),
           titleSpacing: 2,
           leading: Container(
-              margin: const EdgeInsets.all(15.0),
-              padding: const EdgeInsets.all(5.0),
+              margin:  EdgeInsets.all(15.0.r),
+              padding:  EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5)),
-              child: const Icon(
+                  borderRadius: BorderRadius.circular(5.r)),
+              child:  Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 15,
+                size: 15.sp,
               )),
           actions: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0.r),
               child: InkWell(
                 onTap: () {},
                 child: SvgPicture.asset(
@@ -58,18 +62,18 @@ class _OfferDetailsState extends State<OfferDetails> {
       body: ListView(
         children: [
           SizedBox(
-            height: 8,
+            height: 8.h,
           ),
           Container(
-            height: 260,
-            margin: EdgeInsets.all(8),
+            height: 260.h,
+            margin: EdgeInsets.all(8.r),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              border: Border.all(color: Color(0xff0E4C8F), width: 0.3),
+              borderRadius: BorderRadius.all(Radius.circular(20.r)),
+              border: Border.all(color: Color(0xff0E4C8F), width: 0.3.r),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(20.0.r),
               child: Image.network(
                 'https://thumbs.dreamstime.com/b/special-offer-workplace-doctor-tablet-stethoscope-clipboard-wooden-desk-background-top-view-57765884.jpg',
                 // width: 144,
@@ -78,10 +82,10 @@ class _OfferDetailsState extends State<OfferDetails> {
               ),
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10.h,),
           DecoratedBox(decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(20.r)),
             // border: Border.all(color: Color(0xfffffff), width: 0.5),
             boxShadow: [
               BoxShadow(
@@ -94,27 +98,27 @@ class _OfferDetailsState extends State<OfferDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20,),
+              SizedBox(height: 20.h,),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                 EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 8.0.r),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'زراعة أسنان',
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: Color(0xff2D2D2D),
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       '500',
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: Color(0xff2D2D2D),
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.bold,
                       ),
@@ -123,9 +127,9 @@ class _OfferDetailsState extends State<OfferDetails> {
                 ),
               ),
               ListTile(
-                title: Text('اسم العيادة هنا',style :const TextStyle(
+                title: Text('اسم العيادة هنا',style : TextStyle(
                   color: Colors.black,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.w500,
                 )),
@@ -134,46 +138,46 @@ class _OfferDetailsState extends State<OfferDetails> {
                   semanticsLabel: 'Acme Logo',
                 ),
               ),
-              const SizedBox(height: 30,),
-              const Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+               SizedBox(height: 30.h,),
+               Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 16.0.h),
                 child: Text(
-                  'نبذة عني :',
-                  style: const TextStyle(
+                  AppLocalizations.of(context)!.about_me,
+                  style:  TextStyle(
                     color: Color(0xff2D2D2D),
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
                 child: Text(
                   'هذا النص افتراض ، هذا النص افتراض ، هذا النص افتراضي ، هذا النص افتراضي',
-                  style: const TextStyle(
+                  style:  TextStyle(
                       color: Color(0xff2D2D2D),
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       fontFamily: 'Tajawal',
                       height: 2
                     // fontWeight: FontWeight.normal,
                   ),
                 ),
               ),
-              SizedBox(height: 13,),
+              SizedBox(height: 13.h,),
               Align(
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Color(0xffF7F8FB),
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(5.r),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0.r),
                     child: Text(
                       'ينتهي العرض في 22.8.2022',
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: Color(0xff2D2D2D),
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.bold,
                       ),
@@ -181,8 +185,8 @@ class _OfferDetailsState extends State<OfferDetails> {
                   ), ),
                 alignment: Alignment.center,
               ),
-              SizedBox(height: 13,),
-              BtnLayout('احجز الان', () {
+              SizedBox(height: 13.h,),
+              BtnLayout(AppLocalizations.of(context)!.book_now, () {
                 Navigator.pushNamed(context, ReservationData.routeName);
               })
             ],

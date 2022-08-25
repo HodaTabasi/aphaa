@@ -3,6 +3,7 @@ import 'package:aphaa_app/helper/helper.dart';
 import 'package:aphaa_app/screens/main_screens/send_consult/text_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
@@ -22,9 +23,9 @@ class _SendConsultScreenState extends State<SendConsultScreen> with Helpers{
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
-        title: Text(AppLocalizations.of(context)!.consultation_request,style: const TextStyle(
+        title: Text(AppLocalizations.of(context)!.consultation_request,style:  TextStyle(
           color: Colors.white,
-          fontSize: 16,
+          fontSize: 16.sp,
           fontFamily: 'Tajawal',
           fontWeight: FontWeight.bold,
         )),
@@ -32,33 +33,33 @@ class _SendConsultScreenState extends State<SendConsultScreen> with Helpers{
         leading: InkWell(
           onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
-              margin: const EdgeInsets.all(15.0),
-              padding: const EdgeInsets.all(5.0),
+              margin:  EdgeInsets.all(15.0.r),
+              padding:  EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5)),
-              child: const Icon(
+                  borderRadius: BorderRadius.circular(5.r)),
+              child:  Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 15,
+                size: 15.sp,
               )),
         ),
       ),
       body: ListView(
         children: [
-          const SizedBox(
-            height: 10,
+           SizedBox(
+            height: 10.h,
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:  EdgeInsets.all(16.0.r),
             child: Text(
               AppLocalizations.of(context)!.head_of_consult_screen,
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
@@ -79,7 +80,7 @@ class _SendConsultScreenState extends State<SendConsultScreen> with Helpers{
               ],
             ),
           ),
-          const SizedBox(height: 10),
+           SizedBox(height: 10.h),
           BtnLayout(AppLocalizations.of(context)!.consult_send, () {showAlertDialog(context);}),
           Image.asset(
             "assets/images/image1.png",

@@ -14,8 +14,11 @@ import 'package:aphaa_app/screens/in_level_screen/vaccinations/vaccinations.dart
 import 'package:aphaa_app/screens/in_level_screen/vital_signs/vital_signs.dart';
 import 'package:aphaa_app/screens/main_screens/Appointment%20Booking/appointement_booking.dart';
 import 'package:aphaa_app/screens/main_screens/Doctor/doctors_screen.dart';
+import 'package:aphaa_app/screens/main_screens/change_password/change_password.dart';
+import 'package:aphaa_app/screens/main_screens/done_login/done_screen.dart';
 import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart';
 import 'package:aphaa_app/screens/main_screens/open_medocal/opening_medical_file.dart';
+import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
 import 'package:flutter/widgets.dart';
 import '../screens/auth/create_account/create_account_next.dart';
 import '../screens/drawer_screens/Booking/my_appointment_booking.dart';
@@ -76,4 +79,7 @@ final Map<String, WidgetBuilder> routes = {
   ButtomNavigations.routeName: (context) => ButtomNavigations(),
   EditProfile.routeName: (context) => EditProfile(),
   EditInsuranceData.routeName: (context) => EditInsuranceData(),
+  ChangePassword.routeName: (context) => ChangePassword(),
+  OTPScreen.routeName: (context) => OTPScreen(),
+  LoginDoneScreens.routeName: (context) => LoginDoneScreens(),
 };

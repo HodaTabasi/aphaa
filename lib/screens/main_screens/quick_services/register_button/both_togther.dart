@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'GeneratedSubtraction2Widget.dart';
 import 'GeneratedWidget395.dart';
@@ -10,29 +11,29 @@ class GeneratedGroup40944Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 152.0,
-      height: 48.0,
+      width: 152.0.w,
+      height: 48.0.h,
       child: Stack(
           fit: StackFit.expand,
           alignment: Alignment.center,
           // //overflow: Overflow.visible,
           children: [
             Positioned(
-              left: 152.0,
-              top: 48.0,
+              left: 152.0.w,
+              top: 48.0.h,
               right: null,
               bottom: null,
-              width: 152.0,
-              height: 47.9999885559082,
+              width: 152.0.w,
+              height: 47.9999885559082.h,
               child: GeneratedSubtraction2Widget(),
             ),
             Positioned(
-              left: 15.0,
-              top: 12.000001907348633,
+              left: 15.0.w,
+              top: 12.000001907348633.h,
               right: null,
               bottom: null,
-              width: 94.0,
-              height: 27.0,
+              width: 94.0.w,
+              height: 27.0.h,
               child: GeneratedWidget395(),
             )
           ]),

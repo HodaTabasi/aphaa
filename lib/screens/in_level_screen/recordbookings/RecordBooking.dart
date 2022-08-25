@@ -2,6 +2,8 @@ import 'package:aphaa_app/screens/in_level_screen/recordbookings/scedual_booking
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class RexcordBooking extends StatefulWidget {
   static String routeName = "/RexcordBooking";
   bool fromInLevel ;
@@ -22,69 +24,69 @@ class _RexcordBookingState extends State<RexcordBooking> {
         appBar: widget.fromInLevel ?AppBar(
           elevation: 0,
           // leadingWidth: 40,
-          title: Text('الحجوزات',
-              style: const TextStyle(
+          title: Text(AppLocalizations.of(context)!.reservations,
+              style:  TextStyle(
                 color: Colors.white,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               )),
           titleSpacing: 2,
           leading: Container(
-              margin: const EdgeInsets.all(15.0),
-              padding: const EdgeInsets.all(5.0),
+              margin:  EdgeInsets.all(15.0.r),
+              padding:  EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5)),
-              child: const Icon(
+                  borderRadius: BorderRadius.circular(5.r)),
+              child:  Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
-                size: 15,
+                size: 15.sp,
               )),
         ) :null,
         body: Column(
           children: [
-            const SizedBox(height: 15,),
-            const Padding(
-              padding:  EdgeInsets.only(left: 10.0,right: 10,top: 16,bottom: 0),
+             SizedBox(height: 15.h,),
+             Padding(
+              padding:  EdgeInsets.only(left: 10.0.r,right: 10.r,top: 16.r,bottom: 0),
               child: Divider(
-                height: 2,
-                thickness: 1,
-                endIndent: 16,
-                indent: 16,
+                height: 2.h,
+                thickness: 1.w,
+                endIndent: 16.w,
+                indent: 16.w,
               ),
             ),
             // the tab bar with two items
             SizedBox(
-              height: 60,
+              height: 60.h,
               child: TabBar(
                 indicatorWeight: 2,
                 indicatorPadding: EdgeInsets.symmetric(horizontal: 15.w),
-                padding: const EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 8),
+                padding:  EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 8.r),
                 indicatorColor: const Color(0xff058638),
-                labelStyle: const TextStyle(
+                labelStyle:  TextStyle(
                   color: Colors.black,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.bold,
                 ),
-                unselectedLabelStyle: const TextStyle(
+                unselectedLabelStyle:  TextStyle(
                   color: Colors.black,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.normal,
                 ),
                 labelColor: Colors.black,
                 // controller: controller,
-                tabs: const [
+                tabs:  [
                   Tab(
-                    text: 'الحجوزات المجدولة',
+                    text: AppLocalizations.of(context)!.scheduled_reservations,
                   ),
                   Tab(
-                    text: 'الحجوزات السابقة',
+                    text: AppLocalizations.of(context)!.previous_bookings,
                   ),
                 ],
               ),
