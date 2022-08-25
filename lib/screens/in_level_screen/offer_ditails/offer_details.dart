@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 class OfferDetails extends StatefulWidget {
 
+  static String routeName = "/OfferDetails";
   @override
   State<OfferDetails> createState() => _OfferDetailsState();
 }

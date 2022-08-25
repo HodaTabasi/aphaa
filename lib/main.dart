@@ -1,10 +1,17 @@
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
+import 'package:aphaa_app/screens/drawer_screens/Booking/my_appointment_booking.dart';
+import 'package:aphaa_app/screens/drawer_screens/done/done_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/offers/offers_screen.dart';
+import 'package:aphaa_app/screens/drawer_screens/profile/profile_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/Insurance_approvals/Insurance_approvals.dart';
+import 'package:aphaa_app/screens/in_level_screen/edit_insurance_data/edit_profile.dart';
+import 'package:aphaa_app/screens/in_level_screen/edit_profile/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/family/family_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/medical_recipes/medical_recipes.dart';
 import 'package:aphaa_app/screens/in_level_screen/offer_ditails/offer_details.dart';
+import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
+import 'package:aphaa_app/screens/in_level_screen/payment_screen/payment_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/recordbookings/RecordBooking.dart';
 import 'package:aphaa_app/screens/in_level_screen/sick_level/sick_leave.dart';
 import 'package:aphaa_app/screens/in_level_screen/test_results/test_results.dart';
@@ -13,6 +20,7 @@ import 'package:aphaa_app/screens/in_level_screen/vital_signs/vital_signs.dart';
 import 'package:aphaa_app/screens/main_screens/Doctor/doctor_details.dart';
 import 'package:aphaa_app/screens/main_screens/Doctor/my_doctor_screen.dart';
 import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart';
+import 'package:aphaa_app/screens/splach/screen_2_splash.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +29,7 @@ import 'package:get/get.dart';
 
 import 'get/language_getx_controller.dart';
 import 'helper/constant.dart';
+import 'helper/routes.dart';
 import 'screens/in_level_screen/reservation_data/reservation_data.dart';
 
 void main() async {
@@ -71,7 +80,8 @@ class MyApp extends StatelessWidget {
                 // is not restarted.
                 primarySwatch: colorCustom,
               ),
-              home: ReservationData(),
+              initialRoute: Screen2Splash.routeName,
+              routes: routes,
             );
           });
     });

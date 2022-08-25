@@ -3,12 +3,16 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../quick_services/quick_services.dart';
+
 class SelectLanguage extends StatefulWidget {
+  static String routeName = "/select_lang";
   @override
   State<SelectLanguage> createState() => _SelectLanguageState();
 }
 
 class _SelectLanguageState extends State<SelectLanguage> {
+
   var _value = 0;
 
   @override
@@ -83,9 +87,12 @@ class _SelectLanguageState extends State<SelectLanguage> {
                 glowColor: const Color(0xff8CABCD),
                 animate: true,
                 curve: Curves.easeInCubic,
-                child: Image.asset(
-                  'assets/images/icon1.png',
-                  height: 50,
+                child: InkWell(
+                  onTap: () => Navigator.pushNamed(context, QuickServices.routeName),
+                  child: Image.asset(
+                    'assets/images/icon1.png',
+                    height: 50,
+                  ),
                 ),
               ),
               const Spacer()

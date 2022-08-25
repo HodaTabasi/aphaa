@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MedicalRecipes extends StatefulWidget {
+  static String routeName = "/MedicalRecipes";
 
   @override
   State<MedicalRecipes> createState() => _MedicalRecipesState();

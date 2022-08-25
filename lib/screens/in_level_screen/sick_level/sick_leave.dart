@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../general/my_separator.dart';
 
 class SickLeave extends StatefulWidget {
+  static String routeName = "/SickLeave";
   @override
   State<SickLeave> createState() => _SickLeaveState();
 }

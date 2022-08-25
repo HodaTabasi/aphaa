@@ -7,6 +7,8 @@ import '../../../general/password_item.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
+
+  static String routeName = "/login";
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }

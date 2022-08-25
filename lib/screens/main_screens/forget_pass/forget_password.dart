@@ -6,6 +6,7 @@ import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
 
 class ForgetPassword extends StatefulWidget {
+  static String routeName = "/ForgetPassword";
 
   @override
   State<ForgetPassword> createState() => _ForgetPasswordState();

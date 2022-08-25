@@ -10,6 +10,7 @@ import '../../../general/edittext_item.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateAccount extends StatefulWidget {
+  static String routeName = "/create_account";
   @override
   State<CreateAccount> createState() => _CreateAccountState();
 }

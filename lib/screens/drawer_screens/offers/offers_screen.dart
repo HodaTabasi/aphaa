@@ -5,6 +5,8 @@ import '../../in_level_screen/Insurance_approvals/screen_item.dart';
 
 class OfferScreen extends StatefulWidget {
 
+  static String routeName = "/offers";
+
   @override
   State<OfferScreen> createState() => _OfferScreenState();
 }

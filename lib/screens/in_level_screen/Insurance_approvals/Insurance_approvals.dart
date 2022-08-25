@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 
 class InsuranceApprovals extends StatefulWidget {
 
+  static String routeName = "/insurance_approvals";
+
   @override
   State<InsuranceApprovals> createState() => _InsuranceApprovalsState();
 }

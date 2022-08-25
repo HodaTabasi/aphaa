@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class VitalSigns extends StatefulWidget {
+  static String routeName = "/VitalSigns";
 
   @override
   State<VitalSigns> createState() => _VitalSignsState();

@@ -6,17 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../model/service.dart';
+import '../Appointment Booking/appointement_booking.dart';
+import '../Doctor/doctors_screen.dart';
+import '../open_medocal/opening_medical_file.dart';
+import '../send_consult/consult_screen.dart';
 import 'login_button/togther.dart';
 
 class QuickServices extends StatelessWidget {
+  static String routeName = "/quick_services";
   @override
   Widget build(BuildContext context) {
 
     List<Service> service = [
-      Service('assets/images/consult.svg',AppLocalizations.of(context)!.consultation_request,AppLocalizations.of(context)!.consultDec),
-      Service('assets/images/date.svg',AppLocalizations.of(context)!.appointment,AppLocalizations.of(context)!.appointment_dec),
-      Service('assets/images/doctor.svg',AppLocalizations.of(context)!.doctors,AppLocalizations.of(context)!.doctor_desc),
-      Service('assets/images/report.svg',AppLocalizations.of(context)!.opening_medical_file,AppLocalizations.of(context)!.opening_medical_file_dec),
+      Service('assets/images/consult.svg',AppLocalizations.of(context)!.consultation_request,AppLocalizations.of(context)!.consultDec,SendConsultScreen.routeName),
+      Service('assets/images/date.svg',AppLocalizations.of(context)!.appointment,AppLocalizations.of(context)!.appointment_dec,AppointmentBooking.routeName),
+      Service('assets/images/doctor.svg',AppLocalizations.of(context)!.doctors,AppLocalizations.of(context)!.doctor_desc,DoctorsScreen.routeName),
+      Service('assets/images/report.svg',AppLocalizations.of(context)!.opening_medical_file,AppLocalizations.of(context)!.opening_medical_file_dec, OpeningMedicalFile.routeName),
     ];
 
     return Scaffold(
@@ -103,6 +108,7 @@ class QuickServices extends StatelessWidget {
                 image: service[index].image,
                 name: service[index].name,
                 decration: service[index].decration,
+                prsee: (){Navigator.pushNamed(context,service[index].routsName);},
               );
             },
           ),
@@ -124,7 +130,9 @@ class QuickServices extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GeneratedGroup40943Widget(),
+                InkWell(
+                    onTap: ()=>Navigator.pushNamed(context, routeName),
+                    child: GeneratedGroup40943Widget()),
                 OrWidget(),
                 GeneratedGroup40944Widget(),
               ],

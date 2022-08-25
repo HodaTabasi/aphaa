@@ -10,6 +10,8 @@ import '../../../model/service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
+
+  static String routeName = "/home";
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -20,13 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
 
     List<Service> service = [
-      Service('assets/images/secment.svg','المؤشرات الحيوية',''),
-      Service('assets/images/result.svg','نتائج الفحوصات',''),
-      Service('assets/images/dco40714.svg','أطبائي',''),
-      Service('assets/images/40714.svg','مرافقات التأمين',''),
-      Service('assets/images/407s14.svg','إجازاتي المرضية',''),
-      Service('assets/images/40697.svg','وصفاتي الطبية',''),
-      Service('assets/images/d40714.svg','التطعيمات',''),
+      Service('assets/images/secment.svg','المؤشرات الحيوية','',''),
+      Service('assets/images/result.svg','نتائج الفحوصات','',''),
+      Service('assets/images/dco40714.svg','أطبائي','',''),
+      Service('assets/images/40714.svg','مرافقات التأمين','',''),
+      Service('assets/images/407s14.svg','إجازاتي المرضية','',''),
+      Service('assets/images/40697.svg','وصفاتي الطبية','',''),
+      Service('assets/images/d40714.svg','التطعيمات','',''),
     ];
 
     return Scaffold(

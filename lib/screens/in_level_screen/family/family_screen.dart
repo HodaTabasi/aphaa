@@ -5,6 +5,8 @@ import 'familly_item.dart';
 
 class FamillyScreen extends StatefulWidget {
 
+  static String routeName = "/family";
+
   @override
   State<FamillyScreen> createState() => _FamillyScreenState();
 }

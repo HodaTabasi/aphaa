@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Vaccinations extends StatefulWidget {
+  static String routeName = "/Vaccinations";
   @override
   State<Vaccinations> createState() => _VaccinationsState();
 }

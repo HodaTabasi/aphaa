@@ -8,6 +8,7 @@ import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
 
 class SendConsultScreen extends StatefulWidget {
+  static String routeName = "/send_consult";
   @override
   State<SendConsultScreen> createState() => _SendConsultScreenState();
 }
@@ -28,20 +29,23 @@ class _SendConsultScreenState extends State<SendConsultScreen> with Helpers{
           fontWeight: FontWeight.bold,
         )),
         titleSpacing: 2,
-        leading: Container(
-            margin: const EdgeInsets.all(15.0),
-            padding: const EdgeInsets.all(5.0),
-            // alignment: Alignment.bottomLeft,
-            // width: 80,
-            // height: 500,
-            decoration: BoxDecoration(
-                color: const Color(0xff006F2C),
-                borderRadius: BorderRadius.circular(5)),
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 15,
-            )),
+        leading: InkWell(
+          onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
+          child: Container(
+              margin: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(5.0),
+              // alignment: Alignment.bottomLeft,
+              // width: 80,
+              // height: 500,
+              decoration: BoxDecoration(
+                  color: const Color(0xff006F2C),
+                  borderRadius: BorderRadius.circular(5)),
+              child: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: 15,
+              )),
+        ),
       ),
       body: ListView(
         children: [

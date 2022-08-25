@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
+  // static String routeName = "/splash";
+  late AnimationController animation;
+
+  late Animation<double> _fadeInFadeOut;
 
   @override
   Widget build(BuildContext context) {

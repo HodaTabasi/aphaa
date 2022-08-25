@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RexcordBooking extends StatefulWidget {
+  static String routeName = "/RexcordBooking";
 
   @override
   State<RexcordBooking> createState() => _RexcordBookingState();

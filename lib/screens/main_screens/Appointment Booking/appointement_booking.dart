@@ -11,6 +11,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 
 class AppointmentBooking extends StatefulWidget {
+  static String routeName = "/appointment_booking";
   @override
   State<AppointmentBooking> createState() => _AppointmentBookingState();
 }
@@ -33,20 +34,23 @@ class _AppointmentBookingState extends State<AppointmentBooking> with Helpers {
               fontWeight: FontWeight.bold,
             )),
         titleSpacing: 2,
-        leading: Container(
-            margin: const EdgeInsets.all(15.0),
-            padding: const EdgeInsets.all(5.0),
-            // alignment: Alignment.bottomLeft,
-            // width: 80,
-            // height: 500,
-            decoration: BoxDecoration(
-                color: const Color(0xff006F2C),
-                borderRadius: BorderRadius.circular(5)),
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 15,
-            )),
+        leading: InkWell(
+          onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
+          child: Container(
+              margin: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(5.0),
+              // alignment: Alignment.bottomLeft,
+              // width: 80,
+              // height: 500,
+              decoration: BoxDecoration(
+                  color: const Color(0xff006F2C),
+                  borderRadius: BorderRadius.circular(5)),
+              child: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: 15,
+              )),
+        ),
       ),
       body: ListView(
         children: [

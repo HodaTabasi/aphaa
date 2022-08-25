@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ReservationData extends StatefulWidget {
+  static String routeName = "/ReservationData";
   @override
   State<ReservationData> createState() => _ReservationDataState();
 }

@@ -1,14 +1,26 @@
-
 import 'package:flutter/material.dart';
 
-mixin Helpers{
+mixin Helpers {
   showAlertDialog(BuildContext context) {
     Widget continueButton = Center(
       child: TextButton(
-          child: Text('done'),
+          child: Text('تـم الــإرســـال بـــنـــجــاح!',
+              style: TextStyle(
+                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.green)),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
           }),
+    );
+    Widget continueButton1 = Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          'شكرا لكم، تم استلام طلب الاستشارة وسوقف نقوم بالرد في اقرب وقت',
+          style: TextStyle(
+              fontSize: 16, fontFamily: 'Tajawal', color: Colors.black45),
+          textAlign: TextAlign.center,
+        ),
+      ),
     );
 
     // set up the AlertDialog
@@ -18,14 +30,16 @@ mixin Helpers{
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
         ),
+        padding: EdgeInsets.all(16),
         child: Icon(
           Icons.check_circle,
-          size: 35,
+          size: 60,
           color: Colors.green,
         ),
       ),
       actions: [
         continueButton,
+        continueButton1,
       ],
     );
 

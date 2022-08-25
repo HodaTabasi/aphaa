@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class TestResults extends StatefulWidget {
+  static String routeName = "/TestResults";
 
   @override
   State<TestResults> createState() => _TestResultsState();

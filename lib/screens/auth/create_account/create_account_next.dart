@@ -9,6 +9,8 @@ import '../../../general/dropdown_item.dart';
 import '../../../general/edittext_item.dart';
 
 class CreateAccountNext extends StatefulWidget {
+
+  static String routeName = "/create_account_next";
   @override
   State<CreateAccountNext> createState() => _CreateAccountNextState();
 }
