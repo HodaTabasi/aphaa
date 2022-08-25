@@ -1,4 +1,6 @@
 import 'package:aphaa_app/helper/constant.dart';
+import 'package:aphaa_app/screens/auth/create_account/create_account.dart';
+import 'package:aphaa_app/screens/auth/login/login_screen.dart';
 import 'package:aphaa_app/screens/main_screens/quick_services/or_widget.dart';
 import 'package:aphaa_app/screens/main_screens/quick_services/register_button/both_togther.dart';
 import 'package:aphaa_app/screens/main_screens/quick_services/service_item.dart';
@@ -14,14 +16,27 @@ import 'login_button/togther.dart';
 
 class QuickServices extends StatelessWidget {
   static String routeName = "/quick_services";
+
   @override
   Widget build(BuildContext context) {
-
     List<Service> service = [
-      Service('assets/images/consult.svg',AppLocalizations.of(context)!.consultation_request,AppLocalizations.of(context)!.consultDec,SendConsultScreen.routeName),
-      Service('assets/images/date.svg',AppLocalizations.of(context)!.appointment,AppLocalizations.of(context)!.appointment_dec,AppointmentBooking.routeName),
-      Service('assets/images/doctor.svg',AppLocalizations.of(context)!.doctors,AppLocalizations.of(context)!.doctor_desc,DoctorsScreen.routeName),
-      Service('assets/images/report.svg',AppLocalizations.of(context)!.opening_medical_file,AppLocalizations.of(context)!.opening_medical_file_dec, OpeningMedicalFile.routeName),
+      Service(
+          'assets/images/consult.svg',
+          AppLocalizations.of(context)!.consultation_request,
+          AppLocalizations.of(context)!.consultDec,
+          SendConsultScreen.routeName),
+      Service(
+          'assets/images/date.svg',
+          AppLocalizations.of(context)!.appointment,
+          AppLocalizations.of(context)!.appointment_dec,
+          AppointmentBooking.routeName),
+      Service('assets/images/doctor.svg', AppLocalizations.of(context)!.doctors,
+          AppLocalizations.of(context)!.doctor_desc, DoctorsScreen.routeName),
+      Service(
+          'assets/images/report.svg',
+          AppLocalizations.of(context)!.opening_medical_file,
+          AppLocalizations.of(context)!.opening_medical_file_dec,
+          OpeningMedicalFile.routeName),
     ];
 
     return Scaffold(
@@ -108,7 +123,9 @@ class QuickServices extends StatelessWidget {
                 image: service[index].image,
                 name: service[index].name,
                 decration: service[index].decration,
-                prsee: (){Navigator.pushNamed(context,service[index].routsName);},
+                prsee: () {
+                  Navigator.pushNamed(context, service[index].routsName);
+                },
               );
             },
           ),
@@ -126,15 +143,20 @@ class QuickServices extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
-                    onTap: ()=>Navigator.pushNamed(context, routeName),
+                    onTap: () =>
+                        Navigator.pushNamed(context, LoginScreen.routeName),
                     child: GeneratedGroup40943Widget()),
                 OrWidget(),
-                GeneratedGroup40944Widget(),
+                InkWell(
+                  onTap: () =>
+                      Navigator.pushNamed(context, CreateAccount.routeName),
+                  child: GeneratedGroup40944Widget(),
+                )
               ],
             ),
           ),

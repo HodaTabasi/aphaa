@@ -1,4 +1,5 @@
 import 'package:aphaa_app/general/slider_wedgit.dart';
+import 'package:aphaa_app/screens/in_level_screen/offer_ditails/offer_details.dart';
 import 'package:flutter/material.dart';
 
 import '../../in_level_screen/Insurance_approvals/screen_item.dart';
@@ -37,7 +38,7 @@ class _OfferScreenState extends State<OfferScreen> {
               itemBuilder: (context,index){
                 return Center(child: InkWell(
                   onTap: (){
-
+                     Navigator.pushNamed(context, OfferDetails.routeName);
                   },
                     child: SliderWidget()));
               }),

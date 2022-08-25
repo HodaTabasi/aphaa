@@ -1,4 +1,5 @@
 import 'package:aphaa_app/general/btn_layout.dart';
+import 'package:aphaa_app/screens/in_level_screen/payment_screen/payment_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/reservation_data/payment_way_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -299,7 +300,9 @@ class _ReservationDataState extends State<ReservationData> {
             ),
           ),
           const SizedBox(height: 20,),
-          BtnLayout('الاستمرار للدفع ', () { }),
+          BtnLayout('الاستمرار للدفع ', () {
+            Navigator.pushNamed(context, PaymentScreen.routeName);
+          }),
           const SizedBox(height: 10,),
         ],
       ),

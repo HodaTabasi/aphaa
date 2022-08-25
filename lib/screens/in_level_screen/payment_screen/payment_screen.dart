@@ -1,5 +1,6 @@
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/general/edittext_item.dart';
+import 'package:aphaa_app/screens/drawer_screens/done/done_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_screen/payment_text_filed.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -80,7 +81,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.width/3,),
-                BtnLayout('ادفع الآن', () { }),
+                BtnLayout('ادفع الآن', () {
+                  Navigator.pushNamed(context, DoneScreens.routeName);
+                }),
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screens/in_level_screen/offer_ditails/offer_details.dart';
 import 'btn_layout.dart';
 
 class SliderWidget extends StatelessWidget {
@@ -54,7 +55,9 @@ class SliderWidget extends StatelessWidget {
                   SizedBox(
                       width: 150,
                       height: 70,
-                      child: BtnLayout('احجز الآن', () {})),
+                      child: BtnLayout('احجز الآن', () {
+                        Navigator.pushNamed(context, OfferDetails.routeName);
+                      })),
                   Text('ينتهي العرض في 22.8.2022',
                       style: const TextStyle(
                         color: Colors.white,

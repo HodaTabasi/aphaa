@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/dropdown_item.dart';
 import '../../../general/edittext_item.dart';
+import '../../drawer_screens/home_screen/home_screen.dart';
 
 class CreateAccountNext extends StatefulWidget {
 
@@ -18,7 +19,7 @@ class CreateAccountNext extends StatefulWidget {
 class _CreateAccountNextState extends State<CreateAccountNext>
     with SingleTickerProviderStateMixin {
   late TabController controller;
-
+  String name = 'assets/images/image2.svg';
   @override
   void initState() {
     super.initState();
@@ -40,28 +41,31 @@ class _CreateAccountNextState extends State<CreateAccountNext>
               fontWeight: FontWeight.bold,
             )),
         titleSpacing: 2,
-        leading: Container(
-            margin: const EdgeInsets.all(15.0),
-            padding: const EdgeInsets.all(5.0),
-            // alignment: Alignment.bottomLeft,
-            // width: 80,
-            // height: 500,
-            decoration: BoxDecoration(
-                color: const Color(0xff006F2C),
-                borderRadius: BorderRadius.circular(5)),
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 15,
-            )),
+        leading: InkWell(
+          onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
+          child: Container(
+              margin: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(5.0),
+              // alignment: Alignment.bottomLeft,
+              // width: 80,
+              // height: 500,
+              decoration: BoxDecoration(
+                  color: const Color(0xff006F2C),
+                  borderRadius: BorderRadius.circular(5)),
+              child: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: 15,
+              )),
+        ),
       ),
-      body: ListView(
+      body: Column(
         // physics: NeverScrollableScrollPhysics(),
         children: [
           SizedBox(
             height: 30,
           ),
-          SvgPicture.asset('assets/images/image2.svg',
+          SvgPicture.asset(name,
               semanticsLabel: 'Acme Logo'),
           SizedBox(
             height: 8,
@@ -75,62 +79,91 @@ class _CreateAccountNextState extends State<CreateAccountNext>
           SizedBox(
             height: 8,
           ),
-          TabBar(
-            indicatorWeight: 2,
-            indicatorPadding: EdgeInsets.symmetric(horizontal: 25.w),
-            padding: EdgeInsets.all(10),
-            indicatorColor: Color(0xff058638),
-            labelStyle: const TextStyle(
-              color: Colors.black,
-              fontSize: 15,
-              fontFamily: 'Tajawal',
-              fontWeight: FontWeight.bold,
-            ),
-            unselectedLabelStyle: const TextStyle(
-              color: Colors.black,
-              fontSize: 15,
-              fontFamily: 'Tajawal',
-              fontWeight: FontWeight.normal,
-            ),
-            labelColor: Colors.black,
-            controller: controller,
-            tabs: [
-              Tab(
-                text: 'تامين',
+          SizedBox(
+            height: 50,
+            child: TabBar(
+              indicatorWeight: 2,
+              indicatorPadding: EdgeInsets.symmetric(horizontal: 25.w),
+              padding: EdgeInsets.all(10),
+              indicatorColor: Color(0xff058638),
+              labelStyle: const TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+                fontFamily: 'Tajawal',
+                fontWeight: FontWeight.bold,
               ),
-              Tab(
-                text: 'كاش',
+              unselectedLabelStyle: const TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+                fontFamily: 'Tajawal',
+                fontWeight: FontWeight.normal,
               ),
-            ],
+              labelColor: Colors.black,
+              controller: controller,
+              tabs: [
+                Tab(
+                  text: 'تامين',
+                ),
+                Tab(
+                  text: 'كاش',
+                ),
+              ],
+              onTap:(val){
+                val == 1? name ='assets/images/image6.svg' : name = 'assets/images/image2.svg';
+                setState(() {
+                });
+              },
+            ),
           ),
-          // TabBarView(
-          //   controller: controller,
-          //   children: [
-          //     // Expanded(
-          //     //   child: Column(
-          //     //     children: [
-          //     //       EditTextItem('assets/images/snum.svg', 'رقم التامين'),
-          //     //       EditTextItem(
-          //     //           'assets/images/Calendarg.svg', 'تاريخ نهاية التامين'),
-          //     //       DropDownItem(
-          //     //           [], 'assets/images/company.svg', 'شركات التأمين'),
-          //     //     ],
-          //     //   ),
-          //     // ),
-          //     // Expanded(child :Container(),)
-          //   ],
-          // )
-          BtnLayout('فحص صلاحية التامين الطبي', () { }),
-          const SizedBox(
-            height: 20,
+          Expanded(
+            child: TabBarView(
+              controller: controller,
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                ListView(
+                  children: [
+                    EditTextItem('assets/images/snum.svg', 'رقم التامين'),
+                    EditTextItem(
+                        'assets/images/Calendarg.svg', 'تاريخ نهاية التامين'),
+                    DropDownItem(
+                        [], 'assets/images/company.svg', 'شركات التأمين'),
+                    BtnLayout('فحص صلاحية التامين الطبي',() =>
+                        Navigator.pushNamed(context, HomeScreen.routeName)),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Image.asset(
+                      "assets/images/image1.png",
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ],
+                ),
+                Expanded(child :ListView(
+                  children: [
+                    EditTextItem(
+                        'assets/images/company.svg', 'جهة العمل'),
+                    BtnLayout('انشاء حساب',() =>
+                        Navigator.pushNamed(context, HomeScreen.routeName),),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Image.asset(
+                      "assets/images/image1.png",
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ],
+                ),)
+              ],
+            ),
           ),
-          Image.asset(
-            "assets/images/image1.png",
-            fit: BoxFit.fitWidth,
-          ),
+
         ],
 
       ),
+      // bottomSheet:  Image.asset(
+      //   "assets/images/image1.png",
+      //   fit: BoxFit.fitWidth,
+      // ),
     );
   }
 }

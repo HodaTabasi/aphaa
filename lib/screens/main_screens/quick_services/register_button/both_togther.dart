@@ -9,37 +9,33 @@ import 'GeneratedWidget395.dart';
 class GeneratedGroup40944Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () =>
-          Navigator.pushNamed(context, '/GeneratedIPhone13mini13Widget'),
-      child: Container(
-        width: 152.0,
-        height: 48.0,
-        child: Stack(
-            fit: StackFit.expand,
-            alignment: Alignment.center,
-            // //overflow: Overflow.visible,
-            children: [
-              Positioned(
-                left: 152.0,
-                top: 48.0,
-                right: null,
-                bottom: null,
-                width: 152.0,
-                height: 47.9999885559082,
-                child: GeneratedSubtraction2Widget(),
-              ),
-              Positioned(
-                left: 15.0,
-                top: 12.000001907348633,
-                right: null,
-                bottom: null,
-                width: 94.0,
-                height: 27.0,
-                child: GeneratedWidget395(),
-              )
-            ]),
-      ),
+    return Container(
+      width: 152.0,
+      height: 48.0,
+      child: Stack(
+          fit: StackFit.expand,
+          alignment: Alignment.center,
+          // //overflow: Overflow.visible,
+          children: [
+            Positioned(
+              left: 152.0,
+              top: 48.0,
+              right: null,
+              bottom: null,
+              width: 152.0,
+              height: 47.9999885559082,
+              child: GeneratedSubtraction2Widget(),
+            ),
+            Positioned(
+              left: 15.0,
+              top: 12.000001907348633,
+              right: null,
+              bottom: null,
+              width: 94.0,
+              height: 27.0,
+              child: GeneratedWidget395(),
+            )
+          ]),
     );
   }
 }

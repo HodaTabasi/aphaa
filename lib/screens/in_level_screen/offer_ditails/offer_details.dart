@@ -1,6 +1,10 @@
 import 'package:aphaa_app/general/btn_layout.dart';
+import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
+import 'package:aphaa_app/screens/in_level_screen/payment_screen/payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../reservation_data/reservation_data.dart';
 
 class OfferDetails extends StatefulWidget {
 
@@ -178,7 +182,9 @@ class _OfferDetailsState extends State<OfferDetails> {
                 alignment: Alignment.center,
               ),
               SizedBox(height: 13,),
-              BtnLayout('احجز الان', () { })
+              BtnLayout('احجز الان', () {
+                Navigator.pushNamed(context, ReservationData.routeName);
+              })
             ],
           ),),
 

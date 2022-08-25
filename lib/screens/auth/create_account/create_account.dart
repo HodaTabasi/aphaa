@@ -1,6 +1,7 @@
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/general/password_item.dart';
 import 'package:aphaa_app/screens/auth/create_account/Choosere.dart';
+import 'package:aphaa_app/screens/auth/create_account/create_account_next.dart';
 import 'package:aphaa_app/screens/auth/create_account/text_filed.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -79,7 +80,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 child: Choosere()),
           ),
           MyTextFeild(),
-          BtnLayout('التالي', () { }),
+          BtnLayout('التالي', () => Navigator.pushNamed(context, CreateAccountNext.routeName)),
           const SizedBox(
             height: 20,
           ),

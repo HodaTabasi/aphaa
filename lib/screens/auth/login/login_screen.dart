@@ -1,3 +1,5 @@
+import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
+import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart';
 import 'package:flutter/material.dart';
 
 import '../../../general/btn_layout.dart';
@@ -5,6 +7,8 @@ import '../../../general/edittext_item.dart';
 import '../../../general/password_item.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../create_account/create_account.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -31,20 +35,23 @@ class _LoginScreenState extends State<LoginScreen> {
               fontWeight: FontWeight.bold,
             )),
         titleSpacing: 2,
-        leading: Container(
-            margin: const EdgeInsets.all(15.0),
-            padding: const EdgeInsets.all(5.0),
-            // alignment: Alignment.bottomLeft,
-            // width: 80,
-            // height: 500,
-            decoration: BoxDecoration(
-                color: const Color(0xff006F2C),
-                borderRadius: BorderRadius.circular(5)),
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 15,
-            )),
+        leading: InkWell(
+          onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
+          child: Container(
+              margin: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(5.0),
+              // alignment: Alignment.bottomLeft,
+              // width: 80,
+              // height: 500,
+              decoration: BoxDecoration(
+                  color: const Color(0xff006F2C),
+                  borderRadius: BorderRadius.circular(5)),
+              child: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: 15,
+              )),
+        ),
       ),
       body: ListView(
         children: [
@@ -114,15 +121,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                Text(
-                  'نسيت كلمة المرور؟',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 13,
-                    fontFamily: 'Tajawal',
-                    fontWeight: FontWeight.w700,
+                InkWell(
+                  onTap: () => Navigator.pushNamed(context, ForgetPassword.routeName),
+                  child: Text(
+                    'نسيت كلمة المرور؟',
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 13,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.start,
                   ),
-                  textAlign: TextAlign.start,
                 ),
               ],
             ),
@@ -130,31 +140,36 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(
             height: 30,
           ),
-          BtnLayout('تسجيل دخول', () {}),
+          BtnLayout('تسجيل دخول', () =>
+        Navigator.pushNamed(context, HomeScreen.routeName),),
           const SizedBox(
             height: 10,
           ),
           Center(
-            child: Text.rich(
-              TextSpan(
-                text: 'ليس لديك حساب ؟  ',
-                style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontFamily: 'Tajawal'
-                ),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: ' انشاء حساب  ',
-                    style: TextStyle(
+            child: InkWell(
+              onTap: () =>
+                  Navigator.pushNamed(context, CreateAccount.routeName),
+              child: Text.rich(
+                TextSpan(
+                  text: 'ليس لديك حساب ؟  ',
+                  style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      color: Color(0xff058638),
+                      color: Colors.black,
                       fontSize: 14,
                       fontFamily: 'Tajawal'
-                    ),
                   ),
-                ],
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: ' انشاء حساب  ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff058638),
+                        fontSize: 14,
+                        fontFamily: 'Tajawal'
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
