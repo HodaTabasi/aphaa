@@ -1,5 +1,8 @@
 import 'package:aphaa_app/screens/drawer_screens/profile/items.dart';
 import 'package:aphaa_app/screens/drawer_screens/profile/notificaton_item.dart';
+import 'package:aphaa_app/screens/in_level_screen/edit_insurance_data/edit_profile.dart';
+import 'package:aphaa_app/screens/in_level_screen/edit_profile/edit_profile.dart';
+import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,33 +19,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        // leadingWidth: 40,
-        title: Text('الملف الشخصي',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontFamily: 'Tajawal',
-              fontWeight: FontWeight.bold,
-            )),
-        titleSpacing: 2,
-        centerTitle: true,
-        // leading: Container(
-        //     margin: const EdgeInsets.all(15.0),
-        //     padding: const EdgeInsets.all(5.0),
-        //     // alignment: Alignment.bottomLeft,
-        //     // width: 80,
-        //     // height: 500,
-        //     decoration: BoxDecoration(
-        //         color: const Color(0xff006F2C),
-        //         borderRadius: BorderRadius.circular(5)),
-        //     child: const Icon(
-        //       Icons.arrow_back_ios,
-        //       color: Colors.white,
-        //       size: 15,
-        //     )),
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   // leadingWidth: 40,
+      //   title: Text('الملف الشخصي',
+      //       style: const TextStyle(
+      //         color: Colors.white,
+      //         fontSize: 16,
+      //         fontFamily: 'Tajawal',
+      //         fontWeight: FontWeight.bold,
+      //       )),
+      //   titleSpacing: 2,
+      //   centerTitle: true,
+      //   // leading: Container(
+      //   //     margin: const EdgeInsets.all(15.0),
+      //   //     padding: const EdgeInsets.all(5.0),
+      //   //     // alignment: Alignment.bottomLeft,
+      //   //     // width: 80,
+      //   //     // height: 500,
+      //   //     decoration: BoxDecoration(
+      //   //         color: const Color(0xff006F2C),
+      //   //         borderRadius: BorderRadius.circular(5)),
+      //   //     child: const Icon(
+      //   //       Icons.arrow_back_ios,
+      //   //       color: Colors.white,
+      //   //       size: 15,
+      //   //     )),
+      // ),
       body: ListView(
         children: [
           SizedBox(
@@ -87,15 +90,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 fontSize: 15,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.normal,
-              ),textAlign: TextAlign.center,), SizedBox(
+              ),textAlign: TextAlign.center,),
+          SizedBox(
             height: 20,
           ),
-          TextItem('assets/images/EditSquare.svg','تعديل الملف الشخصي'),
-          TextItem('assets/images/pagemetrecord.svg','سجل المدفوعات'),
-          TextItem('assets/images/editf.svg','تعديل بيانات التأمين'),
-          TextItem('assets/images/Lock.svg','تغيير كلمة المرور'),
+          TextItem('assets/images/EditSquare.svg','تعديل الملف الشخصي',()=>Navigator.pushNamed(context, EditProfile.routeName)),
+          TextItem('assets/images/pagemetrecord.svg','سجل المدفوعات',()=>Navigator.pushNamed(context, PaymentRecord.routeName)),
+          TextItem('assets/images/editf.svg','تعديل بيانات التأمين',()=>Navigator.pushNamed(context, EditInsuranceData.routeName)),
+          TextItem('assets/images/Lock.svg','تغيير كلمة المرور',()=>Navigator.pushNamed(context, EditProfile.routeName)),
           NotificationItem('assets/images/Notification.svg', 'الإشعارات'),
-          TextItem('assets/images/Logout.svg','تسجيل خروج',isVisable: true,),
+          TextItem('assets/images/Logout.svg','تسجيل خروج',isVisable: true,()=>Navigator.pushNamed(context, EditProfile.routeName)),
           SizedBox(
             height: 30,
           ),

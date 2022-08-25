@@ -1,3 +1,4 @@
+import 'package:aphaa_app/screens/drawer_screens/buttom_navication.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -143,7 +144,7 @@ class _CreateAccountNextState extends State<CreateAccountNext>
                     EditTextItem(
                         'assets/images/company.svg', 'جهة العمل'),
                     BtnLayout('انشاء حساب',() =>
-                        Navigator.pushNamed(context, HomeScreen.routeName),),
+                        Navigator.pushNamed(context, ButtomNavigations.routeName),),
                     const SizedBox(
                       height: 20,
                     ),

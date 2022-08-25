@@ -17,18 +17,18 @@ class _OfferScreenState extends State<OfferScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-          elevation: 0,
-          // leadingWidth: 40,
-          title: Text('العروض',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontFamily: 'Tajawal',
-                fontWeight: FontWeight.bold,
-              )),
-          titleSpacing: 2,
-          centerTitle: true, ),
+      // appBar: AppBar(
+      //     elevation: 0,
+      //     // leadingWidth: 40,
+      //     title: Text('العروض',
+      //         style: const TextStyle(
+      //           color: Colors.white,
+      //           fontSize: 16,
+      //           fontFamily: 'Tajawal',
+      //           fontWeight: FontWeight.bold,
+      //         )),
+      //     titleSpacing: 2,
+      //     centerTitle: true, ),
       body: ListView(
         children: [
           ListView.builder(

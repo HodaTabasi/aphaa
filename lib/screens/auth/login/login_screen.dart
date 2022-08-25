@@ -8,6 +8,7 @@ import '../../../general/password_item.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../drawer_screens/buttom_navication.dart';
 import '../create_account/create_account.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -141,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 30,
           ),
           BtnLayout('تسجيل دخول', () =>
-        Navigator.pushNamed(context, HomeScreen.routeName),),
+        Navigator.pushNamed(context, ButtomNavigations.routeName),),
           const SizedBox(
             height: 10,
           ),

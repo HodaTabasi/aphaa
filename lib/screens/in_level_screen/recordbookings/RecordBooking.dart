@@ -4,6 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RexcordBooking extends StatefulWidget {
   static String routeName = "/RexcordBooking";
+  bool fromInLevel ;
+
+  RexcordBooking({this.fromInLevel = true});
 
   @override
   State<RexcordBooking> createState() => _RexcordBookingState();
@@ -16,7 +19,7 @@ class _RexcordBookingState extends State<RexcordBooking> {
       length: 2,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
+        appBar: widget.fromInLevel ?AppBar(
           elevation: 0,
           // leadingWidth: 40,
           title: Text('الحجوزات',
@@ -41,7 +44,7 @@ class _RexcordBookingState extends State<RexcordBooking> {
                 color: Colors.white,
                 size: 15,
               )),
-        ),
+        ) :null,
         body: Column(
           children: [
             const SizedBox(height: 15,),

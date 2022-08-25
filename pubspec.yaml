@@ -44,6 +44,7 @@ dependencies:
   flutter_svg: ^1.1.4
   flutter_calendar_carousel: ^2.4.0
   video_player: ^2.4.7
+  animated_bottom_navigation_bar: ^1.1.0
 #  path_drawing: "^1.0.0"
 
 dev_dependencies:

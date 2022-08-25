@@ -2,6 +2,9 @@ import 'package:aphaa_app/screens/auth/create_account/create_account.dart';
 import 'package:aphaa_app/screens/auth/login/login_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/offers/offers_screen.dart';
+import 'package:aphaa_app/screens/drawer_screens/profile/profile_screen.dart';
+import 'package:aphaa_app/screens/in_level_screen/edit_insurance_data/edit_profile.dart';
+import 'package:aphaa_app/screens/in_level_screen/edit_profile/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/family/family_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/medical_recipes/medical_recipes.dart';
 import 'package:aphaa_app/screens/in_level_screen/offer_ditails/offer_details.dart';
@@ -16,6 +19,7 @@ import 'package:aphaa_app/screens/main_screens/open_medocal/opening_medical_file
 import 'package:flutter/widgets.dart';
 import '../screens/auth/create_account/create_account_next.dart';
 import '../screens/drawer_screens/Booking/my_appointment_booking.dart';
+import '../screens/drawer_screens/buttom_navication.dart';
 import '../screens/drawer_screens/done/done_screen.dart';
 import '../screens/in_level_screen/Insurance_approvals/Insurance_approvals.dart';
 import '../screens/in_level_screen/recordbookings/RecordBooking.dart';
@@ -68,4 +72,8 @@ final Map<String, WidgetBuilder> routes = {
   PaymentRecord.routeName: (context) => PaymentRecord(),
   ReservationData.routeName: (context) => ReservationData(),
   DoneScreens.routeName: (context) => DoneScreens(),
+  ProfileScreen.routeName: (context) => ProfileScreen(),
+  ButtomNavigations.routeName: (context) => ButtomNavigations(),
+  EditProfile.routeName: (context) => EditProfile(),
+  EditInsuranceData.routeName: (context) => EditInsuranceData(),
 };
