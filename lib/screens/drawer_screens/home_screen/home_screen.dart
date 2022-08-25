@@ -1,4 +1,4 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/screens/drawer_screens/Booking/my_appointment_booking.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/my_medical_file_item.dart';

@@ -125,6 +125,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                 pageIndex = val;
               });
             },
+            elevation: 10,
             items: [
               BottomNavigationBarItem(icon: SvgPicture.asset(
                   'assets/images/apphome.svg',

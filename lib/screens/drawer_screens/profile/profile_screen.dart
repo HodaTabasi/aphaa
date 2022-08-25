@@ -3,6 +3,7 @@ import 'package:aphaa_app/screens/drawer_screens/profile/notificaton_item.dart';
 import 'package:aphaa_app/screens/in_level_screen/edit_insurance_data/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/edit_profile/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
+import 'package:aphaa_app/screens/main_screens/change_password/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -97,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           TextItem('assets/images/EditSquare.svg','تعديل الملف الشخصي',()=>Navigator.pushNamed(context, EditProfile.routeName)),
           TextItem('assets/images/pagemetrecord.svg','سجل المدفوعات',()=>Navigator.pushNamed(context, PaymentRecord.routeName)),
           TextItem('assets/images/editf.svg','تعديل بيانات التأمين',()=>Navigator.pushNamed(context, EditInsuranceData.routeName)),
-          TextItem('assets/images/Lock.svg','تغيير كلمة المرور',()=>Navigator.pushNamed(context, EditProfile.routeName)),
+          TextItem('assets/images/Lock.svg','تغيير كلمة المرور',()=>Navigator.pushNamed(context, ChangePassword.routeName)),
           NotificationItem('assets/images/Notification.svg', 'الإشعارات'),
           TextItem('assets/images/Logout.svg','تسجيل خروج',isVisable: true,()=>Navigator.pushNamed(context, EditProfile.routeName)),
           SizedBox(

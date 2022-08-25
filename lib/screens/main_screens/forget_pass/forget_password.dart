@@ -1,6 +1,8 @@
+import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
@@ -51,15 +53,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             Column(
               children: [
                 const SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
-                Image.asset(
-                  'assets/images/logo.png',
-                  width: 203,
-                  height: 161,
+                SvgPicture.asset(
+                    'assets/images/chanfe_pass.svg',
+                    semanticsLabel: 'Acme Logo'
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
@@ -83,7 +84,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 const SizedBox(
                   height: 30,
                 ),
-                BtnLayout('استعادة كلمة المرور', () {}),
+                BtnLayout('استعادة كلمة المرور',
+                      () => Navigator.pushNamed(context, OTPScreen.routeName),
+                ),
               ],
             ),
 

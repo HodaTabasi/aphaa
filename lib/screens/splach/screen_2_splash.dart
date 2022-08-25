@@ -2,6 +2,8 @@ import 'package:aphaa_app/screens/main_screens/select_lang/select_language.dart'
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 
+import '../../helper/SizeConfig.dart';
+
 class Screen2Splash extends StatefulWidget {
   static String routeName = "/splash";
   @override
@@ -22,7 +24,7 @@ class _Screen2SplashState extends State<Screen2Splash> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-
+    SizeConfig().init(context);
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
