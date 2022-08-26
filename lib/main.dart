@@ -28,40 +28,40 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-    return GetX<LanguageGetxController>(builder: (controller) {
-            return GetMaterialApp(
-              localizationsDelegates:  const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              // localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales:  const [
-                Locale('ar'),
-                Locale('en'),
-              ],
-              // supportedLocales: AppLocalizations.supportedLocales,
-              // locale: Locale(Provider.of<LanguageProvider>(context).language),
-              // locale: Locale(context.watch<LanguageProvider>().language),
-              locale: Locale(controller.language.value),
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                // This is the theme of your application.
-                //
-                // Try running your application with "flutter run". You'll see the
-                // application has a blue toolbar. Then, without quitting the app, try
-                // changing the primarySwatch below to Colors.green and then invoke
-                // "hot reload" (press "r" in the console where you ran "flutter run",
-                // or simply save your changes to "hot reload" in a Flutter IDE).
-                // Notice that the counter didn't reset back to zero; the application
-                // is not restarted.
-                primarySwatch: colorCustom,
-              ),
-              initialRoute: Screen2Splash.routeName,
-              routes: routes,
-            );
-          });
+    return Obx((){
+      return GetMaterialApp(
+        localizationsDelegates:  const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        // localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales:  const [
+          Locale('ar'),
+          Locale('en'),
+        ],
+        // supportedLocales: AppLocalizations.supportedLocales,
+        // locale: Locale(Provider.of<LanguageProvider>(context).language),
+        // locale: Locale(context.watch<LanguageProvider>().language),
+        locale: Locale(languageGetxController.language.value),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: colorCustom,
+        ),
+        initialRoute: Screen2Splash.routeName,
+        routes: routes,
+      );
+    } );
     });
   }
 }

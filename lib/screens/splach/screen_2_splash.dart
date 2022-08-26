@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../helper/SizeConfig.dart';
 
+import '../../helper/SizeConfig.dart';
+
 class Screen2Splash extends StatefulWidget {
   static String routeName = "/splash";
   @override

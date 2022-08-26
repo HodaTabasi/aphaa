@@ -145,20 +145,23 @@ class QuickServices extends StatelessWidget {
           ),
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 25.r),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                      onTap: () =>
+                          Navigator.pushNamed(context, LoginScreen.routeName),
+                      child: Directionality(textDirection: TextDirection.ltr,child: GeneratedGroup40943Widget())),
+                  OrWidget(),
+                  InkWell(
                     onTap: () =>
-                        Navigator.pushNamed(context, LoginScreen.routeName),
-                    child: GeneratedGroup40943Widget()),
-                OrWidget(),
-                InkWell(
-                  onTap: () =>
-                      Navigator.pushNamed(context, CreateAccount.routeName),
-                  child: GeneratedGroup40944Widget(),
-                )
-              ],
+                        Navigator.pushNamed(context, CreateAccount.routeName),
+                    child: GeneratedGroup40944Widget(),
+                  )
+                ],
+              ),
             ),
           ),
           Image.asset(

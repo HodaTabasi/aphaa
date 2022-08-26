@@ -16,8 +16,12 @@ class LanguageGetxController extends GetxController {
       : SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name)!.obs;
 
   void changeLanguage() {
-    language.value = language.value == 'en' ? 'ar' : 'en';
+    // language = language == 'ar'.obs ? 'en'.obs : 'ar'.obs;
+    language.value = language.value == 'ar' ? 'en' : 'ar';
     SharedPrefController().changeLanguage(language: language.value);
-    // notifyListeners();
+    var locale = Locale(language.value);
+    Get.updateLocale(locale);
+    // language.refresh();
+    print(language);
   }
 }

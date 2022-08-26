@@ -4,17 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../get/language_getx_controller.dart';
+import '../../../preferences/shared_pref_controller.dart';
 import '../quick_services/quick_services.dart';
 
 class SelectLanguage extends StatefulWidget {
   static String routeName = "/select_lang";
+
   @override
   State<SelectLanguage> createState() => _SelectLanguageState();
 }
 
 class _SelectLanguageState extends State<SelectLanguage> {
-
-  var _value = 0;
+  var _value =  SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar' ?0 :1;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
           decoration: BoxDecoration(
               color: const Color(0xff006F2C),
               borderRadius: BorderRadius.circular(10)),
-          child:  Text(
-            "العربية",
+          child: Text(
+            SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'? "العربية" :"English",
             style: TextStyle(
               color: Colors.white,
               fontSize: 14.sp,
@@ -48,7 +50,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
         children: [
           Column(
             children: [
-               SizedBox(
+              SizedBox(
                 height: 30.h,
               ),
               Image.asset(
@@ -59,27 +61,37 @@ class _SelectLanguageState extends State<SelectLanguage> {
               ),
               Text(
                 AppLocalizations.of(context)!.q1,
-                style:  TextStyle(
+                style: TextStyle(
                   color: Colors.black,
                   fontSize: 14.sp,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.bold,
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 10.h,
               ),
               SelectedItem(
                   title: AppLocalizations.of(context)!.ar,
                   value: 0,
                   groupValue: _value,
-                  onChanged: (value) => setState(() => _value = value)),
+                  onChanged: (value) {
+                    setState(() {
+                      _value = value;
+                      LanguageGetxController.to.changeLanguage();
+                    });
+                  }),
               SelectedItem(
                   title: AppLocalizations.of(context)!.en,
                   value: 1,
                   groupValue: _value,
-                  onChanged: (value) => setState(() => _value = value)),
-               SizedBox(
+                  onChanged: (value) {
+                    setState(() {
+                      _value = value;
+                      LanguageGetxController.to.changeLanguage();
+                    });
+                  }),
+              SizedBox(
                 height: 30.h,
               ),
               AvatarGlow(
@@ -89,7 +101,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
                 animate: true,
                 curve: Curves.easeInCubic,
                 child: InkWell(
-                  onTap: () => Navigator.pushNamed(context, QuickServices.routeName),
+                  onTap: () =>
+                      Navigator.pushNamed(context, QuickServices.routeName),
                   child: Image.asset(
                     'assets/images/icon1.png',
                     height: 50.h,
@@ -102,7 +115,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
           Positioned(
             child: Image.asset(
               "assets/images/image1.png",
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.fill,
             ),
             bottom: 0,
           )

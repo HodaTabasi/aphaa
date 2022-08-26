@@ -129,7 +129,7 @@ class _CreateAccountNextState extends State<CreateAccountNext>
                     DropDownItem(
                         [], 'assets/images/company.svg', AppLocalizations.of(context)!.insurance_companies),
                     BtnLayout(AppLocalizations.of(context)!.medical_insurance_validity_check,() =>
-                        Navigator.pushNamed(context, HomeScreen.routeName)),
+                        Navigator.pushNamed(context, ButtomNavigations.routeName)),
                     SizedBox(
                       height: 20.h,
                     ),

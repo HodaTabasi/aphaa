@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../get/language_getx_controller.dart';
+
 class SelectedItem extends StatelessWidget {
   String title;
   int value;
@@ -20,9 +22,7 @@ class SelectedItem extends StatelessWidget {
     final isSelected = value == groupValue;
 
     return  GestureDetector(
-      onTap: (){
-        onChanged!(value);
-      },
+      onTap: ()=> onChanged!(value),
       child: Container(
         decoration: BoxDecoration(
           color: isSelected ?Color(0x209bd5b4):Colors.white,
