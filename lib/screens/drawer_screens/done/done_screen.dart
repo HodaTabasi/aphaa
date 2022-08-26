@@ -7,6 +7,8 @@ import '../../../general/btn_layout.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../buttom_navication.dart';
+
 class DoneScreens extends StatelessWidget {
   static String routeName = "/done";
   @override
@@ -63,7 +65,7 @@ class DoneScreens extends StatelessWidget {
           SizedBox(height: 30.h,),
           Spacer(),
           BtnLayout(AppLocalizations.of(context)!.home, () {
-                Navigator.pushNamed(context, HomeScreen.routeName);
+                Navigator.pushNamed(context, ButtomNavigations.routeName);
           }),
           Spacer(),
           Image.asset(
