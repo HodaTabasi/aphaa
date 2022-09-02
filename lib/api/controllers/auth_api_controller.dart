@@ -11,6 +11,7 @@ import '../api_settings.dart';
 
 class AuthApiController with ApiHelper {
 
+
   Future<ApiResponse> register({required Patient student}) async {
     Uri uri = Uri.parse(ApiSettings.register);
     var response = await http.post(uri, body: {
