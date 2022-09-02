@@ -1,7 +1,25 @@
-
+import 'package:aphaa_app/model/Patient.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum PrefKeys { loggedIn, id, name, email, lang }
+
+enum PrefKeysPatient {
+  id,
+  firstName,
+  secondName,
+  thirdName,
+  lastName,
+  identityNumber,
+  mobile,
+  email,
+  patientType,
+  payingType,
+  insuranceNumber,
+  insuranceDate,
+  insuranceName,
+  isLoggedIn,
+  token
+}
 
 class SharedPrefController {
   SharedPrefController._internal();
@@ -19,12 +37,22 @@ class SharedPrefController {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  // Future<void> save({required User user}) async {
-  //   await _sharedPreferences.setBool(PrefKeys.loggedIn.name, true);
-  //   await _sharedPreferences.setInt(PrefKeys.id.name, user.id);
-  //   await _sharedPreferences.setString(PrefKeys.name.name, user.name);
-  //   await _sharedPreferences.setString(PrefKeys.email.name, user.email);
-  // }
+  Future<void> save({required Patient student}) async {
+    await _sharedPreferences.setBool(PrefKeysPatient.isLoggedIn.name, true);
+    await _sharedPreferences.setInt(PrefKeysPatient.id.name, student.id);
+    await _sharedPreferences.setString(PrefKeysPatient.firstName.name, student.firstName);
+    await _sharedPreferences.setString(PrefKeysPatient.secondName.name, student.secondName);
+    await _sharedPreferences.setString(PrefKeysPatient.lastName.name, student.lastName);
+    await _sharedPreferences.setString(PrefKeysPatient.email.name, student.email);
+    await _sharedPreferences.setString(PrefKeysPatient.identityNumber.name, student.identityNumber);
+    await _sharedPreferences.setString(PrefKeysPatient.insuranceDate.name, student.insuranceDate);
+    await _sharedPreferences.setString(PrefKeysPatient.insuranceName.name, student.insuranceName);
+    await _sharedPreferences.setString(PrefKeysPatient.insuranceNumber.name, student.insuranceNumber);
+    // await _sharedPreferences.setString(
+    //     PrefKeys.token.name, 'Bearer ${student.token}');
+    // await _sharedPreferences.setString(
+    //     PrefKeys.refreshToken.name, 'Bearer ${student.refreshToken}');
+  }
 
   bool get loggedIn =>
       _sharedPreferences.getBool(PrefKeys.loggedIn.name) ?? false;
@@ -46,6 +74,8 @@ class SharedPrefController {
     }
     return false;
   }
+
+  String get token => _sharedPreferences.getString(PrefKeysPatient.token.name) ?? '';
 
   Future<void> logout() async {
     _sharedPreferences.remove(PrefKeys.loggedIn.name);
