@@ -39,13 +39,15 @@ class ServiceItem extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            Text(name,
-              style:  TextStyle(
-              color: Colors.black,
-              fontSize: 15.sp,
-              fontFamily: 'Tajawal',
-              fontWeight: FontWeight.bold,
-            ),),
+            FittedBox(
+              child: Text(name,
+                style:  TextStyle(
+                color: Colors.black,
+                fontSize: 15.sp,
+                fontFamily: 'Tajawal',
+                fontWeight: FontWeight.bold,
+              ),textAlign: TextAlign.center),
+            ),
              SizedBox(
               height: 15.h,
             ),
@@ -55,7 +57,7 @@ class ServiceItem extends StatelessWidget {
                 fontSize: 12.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.normal,
-              ),),
+              ),textAlign: TextAlign.center),
             Spacer(),
           ],
         ),

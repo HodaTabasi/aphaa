@@ -1,3 +1,4 @@
+import 'package:aphaa_app/model/offer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,9 +7,10 @@ import 'btn_layout.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SliderWidget extends StatelessWidget {
-  const SliderWidget({
-    Key? key,
-  }) : super(key: key);
+ Offers? offers;
+
+
+ SliderWidget({this.offers});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class SliderWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text('زراعة اسنان ',
+                  Text('${offers?.title} ',
                       style:  TextStyle(
                         color: Colors.white,
                         fontSize: 14.sp,
@@ -44,7 +46,7 @@ class SliderWidget extends StatelessWidget {
                     padding:  EdgeInsets.symmetric(
                         horizontal: 40.0.w, vertical: 8.h),
                     child: Text(
-                      'هذا النص افتراضي هذا النص افتراضي هذا النص افتراضي ',
+                      '${offers?.description} ',
                       style:  TextStyle(
                         color: Colors.white,
                         fontSize: 14.sp,
@@ -58,7 +60,7 @@ class SliderWidget extends StatelessWidget {
                       width: 150,
                       height: 70,
                       child: BtnLayout(AppLocalizations.of(context)!.book_now, () {
-                        Navigator.pushNamed(context, OfferDetails.routeName);
+                        Navigator.pushNamed(context, OfferDetails.routeName,arguments:{"data":offers} );
                       })),
                   Text('ينتهي العرض في 22.8.2022',
                       style:  TextStyle(
@@ -82,7 +84,7 @@ class SliderWidget extends StatelessWidget {
                     color: Colors.red,
                     borderRadius:
                     BorderRadius.only(bottomLeft: Radius.circular(20.r),topRight:Radius.circular(8.r) )),
-                child: Text("20%",style: TextStyle(color: Colors.white,fontFamily: 'Tajawal',fontSize: 14.sp)),
+                child: Text("${offers?.price}",style: TextStyle(color: Colors.white,fontFamily: 'Tajawal',fontSize: 14.sp)),
               ),
             ),
           ]),

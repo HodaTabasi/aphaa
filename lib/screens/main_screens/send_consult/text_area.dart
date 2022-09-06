@@ -3,9 +3,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextAreaWidget extends StatelessWidget {
-  const TextAreaWidget({
-    Key? key,
-  }) : super(key: key);
+
+  TextEditingController controller;
+
+
+  TextAreaWidget(this.controller);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,7 @@ class TextAreaWidget extends StatelessWidget {
         padding:  EdgeInsets.all(16.r),
         child: TextFormField(
           maxLines: 4,
+          controller: controller,
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),

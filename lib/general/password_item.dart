@@ -5,7 +5,8 @@ import 'package:flutter_svg/svg.dart';
 class PasswordItem extends StatefulWidget {
   String icon;
   String value;
-  PasswordItem(this.icon,this.value);
+  TextEditingController? controler;
+  PasswordItem(this.icon,this.value,{this.controler});
 
   @override
   State<PasswordItem> createState() => _PasswordItemState();
@@ -37,6 +38,7 @@ class _PasswordItemState extends State<PasswordItem> {
                 child: Padding(
                   padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
                   child: TextFormField(
+                    controller: widget.controler,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: widget.value,
@@ -66,7 +68,7 @@ class _PasswordItemState extends State<PasswordItem> {
                           child: Icon(Icons.visibility_off,
                               color: Color(0xff058638)),
                         )),
-                    obscureText: true,
+                    obscureText: !isVisable,
                   ),
                 ))
           ],

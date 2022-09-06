@@ -7,6 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../model/offer.dart';
+
 class ReservationData extends StatefulWidget {
   static String routeName = "/ReservationData";
   @override
@@ -16,8 +18,17 @@ class ReservationData extends StatefulWidget {
 class _ReservationDataState extends State<ReservationData> {
   var _value = 0;
 
+  var instalation;
+
   @override
   Widget build(BuildContext context) {
+    final routeArgs1 =
+    ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    if(routeArgs1 != null){
+      instalation = routeArgs1['data'];
+      print('instalation ${instalation?.price}');
+    }
+
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
@@ -85,14 +96,14 @@ class _ReservationDataState extends State<ReservationData> {
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0.r),
                         child: Image.network(
-                          'https://thumbs.dreamstime.com/b/special-offer-workplace-doctor-tablet-stethoscope-clipboard-wooden-desk-background-top-view-57765884.jpg',
+                          instalation.image,
                           width: 80.w,
                           height: 60.h,
                           fit: BoxFit.cover,
                         ),
                       ),
                       title: Text(
-                        'زراعة أسنان',
+                        instalation.title,
                         style:  TextStyle(
                           color: Color(0xff2D2D2D),
                           fontSize: 14.sp,
@@ -127,7 +138,7 @@ class _ReservationDataState extends State<ReservationData> {
                           bottomRight: Radius.circular(8.r),
                           topRight: Radius.circular(8.r))),
                   child: Text(
-                    "${AppLocalizations.of(context)!.the_total} : 500",
+                    "${AppLocalizations.of(context)!.the_total} : ${instalation.price}",
                     style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Tajawal',
@@ -227,7 +238,7 @@ class _ReservationDataState extends State<ReservationData> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    '100 ر.س',
+                    '${instalation.price} ر.س ',
                     style:  TextStyle(
                       color: Color(0xff2D2D2D),
                       fontSize: 14.sp,
@@ -258,7 +269,7 @@ class _ReservationDataState extends State<ReservationData> {
                 Padding(
                   padding:  EdgeInsets.all(8.0.r),
                   child: Text(
-                    '115 ر.س',
+                    '${instalation.price *0.15}  ر.س ',
                     style:  TextStyle(
                       color: Color(0xff2D2D2D),
                       fontSize: 14.sp,
@@ -289,7 +300,7 @@ class _ReservationDataState extends State<ReservationData> {
                 Padding(
                   padding:  EdgeInsets.all(8.0.r),
                   child: Text(
-                    '115 ر.س',
+                    '${instalation.price *0.15}  ر.س ',
                     style:  TextStyle(
                       color: Color(0xff2D2D2D),
                       fontSize: 14.sp,

@@ -10,30 +10,32 @@ import '../api_helper.dart';
 import '../api_settings.dart';
 
 class AuthApiController with ApiHelper {
+  Future<ApiResponse> register({Patient? student,flag = false}) async {
+    // {
+    //   'first_name': student.firstName,
+    // 'second_name': student.secondName,
+    // 'third_name': student.thirdName,
+    // 'last_name': student.lastName,
+    // 'identity_number': student.identityNumber,
+    // 'mobile': student.mobile,
+    // 'patient_type': student.patientType,
+    // 'paying_type': student.payingType,
+    // 'insurance_number': student.insuranceNumber,
+    // 'insurance_date': student.insuranceDate,
+    // 'insurance_name': student.insuranceName,
+    // 'email': student.email,
+    // 'password': student.password,
+    // 'password_confirm': student.password,
+    // }
 
-
-  Future<ApiResponse> register({required Patient student}) async {
     Uri uri = Uri.parse(ApiSettings.register);
-    var response = await http.post(uri, body: {
-      'first_name': student.firstName,
-      'second_name': student.secondName,
-      'third_name': student.thirdName,
-      'last_name': student.lastName,
-      'identity_number': student.identityNumber,
-      'mobile': student.mobile,
-      'patient_type': student.patientType,
-      'paying_type': student.payingType,
-      'insurance_number': student.insuranceNumber,
-      'insurance_date': student.insuranceDate,
-      'insurance_name': student.insuranceName,
-      'email': student.email,
-      'password': student.password,
-      'password_confirm': student.password,
-    });
+    var response = await http.post(uri, body: flag?student?.cashToJson():student?.toJson(), headers: headersWithOutToken);
+
+    print(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 400) {
       var jsonResponse = jsonDecode(response.body);
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         var jsonObject = jsonResponse['items'];
         Patient student = Patient.fromJson(jsonObject);
         SharedPrefController().save(student: student);
@@ -51,12 +53,14 @@ class AuthApiController with ApiHelper {
       'mobile': mobile,
       'password': password,
     });
+    print(response);
 
     if (response.statusCode == 200 || response.statusCode == 400) {
       var jsonResponse = jsonDecode(response.body);
       if (response.statusCode == 200) {
         var jsonObject = jsonResponse['items'];
         Patient student = Patient.fromJson(jsonObject);
+        SharedPrefController().setPassword(password);
         SharedPrefController().save(student: student);
       }
       return ApiResponse(
@@ -71,13 +75,13 @@ class AuthApiController with ApiHelper {
     Uri uri = Uri.parse(ApiSettings.logout);
     var response = await http.get(uri, headers: headers);
     if (response.statusCode == 200 || response.statusCode == 401) {
-      // await SharedPrefController().clear();
-      // if(response.statusCode == 200) {
-      //   var jsonResponse = jsonDecode(response.body);
-      //   return ApiResponse(message: jsonResponse['message'], success: jsonResponse['status']);
-      // }else {
-      //   return const ApiResponse(message: 'Logged out successfully', success: true);
-      // }
+      await SharedPrefController().clear();
+      if(response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        return ApiResponse(message: jsonResponse['message'], success: jsonResponse['status']);
+      }else {
+        return  ApiResponse(message: 'Logged out successfully', success: true);
+      }
       var jsonResponse = jsonDecode(response.body);
       return ApiResponse(
         message: response.statusCode == 200
@@ -90,9 +94,15 @@ class AuthApiController with ApiHelper {
   }
 
   //Forget Password - Reset Password
-  Future<ApiResponse> changePassword({required String email}) async {
-    Uri uri = Uri.parse(ApiSettings.forgetPassword);
-    var response = await http.post(uri, body: {'email': email});
+  Future<ApiResponse> changePassword(
+      {required String password, required String rePassword}) async {
+    var myData = {
+      'current_password': SharedPrefController().password,
+      'password': password,
+      'password_confirmation': rePassword
+    };
+    Uri uri = Uri.parse(ApiSettings.changePassword);
+    var response = await http.post(uri, body: myData,headers: headers);
     if (response.statusCode == 200 || response.statusCode == 400) {
       var jsonResponse = jsonDecode(response.body);
       print('Code: ${jsonResponse['code']}');
@@ -102,22 +112,22 @@ class AuthApiController with ApiHelper {
     return failedResponse;
   }
 
-  // Future<ApiResponse> resetPassword(
-  //     {required String email,
-  //     required String code,
-  //     required String password}) async {
-  //   Uri uri = Uri.parse(ApiSettings.resetPassword);
-  //   var response = await http.post(uri,body: {
-  //     'email':email,
-  //     'code':code,
-  //     'password':password,
-  //     'password_confirmation': password,
-  //   });
-  //
-  //   if(response.statusCode == 200 || response.statusCode == 400) {
-  //     var jsonResponse = jsonDecode(response.body);
-  //     return ApiResponse(message: jsonResponse['message'], success: jsonResponse['status']);
-  //   }
-  //   return failedResponse;
-  // }
+// Future<ApiResponse> resetPassword(
+//     {required String email,
+//     required String code,
+//     required String password}) async {
+//   Uri uri = Uri.parse(ApiSettings.resetPassword);
+//   var response = await http.post(uri,body: {
+//     'email':email,
+//     'code':code,
+//     'password':password,
+//     'password_confirmation': password,
+//   });
+//
+//   if(response.statusCode == 200 || response.statusCode == 400) {
+//     var jsonResponse = jsonDecode(response.body);
+//     return ApiResponse(message: jsonResponse['message'], success: jsonResponse['status']);
+//   }
+//   return failedResponse;
+// }
 }

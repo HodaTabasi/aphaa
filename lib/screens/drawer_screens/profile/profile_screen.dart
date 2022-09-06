@@ -1,13 +1,20 @@
+import 'package:aphaa_app/api/controllers/auth_api_controller.dart';
+import 'package:aphaa_app/screens/auth/login/login_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/profile/items.dart';
 import 'package:aphaa_app/screens/drawer_screens/profile/notificaton_item.dart';
 import 'package:aphaa_app/screens/in_level_screen/edit_insurance_data/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/edit_profile/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
 import 'package:aphaa_app/screens/main_screens/change_password/change_password.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../../preferences/shared_pref_controller.dart';
+
+import 'package:aphaa_app/helper/helpers.dart' as myHelper;
 
 class ProfileScreen extends StatefulWidget {
 
@@ -16,7 +23,7 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +86,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(
             height: 20.h,
           ),
-          Text('محمد محمود',
+          Text(SharedPrefController()
+              .getValueFor<String>(key: PrefKeysPatient.firstName.name)??"محمد محمود" ,
               style:  TextStyle(
                 color: Colors.black,
                 fontSize: 15.sp,
@@ -101,7 +109,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
           TextItem('assets/images/editf.svg',AppLocalizations.of(context)!.edit_insurance_data,()=>Navigator.pushNamed(context, EditInsuranceData.routeName)),
           TextItem('assets/images/Lock.svg',AppLocalizations.of(context)!.change_password,()=>Navigator.pushNamed(context, ChangePassword.routeName)),
           NotificationItem('assets/images/Notification.svg',AppLocalizations.of(context)!.notifications),
-          TextItem('assets/images/Logout.svg',AppLocalizations.of(context)!.logout,isVisable: true,()=>Navigator.pushNamed(context, EditProfile.routeName)),
+          TextItem('assets/images/Logout.svg',AppLocalizations.of(context)!.logout,isVisable: true,() async {
+            showLoaderDialog(context);
+            await AuthApiController().logout().then((value) {
+              Navigator.of(context).pushAndRemoveUntil(
+                CupertinoPageRoute(
+                    builder: (context) => LoginScreen()
+                ),
+                    (_) => false,
+              );
+            });
+
+            }),
           SizedBox(
             height: 30.h,
           ),

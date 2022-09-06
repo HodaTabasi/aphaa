@@ -1,3 +1,5 @@
+import 'package:aphaa_app/get/new_account_getx_controller.dart';
+import 'package:aphaa_app/get/quick_service_getx_controller.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/splach/screen_2_splash.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -19,6 +21,11 @@ void main() async {
 class MyApp extends StatelessWidget {
   final LanguageGetxController languageGetxController =
       Get.put<LanguageGetxController>(LanguageGetxController());
+
+  final NewAccountGetxController newAccountGetxController =
+  Get.put<NewAccountGetxController>(NewAccountGetxController());
+  final QuickServiceGetxController quickServiceGetxController =
+  Get.put<QuickServiceGetxController>(QuickServiceGetxController());
 
   // This widget is the root of your application.
   @override

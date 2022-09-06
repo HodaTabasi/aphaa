@@ -16,10 +16,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../api/controllers/App_api_controller.dart';
+import '../../../model/offer.dart';
 import '../../../model/service.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../in_level_screen/offer_ditails/offer_details.dart';
 import '../../in_level_screen/recordbookings/RecordBooking.dart';
 import '../../in_level_screen/sick_level/sick_leave.dart';
 
@@ -57,13 +60,40 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             SizedBox(
               height: 200.h,
-              child: ListView.builder(
-                  itemCount: 2,
-                  // shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return SliderWidget();
-                  }),
+              child:  FutureBuilder<List<Offers>>(
+                future: AppApiController().getOffers(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snapshot.data!.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Center(child: InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, OfferDetails.routeName,arguments:{"data":snapshot.data![index]} );
+                            },
+                            child: SliderWidget(offers: snapshot.data![index],)));
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: Text(
+                        'NO DATA',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Tajawal',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

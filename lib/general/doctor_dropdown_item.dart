@@ -1,22 +1,26 @@
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
+import 'package:aphaa_app/get/quick_service_getx_controller.dart';
+import 'package:aphaa_app/model/doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class DropDownItem extends StatefulWidget {
-  List<String> myData;
+class DoctorDropDownItem extends StatefulWidget {
+  List<Doctor> myData;
   String iconName;
   String dropValue;
   int? dropIntValue;
 
-  DropDownItem(this.myData,this.iconName,this.dropValue, {this.dropIntValue});
+  DoctorDropDownItem(this.myData,this.iconName,this.dropValue, {this.dropIntValue});
 
   @override
-  State<DropDownItem> createState() => _DropDownItenState();
+  State<DoctorDropDownItem> createState() => _DropDownItenState();
 }
 
-class _DropDownItenState extends State<DropDownItem> {
-  String global = "شركة1";
+class _DropDownItenState extends State<DoctorDropDownItem> {
+  var global = 1;
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,8 +48,9 @@ class _DropDownItenState extends State<DropDownItem> {
             Expanded(
               child: Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
-                child: DropdownButton<String>(
+                child: DropdownButton<int>(
                   isExpanded: true,
+                  // value: widget.global,
                   underline: SizedBox(),
                   hint: Text(
                     widget.dropValue,
@@ -56,20 +61,18 @@ class _DropDownItenState extends State<DropDownItem> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  onChanged: (val) {
+                  onChanged: (int? val){
                     setState(() {
                       global = val!;
-                      print("dsfs ${val}");
-                      NewAccountGetxController.to.changeDropDownValue(val, widget.dropIntValue) ;
+                      QuickServiceGetxController.to.doctorId.value = global;
                     });
                   },
                   value: global,
-                  // value: dropdownValue,
-                  items: widget.myData.map((String value) {
-                    return new DropdownMenuItem<String>(
-                      value: value,
+                  items: widget.myData.map((value) {
+                    return new DropdownMenuItem<int>(
+                      value: value.id,
                       child: Text(
-                          value,
+                          value.name!,
                           style:  TextStyle(
                             color: Colors.grey.shade700,
                             fontSize: 13.sp,

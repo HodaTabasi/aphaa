@@ -1,11 +1,15 @@
+import 'package:aphaa_app/api/controllers/auth_api_controller.dart';
 import 'package:aphaa_app/screens/auth/login/login_screen.dart';
+import 'package:aphaa_app/screens/drawer_screens/done/done_screen.dart';
 import 'package:aphaa_app/screens/main_screens/done_login/done_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../general/btn_layout.dart';
 import '../../../general/password_item.dart';
+import '../../../model/api_response.dart';
 import '../../drawer_screens/buttom_navication.dart';
+import 'package:aphaa_app/helper/helpers.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -17,7 +21,10 @@ class ChangePassword extends StatefulWidget {
   State<ChangePassword> createState() => _ChangePasswordState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> {
+class _ChangePasswordState extends State<ChangePassword> with Helpers{
+
+  TextEditingController _pPassword = TextEditingController();
+  TextEditingController _prePassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,16 +87,15 @@ class _ChangePasswordState extends State<ChangePassword> {
            SizedBox(
             height: 20.h,
           ),
-          PasswordItem('assets/images/Lock.svg', AppLocalizations.of(context)!.password),
-          PasswordItem('assets/images/Lock.svg', AppLocalizations.of(context)!.re_password),
+          PasswordItem('assets/images/Lock.svg', AppLocalizations.of(context)!.password,controler: _pPassword,),
+          PasswordItem('assets/images/Lock.svg', AppLocalizations.of(context)!.re_password,controler: _prePassword),
           Padding(
             padding:  EdgeInsets.only(left: 16.0.r,right: 0.r,top: 8.r),
           ),
           SizedBox(
             height: 30.h,
           ),
-          BtnLayout(AppLocalizations.of(context)!.change_password, () =>
-              Navigator.pushNamed(context, LoginDoneScreens.routeName),),
+          BtnLayout(AppLocalizations.of(context)!.change_password, () =>_performChangePassword() ,),
            SizedBox(
             height: 10.h,
           ),
@@ -102,5 +108,50 @@ class _ChangePasswordState extends State<ChangePassword> {
         fit: BoxFit.cover,
       ),
     );
+  }
+  Future<void> _performChangePassword() async {
+    if (_checkData()) {
+      await _editProfile();
+    }
+  }
+
+  bool _checkData() {
+    if (_pPassword.text.isNotEmpty &&
+        _prePassword.text.isNotEmpty ) {
+
+      if(_pPassword.text != _prePassword.text){
+        showSnackBar(context, message: 'كلمتا المرور ليسا متطابقين', error: true);
+        return false;
+      }
+
+      return true;
+    }
+    showSnackBar(context, message: 'Enter required data!', error: true);
+    return false;
+  }
+
+  Future<void> _editProfile() async {
+    showLoaderDialog(context);
+
+    ApiResponse apiResponse = await AuthApiController().changePassword(password:_pPassword.text,rePassword: _prePassword.text );
+    if (apiResponse.success) {
+      Navigator.pop(context);
+      // Navigator.pushReplacementNamed(context, LoginDoneScreens.routeName);
+    }
+    Navigator.pop(context);
+    showSnackBar(
+      context,
+      message: apiResponse.message,
+      error: !apiResponse.success,
+    );
+  }
+
+
+
+  @override
+  void dispose() {
+    _prePassword.dispose();
+    _pPassword.dispose();
+    super.dispose();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:aphaa_app/model/doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,9 +7,9 @@ import 'doctor_details.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DoctorItem extends StatelessWidget {
-  const DoctorItem({
-    Key? key,
-  }) : super(key: key);
+
+  Doctor doctor;
+  DoctorItem(this.doctor);
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +38,14 @@ class DoctorItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0.r),
                   child: Image.network(
-                    'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80',
+                    "https://jihadm33.sg-host.com/public/storage/${doctor.image}",
                     width: 144.w,
                     height: 114.h,
                   ),
                 ),
               ),
               Text(
-                'د. محمد محمود',
+                doctor.name!,
                 style: TextStyle(
                   color: Color(0xff2D2D2D),
                   fontSize: 14.sp,
@@ -56,7 +57,7 @@ class DoctorItem extends StatelessWidget {
                 height: 8.h,
               ),
               Text(
-                'طبيب اسنان',
+                doctor.specialty!,
                 style:  TextStyle(
                   color: Color(0xff2D2D2D),
                   fontSize: 14.sp,
@@ -72,7 +73,7 @@ class DoctorItem extends StatelessWidget {
             right: 0,
             // left: 0,
             child: InkWell(
-              onTap: ()=>Navigator.pushNamed(context, DoctorDetails.routeName),
+              onTap: ()=>Navigator.pushNamed(context, DoctorDetails.routeName,arguments: {"data":doctor}),
               child: Container(
                 width: 200.w,
                 height: 43.h,

@@ -2,14 +2,17 @@ import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../api/controllers/auth_api_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
 import '../../../general/password_item.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../model/api_response.dart';
 import '../../drawer_screens/buttom_navication.dart';
 import '../create_account/create_account.dart';
+import 'package:aphaa_app/helper/helpers.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -18,8 +21,10 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with Helpers{
   var value = false;
+  var _emailTextController = TextEditingController(text: "059998777");
+  var _passwordTextController =  TextEditingController(text: "123456789");
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 20.h,
           ),
           EditTextItem(
-              'assets/images/Message.svg', AppLocalizations.of(context)!.email),
-          PasswordItem('assets/images/Lock.svg', AppLocalizations.of(context)!.password),
+              'assets/images/Message.svg', AppLocalizations.of(context)!.email,controler: _emailTextController),
+          PasswordItem('assets/images/Lock.svg', AppLocalizations.of(context)!.password,controler: _passwordTextController),
           Padding(
             padding:  EdgeInsets.only(left: 16.0.w,right: 0,top: 8.h),
             child: Row(
@@ -141,8 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
            SizedBox(
             height: 30.h,
           ),
-          BtnLayout(AppLocalizations.of(context)!.login, () =>
-        Navigator.pushNamed(context, ButtomNavigations.routeName),),
+          BtnLayout(AppLocalizations.of(context)!.login, () =>_performLogin(),),
           SizedBox(
             height: 10.h,
           ),
@@ -184,5 +188,46 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
+  }
+  Future<void> _performLogin() async {
+    if (_checkData()) {
+      await _login();
+    }
+  }
+
+  bool _checkData() {
+
+    if (_emailTextController.text.isNotEmpty &&
+        _passwordTextController.text.isNotEmpty) {
+      return true;
+    }
+    showSnackBar(context, message: 'Enter required data!', error: true);
+    return false;
+  }
+
+  Future<void> _login() async {
+    showLoaderDialog(context);
+    ApiResponse apiResponse = await AuthApiController().login(
+        mobile: _emailTextController.text,
+        password: _passwordTextController.text);
+    if (apiResponse.success) {
+      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
+    }else {
+      Navigator.pop(context);
+    }
+
+    showSnackBar(
+      context,
+      message: apiResponse.message,
+      error: !apiResponse.success,
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    super.dispose();
   }
 }

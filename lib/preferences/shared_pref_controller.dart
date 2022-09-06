@@ -39,17 +39,33 @@ class SharedPrefController {
 
   Future<void> save({required Patient student}) async {
     await _sharedPreferences.setBool(PrefKeysPatient.isLoggedIn.name, true);
-    await _sharedPreferences.setInt(PrefKeysPatient.id.name, student.id);
-    await _sharedPreferences.setString(PrefKeysPatient.firstName.name, student.firstName);
-    await _sharedPreferences.setString(PrefKeysPatient.secondName.name, student.secondName);
-    await _sharedPreferences.setString(PrefKeysPatient.lastName.name, student.lastName);
-    await _sharedPreferences.setString(PrefKeysPatient.email.name, student.email);
-    await _sharedPreferences.setString(PrefKeysPatient.identityNumber.name, student.identityNumber);
-    await _sharedPreferences.setString(PrefKeysPatient.insuranceDate.name, student.insuranceDate);
-    await _sharedPreferences.setString(PrefKeysPatient.insuranceName.name, student.insuranceName);
-    await _sharedPreferences.setString(PrefKeysPatient.insuranceNumber.name, student.insuranceNumber);
+    await _sharedPreferences.setInt(PrefKeysPatient.id.name, student.id??0);
+    await _sharedPreferences.setString(PrefKeysPatient.firstName.name, student.firstName??"");
+    await _sharedPreferences.setString(PrefKeysPatient.secondName.name, student.secondName??"");
+    await _sharedPreferences.setString(PrefKeysPatient.lastName.name, student.lastName??"");
+    await _sharedPreferences.setString(PrefKeysPatient.email.name, student.email??"");
+    await _sharedPreferences.setString(PrefKeysPatient.identityNumber.name, student.identityNumber??"");
+    await _sharedPreferences.setString(PrefKeysPatient.insuranceDate.name, student.insuranceDate??"");
+    await _sharedPreferences.setString(PrefKeysPatient.insuranceName.name, student.insuranceName??"");
+    await _sharedPreferences.setString(PrefKeysPatient.insuranceNumber.name, student.insuranceNumber??"");
+    await _sharedPreferences.setString(
+        PrefKeysPatient.token.name, 'Bearer ${student.token}');
     // await _sharedPreferences.setString(
-    //     PrefKeys.token.name, 'Bearer ${student.token}');
+    //     PrefKeys.refreshToken.name, 'Bearer ${student.refreshToken}');
+  }
+
+  Future<void> saveWithoutToken({required Patient student}) async {
+    await _sharedPreferences.setBool(PrefKeysPatient.isLoggedIn.name, true);
+    await _sharedPreferences.setInt(PrefKeysPatient.id.name, student.id??0);
+    await _sharedPreferences.setString(PrefKeysPatient.firstName.name, student.firstName??"");
+    await _sharedPreferences.setString(PrefKeysPatient.secondName.name, student.secondName??"");
+    await _sharedPreferences.setString(PrefKeysPatient.lastName.name, student.lastName??"");
+    await _sharedPreferences.setString(PrefKeysPatient.email.name, student.email??"");
+    await _sharedPreferences.setString(PrefKeysPatient.identityNumber.name, student.identityNumber??"");
+    await _sharedPreferences.setString(PrefKeysPatient.insuranceDate.name, student.insuranceDate??"");
+    await _sharedPreferences.setString(PrefKeysPatient.insuranceName.name, student.insuranceName??"");
+    await _sharedPreferences.setString(PrefKeysPatient.insuranceNumber.name, student.insuranceNumber??"");
+
     // await _sharedPreferences.setString(
     //     PrefKeys.refreshToken.name, 'Bearer ${student.refreshToken}');
   }
@@ -76,6 +92,11 @@ class SharedPrefController {
   }
 
   String get token => _sharedPreferences.getString(PrefKeysPatient.token.name) ?? '';
+
+  String get password => _sharedPreferences.getString("password") ?? '';
+  void setPassword(password) {
+    _sharedPreferences.setString("password",password);
+  }
 
   Future<void> logout() async {
     _sharedPreferences.remove(PrefKeys.loggedIn.name);

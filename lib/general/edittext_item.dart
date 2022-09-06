@@ -5,7 +5,10 @@ import 'package:flutter_svg/svg.dart';
 class EditTextItem extends StatelessWidget {
   String icon;
   String hint;
-  EditTextItem(this.icon,this.hint) ;
+  bool b = true;
+
+  TextEditingController? controler;
+  EditTextItem(this.icon,this.hint, {this.controler ,this.b = true}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,8 @@ class EditTextItem extends StatelessWidget {
             Expanded(child: Padding(
               padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
               child: TextFormField(
+                controller: controler,
+                enabled: b,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: hint,

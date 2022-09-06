@@ -4,6 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../api/controllers/App_api_controller.dart';
+import '../../../model/doctor.dart';
 import '../Appointment Booking/doctor_filtter.dart';
 
 class MyDoctorsScreen extends StatefulWidget {
@@ -64,25 +66,65 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
             height: 20,
           ),
           SizedBox(height: 10.h,),
-          Padding(
-            padding:  EdgeInsets.all(8.0.r),
-            child: GridView.builder(
-              shrinkWrap: true,
-              itemCount: 4,
-              physics: const NeverScrollableScrollPhysics(),
-              padding:  EdgeInsets.symmetric(horizontal: 10.r),
-              scrollDirection: Axis.vertical,
-              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 15.h,
-                crossAxisSpacing: 15.w,
-                childAspectRatio: 240/330
-              ),
-              itemBuilder: (context, index) {
-                return  DoctorItem();
-              },
-            ),
+          FutureBuilder<List<Doctor>>(
+            future: AppApiController().getAllDoctors(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return  Padding(
+                  padding:  EdgeInsets.all(8.0.r),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding:  EdgeInsets.symmetric(horizontal: 10.r),
+                    scrollDirection: Axis.vertical,
+                    gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 15.h,
+                        crossAxisSpacing: 15.w,
+                        childAspectRatio: 240/330
+                    ),
+                    itemBuilder: (context, index) {
+                      return  DoctorItem(snapshot.data![index]);
+                    },
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    'NO DATA',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
+            },
           ),
+          // Padding(
+          //   padding:  EdgeInsets.all(8.0.r),
+          //   child: GridView.builder(
+          //     shrinkWrap: true,
+          //     itemCount: 4,
+          //     physics: const NeverScrollableScrollPhysics(),
+          //     padding:  EdgeInsets.symmetric(horizontal: 10.r),
+          //     scrollDirection: Axis.vertical,
+          //     gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+          //       crossAxisCount: 2,
+          //       mainAxisSpacing: 15.h,
+          //       crossAxisSpacing: 15.w,
+          //       childAspectRatio: 240/330
+          //     ),
+          //     itemBuilder: (context, index) {
+          //       return  DoctorItem();
+          //     },
+          //   ),
+          // ),
           Image.asset(
             "assets/images/image1.png",
             fit: BoxFit.fitWidth,

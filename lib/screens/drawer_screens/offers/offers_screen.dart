@@ -1,4 +1,6 @@
+import 'package:aphaa_app/api/controllers/App_api_controller.dart';
 import 'package:aphaa_app/general/slider_wedgit.dart';
+import 'package:aphaa_app/model/offer.dart';
 import 'package:aphaa_app/screens/in_level_screen/offer_ditails/offer_details.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +15,8 @@ class OfferScreen extends StatefulWidget {
 }
 
 class _OfferScreenState extends State<OfferScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,22 +35,48 @@ class _OfferScreenState extends State<OfferScreen> {
       //     centerTitle: true, ),
       body: ListView(
         children: [
-          ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 6,
-              itemBuilder: (context,index){
-                return Center(child: InkWell(
-                  onTap: (){
-                     Navigator.pushNamed(context, OfferDetails.routeName);
+          FutureBuilder<List<Offers>>(
+            future: AppApiController().getOffers(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Center(child: InkWell(
+                        onTap: (){
+                          Navigator.pushNamed(context, OfferDetails.routeName,arguments:{"data":snapshot.data![index]} );
+                        },
+                        child: SliderWidget(offers: snapshot.data![index],)));
                   },
-                    child: SliderWidget()));
-              }),
-          Image.asset(
-            "assets/images/image1.png",
-            fit: BoxFit.fitWidth,
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    'NO DATA',
+                    style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Tajawal',
+                              fontWeight: FontWeight.bold,
+                            ),
+                  ),
+                );
+              }
+            },
           ),
+          // Image.asset(
+          //   "assets/images/image1.png",
+          //   fit: BoxFit.fitWidth,
+          // ),
         ],
+      ),
+      bottomSheet:  Image.asset(
+        "assets/images/image1.png",
+        fit: BoxFit.fitWidth,
       ),
     );
   }

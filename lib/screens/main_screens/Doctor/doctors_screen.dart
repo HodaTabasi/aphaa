@@ -1,12 +1,15 @@
+import 'package:aphaa_app/model/doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../api/controllers/App_api_controller.dart';
 import '../Appointment Booking/doctor_filtter.dart';
 import 'DoctorItem.dart';
 
 class DoctorsScreen extends StatefulWidget {
   static String routeName = "/doctors";
+
   @override
   State<DoctorsScreen> createState() => _DoctorsScreenState();
 }
@@ -20,7 +23,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
         elevation: 0,
         // leadingWidth: 40,
         title: Text(AppLocalizations.of(context)!.doctors,
-            style:  TextStyle(
+            style: TextStyle(
               color: Colors.white,
               fontSize: 16.sp,
               fontFamily: 'Tajawal',
@@ -28,17 +31,17 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             )),
         titleSpacing: 2,
         leading: InkWell(
-          onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
+          onTap: () => Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
-              margin:  EdgeInsets.all(15.0.r),
-              padding:  EdgeInsets.all(5.0.r),
+              margin: EdgeInsets.all(15.0.r),
+              padding: EdgeInsets.all(5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
                   borderRadius: BorderRadius.circular(5.r)),
-              child:  Icon(
+              child: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.white,
                 size: 15.sp,
@@ -55,18 +58,18 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             children: [
               Expanded(
                 child: Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
+                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
                   child: TextField(
                     decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.r),
-                          borderSide:  BorderSide(
+                          borderSide: BorderSide(
                               color: Color.fromRGBO(140, 171, 205, 0.12),
                               width: 0.5.w),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.r),
-                          borderSide:  BorderSide(
+                          borderSide: BorderSide(
                               color: Color.fromRGBO(140, 171, 205, 0.12),
                               width: 0.5.w),
                         ),
@@ -87,7 +90,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 ),
               ),
               InkWell(
-                onTap: (){
+                onTap: () {
                   showModalBottomSheet(
                     isScrollControlled: false,
                     backgroundColor: Colors.transparent,
@@ -110,35 +113,58 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               )
             ],
           ),
-          SizedBox(height: 10.h,),
-
-          Padding(
-            padding:  EdgeInsets.all(8.0.r),
-            child: GridView.builder(
-              shrinkWrap: true,
-              itemCount: 4,
-              physics: const NeverScrollableScrollPhysics(),
-              padding:  EdgeInsets.symmetric(horizontal: 10.r),
-              scrollDirection: Axis.vertical,
-              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 15.h,
-                crossAxisSpacing: 15.w,
-                childAspectRatio: 240/330
-              ),
-              itemBuilder: (context, index) {
-                return  DoctorItem();
-              },
-            ),
+          SizedBox(
+            height: 10.h,
           ),
-          Image.asset(
-            "assets/images/image1.png",
-            fit: BoxFit.fitWidth,
+          FutureBuilder<List<Doctor>>(
+            future: AppApiController().getAllDoctors(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return Padding(
+                  padding: EdgeInsets.all(8.0.r),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: 10.r),
+                    scrollDirection: Axis.vertical,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 15.h,
+                        crossAxisSpacing: 15.w,
+                        childAspectRatio: 240 / 330),
+                    itemBuilder: (context, index) {
+                      return DoctorItem(snapshot.data![index]);
+                    },
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    'NO DATA',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
+            },
           ),
+          // Image.asset(
+          //   "assets/images/image1.png",
+          //   fit: BoxFit.fitWidth,
+          // ),
         ],
+      ),
+      bottomSheet: Image.asset(
+        "assets/images/image1.png",
+        fit: BoxFit.fitWidth,
       ),
     );
   }
 }
-
-

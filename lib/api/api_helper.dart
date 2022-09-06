@@ -13,4 +13,11 @@ mixin ApiHelper {
       HttpHeaders.acceptHeader: 'application/json',
     };
   }
+
+  Map<String, String> get headersWithOutToken {
+    return {
+      // HttpHeaders.authorizationHeader: SharedPrefController().token,
+      HttpHeaders.acceptHeader: 'application/json',
+    };
+  }
 }

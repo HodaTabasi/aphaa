@@ -1,4 +1,5 @@
 import 'package:aphaa_app/general/btn_layout.dart';
+import 'package:aphaa_app/model/offer.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_screen/payment_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +19,22 @@ class OfferDetails extends StatefulWidget {
 }
 
 class _OfferDetailsState extends State<OfferDetails> {
+  var instalation;
   @override
   Widget build(BuildContext context) {
+    final routeArgs1 =
+    ModalRoute.of(context)?.settings.arguments as Map<String, Offers?>;
+    if(routeArgs1 != null){
+       instalation = routeArgs1['data'];
+      print('instalation ${instalation?.price}');
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
           elevation: 0,
           // leadingWidth: 40,
-          title: Text('عرض زراعة الأسنان',
+          title: Text(' عرض   ${instalation?.title}',
               style:  TextStyle(
                 color: Colors.white,
                 fontSize: 16.sp,
@@ -75,7 +84,7 @@ class _OfferDetailsState extends State<OfferDetails> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0.r),
               child: Image.network(
-                'https://thumbs.dreamstime.com/b/special-offer-workplace-doctor-tablet-stethoscope-clipboard-wooden-desk-background-top-view-57765884.jpg',
+                 instalation.image ,
                 // width: 144,
                 // height: 114,
                 fit: BoxFit.cover,
@@ -106,7 +115,7 @@ class _OfferDetailsState extends State<OfferDetails> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'زراعة أسنان',
+                       instalation.title ,
                       style:  TextStyle(
                         color: Color(0xff2D2D2D),
                         fontSize: 15.sp,
@@ -115,7 +124,7 @@ class _OfferDetailsState extends State<OfferDetails> {
                       ),
                     ),
                     Text(
-                      '500',
+                      "${instalation.price}",
                       style:  TextStyle(
                         color: Color(0xff2D2D2D),
                         fontSize: 15.sp,
@@ -154,7 +163,7 @@ class _OfferDetailsState extends State<OfferDetails> {
               Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
                 child: Text(
-                  'هذا النص افتراض ، هذا النص افتراض ، هذا النص افتراضي ، هذا النص افتراضي',
+                  instalation.description,
                   style:  TextStyle(
                       color: Color(0xff2D2D2D),
                       fontSize: 15.sp,
@@ -187,7 +196,8 @@ class _OfferDetailsState extends State<OfferDetails> {
               ),
               SizedBox(height: 13.h,),
               BtnLayout(AppLocalizations.of(context)!.book_now, () {
-                Navigator.pushNamed(context, ReservationData.routeName);
+                print(instalation.price);
+                Navigator.pushNamed(context, ReservationData.routeName,arguments: {"data":instalation});
               })
             ],
           ),),

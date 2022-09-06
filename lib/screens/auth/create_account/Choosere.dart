@@ -1,3 +1,4 @@
+import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'btn_layout.dart';
@@ -27,6 +28,7 @@ class _ChoosereState extends State<Choosere> {
                 groupValue: _value,
                 onChanged: (value) => setState(() {
                   _value = value;
+                  NewAccountGetxController.to.changeIsCitizen(true);
                 }),
               )),
           Flexible(
@@ -36,7 +38,7 @@ class _ChoosereState extends State<Choosere> {
                   groupValue: _value,
                   onChanged: (value) => setState(() {
                     _value = value;
-
+                    NewAccountGetxController.to.changeIsCitizen(false);
                   } ))),
         ],
       ),

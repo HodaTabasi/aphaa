@@ -25,7 +25,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
   final pages = [
     HomeScreen(),
     RexcordBooking(fromInLevel: false),
-    MyAppointmentBooking(),
+    MyAppointmentBooking(flag:true),
     OfferScreen(),
     ProfileScreen(),
   ];
