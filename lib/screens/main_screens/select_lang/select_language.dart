@@ -102,7 +102,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                 curve: Curves.easeInCubic,
                 child: InkWell(
                   onTap: () =>
-                      Navigator.pushNamed(context, QuickServices.routeName),
+                      Navigator.pushReplacementNamed(context, QuickServices.routeName),
                   child: Image.asset(
                     'assets/images/icon1.png',
                     height: 50.h,

@@ -58,7 +58,7 @@ class _Screen2SplashState extends State<Screen2Splash> with TickerProviderStateM
                   animate: true,
                   curve: Curves.easeInCubic,
                   child: InkWell(
-                    onTap: () => Navigator.pushNamed(context, SelectLanguage.routeName),
+                    onTap: () => Navigator.pushReplacementNamed(context, SelectLanguage.routeName),
                     child: Image.asset(
                       'assets/images/icon1.png',
                       height: 50.h,
