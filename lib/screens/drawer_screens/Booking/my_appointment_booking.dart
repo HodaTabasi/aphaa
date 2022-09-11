@@ -115,8 +115,8 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
           Form(
             child: Column(
               children: [
-                DropDownItem(myData, 'assets/images/hospital.svg',
-                    AppLocalizations.of(context)!.clenice_choesse),
+                // DropDownItem(myData, 'assets/images/hospital.svg',
+                //     AppLocalizations.of(context)!.clenice_choesse),
                 DoctorDropDownItem(myDataDoctor, 'assets/images/docgreen.svg',
                     AppLocalizations.of(context)!.dovtor_choesse),
                 EditTextItem('assets/images/Calendar.svg',

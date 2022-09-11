@@ -1,3 +1,4 @@
+import 'package:aphaa_app/get/quick_service_getx_controller.dart';
 import 'package:aphaa_app/model/doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,8 +8,8 @@ import 'doctor_details.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DoctorItem extends StatelessWidget {
-
   Doctor doctor;
+
   DoctorItem(this.doctor);
 
   @override
@@ -19,7 +20,7 @@ class DoctorItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(10.r)),
-        border: Border.all(color: Color(0xff0E4C8F),width: 0.5.w),
+        border: Border.all(color: Color(0xff0E4C8F), width: 0.5.w),
         // boxShadow: [
         //   BoxShadow(
         //     offset: Offset(0, 10),
@@ -34,18 +35,18 @@ class DoctorItem extends StatelessWidget {
           Column(
             children: [
               Padding(
-                padding:  EdgeInsets.all(8.0.r),
+                padding: EdgeInsets.all(8.0.r),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0.r),
                   child: Image.network(
-                    "https://jihadm33.sg-host.com/public/storage/${doctor.image}",
+                    "https://jihadm33.sg-host.com/public/storage/${doctor.img}",
                     width: 144.w,
                     height: 114.h,
                   ),
                 ),
               ),
               Text(
-                doctor.name!,
+                doctor.doctorName!,
                 style: TextStyle(
                   color: Color(0xff2D2D2D),
                   fontSize: 14.sp,
@@ -57,36 +58,46 @@ class DoctorItem extends StatelessWidget {
                 height: 8.h,
               ),
               Text(
-                doctor.specialty!,
-                style:  TextStyle(
+                doctor.clinicName!,
+                style: TextStyle(
                   color: Color(0xff2D2D2D),
                   fontSize: 14.sp,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.normal,
-                ),),
+                ),
+              ),
             ],
-
           ),
-
           Positioned(
             bottom: 0,
             right: 0,
             // left: 0,
             child: InkWell(
-              onTap: ()=>Navigator.pushNamed(context, DoctorDetails.routeName,arguments: {"data":doctor}),
+              onTap: () {
+                Navigator.pushNamed(context, DoctorDetails.routeName,
+                    arguments: {"data": doctor});
+                QuickServiceGetxController.to.saveDoctor(doctor);
+              },
               child: Container(
                 width: 200.w,
                 height: 43.h,
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   color: Color(0xff0E4C8F),
-                  borderRadius:  BorderRadius.only(bottomRight: Radius.circular(10.r),bottomLeft: Radius.circular(10.r),),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10.r),
+                    bottomLeft: Radius.circular(10.r),
+                  ),
                 ),
-                child: Text(AppLocalizations.of(context)!.view_doctor_profile,style:  TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.sp,
-                  fontFamily: 'Tajawal',
-                  fontWeight: FontWeight.bold,
-                ),textAlign: TextAlign.center,),
+                child: Text(
+                  AppLocalizations.of(context)!.view_doctor_profile,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.sp,
+                    fontFamily: 'Tajawal',
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
                 alignment: Alignment.center,
               ),
             ),

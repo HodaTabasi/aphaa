@@ -1,13 +1,17 @@
+import 'package:aphaa_app/api/controllers/hospital_controller.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/Patient.dart';
+import '../model/doctor.dart';
 
 class NewAccountGetxController extends GetxController {
   static NewAccountGetxController get to => Get.find<NewAccountGetxController>();
   RxBool isCitizen = false.obs;
  late Patient patient ;
   String companyName = "";
+  RxList<Doctor> doctorsList = <Doctor>[].obs ;
 
   void changeIsCitizen(value){
     isCitizen.value = value;
@@ -19,10 +23,20 @@ class NewAccountGetxController extends GetxController {
     print(patient);
   }
 
+  void changeMyDoctorList(List<Doctor> doctor){
+    doctorsList.value = doctor;
+    print("fgd ${doctorsList.value}");
+  }
+  List<Doctor> getListDoctor(){
+    return doctorsList.value;
+  }
 
 
-  void changeDropDownValue(value,dropType) {
-    print(value);
+  Future<void> changeDropDownValue(value,dropType,{context}) async {
+    var data = await HospitalApiController().getClDrs(clinicCode: value);
+    doctorsList.value =  data;
+    update();
+    // Navigator.pop(context);
    switch(dropType){
      case 1:
        companyName = value;

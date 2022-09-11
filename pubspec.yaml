@@ -46,6 +46,7 @@ dependencies:
   video_player: ^2.4.7
   http: ^0.13.4
   image_picker: ^0.8.5+3
+#  flutter_downloader: ^1.8.4
 #  animated_bottom_navigation_bar: ^1.1.0
 #  path_drawing: "^1.0.0"
 

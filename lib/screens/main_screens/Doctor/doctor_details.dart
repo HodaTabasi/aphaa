@@ -1,3 +1,4 @@
+import 'package:aphaa_app/api/controllers/hospital_controller.dart';
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/general/my_separator.dart';
 import 'package:aphaa_app/model/doctor.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../get/quick_service_getx_controller.dart';
 import '../../drawer_screens/Booking/my_appointment_booking.dart';
 import '../../in_level_screen/medical_recipes/medical_recipes.dart';
 import '../../in_level_screen/test_results/test_results.dart';
@@ -27,6 +29,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   bool v = false;
 
   var instalation;
+  late Doctor doctor;
 
   @override
   void initState() {
@@ -37,6 +40,10 @@ class _DoctorDetailsState extends State<DoctorDetails> {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
       });
+    getDoctorData();
+  }
+  getDoctorData() async {
+    doctor = await HospitalApiController().getDoctorDtl(doctorCode:QuickServiceGetxController.to.doctor?.doctorCode ) ?? Doctor();
   }
 
   @override
@@ -107,7 +114,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0.r),
                 child: Image.network(
-                  instalation.image,
+                  doctor.img!,
                   // width: 144,
                   // height: 114,
                 ),
@@ -120,7 +127,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  instalation.name,
+                  doctor.doctorName!,
                   style: TextStyle(
                     color: Color(0xff2D2D2D),
                     fontSize: 15.sp,
@@ -129,7 +136,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                   ),
                 ),
                 Text(
-                  instalation.specialty,
+                  doctor.clinicName!,
                   style: TextStyle(
                     color: Color(0xff2D2D2D),
                     fontSize: 15.sp,
@@ -162,7 +169,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Text(
-              instalation.description,
+              doctor.sciMainInfo![0],
               style: TextStyle(
                   color: Color(0xff2D2D2D),
                   fontSize: 15.sp,
@@ -306,4 +313,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       },
     );
   }
+
+
 }

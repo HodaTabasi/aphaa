@@ -211,12 +211,12 @@ class _CreateAccountNextState extends State<CreateAccountNext>
                         AppLocalizations.of(context)!.insurance_end_date,
                         controler: insurance_date, b: false),
                   ),
-                  DropDownItem(
-                    ["شركة1", "شركة2", "شركة3"],
-                    'assets/images/company.svg',
-                    AppLocalizations.of(context)!.insurance_companies,
-                    dropIntValue: 1,
-                  ),
+                  // DropDownItem(
+                  //   ["شركة1", "شركة2", "شركة3"],
+                  //   'assets/images/company.svg',
+                  //   AppLocalizations.of(context)!.insurance_companies,
+                  //   dropIntValue: 1,
+                  // ),
                   BtnLayout(
                       AppLocalizations.of(context)!
                           .medical_insurance_validity_check,

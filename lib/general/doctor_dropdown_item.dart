@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DoctorDropDownItem extends StatefulWidget {
-  List<Doctor> myData;
+  List<Doctor>  myData;
   String iconName;
   String dropValue;
   int? dropIntValue;
@@ -18,11 +18,13 @@ class DoctorDropDownItem extends StatefulWidget {
 }
 
 class _DropDownItenState extends State<DoctorDropDownItem> {
-  var global = 1;
+  String? global ;
 
 
   @override
   Widget build(BuildContext context) {
+    print("dse ${widget.myData}");
+
     return Container(
       margin:  EdgeInsets.symmetric(horizontal: 16.r,vertical: 8.r),
       decoration: BoxDecoration(
@@ -48,7 +50,7 @@ class _DropDownItenState extends State<DoctorDropDownItem> {
             Expanded(
               child: Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
-                child: DropdownButton<int>(
+                child: DropdownButton<String>(
                   isExpanded: true,
                   // value: widget.global,
                   underline: SizedBox(),
@@ -61,18 +63,19 @@ class _DropDownItenState extends State<DoctorDropDownItem> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  onChanged: (int? val){
+                  onChanged: (String? val){
                     setState(() {
                       global = val!;
-                      QuickServiceGetxController.to.doctorId.value = global;
+                      print(val);
+                      QuickServiceGetxController.to.changeDoctorName(val);
                     });
                   },
                   value: global,
                   items: widget.myData.map((value) {
-                    return new DropdownMenuItem<int>(
-                      value: value.id,
+                    return DropdownMenuItem<String>(
+                      value: value.doctorCode,
                       child: Text(
-                          value.name!,
+                          value.doctorName!,
                           style:  TextStyle(
                             color: Colors.grey.shade700,
                             fontSize: 13.sp,

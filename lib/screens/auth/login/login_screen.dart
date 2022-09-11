@@ -10,6 +10,7 @@ import '../../../general/password_item.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../model/api_response.dart';
+import '../../../preferences/shared_pref_controller.dart';
 import '../../drawer_screens/buttom_navication.dart';
 import '../create_account/create_account.dart';
 import 'package:aphaa_app/helper/helpers.dart';
@@ -23,7 +24,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> with Helpers{
   var value = false;
-  var _emailTextController = TextEditingController(text: "059998777");
+  var _emailTextController = TextEditingController(text: "0592171803");
   var _passwordTextController =  TextEditingController(text: "123456789");
 
   @override
@@ -212,6 +213,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers{
         password: _passwordTextController.text);
     if (apiResponse.success) {
       Navigator.pop(context);
+      SharedPrefController().saveMedicalId("0/372081");
       Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
     }else {
       Navigator.pop(context);

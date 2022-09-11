@@ -1,3 +1,4 @@
+import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/drawer_screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +30,6 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
     OfferScreen(),
     ProfileScreen(),
   ];
-
 
   @override
   Widget build(BuildContext context) {

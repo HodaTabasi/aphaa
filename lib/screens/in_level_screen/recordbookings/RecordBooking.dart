@@ -1,8 +1,11 @@
+import 'package:aphaa_app/model/Appointments.dart';
 import 'package:aphaa_app/screens/in_level_screen/recordbookings/scedual_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../api/controllers/hospital_controller.dart';
 
 class RexcordBooking extends StatefulWidget {
   static String routeName = "/RexcordBooking";
@@ -97,21 +100,69 @@ class _RexcordBookingState extends State<RexcordBooking> {
               child: TabBarView(
                 children: [
                   // first tab bar view widget
-                  ListView.builder(
-                      shrinkWrap: true,
-                      // physics: NeverScrollableScrollPhysics(),
-                      itemCount: 10,
-                      itemBuilder: (context,index){
-                        return ScedualBookingItem();
-                      }),
+                  FutureBuilder<List<Appointments>>(
+                    future: HospitalApiController().getNextAppt(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                        return  Padding(
+                          padding:  EdgeInsets.all(8.0.r),
+                          child:   ListView.builder(
+                              shrinkWrap: true,
+                              // physics: NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context,index){
+                                return ScedualBookingItem(snapshot.data![index]);
+                              }),
+                        );
+                      } else {
+                        return Center(
+                          child: Text(
+                            'NO DATA',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Tajawal',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                  ),
                   // // second tab bar viiew widget
-                  ListView.builder(
-                      shrinkWrap: true,
-                      // physics: NeverScrollableScrollPhysics(),
-                      itemCount: 10,
-                      itemBuilder: (context,index){
-                        return  ScedualBookingItem();
-                      }),
+                  FutureBuilder<List<Appointments>>(
+                    future: HospitalApiController().getPrevAppt(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                        return  Padding(
+                          padding:  EdgeInsets.all(8.0.r),
+                          child:    ListView.builder(
+                              shrinkWrap: true,
+                              // physics: NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context,index){
+                                return  ScedualBookingItem(snapshot.data![index]);
+                              }),
+                        );
+                      } else {
+                        return Center(
+                          child: Text(
+                            'NO DATA',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Tajawal',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                  ),
                 ],
               ),
             ),

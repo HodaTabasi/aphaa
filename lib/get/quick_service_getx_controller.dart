@@ -1,19 +1,25 @@
 import 'package:get/get.dart';
 
 import '../model/Patient.dart';
+import '../model/doctor.dart';
 
 class QuickServiceGetxController extends GetxController {
   static QuickServiceGetxController get to => Get.find<QuickServiceGetxController>();
 
    RxString clinicName = "anonumus".obs;
-   RxInt doctorId =1.obs;
+   String? doctorId;
+   Doctor? doctor;
 
    void changeClinicName(name){
      clinicName.value = name;
    }
 
   void changeDoctorName(name){
-    doctorId.value = name;
+    doctorId = name;
+    print(" dff ${doctorId}");
+  }
+  void saveDoctor(doctor){
+     this.doctor = doctor;
   }
 
 

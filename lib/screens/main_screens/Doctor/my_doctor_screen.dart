@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../api/controllers/App_api_controller.dart';
+import '../../../api/controllers/hospital_controller.dart';
 import '../../../model/doctor.dart';
 import '../Appointment Booking/doctor_filtter.dart';
 
@@ -15,6 +16,12 @@ class MyDoctorsScreen extends StatefulWidget {
 }
 
 class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    print("fffffd");
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +74,7 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
           ),
           SizedBox(height: 10.h,),
           FutureBuilder<List<Doctor>>(
-            future: AppApiController().getAllDoctors(),
+            future: HospitalApiController().getVisitedDrs(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

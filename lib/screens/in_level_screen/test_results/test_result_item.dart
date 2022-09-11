@@ -1,3 +1,4 @@
+import 'package:aphaa_app/model/ServiceTest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,6 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TestResultItem extends StatelessWidget {
+  ServiceTest? serviceTest;
+
+  TestResultItem({this.serviceTest});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,7 @@ class TestResultItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  20.8.2022  ',
+                        text: '  ${serviceTest?.serviceDate?.split(" ").first}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black45,
@@ -55,7 +59,7 @@ class TestResultItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '   مخبري   ',
+                        text: '   ${serviceTest?.serviceType}   ',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black45,
@@ -83,7 +87,7 @@ class TestResultItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '   نص افتراضي   ',
+                        text: '   ${serviceTest?.clinicName}   ',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black45,

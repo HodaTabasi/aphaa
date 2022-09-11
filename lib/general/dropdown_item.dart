@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../model/Clinic.dart';
+
 class DropDownItem extends StatefulWidget {
-  List<String> myData;
+  List<Clinic> myData;
   String iconName;
   String dropValue;
   int? dropIntValue;
@@ -16,7 +18,7 @@ class DropDownItem extends StatefulWidget {
 }
 
 class _DropDownItenState extends State<DropDownItem> {
-  String global = "شركة1";
+  String? global;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,17 +61,18 @@ class _DropDownItenState extends State<DropDownItem> {
                   onChanged: (val) {
                     setState(() {
                       global = val!;
-                      print("dsfs ${val}");
                       NewAccountGetxController.to.changeDropDownValue(val, widget.dropIntValue) ;
+                      setState(() {
+                      });
                     });
                   },
                   value: global,
                   // value: dropdownValue,
-                  items: widget.myData.map((String value) {
+                  items: widget.myData.map((Clinic value) {
                     return new DropdownMenuItem<String>(
-                      value: value,
+                      value: value.clinicCode,
                       child: Text(
-                          value,
+                          value.clinicName!,
                           style:  TextStyle(
                             color: Colors.grey.shade700,
                             fontSize: 13.sp,

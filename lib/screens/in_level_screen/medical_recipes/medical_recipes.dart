@@ -5,6 +5,9 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../api/controllers/hospital_controller.dart';
+import '../../../model/prescriptionList.dart';
+
 class MedicalRecipes extends StatefulWidget {
   static String routeName = "/MedicalRecipes";
 
@@ -56,18 +59,43 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
           ]),
       body: ListView(
         children: [
-          ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 6,
-              itemBuilder: (context,index){
-                return MedicalRecipesItem();
-              }),
-          Image.asset(
-            "assets/images/image1.png",
-            fit: BoxFit.fitWidth,
+          FutureBuilder<List<prescriptionList>>(
+            future: HospitalApiController().getRxList(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return  Padding(
+                  padding:  EdgeInsets.all(8.0.r),
+                  child:    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context,index){
+                        return MedicalRecipesItem(snapshot.data![index]);
+                      }),
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    'NO DATA',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
+            },
           ),
+
         ],
+      ),
+      bottomSheet:  Image.asset(
+        "assets/images/image1.png",
+        fit: BoxFit.fitWidth,
       ),
     );
   }

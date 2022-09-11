@@ -108,6 +108,10 @@ class SharedPrefController {
   Future<bool> clear() async {
     return _sharedPreferences.clear();
   }
+
+  saveMedicalId(id) async {
+    await _sharedPreferences.setString("medicalId",id );
+  }
 }
 
 // class Shape {

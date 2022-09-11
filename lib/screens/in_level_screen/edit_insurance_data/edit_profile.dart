@@ -64,8 +64,8 @@ class _EditInsuranceDataState extends State<EditInsuranceData> with Helpers {
                 EditTextItem(
                     'assets/images/Calendar.svg', AppLocalizations.of(context)!.insurance_end_date,b: false,controler: _insurance_date),
 
-                DropDownItem(["m1","m2"],
-                    'assets/images/company.svg', AppLocalizations.of(context)!.insurance_companies,dropIntValue: 1),
+                // DropDownItem(["m1","m2"],
+                //     'assets/images/company.svg', AppLocalizations.of(context)!.insurance_companies,dropIntValue: 1),
                 SizedBox(
                   height: 80.h,
                 ),

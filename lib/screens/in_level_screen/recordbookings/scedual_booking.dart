@@ -1,8 +1,12 @@
+import 'package:aphaa_app/model/Appointments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScedualBookingItem extends StatelessWidget {
+  Appointments appointments;
+  ScedualBookingItem(this.appointments);
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class ScedualBookingItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  20.8.2022  ',
+                        text: '  ${appointments.date}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black45,
@@ -53,7 +57,7 @@ class ScedualBookingItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  11:00 a.m  ',
+                        text: '  ${appointments.time}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black45,
@@ -81,7 +85,7 @@ class ScedualBookingItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  أسنان  ',
+                        text: '  ${appointments.clinic!.clinicName}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black45,
@@ -104,7 +108,7 @@ class ScedualBookingItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: ' محمود أحمد  ',
+                        text: ' ${appointments.doctor!.doctorName}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black45,
@@ -132,7 +136,7 @@ class ScedualBookingItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  ملاحظات ...  ',
+                        text: '  ${appointments.notes}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black45,

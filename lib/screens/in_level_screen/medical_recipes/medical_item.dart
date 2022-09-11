@@ -1,3 +1,4 @@
+import 'package:aphaa_app/model/prescriptionList.dart';
 import 'package:aphaa_app/screens/in_level_screen/medical_recipes/print_medical_recipes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MedicalRecipesItem extends StatelessWidget {
+  prescriptionList prescriptionlist;
+  MedicalRecipesItem(this.prescriptionlist);
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class MedicalRecipesItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  #11235  ',
+                        text: '  ${prescriptionlist.invoiceNo}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black45,
@@ -56,7 +60,7 @@ class MedicalRecipesItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  20.8.2022  ',
+                        text: '  ${prescriptionlist.invoiceDate}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black45,
@@ -72,49 +76,53 @@ class MedicalRecipesItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.physician,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '  د. محمود أحمد  ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black45,
-                            fontSize: 12.sp,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
+              FittedBox(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                  child: Text.rich(
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.physician,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: Colors.black,
+                          fontSize: 10.sp,
+                          fontFamily: 'Tajawal'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '  ${prescriptionlist.doctor!.doctorName}  ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black45,
+                              fontSize: 10.sp,
+                              fontFamily: 'Tajawal'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.the_clinic,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: ' أسنان  ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black45,
-                            fontSize: 12.sp,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
+              FittedBox(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                  child: Text.rich(
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.the_clinic,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 10.sp,
+                          fontFamily: 'Tajawal'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: ' ${prescriptionlist.clinic!.clinicName}  ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black45,
+                              fontSize: 10.sp,
+                              fontFamily: 'Tajawal'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -135,7 +143,7 @@ class MedicalRecipesItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  نعم  ',
+                        text: '  ${prescriptionlist.invoiceStatus}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black45,
@@ -157,7 +165,7 @@ class MedicalRecipesItem extends StatelessWidget {
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
                     context: context,
-                    builder: (context) => PrintMedicalRecipesButtomSheet(),
+                    builder: (context) => PrintMedicalRecipesButtomSheet(prescriptionlist),
                   );
                 },
                 child: Padding(
@@ -175,7 +183,7 @@ class MedicalRecipesItem extends StatelessWidget {
 
                     backgroundColor: Colors.transparent,
                     context: context,
-                    builder: (context) => PrintMedicalRecipesButtomSheet(),
+                    builder: (context) => PrintMedicalRecipesButtomSheet(prescriptionlist),
                   );
                 },
                 child: Padding(
