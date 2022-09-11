@@ -16,7 +16,7 @@ class DropDownItem extends StatefulWidget {
 }
 
 class _DropDownItenState extends State<DropDownItem> {
-  String global = "شركة1";
+  String? global;
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -32,7 +32,6 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
   late TextEditingController inId;
 
   XFile? _pickedImage;
-  double? _progressValue = 0;
   late ImagePicker _imagePicker;
 
 
@@ -153,8 +152,6 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
                         ),
                       ],
                     ),
-
-
                   ),
                 )
               ],
@@ -186,20 +183,6 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
     }
   }
 
-
-  // Future<void> _uploadImage() async {
-  //   setProgress();
-  //   ApiResponse<StudentImage> apiResponse = await ImagesGetxController.to.upload(path: _pickedImage!.path);
-  //   print(apiResponse.success);
-  //   print(apiResponse.message);
-  //   setProgress(value: apiResponse.success ? 1 : 0);
-  //   showSnackBar(context, message: apiResponse.message, error: !apiResponse.success);
-  // }
-
-  setProgress({double? value}) {
-    setState(() => _progressValue = value);
-  }
-
   bool _checkData() {
 
     if (userId.text.isNotEmpty &&
@@ -217,10 +200,12 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
     showLoaderDialog(context);
     ApiResponse apiResponse = await QuickServiceApiController().openFile(mobile: phone.text,name: name.text,identity_number: userId.text,insurance_number: inId.text,paying_type: inCompany.text,image:  _pickedImage!.path);
     if (apiResponse.success) {
+      Navigator.pop(context);
       showAlertDialog(context);
+    }else {
+      Navigator.pop(context);
     }
-    setProgress(value: apiResponse.success ? 1 : 0);
-    Navigator.pop(context);
+
     showSnackBar(
       context,
       message: apiResponse.message,
