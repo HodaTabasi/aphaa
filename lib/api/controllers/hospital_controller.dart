@@ -4,7 +4,9 @@ import 'dart:convert';
 import 'package:aphaa_app/api/api_settings.dart';
 import 'package:aphaa_app/model/Appointments.dart';
 import 'package:aphaa_app/model/FamillyMember.dart';
+import 'package:aphaa_app/model/LeaveDetail.dart';
 import 'package:aphaa_app/model/PrescriptionListItems.dart';
+import 'package:aphaa_app/model/SickLeaves.dart';
 import 'package:aphaa_app/model/doctor.dart';
 import '../../model/Clinic.dart';
 import '../../model/ServiceTest.dart';
@@ -157,34 +159,40 @@ class HospitalApiController with ApiHelper {
 
   }
 
-  getSickLeaves() async {
+  Future<List<SickLeaves>> getSickLeaves({patientCode}) async {
     final queryParameters = {
-      'patientCode': '0/32230',
+      'patientCode': '0/37416',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
       'lang': 'AR',
     };
     final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}sickLeaves', queryParameters);
+    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}sickLeaves', queryParameters);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
-      print("gggf");
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['leaves'] as List;
+      return jsonArray.map((jsonObject) => SickLeaves.fromJson(jsonObject)).toList();
     }
+    return [];
 
   }
 
-  getSickLeaveDtl() async {
+  Future<List<LeaveDetail>> getSickLeaveDtl({leaveId}) async {
     final queryParameters = {
-      'leaveId': '172',
+      'leaveId': '$leaveId',
       'lang': 'AR',
     };
     final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}sickLeaveDtl', queryParameters);
+    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}sickLeaveDtl', queryParameters);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
-      print("gggf");
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['leaveDetail'] as List;
+      return jsonArray.map((jsonObject) => LeaveDetail.fromJson(jsonObject)).toList();
     }
+    return [];
   }
 
   getSrvApvl() async {

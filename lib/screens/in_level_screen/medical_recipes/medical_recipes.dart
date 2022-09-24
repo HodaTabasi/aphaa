@@ -90,7 +90,6 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
               }
             },
           ),
-
         ],
       ),
       bottomSheet:  Image.asset(

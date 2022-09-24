@@ -10,8 +10,9 @@ class SickItem extends StatelessWidget {
   String sickDate;
   String sickName;
   String sickDocName;
+  String leaveId;
 
-  SickItem({required this.sickDate,required this.sickName, required this.sickDocName});
+  SickItem({required this.sickDate,required this.sickName, required this.sickDocName,required this.leaveId});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class SickItem extends StatelessWidget {
           isScrollControlled: false,
           backgroundColor: Colors.transparent,
           context: context,
-          builder: (context) => PrintButtomSheetSickLevel(),
+          builder: (context) => PrintButtomSheetSickLevel(this.leaveId),
         );
       },
       child: Container(
@@ -33,56 +34,58 @@ class SickItem extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 14.r),
-                  child: Text.rich(
-                    TextSpan(
-                      text: AppLocalizations.of(context)!.date_of_visit,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                          fontSize: 12.sp,
-                          fontFamily: 'Tajawal'),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '  $sickDate  ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black45,
-                              fontSize: 12.sp,
-                              fontFamily: 'Tajawal'),
-                        ),
-                      ],
+            FittedBox(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 14.r),
+                    child: Text.rich(
+                      TextSpan(
+                        text: AppLocalizations.of(context)!.date_of_visit,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                            fontSize: 11.sp,
+                            fontFamily: 'Tajawal'),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '  $sickDate  ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black45,
+                                fontSize: 10.sp,
+                                fontFamily: 'Tajawal'),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 14.r),
-                  child: Text.rich(
-                    TextSpan(
-                      text: AppLocalizations.of(context)!.physician,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                          fontSize: 12.sp,
-                          fontFamily: 'Tajawal'),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: ' $sickDocName  ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black45,
-                              fontSize: 12.sp,
-                              fontFamily: 'Tajawal'),
-                        ),
-                      ],
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 14.r),
+                    child: Text.rich(
+                      TextSpan(
+                        text: AppLocalizations.of(context)!.physician,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                            fontSize: 12.sp,
+                            fontFamily: 'Tajawal'),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: ' $sickDocName  ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black45,
+                                fontSize: 12.sp,
+                                fontFamily: 'Tajawal'),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
              Padding(
               padding: EdgeInsets.symmetric(horizontal: 80.0.h,),
