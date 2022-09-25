@@ -45,7 +45,6 @@ class _SendConsultScreenState extends State<SendConsultScreen>
     phone = TextEditingController(text: "0154421157");
     consultText = TextEditingController(text: "any thing");
     super.initState();
-
   }
 
   @override
@@ -109,45 +108,47 @@ class _SendConsultScreenState extends State<SendConsultScreen>
               )),
         ),
       ),
-      body: ListView(
-        children: [
-           SizedBox(
-            height: 10.h,
-          ),
-          Padding(
-            padding:  EdgeInsets.all(16.0.r),
-            child: Text(
-              AppLocalizations.of(context)!.head_of_consult_screen,
-              style:  TextStyle(
-                color: Colors.black,
-                fontSize: 15.sp,
-                fontFamily: 'Tajawal',
-                fontWeight: FontWeight.bold,
+      body: GetBuilder<NewAccountGetxController>(
+        builder: (value) => ListView(
+          children: [
+             SizedBox(
+              height: 10.h,
+            ),
+            Padding(
+              padding:  EdgeInsets.all(16.0.r),
+              child: Text(
+                AppLocalizations.of(context)!.head_of_consult_screen,
+                style:  TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.sp,
+                  fontFamily: 'Tajawal',
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.start,
               ),
-              textAlign: TextAlign.start,
             ),
-          ),
-          Form(
-            child: Column(
-              children: [
-                EditTextItem('assets/images/Profile.svg',AppLocalizations.of(context)!.pasent_name ,controler: name,),
-                EditTextItem('assets/images/Message.svg', AppLocalizations.of(context)!.email,controler: email,),
-                EditTextItem('assets/images/phone.svg', AppLocalizations.of(context)!.phone,controler: phone,),
-                DropDownItem(
-                    myData, 'assets/images/hospital.svg', AppLocalizations.of(context)!.clenice_choesse,dropIntValue: 3,),
-                DoctorDropDownItem(
-                    NewAccountGetxController.to.getListDoctor(), 'assets/images/docgreen.svg', AppLocalizations.of(context)!.dovtor_choesse,dropIntValue: 2,),
-                 TextAreaWidget(consultText)
-              ],
+            Form(
+              child: Column(
+                children: [
+                  EditTextItem('assets/images/Profile.svg',AppLocalizations.of(context)!.pasent_name ,controler: name,),
+                  EditTextItem('assets/images/Message.svg', AppLocalizations.of(context)!.email,controler: email,),
+                  EditTextItem('assets/images/phone.svg', AppLocalizations.of(context)!.phone,controler: phone,),
+                  DropDownItem(
+                      myData, 'assets/images/hospital.svg', AppLocalizations.of(context)!.clenice_choesse,dropIntValue: 3,),
+                  DoctorDropDownItem(
+                      value.getListDoctor(), 'assets/images/docgreen.svg', AppLocalizations.of(context)!.dovtor_choesse,dropIntValue: 2,),
+                   TextAreaWidget(consultText)
+                ],
+              ),
             ),
-          ),
-           SizedBox(height: 10.h),
-          BtnLayout(AppLocalizations.of(context)!.consult_send, () => _performAction()),
-          Image.asset(
-            "assets/images/image1.png",
-            fit: BoxFit.fitWidth,
-          ),
-        ],
+             SizedBox(height: 10.h),
+            BtnLayout(AppLocalizations.of(context)!.consult_send, () => _performAction()),
+            Image.asset(
+              "assets/images/image1.png",
+              fit: BoxFit.fitWidth,
+            ),
+          ],
+        ),
       ),
     );
   }

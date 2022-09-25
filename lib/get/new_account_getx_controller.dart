@@ -11,7 +11,7 @@ class NewAccountGetxController extends GetxController {
   RxBool isCitizen = false.obs;
  late Patient patient ;
   String companyName = "";
-  RxList<Doctor> doctorsList = <Doctor>[].obs ;
+  List<Doctor> doctorsList = [] ;
 
   void changeIsCitizen(value){
     isCitizen.value = value;
@@ -24,17 +24,17 @@ class NewAccountGetxController extends GetxController {
   }
 
   void changeMyDoctorList(List<Doctor> doctor){
-    doctorsList.value = doctor;
-    print("fgd ${doctorsList.value}");
-  }
-  List<Doctor> getListDoctor(){
-    return doctorsList.value;
+    doctorsList = doctor;
+    update();
   }
 
+  List<Doctor> getListDoctor(){
+    return doctorsList;
+  }
 
   Future<void> changeDropDownValue(value,dropType,{context}) async {
     var data = await HospitalApiController().getClDrs(clinicCode: value);
-    doctorsList.value =  data;
+    doctorsList =  data;
     update();
     // Navigator.pop(context);
    switch(dropType){
