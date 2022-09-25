@@ -8,9 +8,13 @@ import 'package:aphaa_app/model/LeaveDetail.dart';
 import 'package:aphaa_app/model/PrescriptionListItems.dart';
 import 'package:aphaa_app/model/SickLeaves.dart';
 import 'package:aphaa_app/model/doctor.dart';
+import 'package:aphaa_app/model/vitalSignsDils.dart';
+import '../../model/ApprovalItem.dart';
+import '../../model/Approvals.dart';
 import '../../model/Clinic.dart';
 import '../../model/ServiceTest.dart';
 import '../../model/prescriptionList.dart';
+import '../../model/vitalSign.dart';
 import '../api_helper.dart';
 import 'package:http/http.dart' as http;
 
@@ -195,37 +199,43 @@ class HospitalApiController with ApiHelper {
     return [];
   }
 
-  getSrvApvl() async {
+  Future<List<Approvals>> getSrvApvl({patientCode}) async {
     final queryParameters = {
-      'patientCode': '0/7702',
+      'patientCode': '$patientCode',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
       'lang': 'AR',
     };
     final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}srvApvl', queryParameters);
+    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}srvApvl', queryParameters);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
-      print("gggf");
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['approvals'] as List;
+      return jsonArray.map((jsonObject) => Approvals.fromJson(jsonObject)).toList();
     }
-
+    return [];
   }
 
-  getSrvApvlDtl() async {
+  Future<List<ApprovalItem>> getSrvApvlDtl({reqId}) async {
     final queryParameters = {
-      'reqId': '90008',
+      'reqId': '$reqId',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
       'lang': 'AR',
     };
     final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}srvApvl', queryParameters);
+    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}srvApvlDtl', queryParameters);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
-      print("gggf");
+    print(response.body);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['approvalItems'] as List;
+      return jsonArray.map((jsonObject) => ApprovalItem.fromJson(jsonObject)).toList();
     }
+    return [];
 
   }
 
@@ -241,7 +251,6 @@ class HospitalApiController with ApiHelper {
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}visitedDrs', queryParameters);
     final response = await http.get(uri);
-    print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['doctors'] as List;
@@ -250,37 +259,43 @@ class HospitalApiController with ApiHelper {
     return [];
   }
 
-  getPtVS() async {
+  Future<List<VitalSign>> getPtVS() async {
     final queryParameters = {
-      'patientCode': '90008',
+      'patientCode': '0/32230',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
       'lang': 'AR',
     };
     final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVS', queryParameters);
+    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVS', queryParameters);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
-      print("gggf");
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['vitalSigns'] as List;
+      return jsonArray.map((jsonObject) => VitalSign.fromJson(jsonObject)).toList();
     }
-
+    return [];
   }
 
-  getPtVSDtl() async {
+  Future<List<VitalSignDtils>> getPtVSDtl({vitalSignId}) async {
     final queryParameters = {
-      'vitalSignId': '2021-10-1000112511',
+      'vitalSignId': '$vitalSignId',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
       'lang': 'AR',
     };
     final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVSDtl', queryParameters);
+    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVSDtl', queryParameters);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
-      print("gggf");
+    print(response.body);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['vitalSigns'] as List;
+      return jsonArray.map((jsonObject) => VitalSignDtils.fromJson(jsonObject)).toList();
     }
+    return [];
 
   }
 

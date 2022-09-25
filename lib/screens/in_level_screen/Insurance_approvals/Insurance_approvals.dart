@@ -5,6 +5,9 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../api/controllers/hospital_controller.dart';
+import '../../../model/Approvals.dart';
+
 class InsuranceApprovals extends StatefulWidget {
 
   static String routeName = "/insurance_approvals";
@@ -57,13 +60,34 @@ class _InsuranceApprovalsState extends State<InsuranceApprovals> {
           ]),
       body: ListView(
         children: [
-          ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 6,
-              itemBuilder: (context,index){
-                return InsuranceItem();
-              }),
+          FutureBuilder<List<Approvals>>(
+            future: HospitalApiController().getSrvApvl(patientCode: '0/7702'),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return   ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context,index){
+                      return InsuranceItem(snapshot.data![index]);
+                    });
+              } else {
+                return Center(
+                  child: Text(
+                    'NO DATA',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
+            },
+          ),
           Image.asset(
             "assets/images/image1.png",
             fit: BoxFit.fitWidth,

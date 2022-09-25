@@ -1,3 +1,4 @@
+import 'package:aphaa_app/model/Approvals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,6 +7,9 @@ import 'insurance_buttom_sgeet.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InsuranceItem extends StatelessWidget {
+  Approvals approvals;
+  InsuranceItem(this.approvals);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -14,7 +18,7 @@ class InsuranceItem extends StatelessWidget {
           isScrollControlled: false,
           backgroundColor: Colors.transparent,
           context: context,
-          builder: (context) => InsuranceButtomSheet(),
+          builder: (context) => InsuranceButtomSheet(approvals.reqId),
         );
       },
       child: Stack(
@@ -50,7 +54,7 @@ class InsuranceItem extends StatelessWidget {
                       Padding(
                         padding:  EdgeInsets.all(10.0.r),
                         child: Text(
-                          '#2031456',
+                          '${approvals.reqId}',
                           style:  TextStyle(
                             color: Color(0xff2D2D2D),
                             fontSize: 12.sp,
@@ -76,15 +80,18 @@ class InsuranceItem extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Padding(
-                          padding:  EdgeInsets.all(8.0.r),
-                          child: Text(
-                            'هذا النص افتراضي ، هذا النص افتراضي ، هذا النص',
-                            style:  TextStyle(
-                              color: Color(0xff2D2D2D),
-                              fontSize: 12.sp,
-                              fontFamily: 'Tajawal',
-                              fontWeight: FontWeight.normal,
+                        Flexible(
+                          child: Padding(
+                            padding:  EdgeInsets.all(8.0.r),
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              '${approvals.reqDetails}',
+                              style:  TextStyle(
+                                color: Color(0xff2D2D2D),
+                                fontSize: 12.sp,
+                                fontFamily: 'Tajawal',
+                                fontWeight: FontWeight.normal,
+                              ),
                             ),
                           ),
                         ),
@@ -110,7 +117,7 @@ class InsuranceItem extends StatelessWidget {
                         topLeft: Radius.circular(8.r),
                         bottomRight: Radius.circular(20.r))),
                 child: Text(
-                  "مرفوض",
+                  "${approvals.reqStatus}",
                   style: TextStyle(
                       color: Colors.white, fontFamily: 'Tajawal', fontSize: 13.sp),
                   textAlign: TextAlign.center,
