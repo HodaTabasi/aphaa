@@ -1,5 +1,6 @@
 import 'package:aphaa_app/api/controllers/hospital_controller.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
+import 'package:aphaa_app/model/AvailableTime.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +13,11 @@ class NewAccountGetxController extends GetxController {
  late Patient patient ;
   String companyName = "";
   List<Doctor> doctorsList = [] ;
+  List<String> avilableDate = [];
+  List<AvailableTime> avilableTime = [];
+  String clinicCode = '';
+  String doctorCode = '';
+  String consultNo = '';
 
   void changeIsCitizen(value){
     isCitizen.value = value;
@@ -27,9 +33,19 @@ class NewAccountGetxController extends GetxController {
     doctorsList = doctor;
     update();
   }
+  void changeDoctorTimeList(List<AvailableTime> time){
+    avilableTime = time;
+    update();
+  }
 
   List<Doctor> getListDoctor(){
     return doctorsList;
+  }
+
+  getDoctorSchedules(value) async {
+    var data = await HospitalApiController().getDoctorSched(doctorCode: value,clinicCode: clinicCode);
+    avilableDate =  data;
+    update();
   }
 
   Future<void> changeDropDownValue(value,dropType,{context}) async {

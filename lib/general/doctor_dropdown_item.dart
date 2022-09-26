@@ -64,10 +64,11 @@ class _DropDownItenState extends State<DoctorDropDownItem> {
                     ),
                   ),
                   onChanged: (String? val){
+                    print("ffffff ${val}");
                     setState(() {
                       global = val!;
-                      print(val);
-                      QuickServiceGetxController.to.changeDoctorName(val);
+                      NewAccountGetxController.to.doctorCode = val;
+                      NewAccountGetxController.to.getDoctorSchedules(val) ;
                     });
                   },
                   value: global,

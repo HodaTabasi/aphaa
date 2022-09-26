@@ -1,3 +1,5 @@
+import 'package:aphaa_app/get/new_account_getx_controller.dart';
+import 'package:aphaa_app/model/AvailableTime.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,13 +9,14 @@ class TimeAppoitmentItem extends StatelessWidget {
   int value;
   int groupValue;
   ValueChanged onChanged;
+  AvailableTime? data;
 
 
   TimeAppoitmentItem({
     required this.title,
     required this.value,
     required this.groupValue,
-    required this.onChanged});
+    required this.onChanged,   this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,7 @@ class TimeAppoitmentItem extends StatelessWidget {
     return InkWell(
       onTap: (){
         onChanged(value);
+        NewAccountGetxController.to.consultNo = data!.consultSNo!;
       },
       child: Container(
         padding: EdgeInsets.all(8.r),
@@ -41,7 +45,7 @@ class TimeAppoitmentItem extends StatelessWidget {
             SizedBox(
               height: 5.h,
             ),
-            Text('10:00 pm',
+            Text('${data?.consultTime}',
                 style:  TextStyle(
                   color: Colors.black,
                   fontSize: 13.sp,
@@ -61,7 +65,7 @@ class TimeAppoitmentItem extends StatelessWidget {
             SizedBox(
               height: 8.h,
             ),
-            Text('12:00 pm',
+            Text('${data?.consultTime24}',
                 style:  TextStyle(
                   color: Colors.black,
                   fontSize: 13.sp,

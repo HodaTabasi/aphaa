@@ -61,6 +61,7 @@ class _DropDownItenState extends State<DropDownItem> {
                   onChanged: (val) {
                     setState(() {
                       global = val!;
+                      NewAccountGetxController.to.clinicCode = val;
                       NewAccountGetxController.to.changeDropDownValue(val, widget.dropIntValue) ;
                       setState(() {
                       });

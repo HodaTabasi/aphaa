@@ -11,7 +11,7 @@ class ApiSettings {
   static const String showOffers = '${_baseUrl}show/offers';
   static const String getProfile = '${_baseUrl}profile';
   static const String editProfile = '${_baseUrl}update-Profile';
-  static const String getAllDoctors = '${_baseUrl}doctors';
+  static const String getAllDoctors = '${_baseUrl}dashboard/doctors';
   static const String getOnDoctor = '${_baseUrl}doctor/{id}';
 
   //////////////////////////////////////

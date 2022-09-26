@@ -2,15 +2,21 @@ import 'package:aphaa_app/general/doctor_dropdown_item.dart';
 import 'package:aphaa_app/helper/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
+import 'package:flutter_calendar_carousel/classes/marked_date.dart';
+import 'package:flutter_calendar_carousel/classes/multiple_marked_dates.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../../../api/controllers/App_api_controller.dart';
+import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/dropdown_item.dart';
 import '../../../general/edittext_item.dart';
+import '../../../get/new_account_getx_controller.dart';
+import '../../../model/Clinic.dart';
 import '../../../model/doctor.dart';
 import '../../../preferences/shared_pref_controller.dart';
 import '../../main_screens/Appointment Booking/time_appoiment_item.dart';
@@ -29,7 +35,7 @@ class MyAppointmentBooking extends StatefulWidget {
 
 class _MyAppointmentBookingState extends State<MyAppointmentBooking>
     with Helpers ,myHelper.Helpers{
-  var myData =["شركة1", "شركة2", "شركة3"];
+  List<Clinic> myData = [];
   List<Doctor> myDataDoctor = [];
 
   late TextEditingController name;
@@ -54,8 +60,18 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    getAllDoctors();
+    getListsData();
   }
+  getListsData() async {
+    myData = await HospitalApiController().getClList() ?? [];
+    Future.delayed(Duration.zero, () async {
+      await HospitalApiController().getClDrs(clinicCode: myData[0].clinicCode).then((value) {
+        NewAccountGetxController.to.changeMyDoctorList(value);
+        myDataDoctor = value;
+      });
+    });
+  }
+
   Future<void> getAllDoctors() async {
     myDataDoctor = await AppApiController().getAllDoctors();
     setState(() {
@@ -94,100 +110,109 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
         //       size: 15,
         //     )),
       ),
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 10.h,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              AppLocalizations.of(context)!.head_of_appoitment_screen,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15.sp,
-                fontFamily: 'Tajawal',
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.start,
+      body: GetBuilder<NewAccountGetxController>(
+        builder: (value) =>ListView(
+          children: [
+            SizedBox(
+              height: 10.h,
             ),
-          ),
-          Form(
-            child: Column(
-              children: [
-                // DropDownItem(myData, 'assets/images/hospital.svg',
-                //     AppLocalizations.of(context)!.clenice_choesse),
-                DoctorDropDownItem(myDataDoctor, 'assets/images/docgreen.svg',
-                    AppLocalizations.of(context)!.dovtor_choesse),
-                EditTextItem('assets/images/Calendar.svg',
-                    AppLocalizations.of(context)!.appoitment_date),
-                widget1(),
-                Padding(
-                  padding: EdgeInsets.all(16.0.r),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.access_time_outlined,
-                        color: Colors.green,
-                        size: 23.sp,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
-                        child: Text(
-                          AppLocalizations.of(context)!.time,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontFamily: 'Tajawal',
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                AppLocalizations.of(context)!.head_of_appoitment_screen,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.sp,
+                  fontFamily: 'Tajawal',
+                  fontWeight: FontWeight.bold,
                 ),
-                Padding(
-                  padding: EdgeInsets.all(8.0.r),
-                  child: SizedBox(
-                    height: 100.h,
-                    // width: 80,
-                    child: GridView.builder(
-                      itemCount: 3,
-                      padding: EdgeInsets.symmetric(horizontal: 10.h),
-                      scrollDirection: Axis.horizontal,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1,
-                          mainAxisSpacing: 10.h,
-                          childAspectRatio: 280 / 200),
-                      itemBuilder: (context, index) {
-                        return TimeAppoitmentItem(
-                            title: "",
-                            value: index,
-                            groupValue: _value,
-                            onChanged: (value) => setState(() {
-                                  _value = value;
-                                }));
-                      },
+                textAlign: TextAlign.start,
+              ),
+            ),
+            Form(
+              child: Column(
+                children: [
+                  DropDownItem(myData, 'assets/images/hospital.svg',
+                      AppLocalizations.of(context)!.clenice_choesse),
+                  DoctorDropDownItem(value.doctorsList, 'assets/images/docgreen.svg',
+                      AppLocalizations.of(context)!.dovtor_choesse),
+                  EditTextItem('assets/images/Calendar.svg',
+                      AppLocalizations.of(context)!.appoitment_date,b: false,controler: dateText),
+                  widget1(value.avilableDate,value),
+                  Padding(
+                    padding: EdgeInsets.all(16.0.r),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.access_time_outlined,
+                          color: Colors.green,
+                          size: 23.sp,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
+                          child: Text(
+                            AppLocalizations.of(context)!.time,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14.sp,
+                              fontFamily: 'Tajawal',
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: EdgeInsets.all(8.0.r),
+                    child: SizedBox(
+                      height: 100.h,
+                      // width: 80,
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        itemCount: value.avilableTime.length,
+                        padding: EdgeInsets.symmetric(horizontal: 10.h),
+                        scrollDirection: Axis.horizontal,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            mainAxisSpacing: 10.h,
+                            childAspectRatio: 280 / 200),
+                        itemBuilder: (context, index) {
+                          return TimeAppoitmentItem(
+                            data:value.avilableTime[index],
+                              title: "",
+                              value: index,
+                              groupValue: _value,
+                              onChanged: (value) => setState(() {
+                                    _value = value;
+                                  }));
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 10.h),
-          BtnLayout(AppLocalizations.of(context)!.appointment, () {
-            showAlertDialog(context);
-          }),
-          Image.asset(
-            "assets/images/image1.png",
-            fit: BoxFit.fitWidth,
-          ),
-        ],
+            SizedBox(height: 10.h),
+            BtnLayout(AppLocalizations.of(context)!.appointment, () {
+              showAlertDialog(context);
+            }),
+            Image.asset(
+              "assets/images/image1.png",
+              fit: BoxFit.fitWidth,
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget widget1() {
+  Widget widget1(List<String> markedDateMap, NewAccountGetxController value) {
+
+    List<DateTime> event = markedDateMap.map((e){
+      return DateTime.parse(e);
+    }).toList();
+    print(event);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
@@ -197,12 +222,17 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
               .getValueFor<String>(key: PrefKeys.lang.name) ??
               'ar',
           pageScrollPhysics: const NeverScrollableScrollPhysics(),
-          onDayPressed: (DateTime date, List<Event> events) {
-            this.setState(() {
+          onDayPressed: (DateTime date, List<Event> events) async {
+            this.setState(()  {
               _currentDate = date;
               dateText.text =
               "${_currentDate!.year}-${_currentDate!.month}-${_currentDate!.day}";
             });
+            if(event.contains(_currentDate)){
+              await HospitalApiController().getDoctorSchedDtl(clinicCode: value.clinicCode,doctorCode: value.doctorCode,availableDay: _currentDate);
+            } else {
+              showRigectAlertDialog(context);
+            }
           },
           weekendTextStyle: const TextStyle(
             color: Colors.black,
@@ -235,6 +265,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
             // } else {
             //   return null;
             // }
+
           },
           weekFormat: false,
           // markedDatesMap: _markedDateMap,
@@ -277,7 +308,15 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
           daysHaveCircularBorder: true,
           showHeaderButton: false,
           headerMargin: EdgeInsets.all(16),
-
+          isScrollable: true,
+          multipleMarkedDates: MultipleMarkedDates(markedDates:event.map((e) {
+            return MarkedDate(color: Color(0xffedeef5), date: e,textStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 16.sp,
+              fontFamily: 'Tajawal',
+              fontWeight: FontWeight.normal,
+            ));
+          }).toList() ),
           /// null for not rendering any border, true for circular border, false for rectangular border
         ),
       ),

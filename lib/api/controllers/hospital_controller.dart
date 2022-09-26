@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:aphaa_app/api/api_settings.dart';
+import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/model/Appointments.dart';
+import 'package:aphaa_app/model/AvailableTime.dart';
 import 'package:aphaa_app/model/FamillyMember.dart';
 import 'package:aphaa_app/model/LeaveDetail.dart';
 import 'package:aphaa_app/model/PrescriptionListItems.dart';
@@ -299,9 +301,9 @@ class HospitalApiController with ApiHelper {
 
   }
 
-  getPtElg() async {
+  getPtElg({patientId}) async {
     final queryParameters = {
-      'patientId': '2320128214',
+      'patientId': '$patientId',
       'lang': 'AR',
     };
     final uri =
@@ -399,8 +401,10 @@ class HospitalApiController with ApiHelper {
 
   }
 
-  getDoctorSched() async {
+  Future<List<String>> getDoctorSched({clinicCode,doctorCode}) async {
     final queryParameters = {
+      'clinicCode':'$clinicCode',
+      'doctorCode':'$doctorCode',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
@@ -408,16 +412,26 @@ class HospitalApiController with ApiHelper {
     };
 
     final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase2}DoctorSched', queryParameters);
+    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase2}DoctorSched', queryParameters);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
-      print("gggf");
-    }
 
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['availableDays'] as List;
+      return jsonArray.map((jsonObject) {
+        String s =jsonObject['availableDay'];
+        return s;
+      }).toList();
+    }
+    return [];
   }
 
-  getDoctorSchedDtl() async {
+  Future<List<AvailableTime>> getDoctorSchedDtl({clinicCode, doctorCode,availableDay}) async {
+
     final queryParameters = {
+      'clinicCode':'$clinicCode',
+      'doctorCode':'$doctorCode',
+      'availableDay':'${availableDay.toString().split(" ").first}',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
@@ -425,12 +439,13 @@ class HospitalApiController with ApiHelper {
     };
 
     final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase2}DoctorSchedDtl', queryParameters);
+    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase2}DoctorSchedDtl', queryParameters);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
-      print("gggf");
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['availableTimes'] as List;
+      NewAccountGetxController.to.changeDoctorTimeList(jsonArray.map((jsonObject) =>AvailableTime.fromJson(jsonObject)).toList());
     }
-
+    return [];
   }
-
 }
