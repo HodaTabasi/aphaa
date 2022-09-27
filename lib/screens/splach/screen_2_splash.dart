@@ -14,20 +14,22 @@ class Screen2Splash extends StatefulWidget {
 }
 
 class _Screen2SplashState extends State<Screen2Splash> with TickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 2),
-    vsync: this,
-  )..repeat(reverse: false);
+  // late final AnimationController _controller = AnimationController(
+  //   duration: const Duration(seconds: 2),
+  //   vsync: this,
+  // )..repeat(reverse: false);
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  bool play = false;
+
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    Future.delayed(Duration(milliseconds: 500),() {
+      play = true;
+      setState(() {
+      });
+    },);
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -35,42 +37,126 @@ class _Screen2SplashState extends State<Screen2Splash> with TickerProviderStateM
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.fitWidth)),
         child: Center(
-            child: Column(
+            child: Stack(
               children: [
-                const Spacer(),
-                Image.asset('assets/images/logo.png',),
-                SizedBox(height: 40.h,),
-                 Text(
-                  '''مـــرحـــبــًا بــكــم فــي مـــســـتـــشـــفـــى
+                // const Spacer(),
+                AnimatedPositioned(
+                  height: play?MediaQuery.of(context).size.height/0.9 : 0,
+                  left: 0,
+                  right: 0,
+                  bottom: play?100:0,
+                  duration: Duration(milliseconds: 1200),
+                    curve: Curves.easeInOut,
+                    child: Image.asset('assets/images/logo.png',)),
+                // SizedBox(height: 40.h,),
+                AnimatedPositioned(
+                  height: play?MediaQuery.of(context).size.height/2.6 : 0,
+                  left: 0,
+                  right: 0,
+                  bottom: play?100:0,
+                  duration: Duration(milliseconds: 1300),
+                  curve: Curves.easeInOut,
+                  child: Text(
+                    '''مـــرحـــبــًا بــكــم فــي مـــســـتـــشـــفـــى
 أبــــهـــا الـــخـــاص الـــطـــبـــي''',
-                  style: TextStyle(color: Color(0xff0E4C8F), fontSize: 22.sp
-                      ,fontFamily: 'Tajawal',fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+                    style: TextStyle(color: Color(0xff0E4C8F), fontSize: 22.sp
+                        ,fontFamily: 'Tajawal',fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                 SizedBox(height: 60.h,),
-                 Text('التطور والريادة',style: TextStyle(color: Color(0xff058638), fontSize: 16.sp,fontFamily: 'atef',fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,),
-                 SizedBox(height: 60.h,),
-                AvatarGlow(
-                  endRadius: 35.0.r,
-                  showTwoGlows: true,
-                  glowColor: Color(0xff8CABCD),
-                  animate: true,
+                // SizedBox(height: 60.h,),
+                AnimatedPositioned(
+                  height: play?MediaQuery.of(context).size.height/3.4 : 0,
+                  left: 0,
+                  right: 0,
+                  bottom: play?100:0,
+                  duration: Duration(milliseconds: 1400),
+                  curve: Curves.easeInOut,
+                  child: Text('التطور والريادة',style: TextStyle(color: Color(0xff058638), fontSize: 16.sp,fontFamily: 'atef',fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,),
+                ),
+                // SizedBox(height: 60.h,),
+                AnimatedPositioned(
+                  height: play?MediaQuery.of(context).size.height/2.7 : 0,
+                  left: 0,
+                  right: 0,
+                  bottom: play?50:0,
+                  duration: Duration(milliseconds: 1500),
                   curve: Curves.easeInCubic,
-                  child: InkWell(
-                    onTap: () => Navigator.pushReplacementNamed(context, SelectLanguage.routeName),
-                    child: Image.asset(
-                      'assets/images/icon1.png',
-                      height: 50.h,
+                  child: AvatarGlow(
+                    endRadius: 35.0.r,
+                    showTwoGlows: true,
+                    glowColor: Color(0xff8CABCD),
+                    animate: true,
+                    curve: Curves.easeInCubic,
+                    child: InkWell(
+                      onTap: () => Navigator.pushReplacementNamed(context, SelectLanguage.routeName),
+                      child: Image.asset(
+                        'assets/images/icon1.png',
+                        height: 50.h,
+                      ),
                     ),
                   ),
                 ),
-                const Spacer()
+//                 const Spacer()
               ],
             )),
       ),
     );
   }
 
+
+
+//   @override
+//   Widget build(BuildContext context) {
+//     SizeConfig().init(context);
+//     return Scaffold(
+//       body: Container(
+//         decoration: const BoxDecoration(
+//             image: DecorationImage(
+//                 image: AssetImage('assets/images/background.png'),
+//                 fit: BoxFit.fitWidth)),
+//         child: Center(
+//             child: Column(
+//               children: [
+//                 const Spacer(),
+//                 Image.asset('assets/images/logo.png',),
+//                 SizedBox(height: 40.h,),
+//                  Text(
+//                   '''مـــرحـــبــًا بــكــم فــي مـــســـتـــشـــفـــى
+// أبــــهـــا الـــخـــاص الـــطـــبـــي''',
+//                   style: TextStyle(color: Color(0xff0E4C8F), fontSize: 22.sp
+//                       ,fontFamily: 'Tajawal',fontWeight: FontWeight.bold),
+//                   textAlign: TextAlign.center,
+//                 ),
+//                  SizedBox(height: 60.h,),
+//                  Text('التطور والريادة',style: TextStyle(color: Color(0xff058638), fontSize: 16.sp,fontFamily: 'atef',fontWeight: FontWeight.bold),
+//                   textAlign: TextAlign.center,),
+//                  SizedBox(height: 60.h,),
+//                 AvatarGlow(
+//                   endRadius: 35.0.r,
+//                   showTwoGlows: true,
+//                   glowColor: Color(0xff8CABCD),
+//                   animate: true,
+//                   curve: Curves.easeInCubic,
+//                   child: InkWell(
+//                     onTap: () => Navigator.pushReplacementNamed(context, SelectLanguage.routeName),
+//                     child: Image.asset(
+//                       'assets/images/icon1.png',
+//                       height: 50.h,
+//                     ),
+//                   ),
+//                 ),
+//                 const Spacer()
+//               ],
+//             )),
+//       ),
+//     );
+//   }
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
 
 }
