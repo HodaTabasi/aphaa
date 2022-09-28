@@ -29,10 +29,11 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   bool v = false;
 
   var instalation;
-  late Doctor doctor;
+  // late Doctor doctor;
 
   @override
   void initState() {
+    // getDoctorData();
     super.initState();
     _controller = VideoPlayerController.network(
         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
@@ -40,11 +41,10 @@ class _DoctorDetailsState extends State<DoctorDetails> {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
       });
-    getDoctorData();
   }
-  getDoctorData() async {
-    doctor = await HospitalApiController().getDoctorDtl(doctorCode:QuickServiceGetxController.to.doctor?.doctorCode ) ?? Doctor();
-  }
+  // getDoctorData() async {
+  //   doctor = await HospitalApiController().getDoctorDtl(doctorCode:QuickServiceGetxController.to.doctor?.doctorCode ) ?? Doctor();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -96,166 +96,188 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               ),
             ),
           ]),
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 10.h,
-          ),
-          Container(
-            height: 260.h,
-            margin: EdgeInsets.all(16.r),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10.r)),
-              border: Border.all(color: Color(0xff0E4C8F), width: 0.8.r),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(8.0.r),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0.r),
-                child: Image.network(
-                  doctor.img!,
-                  // width: 144,
-                  // height: 114,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 8.0.r),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: FutureBuilder<Doctor?>(
+        future: HospitalApiController().getDoctorDtl(doctorCode:QuickServiceGetxController.to.doctor?.doctorCode ),
+        builder:(context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasData && snapshot.data != null) {
+            return  ListView(
               children: [
-                Text(
-                  doctor.doctorName!,
-                  style: TextStyle(
-                    color: Color(0xff2D2D2D),
-                    fontSize: 15.sp,
-                    fontFamily: 'Tajawal',
-                    fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: 10.h,
+                ),
+                Container(
+                  height: 260.h,
+                  margin: EdgeInsets.all(16.r),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                    border: Border.all(color: Color(0xff0E4C8F), width: 0.8.r),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0.r),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0.r),
+                      child: Image.network(
+                        snapshot.data!.img!,
+                        // width: 144,
+                        // height: 114,
+                      ),
+                    ),
                   ),
                 ),
-                Text(
-                  doctor.clinicName!,
-                  style: TextStyle(
-                    color: Color(0xff2D2D2D),
-                    fontSize: 15.sp,
-                    fontFamily: 'Tajawal',
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 8.0.r),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        snapshot.data!.doctorName!,
+                        style: TextStyle(
+                          color: Color(0xff2D2D2D),
+                          fontSize: 15.sp,
+                          fontFamily: 'Tajawal',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        snapshot.data!.clinicName!,
+                        style: TextStyle(
+                          color: Color(0xff2D2D2D),
+                          fontSize: 15.sp,
+                          fontFamily: 'Tajawal',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50.0.r, vertical: 8.r),
+                  child: MySeparator(color: Color(0xff058638)),
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                  child: Text(
+                    AppLocalizations.of(context)!.about_me,
+                    style: TextStyle(
+                      color: Color(0xff2D2D2D),
+                      fontSize: 15.r,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                  child: Text(
+                    snapshot.data!.sciMainInfo![0],
+                    style: TextStyle(
+                        color: Color(0xff2D2D2D),
+                        fontSize: 15.sp,
+                        fontFamily: 'Tajawal',
+                        height: 2
+                      // fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                  child: Row(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.date_of_visit,
+                        style: TextStyle(
+                          color: Color(0xff2D2D2D),
+                          fontSize: 15.sp,
+                          fontFamily: 'Tajawal',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: EdgeInsets.all(8.0.r),
+                        child: InkWell(
+                          onTap: () =>
+                              Navigator.pushNamed(context, MedicalRecipes.routeName),
+                          child: SvgPicture.asset(
+                            'assets/images/image4.svg',
+                            semanticsLabel: 'Acme Logo',
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () =>
+                            Navigator.pushNamed(context, MedicalRecipes.routeName),
+                        child: SvgPicture.asset(
+                          'assets/images/image3.svg',
+                          semanticsLabel: 'Acme Logo',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0.r),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: BtnLayout(
+                              AppLocalizations.of(context)!.book_an_appointment, () {
+                            if (SharedPrefController().token != null ||
+                                SharedPrefController().token.isNotEmpty) {
+                              Navigator.push(
+                                  context, MaterialPageRoute(builder: (context)=>MyAppointmentBooking(flag:false)));
+                            } else {
+                              Navigator.pushNamed(context, AppointmentBooking.routeName);
+                            }
+                          })),
+                      Padding(
+                        padding: EdgeInsets.all(8.0.r),
+                        child: InkWell(
+                          onTap: () {
+                            showVidetAlertDialog(context);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/images/image5.svg',
+                            semanticsLabel: 'Acme Logo',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Image.asset(
+                  "assets/images/image1.png",
+                  fit: BoxFit.fitWidth,
                 ),
               ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50.0.r, vertical: 8.r),
-            child: MySeparator(color: Color(0xff058638)),
-          ),
-          SizedBox(
-            height: 30.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-            child: Text(
-              AppLocalizations.of(context)!.about_me,
-              style: TextStyle(
-                color: Color(0xff2D2D2D),
-                fontSize: 15.r,
-                fontFamily: 'Tajawal',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-            child: Text(
-              doctor.sciMainInfo![0],
-              style: TextStyle(
-                  color: Color(0xff2D2D2D),
-                  fontSize: 15.sp,
+            );
+          } else {
+            return Center(
+              child: Text(
+                'NO DATA',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
                   fontFamily: 'Tajawal',
-                  height: 2
-                  // fontWeight: FontWeight.normal,
-                  ),
-            ),
-          ),
-          SizedBox(
-            height: 15.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-            child: Row(
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.date_of_visit,
-                  style: TextStyle(
-                    color: Color(0xff2D2D2D),
-                    fontSize: 15.sp,
-                    fontFamily: 'Tajawal',
-                    fontWeight: FontWeight.bold,
-                  ),
+                  fontWeight: FontWeight.bold,
                 ),
-                Spacer(),
-                Padding(
-                  padding: EdgeInsets.all(8.0.r),
-                  child: InkWell(
-                    onTap: () =>
-                        Navigator.pushNamed(context, MedicalRecipes.routeName),
-                    child: SvgPicture.asset(
-                      'assets/images/image4.svg',
-                      semanticsLabel: 'Acme Logo',
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () =>
-                      Navigator.pushNamed(context, MedicalRecipes.routeName),
-                  child: SvgPicture.asset(
-                    'assets/images/image3.svg',
-                    semanticsLabel: 'Acme Logo',
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0.r),
-            child: Row(
-              children: [
-                Expanded(
-                    child: BtnLayout(
-                        AppLocalizations.of(context)!.book_an_appointment, () {
-                  if (SharedPrefController().token != null ||
-                      SharedPrefController().token.isNotEmpty) {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (context)=>MyAppointmentBooking(flag:false)));
-                  } else {
-                    Navigator.pushNamed(context, AppointmentBooking.routeName);
-                  }
-                })),
-                Padding(
-                  padding: EdgeInsets.all(8.0.r),
-                  child: InkWell(
-                    onTap: () {
-                      showVidetAlertDialog(context);
-                    },
-                    child: SvgPicture.asset(
-                      'assets/images/image5.svg',
-                      semanticsLabel: 'Acme Logo',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Image.asset(
-            "assets/images/image1.png",
-            fit: BoxFit.fitWidth,
-          ),
-        ],
+              ),
+            );
+          }
+        },
+
       ),
     );
   }

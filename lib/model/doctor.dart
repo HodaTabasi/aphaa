@@ -3,9 +3,9 @@ class Doctor {
   String? doctorName;
   String? clinicName;
   String? img;
-  List<String>? sciMainInfo;
-  List<String>? pastExpInfo;
-  List<String>? medSrvInfo;
+  List<dynamic>? sciMainInfo;
+  List<dynamic>? pastExpInfo;
+  List<dynamic>? medSrvInfo;
   List<DrSkillInfo>? drSkillInfo;
 
   Doctor(

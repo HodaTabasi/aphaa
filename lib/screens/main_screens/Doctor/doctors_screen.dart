@@ -1,9 +1,9 @@
+import 'package:aphaa_app/api/controllers/hospital_controller.dart';
 import 'package:aphaa_app/model/doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../api/controllers/App_api_controller.dart';
 import '../Appointment Booking/doctor_filtter.dart';
 import 'DoctorItem.dart';
 
@@ -117,7 +117,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             height: 10.h,
           ),
           FutureBuilder<List<Doctor>>(
-            future: AppApiController().getAllDoctors(),
+            future: HospitalApiController().getClDrs(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
