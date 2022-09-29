@@ -39,6 +39,7 @@ class AuthApiController with ApiHelper {
         var jsonObject = jsonResponse['items'];
         Patient student = Patient.fromJson(jsonObject);
         SharedPrefController().save(student: student);
+        SharedPrefController().setValuePCode(pCode: jsonObject["p_code"]);
       }
       return ApiResponse(
           message: jsonResponse['message'], success: jsonResponse['status']);

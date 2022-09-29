@@ -70,7 +70,7 @@ class _FamillyScreenState extends State<FamillyScreen> {
       body: ListView(
         children: [
           FutureBuilder<List<FamillyMember>>(
-            future: HospitalApiController().getFamilyMembers(SharedPrefController().getValueFor(key: "medicalId")),
+            future: HospitalApiController().getFamilyMembers(SharedPrefController().getValueFor(key: "p_code")),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

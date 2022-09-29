@@ -213,7 +213,6 @@ class _LoginScreenState extends State<LoginScreen> with Helpers{
         password: _passwordTextController.text);
     if (apiResponse.success) {
       Navigator.pop(context);
-      SharedPrefController().saveMedicalId("0/372081");
       Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
     }else {
       Navigator.pop(context);

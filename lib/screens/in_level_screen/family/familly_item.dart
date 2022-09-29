@@ -16,7 +16,7 @@ class FamillyItem extends StatelessWidget {
     return  InkWell(
       onTap: (){
         print(famillyMember.medicFileNumber);
-        SharedPrefController().saveMedicalId(famillyMember.medicFileNumber);
+        SharedPrefController().setValuePCode(pCode: famillyMember.medicFileNumber!);
         print("dfsd ${SharedPrefController().getValueFor(key: "medicalId")}");
         Navigator.of(context)
             .pushNamedAndRemoveUntil(ButtomNavigations.routeName, (Route<dynamic> route) => false);

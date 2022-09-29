@@ -113,9 +113,9 @@ class SharedPrefController {
     return _sharedPreferences.clear();
   }
 
-  saveMedicalId(id) async {
-    await _sharedPreferences.setString("medicalId",id );
-  }
+  // saveMedicalId(id) async {
+  //   await _sharedPreferences.setString("medicalId",id );
+  // }
 }
 
 // class Shape {
