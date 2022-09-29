@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../preferences/shared_pref_controller.dart';
 
 class TestResults extends StatefulWidget {
   static String routeName = "/TestResults";
@@ -47,7 +48,7 @@ class _TestResultsState extends State<TestResults> {
             )),
       ),
       body: FutureBuilder<List<ServiceTest>>(
-        future: HospitalApiController().getLabReports(),
+        future: HospitalApiController().getLabReports(patientCode: SharedPrefController().getValueFor(key: "p_code")),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

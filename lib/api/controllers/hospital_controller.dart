@@ -18,6 +18,7 @@ import '../../model/Clinic.dart';
 import '../../model/ServiceTest.dart';
 import '../../model/prescriptionList.dart';
 import '../../model/vitalSign.dart';
+import '../../preferences/shared_pref_controller.dart';
 import '../api_helper.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,7 +31,8 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
 
     final uri =
@@ -45,13 +47,15 @@ class HospitalApiController with ApiHelper {
     return [];
   }
 
-  Future<List<ServiceTest>> getLabReports() async {
+  Future<List<ServiceTest>> getLabReports({patientCode}) async {
     final queryParameters = {
-      'patientCode': '0/372081',
+      'patientCode': '$patientCode',
+      // 'patientCode': '0/372081',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}labReports', queryParameters);
@@ -65,13 +69,15 @@ class HospitalApiController with ApiHelper {
 
   }
 
-  getRadReports() async {
+  getRadReports({patientCode}) async {
     final queryParameters = {
-      'patientCode': '0/372081',
+      'patientCode': '$patientCode',
+      // 'patientCode': '0/372081',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}radReports', queryParameters);
@@ -84,11 +90,13 @@ class HospitalApiController with ApiHelper {
 
   Future<List<Appointments>> getNextAppt({patientCode}) async {
     final queryParameters = {
-      'patientCode': '0/32230',
+      'patientCode': '$patientCode',
+      // 'patientCode': '0/32230',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}nextAppt', queryParameters);
@@ -104,11 +112,13 @@ class HospitalApiController with ApiHelper {
 
   Future<List<Appointments>> getPrevAppt({patientCode}) async {
     final queryParameters = {
-      'patientCode': '0/32230',
+      'patientCode': '$patientCode',
+      // 'patientCode': '0/32230',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}prevAppt', queryParameters);
@@ -124,11 +134,13 @@ class HospitalApiController with ApiHelper {
 
   Future<List<prescriptionList>> getRxList({patientCode}) async {
     final queryParameters = {
-      'patientCode': '0/32230',
+      'patientCode': '$patientCode',
+      // 'patientCode': '0/32230',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}rxList', queryParameters);
@@ -143,13 +155,17 @@ class HospitalApiController with ApiHelper {
 
   Future<PrescriptionListItems?> getRxItems({invoiceNo,invoiceDate,invoiceType}) async {
     final queryParameters = {
-      'invoiceNo': '3926',
-      'invoiceDate': '2020-12-21',
-      'invoiceType': '1',
+      'invoiceNo': '$invoiceNo',
+      // 'invoiceNo': '3926',
+      'invoiceDate': '$invoiceDate',
+      // 'invoiceDate': '2020-12-21',
+      'invoiceType': '$invoiceType',
+      // 'invoiceType': '1',
       'pageNo': '1',
       'offset': '1',
       'rows': '5',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}rxItems', queryParameters);
@@ -168,11 +184,12 @@ class HospitalApiController with ApiHelper {
 
   Future<List<SickLeaves>> getSickLeaves({patientCode}) async {
     final queryParameters = {
-      'patientCode': '0/37416',
+      'patientCode': '$patientCode',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}sickLeaves', queryParameters);
@@ -189,7 +206,8 @@ class HospitalApiController with ApiHelper {
   Future<List<LeaveDetail>> getSickLeaveDtl({leaveId}) async {
     final queryParameters = {
       'leaveId': '$leaveId',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}sickLeaveDtl', queryParameters);
@@ -208,7 +226,8 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}srvApvl', queryParameters);
@@ -227,7 +246,8 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}srvApvlDtl', queryParameters);
@@ -242,13 +262,15 @@ class HospitalApiController with ApiHelper {
 
   }
 
-  Future<List<Doctor>> getVisitedDrs() async {
+  Future<List<Doctor>> getVisitedDrs({patientCode}) async {
     final queryParameters = {
-      'patientCode': '0/32230',
+      'patientCode': '$patientCode',
+      // 'patientCode': '0/32230',
       'pageNo': '1',
       'offset': '1',
       'rows': '5',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
 
     final uri =
@@ -262,13 +284,14 @@ class HospitalApiController with ApiHelper {
     return [];
   }
 
-  Future<List<VitalSign>> getPtVS() async {
+  Future<List<VitalSign>> getPtVS({patientCode}) async {
     final queryParameters = {
-      'patientCode': '0/32230',
+      'patientCode': '$patientCode',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVS', queryParameters);
@@ -287,7 +310,8 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVSDtl', queryParameters);
@@ -305,7 +329,8 @@ class HospitalApiController with ApiHelper {
   Future<Eligibility?> getPtElg({patientId}) async {
     final queryParameters = {
       'patientId': '$patientId',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
 
     final uri =
@@ -323,9 +348,10 @@ class HospitalApiController with ApiHelper {
   }
 
   //تحميل ملفات
-  getPdfFile() async {
+  getPdfFile(patientCode) async {
     final queryParameters = {
-      'patientCode': '0/372081',
+      'patientCode': '$patientCode',
+      // 'patientCode': '0/372081',
       'serviceType': 'lab-test',
       'clinicCode': '25',
       'fileName': '89_02072020_2_0033610_02072020100255.pdf',
@@ -346,7 +372,8 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
 
     final uri =
@@ -369,7 +396,8 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
     // 'http://aiph.me:8000/api/clinic/clList?pageNo=1&offset=1&rows=5&lang=AR'
     final uri =
@@ -389,11 +417,13 @@ class HospitalApiController with ApiHelper {
 
   Future<Doctor?> getDoctorDtl({doctorCode}) async {
     final queryParameters = {
-      'doctorCode': '1',
+      'doctorCode': '$doctorCode',
+      // 'doctorCode': '11',
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
 
     final uri =
@@ -415,7 +445,8 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
 
     final uri =
@@ -442,7 +473,8 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': 'AR',
+      'lang': SharedPrefController()
+          .getValueFor<String>(key: PrefKeys.lang.name),
     };
 
     final uri =

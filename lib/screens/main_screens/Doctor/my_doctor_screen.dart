@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../api/controllers/App_api_controller.dart';
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../model/doctor.dart';
+import '../../../preferences/shared_pref_controller.dart';
 import '../Appointment Booking/doctor_filtter.dart';
 
 class MyDoctorsScreen extends StatefulWidget {
@@ -74,7 +75,7 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
           ),
           SizedBox(height: 10.h,),
           FutureBuilder<List<Doctor>>(
-            future: HospitalApiController().getVisitedDrs(),
+            future: HospitalApiController().getVisitedDrs(patientCode: SharedPrefController().getValueFor(key: "p_code")),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

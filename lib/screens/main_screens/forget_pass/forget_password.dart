@@ -1,3 +1,4 @@
+import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -5,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../firebase/fb_auth_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
 
@@ -16,6 +18,7 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
+  TextEditingController _pPhone = TextEditingController(text: "0597046766");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +52,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               )),
         ),
       ),
-      body: Stack(
+      body: ListView(
           children: [
             Column(
               children: [
@@ -80,30 +83,28 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   height: 20.h,
                 ),
                 EditTextItem(
-                    'assets/images/phone.svg', AppLocalizations.of(context)!.phone),
+                    'assets/images/phone.svg', AppLocalizations.of(context)!.phone,controler: _pPhone),
 
                  SizedBox(
                   height: 30.h,
                 ),
                 BtnLayout(AppLocalizations.of(context)!.restore_password,
-                      () => Navigator.pushNamed(context, OTPScreen.routeName),
+                      () {
+                        NewAccountGetxController.to.isReset = true;
+                        FireBaseAuthController().verifyPhoneNumber1(context: context,userPhone: _pPhone);
+                        // Navigator.pushNamed(context, OTPScreen.routeName);
+                      }
                 ),
               ],
             ),
-
             SizedBox(
               height: 20.h,
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              left: 0,
-              child: Image.asset(
-                "assets/images/image1.png",
-                fit: BoxFit.fitWidth,
-              ),
-            ),
           ],
+      ),
+      bottomSheet: Image.asset(
+        "assets/images/image1.png",
+        fit: BoxFit.cover,
       ),
     );
   }

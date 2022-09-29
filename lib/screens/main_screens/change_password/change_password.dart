@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../general/btn_layout.dart';
 import '../../../general/password_item.dart';
+import '../../../get/new_account_getx_controller.dart';
 import '../../../model/api_response.dart';
 import '../../drawer_screens/buttom_navication.dart';
 import 'package:aphaa_app/helper/helpers.dart';
@@ -111,7 +112,12 @@ class _ChangePasswordState extends State<ChangePassword> with Helpers{
   }
   Future<void> _performChangePassword() async {
     if (_checkData()) {
-      await _editProfile();
+      if(NewAccountGetxController.to.isReset){
+        await _editProfileReset();
+      }else{
+        await _editProfile();
+      }
+
     }
   }
 
@@ -145,6 +151,24 @@ class _ChangePasswordState extends State<ChangePassword> with Helpers{
       error: !apiResponse.success,
     );
   }
+
+  Future<void> _editProfileReset() async {
+    showLoaderDialog(context);
+
+    ApiResponse apiResponse = await AuthApiController().resetPassword(password:_pPassword.text,rePassword: _prePassword.text );
+    if (apiResponse.success) {
+      NewAccountGetxController.to.isReset = false;
+      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, LoginDoneScreens.routeName);
+    }
+    Navigator.pop(context);
+    showSnackBar(
+      context,
+      message: apiResponse.message,
+      error: !apiResponse.success,
+    );
+  }
+
 
 
 

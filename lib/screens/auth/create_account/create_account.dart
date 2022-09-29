@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:aphaa_app/helper/helpers.dart';
 
+import '../../../firebase/fb_auth_controller.dart';
 import '../../../general/edittext_item.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -153,7 +154,8 @@ class _CreateAccountState extends State<CreateAccount> with Helpers {
     NewAccountGetxController.to.isCitizen.value ?isCitizen = "citizen" :isCitizen = "resident";
     Patient p = Patient.BaseData(firstName: name[0],secondName: name[1],thirdName: name[2],lastName: name[3],email: _pEmail.text,password: _pPassword.text,patientType: isCitizen,identityNumber: _pID.text,mobile: _pPhone.text);
     NewAccountGetxController.to.addPatient(p);
-    Navigator.pushNamed(context, CreateAccountNext.routeName);
+    FireBaseAuthController().verifyPhoneNumber1(context: context,userPhone: 0597046766);
+    // Navigator.pushNamed(context, CreateAccountNext.routeName);
   }
 
   @override

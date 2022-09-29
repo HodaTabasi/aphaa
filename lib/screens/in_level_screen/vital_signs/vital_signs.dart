@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../preferences/shared_pref_controller.dart';
 
 class VitalSigns extends StatefulWidget {
   static String routeName = "/VitalSigns";
@@ -60,7 +61,7 @@ class _VitalSignsState extends State<VitalSigns> {
       body: ListView(
         children: [
           FutureBuilder<List<VitalSign>>(
-            future: HospitalApiController().getPtVS(),
+            future: HospitalApiController().getPtVS(patientCode: SharedPrefController().getValueFor(key: "p_code")),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

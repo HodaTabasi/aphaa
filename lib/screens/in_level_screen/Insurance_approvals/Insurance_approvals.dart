@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../model/Approvals.dart';
+import '../../../preferences/shared_pref_controller.dart';
 
 class InsuranceApprovals extends StatefulWidget {
 
@@ -61,7 +62,7 @@ class _InsuranceApprovalsState extends State<InsuranceApprovals> {
       body: ListView(
         children: [
           FutureBuilder<List<Approvals>>(
-            future: HospitalApiController().getSrvApvl(patientCode: '0/7702'),
+            future: HospitalApiController().getSrvApvl(patientCode: SharedPrefController().getValueFor(key: "p_code")),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

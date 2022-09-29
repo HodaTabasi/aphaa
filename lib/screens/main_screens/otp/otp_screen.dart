@@ -1,9 +1,11 @@
 import 'package:aphaa_app/general/btn_layout.dart';
+import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/screens/main_screens/otp/otp_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../firebase/fb_auth_controller.dart';
 import '../change_password/change_password.dart';
 
 
@@ -17,6 +19,14 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
+  late String myCode;
+  late String smsCode;
+
+  onPress() async {
+    myCode = NewAccountGetxController.to.makeCode();
+    // String  id = NewAccountGetxController.to.smsCode;
+    await FireBaseAuthController().handleManualOTP(myCode, context);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,14 +103,16 @@ class _OTPScreenState extends State<OTPScreen> {
           ),
           Padding(
             padding:  EdgeInsets.all(15.0.r),
-            child: OtpForm(),
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+                child: OtpForm()),
           ),
           SizedBox(height: 50.h),
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: 50.0.r),
-            child: BtnLayout(AppLocalizations.of(context)!.next, () {
-              Navigator.pushNamed(context, ChangePassword.routeName);
-            }),
+            child: BtnLayout(AppLocalizations.of(context)!.next, ()=> onPress()
+              // Navigator.pushNamed(context, ChangePassword.routeName);
+            ),
           ),
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: 66.0.r),
@@ -109,7 +121,9 @@ class _OTPScreenState extends State<OTPScreen> {
               border: Border.all(color: Color(0xff0E4C8F),width: 0.5.w)
             ),
             child: InkWell(
-              onTap: (){},
+              onTap: (){
+                // NewAccountGetxController.to.isReset = true;
+              },
               child: Padding(
                 padding:  EdgeInsets.all(18.0.r),
                 child: Text(AppLocalizations.of(context)!.re_transmitter,style:  TextStyle(

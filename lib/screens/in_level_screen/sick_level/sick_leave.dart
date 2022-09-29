@@ -9,6 +9,8 @@ import '../../../general/my_separator.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../preferences/shared_pref_controller.dart';
+
 class SickLeave extends StatefulWidget {
   static String routeName = "/SickLeave";
   @override
@@ -60,7 +62,7 @@ class _SickLeaveState extends State<SickLeave> {
       body: ListView(
         children: [
           FutureBuilder<List<SickLeaves>>(
-            future: HospitalApiController().getSickLeaves(),
+            future: HospitalApiController().getSickLeaves(patientCode: SharedPrefController().getValueFor(key: "p_code")),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

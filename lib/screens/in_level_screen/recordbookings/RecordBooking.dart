@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../preferences/shared_pref_controller.dart';
 
 class RexcordBooking extends StatefulWidget {
   static String routeName = "/RexcordBooking";
@@ -101,7 +102,7 @@ class _RexcordBookingState extends State<RexcordBooking> {
                 children: [
                   // first tab bar view widget
                   FutureBuilder<List<Appointments>>(
-                    future: HospitalApiController().getNextAppt(),
+                    future: HospitalApiController().getNextAppt(patientCode: SharedPrefController().getValueFor(key: "p_code")),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
@@ -133,7 +134,7 @@ class _RexcordBookingState extends State<RexcordBooking> {
                   ),
                   // // second tab bar viiew widget
                   FutureBuilder<List<Appointments>>(
-                    future: HospitalApiController().getPrevAppt(),
+                    future: HospitalApiController().getPrevAppt(patientCode: SharedPrefController().getValueFor(key: "p_code")),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());

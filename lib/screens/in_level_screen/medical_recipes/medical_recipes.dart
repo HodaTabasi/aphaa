@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../model/prescriptionList.dart';
+import '../../../preferences/shared_pref_controller.dart';
 
 class MedicalRecipes extends StatefulWidget {
   static String routeName = "/MedicalRecipes";
@@ -60,7 +61,7 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
       body: ListView(
         children: [
           FutureBuilder<List<prescriptionList>>(
-            future: HospitalApiController().getRxList(),
+            future: HospitalApiController().getRxList(patientCode: SharedPrefController().getValueFor(key: "p_code")),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());

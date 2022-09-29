@@ -1,3 +1,4 @@
+import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -54,6 +55,7 @@ class _OtpFormState extends State<OtpForm> {
               SizedBox(
                 width: getProportionateScreenWidth(45.w),
                 child: TextFormField(
+                  controller: NewAccountGetxController.to.num1Controller,
                   autofocus: true,
                   obscureText: false,
                   style: TextStyle(fontSize: 16.sp),
@@ -68,6 +70,7 @@ class _OtpFormState extends State<OtpForm> {
               SizedBox(
                 width: getProportionateScreenWidth(46.w),
                 child: TextFormField(
+                  controller: NewAccountGetxController.to.num2Controller,
                   focusNode: pin2FocusNode,
                   obscureText: false,
                   style: TextStyle(fontSize: 16.sp),
@@ -80,6 +83,7 @@ class _OtpFormState extends State<OtpForm> {
               SizedBox(
                 width: getProportionateScreenWidth(45.w),
                 child: TextFormField(
+                  controller: NewAccountGetxController.to.num3Controller,
                   focusNode: pin3FocusNode,
                   obscureText: false,
                   style: TextStyle(fontSize: 16.sp),
@@ -92,6 +96,7 @@ class _OtpFormState extends State<OtpForm> {
               SizedBox(
                 width: getProportionateScreenWidth(45.w),
                 child: TextFormField(
+                  controller: NewAccountGetxController.to.num4Controller,
                   focusNode: pin5FocusNode,
                   obscureText: false,
                   style: TextStyle(fontSize: 16.sp),
@@ -104,6 +109,7 @@ class _OtpFormState extends State<OtpForm> {
               SizedBox(
                 width: getProportionateScreenWidth(45.w),
                 child: TextFormField(
+                  controller: NewAccountGetxController.to.num5Controller,
                   focusNode: pin6FocusNode,
                   obscureText: false,
                   style: TextStyle(fontSize: 16.sp),
@@ -116,6 +122,7 @@ class _OtpFormState extends State<OtpForm> {
               SizedBox(
                 width: getProportionateScreenWidth(45.w),
                 child: TextFormField(
+                  controller: NewAccountGetxController.to.num6Controller,
                   focusNode: pin4FocusNode,
                   obscureText: false,
                   style: TextStyle(fontSize: 16.sp),
