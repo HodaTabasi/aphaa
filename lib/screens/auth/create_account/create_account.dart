@@ -134,7 +134,6 @@ class _CreateAccountState extends State<CreateAccount> with Helpers {
         _pRepassword.text.isNotEmpty &&
         _pID.text.isNotEmpty) {
       if (_pName.text.split(" ").length < 4) {
-        print("object");
         showSnackBar(context, message: 'اكتب الاسم رباعي', error: true);
         return false;
       }

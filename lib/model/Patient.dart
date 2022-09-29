@@ -19,6 +19,7 @@ class Patient {
   String? token;
   String? name;
   String? Employer;
+  String? p_code;
 
   Patient();
 
@@ -54,6 +55,7 @@ class Patient {
     this.insuranceNumber,
     this.insuranceDate,
     this.insuranceName,
+    this.p_code
   });
 
   Patient.fromJson(Map<String, dynamic> json) {
@@ -94,6 +96,7 @@ class Patient {
     data['insurance_name'] = this.insuranceName;
     data['password'] = this.password;
     data['password_confirm'] = this.password;
+    data['p_code'] = this.p_code;
     return data;
   }
   Map<String, dynamic> cashToJson() {
@@ -136,6 +139,6 @@ class Patient {
 
 @override
 String toString() {
-  return 'Patient{firstName: $firstName, secondName: $secondName, thirdName: $thirdName, lastName: $lastName, mobile: $mobile, email: $email, patientType: $Employer}';
+  return 'Patient{firstName: $firstName, secondName: $secondName, thirdName: $thirdName, lastName: $lastName, mobile: $mobile, email: $email, patientType: $patientType, id:$identityNumber}';
 }
 }

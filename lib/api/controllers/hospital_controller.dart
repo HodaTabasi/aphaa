@@ -5,6 +5,7 @@ import 'package:aphaa_app/api/api_settings.dart';
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/model/Appointments.dart';
 import 'package:aphaa_app/model/AvailableTime.dart';
+import 'package:aphaa_app/model/Eligibility.dart';
 import 'package:aphaa_app/model/FamillyMember.dart';
 import 'package:aphaa_app/model/LeaveDetail.dart';
 import 'package:aphaa_app/model/PrescriptionListItems.dart';
@@ -301,18 +302,24 @@ class HospitalApiController with ApiHelper {
 
   }
 
-  getPtElg({patientId}) async {
+  Future<Eligibility?> getPtElg({patientId}) async {
     final queryParameters = {
       'patientId': '$patientId',
       'lang': 'AR',
     };
-    final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtElg', queryParameters);
-    final response = await http.get(uri);
-    if(response.statusCode == 200){
-      print("gggf");
-    }
 
+    final uri =
+    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtElg', queryParameters);
+    final response = await http.get(uri);
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      var jsonResponse = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        var jsonObject = jsonResponse;
+        Eligibility eligibility = Eligibility.fromJson(jsonObject);
+        return eligibility;
+      }
+    }
+    return null;
   }
 
   //تحميل ملفات
@@ -329,7 +336,6 @@ class HospitalApiController with ApiHelper {
     if(response.statusCode == 200){
       print("gggf");
     }
-
   }
 
   //////////// بيانات الدكتور ///////

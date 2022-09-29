@@ -1,4 +1,6 @@
+import 'package:aphaa_app/api/controllers/hospital_controller.dart';
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
+import 'package:aphaa_app/model/Eligibility.dart';
 import 'package:aphaa_app/screens/drawer_screens/buttom_navication.dart';
 import 'package:aphaa_app/screens/main_screens/done_login/done_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../api/controllers/auth_api_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/dropdown_item.dart';
+import '../../../general/dropdown_item_insurance.dart';
 import '../../../general/edittext_item.dart';
 
 import 'package:aphaa_app/helper/helpers.dart';
 import '../../../model/api_response.dart';
+import '../../../preferences/shared_pref_controller.dart';
 import '../../drawer_screens/home_screen/home_screen.dart';
 
 class CreateAccountNext extends StatefulWidget {
@@ -211,12 +215,12 @@ class _CreateAccountNextState extends State<CreateAccountNext>
                         AppLocalizations.of(context)!.insurance_end_date,
                         controler: insurance_date, b: false),
                   ),
-                  // DropDownItem(
-                  //   ["شركة1", "شركة2", "شركة3"],
-                  //   'assets/images/company.svg',
-                  //   AppLocalizations.of(context)!.insurance_companies,
-                  //   dropIntValue: 1,
-                  // ),
+                  DropDownInsuranceItem(
+                    ["شركة1", "شركة2", "شركة3"],
+                    'assets/images/company.svg',
+                    AppLocalizations.of(context)!.insurance_companies,
+                    dropIntValue: 1,
+                  ),
                   BtnLayout(
                       AppLocalizations.of(context)!
                           .medical_insurance_validity_check,
@@ -264,7 +268,21 @@ class _CreateAccountNextState extends State<CreateAccountNext>
 
   Future<void> _performRegister() async {
     if (_checkData()) {
+      if (payType == "insurance") {
+        await checkEligibility();
+      }else {
+        await _login();
+      }
+    }
+  }
+  checkEligibility() async {
+    Eligibility? eligibility = await HospitalApiController().getPtElg(patientId: insurance_number.text);
+    if(eligibility!.patientCode!.isNotEmpty){
+      NewAccountGetxController.to.patient.p_code = eligibility.patientCode;
+      print(eligibility);
       await _login();
+    }else {
+      showSnackBar2(context, message: 'رقم  التأمين الذي أدخلته خاطئ ، قم باستكمال التسجيل إلى كاش ، ومن تم تسجيل الدخول للتطبيق', error: true);
     }
   }
 
@@ -301,7 +319,9 @@ class _CreateAccountNextState extends State<CreateAccountNext>
     // print(NewAccountGetxController.to.patient.insuranceDate);
     ApiResponse apiResponse = await AuthApiController()
         .register(student: NewAccountGetxController.to.patient,flag: flag);
+
     if (apiResponse.success) {
+      SharedPrefController().setValuePCode(pCode: NewAccountGetxController.to.patient.p_code!);
       Navigator.pop(context);
       Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
     } else {

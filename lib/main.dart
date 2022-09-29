@@ -2,6 +2,7 @@ import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/splach/screen_2_splash.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +12,14 @@ import 'package:get/get.dart';
 import 'get/language_getx_controller.dart';
 import 'helper/constant.dart';
 import 'helper/routes.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefController().initPref();
+  await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
   runApp(MyApp());
 }
 

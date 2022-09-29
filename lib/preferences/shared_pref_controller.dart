@@ -80,6 +80,10 @@ class SharedPrefController {
     return null;
   }
 
+  setValuePCode({required String pCode}) async {
+    await _sharedPreferences.setString("p_code", pCode);
+  }
+
   Future<bool> changeLanguage({required String language}) async {
     return _sharedPreferences.setString(PrefKeys.lang.name, language);
   }
