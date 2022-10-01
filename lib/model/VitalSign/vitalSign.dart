@@ -1,5 +1,5 @@
-import 'Clinic.dart';
-import 'doctor.dart';
+import '../Clinic.dart';
+import '../doctor.dart';
 
 class VitalSign {
   String? vitalSignId;

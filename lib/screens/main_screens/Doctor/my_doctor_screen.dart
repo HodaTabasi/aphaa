@@ -3,61 +3,68 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:number_pagination/number_pagination.dart';
 
 import '../../../api/controllers/App_api_controller.dart';
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../model/VisitedDrs/VisitedDrsResponse.dart';
 import '../../../model/doctor.dart';
 import '../../../preferences/shared_pref_controller.dart';
 import '../Appointment Booking/doctor_filtter.dart';
 
 class MyDoctorsScreen extends StatefulWidget {
   static String routeName = "/my_doctor";
+
   @override
   State<MyDoctorsScreen> createState() => _MyDoctorsScreenState();
 }
 
 class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
+  int selectedPageNumber = 0;
+
+  String offSet = "1";
+
+
   @override
   void initState() {
-    // TODO: implement initState
-    print("fffffd");
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
-        // leadingWidth: 40,
-        title: Text(AppLocalizations.of(context)!.my_doctor,
-            style:  TextStyle(
-              color: Colors.white,
-              fontSize: 16.sp,
-              fontFamily: 'Tajawal',
-              fontWeight: FontWeight.bold,
-            )),
-        titleSpacing: 2,
-        leading: InkWell(
-          onTap: () => Navigator.of(context, rootNavigator: true).pop(),
-          child: Container(
-              margin:  EdgeInsets.all(15.0.r),
-              padding:  EdgeInsets.all(5.0.r),
-              // alignment: Alignment.bottomLeft,
-              // width: 80,
-              // height: 500,
-              decoration: BoxDecoration(
-                  color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5.r)),
-              child:  Icon(
-                Icons.arrow_back_ios,
+          elevation: 0,
+          // leadingWidth: 40,
+          title: Text(AppLocalizations.of(context)!.my_doctor,
+              style: TextStyle(
                 color: Colors.white,
-                size: 15.sp,
+                fontSize: 16.sp,
+                fontFamily: 'Tajawal',
+                fontWeight: FontWeight.bold,
               )),
-        ),
+          titleSpacing: 2,
+          leading: InkWell(
+            onTap: () => Navigator.of(context, rootNavigator: true).pop(),
+            child: Container(
+                margin: EdgeInsets.all(15.0.r),
+                padding: EdgeInsets.all(5.0.r),
+                // alignment: Alignment.bottomLeft,
+                // width: 80,
+                // height: 500,
+                decoration: BoxDecoration(
+                    color: const Color(0xff006F2C),
+                    borderRadius: BorderRadius.circular(5.r)),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                  size: 15.sp,
+                )),
+          ),
           actions: [
             Padding(
-              padding:  EdgeInsets.all(8.0.r),
+              padding: EdgeInsets.all(8.0.r),
               child: InkWell(
                 onTap: () {},
                 child: SvgPicture.asset(
@@ -66,78 +73,78 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
                 ),
               ),
             ),
-          ]
-      ),
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          SizedBox(height: 10.h,),
-          FutureBuilder<List<Doctor>>(
-            future: HospitalApiController().getVisitedDrs(patientCode: SharedPrefController().getValueFor(key: "p_code")),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                return  Padding(
-                  padding:  EdgeInsets.all(8.0.r),
+          ]),
+      body: FutureBuilder<VisitedDrsResponse?>(
+        future: HospitalApiController().getVisitedDrs(
+            patientCode: SharedPrefController().getValueFor(key: "p_code"),page: selectedPageNumber,offset: offSet),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasData && snapshot.data != null) {
+            return ListView(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0.r),
                   child: GridView.builder(
                     shrinkWrap: true,
-                    itemCount: snapshot.data!.length,
+                    itemCount: snapshot.data!.doctors!.length,
                     physics: const NeverScrollableScrollPhysics(),
-                    padding:  EdgeInsets.symmetric(horizontal: 10.r),
+                    padding: EdgeInsets.symmetric(horizontal: 10.r),
                     scrollDirection: Axis.vertical,
-                    gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 15.h,
                         crossAxisSpacing: 15.w,
-                        childAspectRatio: 240/330
-                    ),
+                        childAspectRatio: 240 / 330),
                     itemBuilder: (context, index) {
-                      return  DoctorItem(snapshot.data![index]);
+                      return DoctorItem(snapshot.data!.doctors![index]);
                     },
                   ),
-                );
-              } else {
-                return Center(
-                  child: Text(
-                    'NO DATA',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'Tajawal',
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+                Visibility(
+                  visible:snapshot.data!.pages!.length > 1 ,
+                  child: NumberPagination(
+                    onPageChanged: (int pageNumber) {
+                      //do somthing for selected page
+                      setState(() {
+                        selectedPageNumber = pageNumber;
+                        offSet = snapshot.data!.pages![selectedPageNumber-1].offset!;
+                      });
+                    },
+                    pageTotal: snapshot.data!.pages!.length,
+                    pageInit: selectedPageNumber,
+                    // picked number when init page
+                    colorPrimary: Colors.green,
+                    colorSub: Colors.white,
+                    fontFamily: 'Tajawal',
                   ),
-                );
-              }
-            },
-          ),
-          // Padding(
-          //   padding:  EdgeInsets.all(8.0.r),
-          //   child: GridView.builder(
-          //     shrinkWrap: true,
-          //     itemCount: 4,
-          //     physics: const NeverScrollableScrollPhysics(),
-          //     padding:  EdgeInsets.symmetric(horizontal: 10.r),
-          //     scrollDirection: Axis.vertical,
-          //     gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 2,
-          //       mainAxisSpacing: 15.h,
-          //       crossAxisSpacing: 15.w,
-          //       childAspectRatio: 240/330
-          //     ),
-          //     itemBuilder: (context, index) {
-          //       return  DoctorItem();
-          //     },
-          //   ),
-          // ),
-          Image.asset(
-            "assets/images/image1.png",
-            fit: BoxFit.fitWidth,
-          ),
-        ],
+                ),
+                Image.asset(
+                  "assets/images/image1.png",
+                  fit: BoxFit.fitWidth,
+                ),
+              ],
+            );
+          } else {
+            return Center(
+              child: Text(
+                'NO DATA',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: 'Tajawal',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }

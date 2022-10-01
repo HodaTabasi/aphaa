@@ -3,33 +3,62 @@ import 'dart:convert';
 
 import 'package:aphaa_app/api/api_settings.dart';
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
-import 'package:aphaa_app/model/Appointments.dart';
-import 'package:aphaa_app/model/AvailableTime.dart';
+import 'package:aphaa_app/model/Appointment/Appointments.dart';
+import 'package:aphaa_app/model/Appointment/AvailableTime.dart';
 import 'package:aphaa_app/model/Eligibility.dart';
-import 'package:aphaa_app/model/FamillyMember.dart';
-import 'package:aphaa_app/model/LeaveDetail.dart';
-import 'package:aphaa_app/model/PrescriptionListItems.dart';
-import 'package:aphaa_app/model/SickLeaves.dart';
+import 'package:aphaa_app/model/SickLeaves/SickLeavesResponse.dart';
+import 'package:aphaa_app/model/VisitedDrs/VisitedDrsResponse.dart';
+import 'package:aphaa_app/model/SickLeaves/LeaveDetail.dart';
+import 'package:aphaa_app/model/prescriptionListResponse/PrescriptionListItems.dart';
+import 'package:aphaa_app/model/SickLeaves/SickLeaves.dart';
 import 'package:aphaa_app/model/doctor.dart';
-import 'package:aphaa_app/model/vitalSignsDils.dart';
-import '../../model/ApprovalItem.dart';
-import '../../model/Approvals.dart';
+import 'package:aphaa_app/model/familly/FamillyResponse.dart';
+import '../../model/Appointment/AppointmentResponse.dart';
+import '../../model/ApprovalsResponse/ApprovalItem.dart';
+import '../../model/ApprovalsResponse/ApprovalsResponse.dart';
 import '../../model/Clinic.dart';
 import '../../model/ServiceTest.dart';
-import '../../model/prescriptionList.dart';
-import '../../model/vitalSign.dart';
+import '../../model/VitalSign/VitalSignResponse.dart';
+import '../../model/VitalSign/vitalSignsDils.dart';
+import '../../model/prescriptionListResponse/PrescriptionListResponse.dart';
+import '../../model/prescriptionListResponse/prescriptionList.dart';
 import '../../preferences/shared_pref_controller.dart';
 import '../api_helper.dart';
 import 'package:http/http.dart' as http;
 
 class HospitalApiController with ApiHelper {
 
-  Future<List<FamillyMember>> getFamilyMembers(patientCode) async {
+  // Future<List<FamilyMember>> getFamilyMembers(patientCode) async {
+  //   print(patientCode);
+  //   final queryParameters = {
+  //     // 'patientCode': '$patientCode',
+  //     'patientCode': '0/372081',
+  //     'pageNo': '1',
+  //     'offset': '1',
+  //     'rows': '7',
+  //     'lang': SharedPrefController()
+  //         .getValueFor<String>(key: PrefKeys.lang.name),
+  //   };
+  //
+  //   final uri =
+  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}familyMembers', queryParameters);
+  //   final response = await http.get(uri);
+  //   print(response.body);
+  //   if (response.statusCode == 200) {
+  //     var jsonResponse = jsonDecode(response.body);
+  //     var jsonArray = jsonResponse['familyMembers'] as List;
+  //     return jsonArray.map((jsonObject) => FamilyMember.fromJson(jsonObject)).toList();
+  //   }
+  //   return [];
+  // }
+
+  Future<FamillyResponse?> getFamilyMembers({patientCode,page = 1,offset = 1}) async {
     print(patientCode);
     final queryParameters = {
-      'patientCode': '$patientCode',
-      'pageNo': '1',
-      'offset': '1',
+      // 'patientCode': '$patientCode',
+      'patientCode': '0/372081',
+      'pageNo': '$page',
+      'offset': '$offset',
       'rows': '7',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
@@ -42,17 +71,17 @@ class HospitalApiController with ApiHelper {
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['familyMembers'] as List;
-      return jsonArray.map((jsonObject) => FamillyMember.fromJson(jsonObject)).toList();
+      return FamillyResponse.fromJson(jsonResponse);
     }
-    return [];
+    return null;
   }
 
-  Future<List<ServiceTest>> getLabReports({patientCode}) async {
+  Future<List<ServiceTest>> getLabReports({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
       'patientCode': '$patientCode',
       // 'patientCode': '0/372081',
-      'pageNo': '1',
-      'offset': '1',
+      'pageNo': '$page',
+      'offset': '$offset',
       'rows': '7',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
@@ -69,12 +98,12 @@ class HospitalApiController with ApiHelper {
 
   }
 
-  getRadReports({patientCode}) async {
+  Future<List<ServiceTest>> getRadReports({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
       'patientCode': '$patientCode',
       // 'patientCode': '0/372081',
-      'pageNo': '1',
-      'offset': '1',
+      'pageNo': '$page',
+      'offset': '$offset',
       'rows': '7',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
@@ -82,18 +111,43 @@ class HospitalApiController with ApiHelper {
     final uri =
     Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}radReports', queryParameters);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
-      print("gggf");
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['services'] as List;
+      return jsonArray.map((jsonObject) => ServiceTest.fromJson(jsonObject)).toList();
     }
+    return [];
 
   }
 
-  Future<List<Appointments>> getNextAppt({patientCode}) async {
+  // Future<List<Appointments>> getNextAppt({patientCode,page = 1,offset = 1}) async {
+  //   final queryParameters = {
+  //     // 'patientCode': '$patientCode',
+  //     'patientCode': '0/32230',
+  //     'pageNo': '$page',
+  //     'offset': '$offset',
+  //     'rows': '7',
+  //     'lang': SharedPrefController()
+  //         .getValueFor<String>(key: PrefKeys.lang.name),
+  //   };
+  //   final uri =
+  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}nextAppt', queryParameters);
+  //   final response = await http.get(uri);
+  //   if (response.statusCode == 200) {
+  //     var jsonResponse = jsonDecode(response.body);
+  //     var jsonArray = jsonResponse['myNextAppointments'] as List;
+  //     return jsonArray.map((jsonObject) => Appointments.fromJson(jsonObject)).toList();
+  //   }
+  //   return [];
+  //
+  // }
+
+  Future<AppointmentResponse?> getNextAppt({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
-      'patientCode': '$patientCode',
-      // 'patientCode': '0/32230',
-      'pageNo': '1',
-      'offset': '1',
+      // 'patientCode': '$patientCode',
+      'patientCode': '0/32230',
+      'pageNo': '$page',
+      'offset': '$offset',
       'rows': '7',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
@@ -103,19 +157,17 @@ class HospitalApiController with ApiHelper {
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      var jsonArray = jsonResponse['myNextAppointments'] as List;
-      return jsonArray.map((jsonObject) => Appointments.fromJson(jsonObject)).toList();
+      return  AppointmentResponse.fromJson(jsonResponse);
     }
-    return [];
-
+    return null;
   }
 
-  Future<List<Appointments>> getPrevAppt({patientCode}) async {
+  Future<AppointmentResponse?> getPrevAppt({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
-      'patientCode': '$patientCode',
-      // 'patientCode': '0/32230',
-      'pageNo': '1',
-      'offset': '1',
+      // 'patientCode': '$patientCode',
+      'patientCode': '0/32230',
+      'pageNo': '$page',
+      'offset': '$offset',
       'rows': '7',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
@@ -125,19 +177,60 @@ class HospitalApiController with ApiHelper {
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      var jsonArray = jsonResponse['myPrevAppointments'] as List;
-      return jsonArray.map((jsonObject) => Appointments.fromJson(jsonObject)).toList();
+      return AppointmentResponse.fromJson(jsonResponse);
     }
-    return [];
-
+    return null;
   }
 
-  Future<List<prescriptionList>> getRxList({patientCode}) async {
+  // Future<List<Appointments>> getPrevAppt({patientCode,page = 1,offset = 1}) async {
+  //   final queryParameters = {
+  //     'patientCode': '$patientCode',
+  //     // 'patientCode': '0/32230',
+  //     'pageNo': '1',
+  //     'offset': '1',
+  //     'rows': '7',
+  //     'lang': SharedPrefController()
+  //         .getValueFor<String>(key: PrefKeys.lang.name),
+  //   };
+  //   final uri =
+  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}prevAppt', queryParameters);
+  //   final response = await http.get(uri);
+  //   if (response.statusCode == 200) {
+  //     var jsonResponse = jsonDecode(response.body);
+  //     var jsonArray = jsonResponse['myPrevAppointments'] as List;
+  //     return jsonArray.map((jsonObject) => Appointments.fromJson(jsonObject)).toList();
+  //   }
+  //   return [];
+  //
+  // }
+
+  // Future<List<prescriptionList>> getRxList({patientCode,page = 1,offset = 1}) async {
+  //   final queryParameters = {
+  //     'patientCode': '$patientCode',
+  //     // 'patientCode': '0/32230',
+  //     'pageNo': '1',
+  //     'offset': '1',
+  //     'rows': '7',
+  //     'lang': SharedPrefController()
+  //         .getValueFor<String>(key: PrefKeys.lang.name),
+  //   };
+  //   final uri =
+  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}rxList', queryParameters);
+  //   final response = await http.get(uri);
+  //   if (response.statusCode == 200) {
+  //     var jsonResponse = jsonDecode(response.body);
+  //     var jsonArray = jsonResponse['prescriptionList'] as List;
+  //     return jsonArray.map((jsonObject) => prescriptionList.fromJson(jsonObject)).toList();
+  //   }
+  //   return [];
+  // }
+
+  Future<PrescriptionListResponse?> getRxList({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
-      'patientCode': '$patientCode',
-      // 'patientCode': '0/32230',
-      'pageNo': '1',
-      'offset': '1',
+      // 'patientCode': '$patientCode',
+      'patientCode': '0/32230',
+      'pageNo': '$page',
+      'offset': '$offset',
       'rows': '7',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
@@ -147,10 +240,9 @@ class HospitalApiController with ApiHelper {
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      var jsonArray = jsonResponse['prescriptionList'] as List;
-      return jsonArray.map((jsonObject) => prescriptionList.fromJson(jsonObject)).toList();
+      return PrescriptionListResponse.fromJson(jsonResponse);
     }
-    return [];
+    return null;
   }
 
   Future<PrescriptionListItems?> getRxItems({invoiceNo,invoiceDate,invoiceType}) async {
@@ -182,11 +274,12 @@ class HospitalApiController with ApiHelper {
 
   }
 
-  Future<List<SickLeaves>> getSickLeaves({patientCode}) async {
+  Future<SickLeavesResponse?> getSickLeaves({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
-      'patientCode': '$patientCode',
-      'pageNo': '1',
-      'offset': '1',
+      'patientCode': '0/37416',
+      // 'patientCode': '$patientCode',
+      'pageNo': '$page',
+      'offset': '$offset',
       'rows': '7',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
@@ -196,10 +289,9 @@ class HospitalApiController with ApiHelper {
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      var jsonArray = jsonResponse['leaves'] as List;
-      return jsonArray.map((jsonObject) => SickLeaves.fromJson(jsonObject)).toList();
+      return SickLeavesResponse.fromJson(jsonResponse);
     }
-    return [];
+    return null;
 
   }
 
@@ -220,11 +312,33 @@ class HospitalApiController with ApiHelper {
     return [];
   }
 
-  Future<List<Approvals>> getSrvApvl({patientCode}) async {
+  // Future<List<Approvals>> getSrvApvl({patientCode,page = 1,offset = 1}) async {
+  //   final queryParameters = {
+  //     'patientCode': '0/7702',
+  //     // 'patientCode': '$patientCode',
+  //     'pageNo': '$page',
+  //     'offset': '$offset',
+  //     'rows': '7',
+  //     'lang': SharedPrefController()
+  //         .getValueFor<String>(key: PrefKeys.lang.name),
+  //   };
+  //   final uri =
+  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}srvApvl', queryParameters);
+  //   final response = await http.get(uri);
+  //   if (response.statusCode == 200) {
+  //     var jsonResponse = jsonDecode(response.body);
+  //     var jsonArray = jsonResponse['approvals'] as List;
+  //     return jsonArray.map((jsonObject) => Approvals.fromJson(jsonObject)).toList();
+  //   }
+  //   return [];
+  // }
+
+  Future<ApprovalsResponse?> getSrvApvl({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
-      'patientCode': '$patientCode',
-      'pageNo': '1',
-      'offset': '1',
+      'patientCode': '0/7702',
+      // 'patientCode': '$patientCode',
+      'pageNo': '$page',
+      'offset': '$offset',
       'rows': '7',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
@@ -234,10 +348,9 @@ class HospitalApiController with ApiHelper {
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      var jsonArray = jsonResponse['approvals'] as List;
-      return jsonArray.map((jsonObject) => Approvals.fromJson(jsonObject)).toList();
+      return ApprovalsResponse.fromJson(jsonResponse);
     }
-    return [];
+    return null;
   }
 
   Future<List<ApprovalItem>> getSrvApvlDtl({reqId}) async {
@@ -262,13 +375,35 @@ class HospitalApiController with ApiHelper {
 
   }
 
-  Future<List<Doctor>> getVisitedDrs({patientCode}) async {
+  // Future<List<Doctor>> getVisitedDrs({patientCode,page = 1,offset = 1}) async {
+  //   final queryParameters = {
+  //     // 'patientCode': '$patientCode',
+  //     'patientCode': '0/32230',
+  //     'pageNo': '$page',
+  //     'offset': '$offset',
+  //     'rows': '7',
+  //     'lang': SharedPrefController()
+  //         .getValueFor<String>(key: PrefKeys.lang.name),
+  //   };
+  //
+  //   final uri =
+  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}visitedDrs', queryParameters);
+  //   final response = await http.get(uri);
+  //   if (response.statusCode == 200) {
+  //     var jsonResponse = jsonDecode(response.body);
+  //     var jsonArray = jsonResponse['doctors'] as List;
+  //     return jsonArray.map((jsonObject) => Doctor.fromJson(jsonObject)).toList();
+  //   }
+  //   return [];
+  // }
+
+  Future<VisitedDrsResponse?> getVisitedDrs({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
-      'patientCode': '$patientCode',
-      // 'patientCode': '0/32230',
-      'pageNo': '1',
-      'offset': '1',
-      'rows': '5',
+      // 'patientCode': '$patientCode',
+      'patientCode': '0/32230',
+      'pageNo': '$page',
+      'offset': '$offset',
+      'rows': '7',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
     };
@@ -278,17 +413,38 @@ class HospitalApiController with ApiHelper {
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      var jsonArray = jsonResponse['doctors'] as List;
-      return jsonArray.map((jsonObject) => Doctor.fromJson(jsonObject)).toList();
+      return VisitedDrsResponse.fromJson(jsonResponse);
     }
-    return [];
+    return null;
   }
 
-  Future<List<VitalSign>> getPtVS({patientCode}) async {
+  // Future<List<VitalSign>> getPtVS({patientCode,page = 1,offset = 1}) async {
+  //   final queryParameters = {
+  //     'patientCode': '0/32230',
+  //     // 'patientCode': '$patientCode',
+  //     'pageNo': '$page',
+  //     'offset': '$offset',
+  //     'rows': '7',
+  //     'lang': SharedPrefController()
+  //         .getValueFor<String>(key: PrefKeys.lang.name),
+  //   };
+  //   final uri =
+  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVS', queryParameters);
+  //   final response = await http.get(uri);
+  //   if (response.statusCode == 200) {
+  //     var jsonResponse = jsonDecode(response.body);
+  //     var jsonArray = jsonResponse['vitalSigns'] as List;
+  //     return jsonArray.map((jsonObject) => VitalSign.fromJson(jsonObject)).toList();
+  //   }
+  //   return [];
+  // }
+
+  Future<VitalSignResponse?> getPtVS({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
-      'patientCode': '$patientCode',
-      'pageNo': '1',
-      'offset': '1',
+      'patientCode': '0/32230',
+      // 'patientCode': '$patientCode',
+      'pageNo': '$page',
+      'offset': '$offset',
       'rows': '7',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
@@ -298,10 +454,9 @@ class HospitalApiController with ApiHelper {
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      var jsonArray = jsonResponse['vitalSigns'] as List;
-      return jsonArray.map((jsonObject) => VitalSign.fromJson(jsonObject)).toList();
+      return VitalSignResponse.fromJson(jsonResponse);
     }
-    return [];
+    return null;
   }
 
   Future<List<VitalSignDtils>> getPtVSDtl({vitalSignId}) async {

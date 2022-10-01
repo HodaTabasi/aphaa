@@ -1,4 +1,4 @@
-import 'package:aphaa_app/model/vitalSign.dart';
+import 'package:aphaa_app/model/VitalSign/vitalSign.dart';
 import 'package:aphaa_app/screens/in_level_screen/vital_signs/vital_buttom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,4 +1,4 @@
-import 'package:aphaa_app/model/Approvals.dart';
+import 'package:aphaa_app/model/ApprovalsResponse/Approvals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

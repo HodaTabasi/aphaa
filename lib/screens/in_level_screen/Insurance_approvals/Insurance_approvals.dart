@@ -1,12 +1,14 @@
+import 'package:aphaa_app/model/ApprovalsResponse/ApprovalsResponse.dart';
 import 'package:aphaa_app/screens/in_level_screen/Insurance_approvals/screen_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:number_pagination/number_pagination.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
-import '../../../model/Approvals.dart';
+import '../../../model/ApprovalsResponse/Approvals.dart';
 import '../../../preferences/shared_pref_controller.dart';
 
 class InsuranceApprovals extends StatefulWidget {
@@ -18,6 +20,10 @@ class InsuranceApprovals extends StatefulWidget {
 }
 
 class _InsuranceApprovalsState extends State<InsuranceApprovals> {
+  int selectedPageNumber = 1;
+
+  String offSet = "1";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,21 +65,46 @@ class _InsuranceApprovalsState extends State<InsuranceApprovals> {
               ),
             ),
           ]),
-      body: ListView(
+      body: FutureBuilder<ApprovalsResponse?>(
+        future: HospitalApiController().getSrvApvl(patientCode: SharedPrefController().getValueFor(key: "p_code"),page: selectedPageNumber,offset: offSet),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasData && snapshot.data != null) {
+            return    ListView(
         children: [
-          FutureBuilder<List<Approvals>>(
-            future: HospitalApiController().getSrvApvl(patientCode: SharedPrefController().getValueFor(key: "p_code")),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                return   ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context,index){
-                      return InsuranceItem(snapshot.data![index]);
-                    });
+          ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: snapshot.data!.approvals!.length,
+          itemBuilder: (context,index){
+            return InsuranceItem(snapshot.data!.approvals![index]);
+          }),
+          Visibility(
+            visible:snapshot.data!.pages!.length > 1 ,
+            child: NumberPagination(
+              onPageChanged: (int pageNumber) {
+                //do somthing for selected page
+                setState(() {
+                  selectedPageNumber = pageNumber;
+                  offSet = snapshot.data!.pages![selectedPageNumber-1].offset!;
+                });
+              },
+              pageTotal: snapshot.data!.pages!.length,
+              pageInit: selectedPageNumber,
+              // picked number when init page
+              colorPrimary: Colors.green,
+              colorSub: Colors.white,
+              fontFamily: 'Tajawal',
+            ),
+          ),
+          Image.asset(
+            "assets/images/image1.png",
+            fit: BoxFit.fitWidth,
+          ),
+
+        ],
+      );
               } else {
                 return Center(
                   child: Text(
@@ -89,12 +120,7 @@ class _InsuranceApprovalsState extends State<InsuranceApprovals> {
               }
             },
           ),
-          Image.asset(
-            "assets/images/image1.png",
-            fit: BoxFit.fitWidth,
-          ),
-        ],
-      ),
+
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:aphaa_app/model/prescriptionList.dart';
+import 'package:aphaa_app/model/prescriptionListResponse/prescriptionList.dart';
 import 'package:aphaa_app/screens/in_level_screen/medical_recipes/print_medical_recipes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MedicalRecipesItem extends StatelessWidget {
-  prescriptionList prescriptionlist;
+  PrescriptionList prescriptionlist;
   MedicalRecipesItem(this.prescriptionlist);
 
 

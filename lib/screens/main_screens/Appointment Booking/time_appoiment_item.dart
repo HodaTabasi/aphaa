@@ -1,5 +1,5 @@
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
-import 'package:aphaa_app/model/AvailableTime.dart';
+import 'package:aphaa_app/model/Appointment/AvailableTime.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

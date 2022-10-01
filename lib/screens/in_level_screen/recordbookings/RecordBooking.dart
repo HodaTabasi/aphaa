@@ -1,11 +1,13 @@
-import 'package:aphaa_app/model/Appointments.dart';
+import 'package:aphaa_app/model/Appointment/Appointments.dart';
 import 'package:aphaa_app/screens/in_level_screen/recordbookings/scedual_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:number_pagination/number_pagination.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../model/Appointment/AppointmentResponse.dart';
 import '../../../preferences/shared_pref_controller.dart';
 
 class RexcordBooking extends StatefulWidget {
@@ -19,6 +21,10 @@ class RexcordBooking extends StatefulWidget {
 }
 
 class _RexcordBookingState extends State<RexcordBooking> {
+  int selectedPageNumber = 1;
+
+  String offSet = "1";
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -67,6 +73,10 @@ class _RexcordBookingState extends State<RexcordBooking> {
             SizedBox(
               height: 60.h,
               child: TabBar(
+                onTap: (index){
+                  selectedPageNumber = 1;
+                  offSet = "1";
+                },
                 indicatorWeight: 2,
                 indicatorPadding: EdgeInsets.symmetric(horizontal: 15.w),
                 padding:  EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 8.r),
@@ -101,21 +111,45 @@ class _RexcordBookingState extends State<RexcordBooking> {
               child: TabBarView(
                 children: [
                   // first tab bar view widget
-                  FutureBuilder<List<Appointments>>(
-                    future: HospitalApiController().getNextAppt(patientCode: SharedPrefController().getValueFor(key: "p_code")),
+                  FutureBuilder<AppointmentResponse?>(
+                    future: HospitalApiController().getNextAppt(patientCode: SharedPrefController().getValueFor(key: "p_code"),page: selectedPageNumber,offset: offSet),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                        return  Padding(
-                          padding:  EdgeInsets.all(8.0.r),
-                          child:   ListView.builder(
-                              shrinkWrap: true,
-                              // physics: NeverScrollableScrollPhysics(),
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (context,index){
-                                return ScedualBookingItem(snapshot.data![index]);
-                              }),
+                      } else if (snapshot.hasData && snapshot.data != null) {
+                        return  ListView(
+                          shrinkWrap: true,
+                          children: [
+                            Padding(
+                              padding:  EdgeInsets.all(8.0.r),
+                              child:   ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: snapshot.data!.myNextAppointments!.length,
+                                  itemBuilder: (context,index){
+                                    return ScedualBookingItem(snapshot.data!.myNextAppointments![index]);
+                                  }),
+                            ),
+                            Visibility(
+                              visible: snapshot.data!.pages!.length > 1,
+                              child: NumberPagination(
+                                onPageChanged: (int pageNumber) {
+                                  //do somthing for selected page
+                                  setState(() {
+                                    selectedPageNumber = pageNumber;
+                                    offSet = snapshot
+                                        .data!.pages![selectedPageNumber - 1].offset!;
+                                  });
+                                },
+                                pageTotal: snapshot.data!.pages!.length,
+                                pageInit: selectedPageNumber,
+                                // picked number when init page
+                                colorPrimary: Colors.green,
+                                colorSub: Colors.white,
+                                fontFamily: 'Tajawal',
+                              ),
+                            ),
+                          ],
                         );
                       } else {
                         return Center(
@@ -133,21 +167,45 @@ class _RexcordBookingState extends State<RexcordBooking> {
                     },
                   ),
                   // // second tab bar viiew widget
-                  FutureBuilder<List<Appointments>>(
-                    future: HospitalApiController().getPrevAppt(patientCode: SharedPrefController().getValueFor(key: "p_code")),
+                  FutureBuilder<AppointmentResponse?>(
+                    future: HospitalApiController().getPrevAppt(patientCode: SharedPrefController().getValueFor(key: "p_code"),offset: offSet,page: selectedPageNumber),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                        return  Padding(
-                          padding:  EdgeInsets.all(8.0.r),
-                          child:    ListView.builder(
-                              shrinkWrap: true,
-                              // physics: NeverScrollableScrollPhysics(),
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (context,index){
-                                return  ScedualBookingItem(snapshot.data![index]);
-                              }),
+                      } else if (snapshot.hasData && snapshot.data != null) {
+                        return  ListView(
+                          shrinkWrap: true,
+                          children: [
+                            Padding(
+                              padding:  EdgeInsets.all(8.0.r),
+                              child:    ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: snapshot.data!.myPrevAppointments!.length,
+                                  itemBuilder: (context,index){
+                                    return  ScedualBookingItem(snapshot.data!.myPrevAppointments![index]);
+                                  }),
+                            ),
+                            Visibility(
+                              visible: snapshot.data!.pages!.length > 1,
+                              child: NumberPagination(
+                                onPageChanged: (int pageNumber) {
+                                  //do somthing for selected page
+                                  setState(() {
+                                    selectedPageNumber = pageNumber;
+                                    offSet = snapshot
+                                        .data!.pages![selectedPageNumber - 1].offset!;
+                                  });
+                                },
+                                pageTotal: snapshot.data!.pages!.length,
+                                pageInit: selectedPageNumber,
+                                // picked number when init page
+                                colorPrimary: Colors.green,
+                                colorSub: Colors.white,
+                                fontFamily: 'Tajawal',
+                              ),
+                            ),
+                          ],
                         );
                       } else {
                         return Center(

@@ -1,7 +1,7 @@
 import 'package:aphaa_app/model/Clinic.dart';
 import 'package:aphaa_app/model/doctor.dart';
 
-class prescriptionList {
+class PrescriptionList {
   String? invoiceNo;
   String? invoiceDate;
   String? invoiceType;
@@ -9,7 +9,7 @@ class prescriptionList {
   Clinic? clinic;
   Doctor? doctor;
 
-  prescriptionList(
+  PrescriptionList(
       {this.invoiceNo,
         this.invoiceDate,
         this.invoiceType,
@@ -17,7 +17,7 @@ class prescriptionList {
         this.clinic,
         this.doctor});
 
-  prescriptionList.fromJson(Map<String, dynamic> json) {
+  PrescriptionList.fromJson(Map<String, dynamic> json) {
     invoiceNo = json['invoiceNo'];
     invoiceDate = json['invoiceDate'];
     invoiceType = json['invoiceType'];

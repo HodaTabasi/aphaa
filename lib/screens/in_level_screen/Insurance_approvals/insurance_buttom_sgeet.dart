@@ -1,10 +1,10 @@
 import 'package:aphaa_app/api/controllers/hospital_controller.dart';
-import 'package:aphaa_app/model/ApprovalItem.dart';
-import 'package:aphaa_app/screens/in_level_screen/Insurance_approvals/screen_item.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../model/ApprovalsResponse/ApprovalItem.dart';
 
 class InsuranceButtomSheet extends StatefulWidget {
   String? reqId;

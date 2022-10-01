@@ -39,7 +39,8 @@ class DoctorItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0.r),
                   child: Image.network(
-                    "https://jihadm33.sg-host.com/public/storage/${doctor.img}",
+                    "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bGVuc3xlbnwwfHwwfHw%3D&w=1000&q=80",
+                    // "https://jihadm33.sg-host.com/public/storage/${doctor.img}",
                     width: 144.w,
                     height: 114.h,
                   ),

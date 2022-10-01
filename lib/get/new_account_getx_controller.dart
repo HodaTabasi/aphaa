@@ -1,6 +1,6 @@
 import 'package:aphaa_app/api/controllers/hospital_controller.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
-import 'package:aphaa_app/model/AvailableTime.dart';
+import 'package:aphaa_app/model/Appointment/AvailableTime.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

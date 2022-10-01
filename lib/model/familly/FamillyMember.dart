@@ -1,11 +1,11 @@
-class FamillyMember {
+class FamilyMember {
   String? patientName;
   String? medicFileNumber;
   String? patientIDNumber;
 
-  FamillyMember({this.patientName, this.medicFileNumber, this.patientIDNumber});
+  FamilyMember({this.patientName, this.medicFileNumber, this.patientIDNumber});
 
-  FamillyMember.fromJson(Map<String, dynamic> json) {
+  FamilyMember.fromJson(Map<String, dynamic> json) {
     patientName = json['patientName'];
     medicFileNumber = json['medicFileNumber'];
     patientIDNumber = json['patientIDNumber'];

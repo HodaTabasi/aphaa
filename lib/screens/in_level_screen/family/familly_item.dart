@@ -1,4 +1,4 @@
-import 'package:aphaa_app/model/FamillyMember.dart';
+import 'package:aphaa_app/model/familly/FamillyMember.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../drawer_screens/buttom_navication.dart';
 
 class FamillyItem extends StatelessWidget {
-  FamillyMember famillyMember;
+  FamilyMember famillyMember;
   FamillyItem(this.famillyMember);
 
   @override

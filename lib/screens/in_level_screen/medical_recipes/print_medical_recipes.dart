@@ -1,5 +1,5 @@
 import 'package:aphaa_app/general/my_separator.dart';
-import 'package:aphaa_app/model/prescriptionList.dart';
+import 'package:aphaa_app/model/prescriptionListResponse/prescriptionList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,10 +8,10 @@ import '../../../general/download_btn.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../model/PrescriptionListItems.dart';
+import '../../../model/prescriptionListResponse/PrescriptionListItems.dart';
 
 class PrintMedicalRecipesButtomSheet extends StatefulWidget {
-  prescriptionList prescriptionlist;
+  PrescriptionList prescriptionlist;
   PrintMedicalRecipesButtomSheet(this.prescriptionlist);
 
   @override
