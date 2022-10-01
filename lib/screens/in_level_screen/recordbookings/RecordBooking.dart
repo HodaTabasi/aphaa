@@ -12,7 +12,7 @@ import '../../../preferences/shared_pref_controller.dart';
 
 class RexcordBooking extends StatefulWidget {
   static String routeName = "/RexcordBooking";
-  bool fromInLevel ;
+  bool fromInLevel;
 
   RexcordBooking({this.fromInLevel = true});
 
@@ -31,37 +31,42 @@ class _RexcordBookingState extends State<RexcordBooking> {
       length: 2,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: widget.fromInLevel ?AppBar(
-          elevation: 0,
-          // leadingWidth: 40,
-          title: Text(AppLocalizations.of(context)!.reservations,
-              style:  TextStyle(
-                color: Colors.white,
-                fontSize: 16.sp,
-                fontFamily: 'Tajawal',
-                fontWeight: FontWeight.bold,
-              )),
-          titleSpacing: 2,
-          leading: Container(
-              margin:  EdgeInsets.all(15.0.r),
-              padding:  EdgeInsets.all(5.0.r),
-              // alignment: Alignment.bottomLeft,
-              // width: 80,
-              // height: 500,
-              decoration: BoxDecoration(
-                  color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5.r)),
-              child:  Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-                size: 15.sp,
-              )),
-        ) :null,
+        appBar: widget.fromInLevel
+            ? AppBar(
+                elevation: 0,
+                // leadingWidth: 40,
+                title: Text(AppLocalizations.of(context)!.reservations,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.bold,
+                    )),
+                titleSpacing: 2,
+                leading: Container(
+                    margin: EdgeInsets.all(15.0.r),
+                    padding: EdgeInsets.all(5.0.r),
+                    // alignment: Alignment.bottomLeft,
+                    // width: 80,
+                    // height: 500,
+                    decoration: BoxDecoration(
+                        color: const Color(0xff006F2C),
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                      size: 15.sp,
+                    )),
+              )
+            : null,
         body: Column(
           children: [
-             SizedBox(height: 15.h,),
-             Padding(
-              padding:  EdgeInsets.only(left: 10.0.r,right: 10.r,top: 16.r,bottom: 0),
+            SizedBox(
+              height: 15.h,
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: 10.0.r, right: 10.r, top: 16.r, bottom: 0),
               child: Divider(
                 height: 2.h,
                 thickness: 1.w,
@@ -73,21 +78,22 @@ class _RexcordBookingState extends State<RexcordBooking> {
             SizedBox(
               height: 60.h,
               child: TabBar(
-                onTap: (index){
+                onTap: (index) {
                   selectedPageNumber = 1;
                   offSet = "1";
                 },
                 indicatorWeight: 2,
                 indicatorPadding: EdgeInsets.symmetric(horizontal: 15.w),
-                padding:  EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 8.r),
+                padding:
+                    EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 8.r),
                 indicatorColor: const Color(0xff058638),
-                labelStyle:  TextStyle(
+                labelStyle: TextStyle(
                   color: Colors.black,
                   fontSize: 15.sp,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.bold,
                 ),
-                unselectedLabelStyle:  TextStyle(
+                unselectedLabelStyle: TextStyle(
                   color: Colors.black,
                   fontSize: 15.sp,
                   fontFamily: 'Tajawal',
@@ -95,7 +101,7 @@ class _RexcordBookingState extends State<RexcordBooking> {
                 ),
                 labelColor: Colors.black,
                 // controller: controller,
-                tabs:  [
+                tabs: [
                   Tab(
                     text: AppLocalizations.of(context)!.scheduled_reservations,
                   ),
@@ -104,7 +110,6 @@ class _RexcordBookingState extends State<RexcordBooking> {
                   ),
                 ],
               ),
-
             ),
             // create widgets for each tab bar here
             Expanded(
@@ -112,22 +117,28 @@ class _RexcordBookingState extends State<RexcordBooking> {
                 children: [
                   // first tab bar view widget
                   FutureBuilder<AppointmentResponse?>(
-                    future: HospitalApiController().getNextAppt(patientCode: SharedPrefController().getValueFor(key: "p_code"),page: selectedPageNumber,offset: offSet),
+                    future: HospitalApiController().getNextAppt(
+                        patientCode:
+                            SharedPrefController().getValueFor(key: "p_code"),
+                        page: selectedPageNumber,
+                        offset: offSet),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasData && snapshot.data != null) {
-                        return  ListView(
+                        return ListView(
                           shrinkWrap: true,
                           children: [
                             Padding(
-                              padding:  EdgeInsets.all(8.0.r),
-                              child:   ListView.builder(
+                              padding: EdgeInsets.all(8.0.r),
+                              child: ListView.builder(
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
-                                  itemCount: snapshot.data!.myNextAppointments!.length,
-                                  itemBuilder: (context,index){
-                                    return ScedualBookingItem(snapshot.data!.myNextAppointments![index]);
+                                  itemCount:
+                                      snapshot.data!.myNextAppointments!.length,
+                                  itemBuilder: (context, index) {
+                                    return ScedualBookingItem(snapshot
+                                        .data!.myNextAppointments![index]);
                                   }),
                             ),
                             Visibility(
@@ -137,8 +148,8 @@ class _RexcordBookingState extends State<RexcordBooking> {
                                   //do somthing for selected page
                                   setState(() {
                                     selectedPageNumber = pageNumber;
-                                    offSet = snapshot
-                                        .data!.pages![selectedPageNumber - 1].offset!;
+                                    offSet = snapshot.data!
+                                        .pages![selectedPageNumber - 1].offset!;
                                   });
                                 },
                                 pageTotal: snapshot.data!.pages!.length,
@@ -148,6 +159,10 @@ class _RexcordBookingState extends State<RexcordBooking> {
                                 colorSub: Colors.white,
                                 fontFamily: 'Tajawal',
                               ),
+                            ),
+                            Image.asset(
+                              "assets/images/image1.png",
+                              fit: BoxFit.fitWidth,
                             ),
                           ],
                         );
@@ -168,22 +183,28 @@ class _RexcordBookingState extends State<RexcordBooking> {
                   ),
                   // // second tab bar viiew widget
                   FutureBuilder<AppointmentResponse?>(
-                    future: HospitalApiController().getPrevAppt(patientCode: SharedPrefController().getValueFor(key: "p_code"),offset: offSet,page: selectedPageNumber),
+                    future: HospitalApiController().getPrevAppt(
+                        patientCode:
+                            SharedPrefController().getValueFor(key: "p_code"),
+                        offset: offSet,
+                        page: selectedPageNumber),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasData && snapshot.data != null) {
-                        return  ListView(
+                        return ListView(
                           shrinkWrap: true,
                           children: [
                             Padding(
-                              padding:  EdgeInsets.all(8.0.r),
-                              child:    ListView.builder(
+                              padding: EdgeInsets.all(8.0.r),
+                              child: ListView.builder(
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
-                                  itemCount: snapshot.data!.myPrevAppointments!.length,
-                                  itemBuilder: (context,index){
-                                    return  ScedualBookingItem(snapshot.data!.myPrevAppointments![index]);
+                                  itemCount:
+                                      snapshot.data!.myPrevAppointments!.length,
+                                  itemBuilder: (context, index) {
+                                    return ScedualBookingItem(snapshot
+                                        .data!.myPrevAppointments![index]);
                                   }),
                             ),
                             Visibility(
@@ -193,8 +214,8 @@ class _RexcordBookingState extends State<RexcordBooking> {
                                   //do somthing for selected page
                                   setState(() {
                                     selectedPageNumber = pageNumber;
-                                    offSet = snapshot
-                                        .data!.pages![selectedPageNumber - 1].offset!;
+                                    offSet = snapshot.data!
+                                        .pages![selectedPageNumber - 1].offset!;
                                   });
                                 },
                                 pageTotal: snapshot.data!.pages!.length,
@@ -204,6 +225,10 @@ class _RexcordBookingState extends State<RexcordBooking> {
                                 colorSub: Colors.white,
                                 fontFamily: 'Tajawal',
                               ),
+                            ),
+                            Image.asset(
+                              "assets/images/image1.png",
+                              fit: BoxFit.fitWidth,
                             ),
                           ],
                         );

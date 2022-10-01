@@ -1,5 +1,6 @@
 
 import 'package:aphaa_app/general/btn_layout.dart';
+import 'package:aphaa_app/get/quick_service_getx_controller.dart';
 import 'package:aphaa_app/screens/drawer_screens/Booking/my_appointment_booking.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/my_medical_file_item.dart';
 import 'package:aphaa_app/general/slider_wedgit.dart';
@@ -219,8 +220,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 return MyMedicalFileItem(
                   image: 'assets/images/offers.svg',
                   name: AppLocalizations.of(context)!.medical_offers,
-                  prsee: () =>
-                      Navigator.pushNamed(context, OfferScreen.routeName),
+                  prsee: () {
+                    QuickServiceGetxController.to.fromHome = true;
+                      Navigator.pushNamed(context, OfferScreen.routeName);},
                 );
               },
             ),

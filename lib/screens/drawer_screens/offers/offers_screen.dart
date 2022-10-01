@@ -4,7 +4,8 @@ import 'package:aphaa_app/model/offer.dart';
 import 'package:aphaa_app/screens/in_level_screen/offer_ditails/offer_details.dart';
 import 'package:flutter/material.dart';
 
-import '../../in_level_screen/Insurance_approvals/screen_item.dart';
+import '../../../get/quick_service_getx_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OfferScreen extends StatefulWidget {
 
@@ -21,18 +22,18 @@ class _OfferScreenState extends State<OfferScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //     elevation: 0,
-      //     // leadingWidth: 40,
-      //     title: Text('العروض',
-      //         style: const TextStyle(
-      //           color: Colors.white,
-      //           fontSize: 16,
-      //           fontFamily: 'Tajawal',
-      //           fontWeight: FontWeight.bold,
-      //         )),
-      //     titleSpacing: 2,
-      //     centerTitle: true, ),
+      appBar: QuickServiceGetxController.to.fromHome ?AppBar(
+          elevation: 0,
+          // leadingWidth: 40,
+          title: Text(AppLocalizations.of(context)!.medical_offers,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontFamily: 'Tajawal',
+                fontWeight: FontWeight.bold,
+              )),
+          titleSpacing: 2,
+          centerTitle: true, ):null,
       body: ListView(
         children: [
           FutureBuilder<List<Offers>>(
@@ -79,5 +80,10 @@ class _OfferScreenState extends State<OfferScreen> {
         fit: BoxFit.fitWidth,
       ),
     );
+  }
+  @override
+  void dispose() {
+    QuickServiceGetxController.to.fromHome = false;
+    super.dispose();
   }
 }

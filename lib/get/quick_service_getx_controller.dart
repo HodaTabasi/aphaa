@@ -4,12 +4,14 @@ import '../model/Patient.dart';
 import '../model/doctor.dart';
 
 class QuickServiceGetxController extends GetxController {
+
+
   static QuickServiceGetxController get to => Get.find<QuickServiceGetxController>();
 
    RxString clinicName = "anonumus".obs;
    String? doctorId;
    Doctor? doctor;
-
+   bool fromHome = false;
    void changeClinicName(name){
      clinicName.value = name;
    }

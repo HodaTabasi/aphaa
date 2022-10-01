@@ -78,8 +78,8 @@ class HospitalApiController with ApiHelper {
 
   Future<List<ServiceTest>> getLabReports({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
-      'patientCode': '$patientCode',
-      // 'patientCode': '0/372081',
+      // 'patientCode': '$patientCode',
+      'patientCode': '0/372081',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
@@ -100,8 +100,8 @@ class HospitalApiController with ApiHelper {
 
   Future<List<ServiceTest>> getRadReports({patientCode,page = 1,offset = 1}) async {
     final queryParameters = {
-      'patientCode': '$patientCode',
-      // 'patientCode': '0/372081',
+      // 'patientCode': '$patientCode',
+      'patientCode': '0/372081',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
@@ -109,7 +109,7 @@ class HospitalApiController with ApiHelper {
           .getValueFor<String>(key: PrefKeys.lang.name),
     };
     final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}radReports', queryParameters);
+    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}radReports', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
