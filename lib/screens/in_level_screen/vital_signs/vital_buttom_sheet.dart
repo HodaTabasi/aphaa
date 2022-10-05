@@ -60,48 +60,54 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                       itemBuilder: (context, index) {
                     return  Padding(
                       padding:  EdgeInsets.all(8.0.r),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            images[index],
-                            semanticsLabel: 'Acme Logo',
-                          ),
-                          Padding(
-                            padding:  EdgeInsets.all(8.0.r),
-                            child: Text('${snapshot.data![index].signName}',
-                                style:  TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                  fontFamily: 'Tajawal',
-                                  fontWeight: FontWeight.normal,
-                                )),
-                          ),
-                          Spacer(),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: Color(0xffF7F8FB),
-                              borderRadius: BorderRadius.circular(5.r),
+                      child: Visibility(
+                        visible: snapshot.data![index].signValue!.isNotEmpty,
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              images[index],
+                              semanticsLabel: 'Acme Logo',
                             ),
-                            child: Padding(
-                              padding:  EdgeInsets.all(16.0.r),
-                              child: Text(
-                                '${snapshot.data![index].signValue}',
-                                style:  TextStyle(
-                                  color: Color(0xff2D2D2D),
-                                  fontSize: 14.sp,
-                                  fontFamily: 'Tajawal',
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            Padding(
+                              padding:  EdgeInsets.all(8.0.r),
+                              child: Text('${snapshot.data![index].signName}',
+                                  style:  TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14.sp,
+                                    fontFamily: 'Tajawal',
+                                    fontWeight: FontWeight.normal,
+                                  )),
+                            ),
+                            Spacer(),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Color(0xffF7F8FB),
+                                borderRadius: BorderRadius.circular(5.r),
                               ),
-                            ), ),
-                        ],
+                              child: Padding(
+                                padding:  EdgeInsets.all(16.0.r),
+                                child: Text(
+                                  '${snapshot.data![index].signValue}',
+                                  style:  TextStyle(
+                                    color: Color(0xff2D2D2D),
+                                    fontSize: 14.sp,
+                                    fontFamily: 'Tajawal',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ), ),
+                          ],
+                        ),
                       ),
                     );
                       },
                       separatorBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 80.r,vertical: 8.r),
-                      child: MySeparator(color: Color(0xff0E4C8F)),
+                    return Visibility(
+                      visible: snapshot.data![index].signName!.isEmpty,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 80.r,vertical: 8.r),
+                        child: MySeparator(color: Color(0xff0E4C8F)),
+                      ),
                     );
                       },
                       ),

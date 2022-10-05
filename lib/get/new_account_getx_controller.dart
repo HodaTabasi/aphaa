@@ -15,7 +15,7 @@ class NewAccountGetxController extends GetxController {
   static NewAccountGetxController get to => Get.find<NewAccountGetxController>();
   RxBool isCitizen = false.obs;
  late Patient patient ;
-  String companyName = "";
+  String companyName = "dar";
   List<Doctor> doctorsList = [] ;
   List<String> avilableDate = [];
   List<AvailableTime> avilableTime = [];
@@ -66,7 +66,7 @@ class NewAccountGetxController extends GetxController {
 
   Future<void> changeDropDownValue(value,dropType,{context}) async {
     var data = await HospitalApiController().getClDrs(clinicCode: value);
-    doctorsList =  data;
+    doctorsList =  data!.doctors!;
     update();
     // Navigator.pop(context);
    switch(dropType){

@@ -66,8 +66,8 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
     myData = await HospitalApiController().getClList() ?? [];
     Future.delayed(Duration.zero, () async {
       await HospitalApiController().getClDrs(clinicCode: myData[0].clinicCode).then((value) {
-        NewAccountGetxController.to.changeMyDoctorList(value);
-        myDataDoctor = value;
+        NewAccountGetxController.to.changeMyDoctorList(value!.doctors!);
+        myDataDoctor = value.doctors!;
       });
     });
   }

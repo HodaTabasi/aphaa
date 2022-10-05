@@ -58,8 +58,8 @@ class _SendConsultScreenState extends State<SendConsultScreen>
     Future.delayed(Duration.zero, () async {
       await HospitalApiController().getClDrs(clinicCode: myData[0].clinicCode).then((value) {
         // Navigator.pop(context);
-        NewAccountGetxController.to.changeMyDoctorList(value);
-        myDataDoctor = value;
+        NewAccountGetxController.to.changeMyDoctorList(value!.doctors!);
+        myDataDoctor = value.doctors!;
       });
       setState(() {
         print("object");

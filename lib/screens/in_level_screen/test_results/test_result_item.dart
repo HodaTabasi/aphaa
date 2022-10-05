@@ -21,56 +21,59 @@ class TestResultItem extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.examination_date,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '  ${serviceTest?.serviceDate?.split(" ").first}  ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black45,
-                            fontSize: 12.sp,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
+          FittedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
+                  child: Text.rich(
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.examination_date,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 12.sp,
+                          fontFamily: 'Tajawal'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '  ${serviceTest?.serviceDate?.split(" ").first}  ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black45,
+                              fontSize: 12.sp,
+                              fontFamily: 'Tajawal'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.examination_type,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '   ${serviceTest?.serviceType}   ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black45,
-                            fontSize: 12.sp,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
+                  child: Text.rich(
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.examination_type,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 12.sp,
+                          fontFamily: 'Tajawal'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '   ${serviceTest?.serviceName}   ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black45,
+                              fontSize: 12.sp,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: 'Tajawal',),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

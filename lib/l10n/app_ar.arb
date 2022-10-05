@@ -137,7 +137,7 @@
      "sick_leaves":"  الإجازات المرضية",
 
      "examination_date":"  تاريخ الفحص :",
-     "examination_type":"  نوع الفحص :",
+     "examination_type":"  اسم الفحص :",
 
      "vaccination_name":" اسم التطعيم :",
      "vaccination_date":" موعد التطعيم :",
@@ -168,7 +168,8 @@
      "enter_code":" أدخل الكود",
      "enter_the_verification_code_that_we_sent_to_your_mobile":" قم بادخال رمز التحقق الذي ارسلناه الي جوالك",
      "re_transmitter":"اعادة الارسال",
-     "upload":"تحميل"
+     "upload":"تحميل",
+     "app_status":"حالة الحجز"
 
 
 

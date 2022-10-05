@@ -94,7 +94,7 @@ class _SickLeaveState extends State<SickLeave> {
                                 sickDocName: snapshot
                                     .data!.leaves![index].doctor!.doctorName!,
                                 sickName:
-                                    snapshot.data!.leaves![index].leaveId!,
+                                  "${SharedPrefController().getValueFor(key: PrefKeysPatient.firstName.name)} ${SharedPrefController().getValueFor(key: PrefKeysPatient.lastName.name)}",
                               );
                             });
                       }),

@@ -143,7 +143,7 @@
               "sick_leaves":"  sick leaves",
 
              "examination_date":"  examination date :",
-             "examination_type":"  examination type :",
+             "examination_type":"  examination name :",
 
              "vaccination_name":" vaccination name :",
              "vaccination_date":" vaccination date :",
@@ -174,7 +174,8 @@
                 "enter_code":" enter code",
                 "enter_the_verification_code_that_we_sent_to_your_mobile":" enter the verification code that we sent to your mobile",
                  "re_transmitter":"re transmitter",
-                 "upload":"upload"
+                 "upload":"upload",
+                 "app_status":"booking status"
 
 
 

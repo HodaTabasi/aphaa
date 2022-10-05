@@ -15,7 +15,6 @@ import 'package:aphaa_app/screens/in_level_screen/vital_signs/vital_signs.dart';
 import 'package:aphaa_app/screens/main_screens/Doctor/my_doctor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../api/controllers/App_api_controller.dart';
 import '../../../model/offer.dart';

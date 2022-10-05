@@ -9,6 +9,7 @@ import 'package:aphaa_app/model/Eligibility.dart';
 import 'package:aphaa_app/model/SickLeaves/SickLeavesResponse.dart';
 import 'package:aphaa_app/model/VisitedDrs/VisitedDrsResponse.dart';
 import 'package:aphaa_app/model/SickLeaves/LeaveDetail.dart';
+import 'package:aphaa_app/model/allDocResponse.dart';
 import 'package:aphaa_app/model/prescriptionListResponse/PrescriptionListItems.dart';
 import 'package:aphaa_app/model/SickLeaves/SickLeaves.dart';
 import 'package:aphaa_app/model/doctor.dart';
@@ -255,7 +256,7 @@ class HospitalApiController with ApiHelper {
       // 'invoiceType': '1',
       'pageNo': '1',
       'offset': '1',
-      'rows': '5',
+      'rows': '50',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
     };
@@ -358,7 +359,7 @@ class HospitalApiController with ApiHelper {
       'reqId': '$reqId',
       'pageNo': '1',
       'offset': '1',
-      'rows': '7',
+      'rows': '100',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
     };
@@ -521,12 +522,12 @@ class HospitalApiController with ApiHelper {
 
   //////////// بيانات الدكتور ///////
 
-  Future<List<Doctor>>getClDrs({clinicCode=""}) async {
+  Future<DoctorListResponse?>getClDrs({clinicCode="",flag = false,page = 1,offset = 1}) async {
     final queryParameters = {
       'clinicCode': '$clinicCode',
-      'pageNo': '1',
-      'offset': '1',
-      'rows': '7',
+      'pageNo': '${flag?page:1}',
+      'offset': '${flag?offset:1}',
+      'rows': '${flag?15:100}',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
     };
@@ -536,21 +537,44 @@ class HospitalApiController with ApiHelper {
 
     print(uri);
     final response = await http.get(uri);
-    var jsonResponse = jsonDecode(response.body);
-    print(response.body);
+    // var jsonResponse = jsonDecode(response.body);
+    // print(response.body);
     if (response.statusCode == 200) {
-      var jsonArray = jsonResponse['doctors'] as List;
-      return jsonArray.map((jsonObject) => Doctor.fromJson(jsonObject))
-          .toList();
+      var jsonResponse = jsonDecode(response.body);
+      return DoctorListResponse.fromJson(jsonResponse);
     }
-    return [];
+    return null;
   }
+  // Future<List<Doctor>>getClDrs({clinicCode="",flag = false}) async {
+  //   final queryParameters = {
+  //     'clinicCode': '$clinicCode',
+  //     'pageNo': '1',
+  //     'offset': '1',
+  //     'rows': '${flag?7:100}',
+  //     'lang': SharedPrefController()
+  //         .getValueFor<String>(key: PrefKeys.lang.name),
+  //   };
+  //
+  //   final uri =
+  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase3}clDrs', queryParameters);
+  //
+  //   print(uri);
+  //   final response = await http.get(uri);
+  //   var jsonResponse = jsonDecode(response.body);
+  //   print(response.body);
+  //   if (response.statusCode == 200) {
+  //     var jsonArray = jsonResponse['doctors'] as List;
+  //     return jsonArray.map((jsonObject) => Doctor.fromJson(jsonObject))
+  //         .toList();
+  //   }
+  //   return [];
+  // }
 
   Future<List<Clinic>?> getClList() async {
     final queryParameters = {
       'pageNo': '1',
       'offset': '1',
-      'rows': '7',
+      'rows': '100',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
     };
@@ -576,7 +600,7 @@ class HospitalApiController with ApiHelper {
       // 'doctorCode': '11',
       'pageNo': '1',
       'offset': '1',
-      'rows': '7',
+      'rows': '100',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
     };
@@ -599,7 +623,7 @@ class HospitalApiController with ApiHelper {
       'doctorCode':'$doctorCode',
       'pageNo': '1',
       'offset': '1',
-      'rows': '7',
+      'rows': '100',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
     };
@@ -627,7 +651,7 @@ class HospitalApiController with ApiHelper {
       'availableDay':'${availableDay.toString().split(" ").first}',
       'pageNo': '1',
       'offset': '1',
-      'rows': '7',
+      'rows': '100',
       'lang': SharedPrefController()
           .getValueFor<String>(key: PrefKeys.lang.name),
     };

@@ -3,7 +3,9 @@ import 'package:aphaa_app/model/doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:number_pagination/number_pagination.dart';
 
+import '../../../model/allDocResponse.dart';
 import '../Appointment Booking/doctor_filtter.dart';
 import 'DoctorItem.dart';
 
@@ -15,6 +17,10 @@ class DoctorsScreen extends StatefulWidget {
 }
 
 class _DoctorsScreenState extends State<DoctorsScreen> {
+  var selectedPageNumber = 1;
+
+  String offSet = "1";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,85 +54,86 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               )),
         ),
       ),
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 20.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(140, 171, 205, 0.12),
-                              width: 0.5.w),
+      body: FutureBuilder<DoctorListResponse?>(
+        future: HospitalApiController().getClDrs(flag: true),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasData && snapshot.data != null) {
+            return ListView(
+              children: [
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                        child: TextField(
+                          decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.r),
+                                borderSide: BorderSide(
+                                    color: Color.fromRGBO(140, 171, 205, 0.12),
+                                    width: 0.5.w),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.r),
+                                borderSide: BorderSide(
+                                    color: Color.fromRGBO(140, 171, 205, 0.12),
+                                    width: 0.5.w),
+                              ),
+                              hintText:
+                                  AppLocalizations.of(context)!.find_a_doctor,
+                              hintStyle: TextStyle(
+                                color: Color(0xff739ECC),
+                                fontSize: 13.sp,
+                                fontFamily: 'Tajawal',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              fillColor: Color.fromRGBO(140, 171, 205, 0.12),
+                              filled: true,
+                              prefixIcon: Icon(
+                                Icons.search_sharp,
+                                color: Color(0xff0E4C8F),
+                              )),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(140, 171, 205, 0.12),
-                              width: 0.5.w),
-                        ),
-                        hintText: AppLocalizations.of(context)!.find_a_doctor,
-                        hintStyle: TextStyle(
-                          color: Color(0xff739ECC),
-                          fontSize: 13.sp,
-                          fontFamily: 'Tajawal',
-                          fontWeight: FontWeight.bold,
-                        ),
-                        fillColor: Color.fromRGBO(140, 171, 205, 0.12),
-                        filled: true,
-                        prefixIcon: Icon(
-                          Icons.search_sharp,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          isScrollControlled: false,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) => DoctorFillter(),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(12.r),
+                        margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                        decoration: BoxDecoration(
                           color: Color(0xff0E4C8F),
-                        )),
-                  ),
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
+                        child: Icon(
+                          Icons.filter_list_alt,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-              ),
-              InkWell(
-                onTap: () {
-                  showModalBottomSheet(
-                    isScrollControlled: false,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    builder: (context) => DoctorFillter(),
-                  );
-                },
-                child: Container(
-                  padding: EdgeInsets.all(12.r),
-                  margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
-                  decoration: BoxDecoration(
-                    color: Color(0xff0E4C8F),
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: Icon(
-                    Icons.filter_list_alt,
-                    color: Colors.white,
-                  ),
+                SizedBox(
+                  height: 10.h,
                 ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          FutureBuilder<List<Doctor>>(
-            future: HospitalApiController().getClDrs(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                return Padding(
+                Padding(
                   padding: EdgeInsets.all(8.0.r),
                   child: GridView.builder(
                     shrinkWrap: true,
-                    itemCount: snapshot.data!.length,
+                    itemCount: snapshot.data!.doctors!.length,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.symmetric(horizontal: 10.r),
                     scrollDirection: Axis.vertical,
@@ -136,35 +143,57 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                         crossAxisSpacing: 15.w,
                         childAspectRatio: 240 / 330),
                     itemBuilder: (context, index) {
-                      return DoctorItem(snapshot.data![index]);
+                      return DoctorItem(snapshot.data!.doctors![index]);
                     },
                   ),
-                );
-              } else {
-                return Center(
-                  child: Text(
-                    'NO DATA',
-                    style: TextStyle(
+                ),
+                Visibility(
+                  visible: snapshot.data!.pages!.length > 1,
+                  child: NumberPagination(
+                    controlButton: ColoredBox(
                       color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'Tajawal',
-                      fontWeight: FontWeight.bold,
                     ),
+                    onPageChanged: (int pageNumber) {
+                      //do somthing for selected page
+                      setState(() {
+                        selectedPageNumber = pageNumber;
+                        offSet = snapshot.data!
+                            .pages![selectedPageNumber - 1].offset!;
+                      });
+                    },
+                    pageTotal: snapshot.data!.pages!.length,
+                    pageInit: selectedPageNumber,
+                    // picked number when init page
+                    colorPrimary: Colors.green,
+                    colorSub: Colors.white,
+                    fontFamily: 'Tajawal',
                   ),
-                );
-              }
-            },
-          ),
-          // Image.asset(
-          //   "assets/images/image1.png",
-          //   fit: BoxFit.fitWidth,
-          // ),
-        ],
-      ),
-      bottomSheet: Image.asset(
-        "assets/images/image1.png",
-        fit: BoxFit.fitWidth,
+                ),
+                Image.asset(
+                  "assets/images/image1.png",
+                  fit: BoxFit.fitWidth,
+                ),
+              ],
+            );
+          } else {
+            return Center(
+              child: Text(
+                'NO DATA',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: 'Tajawal',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
+    // Image.asset(
+    //   "assets/images/image1.png",
+    //   fit: BoxFit.fitWidth,
+    // ),
   }
 }
