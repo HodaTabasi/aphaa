@@ -596,8 +596,8 @@ class HospitalApiController with ApiHelper {
 
   Future<Doctor?> getDoctorDtl({doctorCode}) async {
     final queryParameters = {
-      'doctorCode': '$doctorCode',
-      // 'doctorCode': '11',
+      // 'doctorCode': '$doctorCode',
+       'doctorCode': '1',
       'pageNo': '1',
       'offset': '1',
       'rows': '100',
@@ -609,11 +609,11 @@ class HospitalApiController with ApiHelper {
     Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase2}DoctorDtl', queryParameters);
     final response = await http.get(uri);
     var jsonResponse = jsonDecode(response.body);
-    print("sfs ${response.body}");
     if(response.statusCode == 200){
+      print(response.statusCode);
       return Doctor.fromJson(jsonResponse);
     }
-    return Doctor();
+    return null;
 
   }
 

@@ -175,7 +175,11 @@
                 "enter_the_verification_code_that_we_sent_to_your_mobile":" enter the verification code that we sent to your mobile",
                  "re_transmitter":"re transmitter",
                  "upload":"upload",
-                 "app_status":"booking status"
+                 "app_status":"booking status",
+                 "prior_experiences":"prior experiences",
+                 "medical_services_information":"Medical Services Information",
+                 "skill_name":"Skill Name",
+                 "skill_pec":"Percentage"
 
 
 

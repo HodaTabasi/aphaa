@@ -169,7 +169,11 @@
      "enter_the_verification_code_that_we_sent_to_your_mobile":" قم بادخال رمز التحقق الذي ارسلناه الي جوالك",
      "re_transmitter":"اعادة الارسال",
      "upload":"تحميل",
-     "app_status":"حالة الحجز"
+     "app_status":"حالة الحجز",
+     "prior_experiences":"خبرات سابقة",
+     "medical_services_information":"معلومات الخدمات الطبية",
+     "skill_name":"اسم الخدمة",
+     "skill_pec":"العلامة المئوية"
 
 
 

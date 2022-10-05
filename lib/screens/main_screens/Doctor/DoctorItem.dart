@@ -75,8 +75,9 @@ class DoctorItem extends StatelessWidget {
             // left: 0,
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(context, DoctorDetails.routeName,
-                    arguments: {"data": doctor});
+                Navigator.pushNamed(context, DoctorDetails.routeName);
+                // Navigator.pushNamed(context, DoctorDetails.routeName,
+                //     arguments: {"data": doctor});
                 QuickServiceGetxController.to.saveDoctor(doctor);
               },
               child: Container(

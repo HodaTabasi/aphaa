@@ -2,10 +2,11 @@ class Doctor {
   String? doctorCode;
   String? doctorName;
   String? clinicName;
+
   String? img;
-  List<dynamic>? sciMainInfo;
-  List<dynamic>? pastExpInfo;
-  List<dynamic>? medSrvInfo;
+  List<String>? sciMainInfo;
+  List<String>? pastExpInfo;
+  List<String>? medSrvInfo;
   List<DrSkillInfo>? drSkillInfo;
 
   Doctor(
@@ -22,10 +23,21 @@ class Doctor {
     doctorCode = json['doctorCode'];
     doctorName = json['doctorName'];
     clinicName = json['clinicName'];
-    img = json['img'];
-    sciMainInfo = json['sciMainInfo'];
-    pastExpInfo = json['pastExpInfo'];
-    medSrvInfo = json['medSrvInfo'];
+    if (json['img'] != null) {
+      img = json['img'];
+    }
+    if (json['sciMainInfo'] != null) {
+      sciMainInfo = json['sciMainInfo'].cast<String>();
+    }
+    if (json['pastExpInfo'] != null) {
+      pastExpInfo = json['pastExpInfo'].cast<String>();
+    }
+
+    if (json['medSrvInfo'] != null) {
+
+      medSrvInfo = json['medSrvInfo'].cast<String>();
+    }
+
     if (json['drSkillInfo'] != null) {
       drSkillInfo = <DrSkillInfo>[];
       json['drSkillInfo'].forEach((v) {
@@ -39,10 +51,19 @@ class Doctor {
     data['doctorCode'] = this.doctorCode;
     data['doctorName'] = this.doctorName;
     data['clinicName'] = this.clinicName;
-    data['img'] = this.img;
-    data['sciMainInfo'] = this.sciMainInfo;
-    data['pastExpInfo'] = this.pastExpInfo;
-    data['medSrvInfo'] = this.medSrvInfo;
+    if (this.img != null) {
+      data['img'] = this.img;
+    }
+    if (this.sciMainInfo != null) {
+      data['sciMainInfo'] = this.sciMainInfo;
+    }
+    if (this.pastExpInfo != null) {
+      data['pastExpInfo'] = this.pastExpInfo;
+    }
+
+    if (this.medSrvInfo != null) {
+      data['medSrvInfo'] = this.medSrvInfo;
+    }
     if (this.drSkillInfo != null) {
       data['drSkillInfo'] = this.drSkillInfo!.map((v) => v.toJson()).toList();
     }

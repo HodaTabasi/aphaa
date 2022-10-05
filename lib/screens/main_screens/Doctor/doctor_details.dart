@@ -11,7 +11,6 @@ import 'package:video_player/video_player.dart';
 import '../../../get/quick_service_getx_controller.dart';
 import '../../drawer_screens/Booking/my_appointment_booking.dart';
 import '../../in_level_screen/medical_recipes/medical_recipes.dart';
-import '../../in_level_screen/test_results/test_results.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -25,34 +24,36 @@ class DoctorDetails extends StatefulWidget {
 }
 
 class _DoctorDetailsState extends State<DoctorDetails> {
-  late VideoPlayerController _controller;
+  // late VideoPlayerController _controller;
   bool v = false;
 
   var instalation;
+
   // late Doctor doctor;
 
   @override
   void initState() {
     // getDoctorData();
     super.initState();
-    _controller = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
+    // _controller = VideoPlayerController.network(
+    //     'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
+    //   ..initialize().then((_) {
+    //     // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+    //     setState(() {});
+    //   });
   }
+
   // getDoctorData() async {
   //   doctor = await HospitalApiController().getDoctorDtl(doctorCode:QuickServiceGetxController.to.doctor?.doctorCode ) ?? Doctor();
   // }
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs1 =
-        ModalRoute.of(context)?.settings.arguments as Map<String, Doctor?>;
-    if (routeArgs1 != null) {
-      instalation = routeArgs1['data'];
-    }
+    // final routeArgs1 =
+    //     ModalRoute.of(context)?.settings.arguments as Map<String, Doctor?>;
+    // if (routeArgs1 != null) {
+    //   instalation = routeArgs1['data'];
+    // }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -97,12 +98,13 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             ),
           ]),
       body: FutureBuilder<Doctor?>(
-        future: HospitalApiController().getDoctorDtl(doctorCode:QuickServiceGetxController.to.doctor?.doctorCode ),
-        builder:(context, snapshot) {
+        future: HospitalApiController().getDoctorDtl(
+            doctorCode: QuickServiceGetxController.to.doctor?.doctorCode),
+        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasData && snapshot.data != null) {
-            return  ListView(
+          } else if (snapshot.hasData) {
+            return ListView(
               children: [
                 SizedBox(
                   height: 10.h,
@@ -120,7 +122,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0.r),
                       child: Image.network(
-                        snapshot.data!.img!,
+                        "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bGVuc3xlbnwwfHwwfHw%3D&w=1000&q=80",
                         // width: 144,
                         // height: 114,
                       ),
@@ -128,7 +130,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 8.0.r),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 8.0.r),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -154,35 +157,199 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50.0.r, vertical: 8.r),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 50.0.r, vertical: 8.r),
                   child: MySeparator(color: Color(0xff058638)),
                 ),
                 SizedBox(
                   height: 30.h,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-                  child: Text(
-                    AppLocalizations.of(context)!.about_me,
-                    style: TextStyle(
-                      color: Color(0xff2D2D2D),
-                      fontSize: 15.r,
-                      fontFamily: 'Tajawal',
-                      fontWeight: FontWeight.bold,
+                /////////////////main info//////////
+                Visibility(
+                  visible: snapshot.data!.sciMainInfo!.isNotEmpty,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                    child: Text(
+                      AppLocalizations.of(context)!.about_me,
+                      style: TextStyle(
+                        color: Color(0xff2D2D2D),
+                        fontSize: 15.r,
+                        fontFamily: 'Tajawal',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-                  child: Text(
-                    snapshot.data!.sciMainInfo![0],
-                    style: TextStyle(
+                Visibility(
+                  visible: snapshot.data!.sciMainInfo!.isNotEmpty,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.sciMainInfo!.length,
+                        itemBuilder: ((context, index) {
+                          return ListTile(
+                            leading: Icon(
+                              Icons.circle,
+                              color: Color(0xff0E4C8F),
+                              size: 8,
+                            ),
+                            title: Text(
+                              snapshot.data!.sciMainInfo![index],
+                              style: TextStyle(
+                                color: Color(0xff2D2D2D),
+                                fontSize: 13.sp,
+                                fontFamily: 'Tajawal',
+                                overflow: TextOverflow.fade,
+                                // height: 2
+                                // fontWeight: FontWeight.normal,
+                              ),
+                              maxLines: 5,
+                            ),
+                          );
+                        })),
+                  ),
+                ),
+                /////////////// pastExpInfo ////////////////
+                Visibility(
+                  visible: snapshot.data!.pastExpInfo!.isNotEmpty,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                    child: Text(
+                      AppLocalizations.of(context)!.prior_experiences,
+                      style: TextStyle(
                         color: Color(0xff2D2D2D),
-                        fontSize: 15.sp,
+                        fontSize: 15.r,
                         fontFamily: 'Tajawal',
-                        height: 2
-                      // fontWeight: FontWeight.normal,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                  ),
+                ),
+                Visibility(
+                  visible: snapshot.data!.pastExpInfo!.isNotEmpty,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.pastExpInfo!.length,
+                        itemBuilder: ((context, index) {
+                          return ListTile(
+                            leading: Icon(
+                              Icons.circle,
+                              color: Color(0xff0E4C8F),
+                              size: 8,
+                            ),
+                            title: Text(
+                              snapshot.data!.pastExpInfo![index],
+                              style: TextStyle(
+                                color: Color(0xff2D2D2D),
+                                fontSize: 13.sp,
+                                fontFamily: 'Tajawal',
+                                overflow: TextOverflow.fade,
+                                // height: 2
+                                // fontWeight: FontWeight.normal,
+                              ),
+                              maxLines: 5,
+                            ),
+                          );
+                        })),
+                  ),
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                //////////////// medSrvInfo //////////////
+                Visibility(
+                  visible: snapshot.data!.medSrvInfo!.isNotEmpty,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                    child: Text(
+                      AppLocalizations.of(context)!
+                          .medical_services_information,
+                      style: TextStyle(
+                        color: Color(0xff2D2D2D),
+                        fontSize: 15.r,
+                        fontFamily: 'Tajawal',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: snapshot.data!.medSrvInfo!.isNotEmpty,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.medSrvInfo!.length,
+                        itemBuilder: ((context, index) {
+                          return ListTile(
+                            leading: Icon(
+                              Icons.circle,
+                              color: Color(0xff0E4C8F),
+                              size: 8,
+                            ),
+                            title: Text(
+                              snapshot.data!.medSrvInfo![index],
+                              style: TextStyle(
+                                color: Color(0xff2D2D2D),
+                                fontSize: 13.sp,
+                                fontFamily: 'Tajawal',
+                                overflow: TextOverflow.fade,
+                                // height: 2
+                                // fontWeight: FontWeight.normal,
+                              ),
+                              maxLines: 5,
+                            ),
+                          );
+                        })),
+                  ),
+                ),
+                ///////////////////////// data table////////////////
+                SizedBox(
+                  height: 30.h,
+                ),
+                Visibility(
+                  visible: snapshot.data!.drSkillInfo!.isNotEmpty,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: DataTable(
+                        // datatable widget
+                        columns: [
+                          // column to set the name
+                          DataColumn(
+                            label: Text(AppLocalizations.of(context)!.skill_name,
+                                style: TextStyle(
+                                    fontFamily: 'Tajawal',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13)),
+                          ),
+                          DataColumn(
+                            label: Text(AppLocalizations.of(context)!.skill_pec,
+                                style: TextStyle(
+                                    fontFamily: 'Tajawal',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13)),
+                          ),
+                        ],
+                        rows: snapshot.data!.drSkillInfo!.map((e) {
+                          return DataRow(cells: [
+                            DataCell(Text(e.skillName!,
+                                style: TextStyle(
+                                    fontFamily: 'Tajawal',
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 13))),
+                            DataCell(Text(e.skillPct!,
+                                style: TextStyle(
+                                    fontFamily: 'Tajawal',
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 13))),
+                          ]);
+                        }).toList()),
                   ),
                 ),
                 SizedBox(
@@ -205,8 +372,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                       Padding(
                         padding: EdgeInsets.all(8.0.r),
                         child: InkWell(
-                          onTap: () =>
-                              Navigator.pushNamed(context, MedicalRecipes.routeName),
+                          onTap: () => Navigator.pushNamed(
+                              context, MedicalRecipes.routeName),
                           child: SvgPicture.asset(
                             'assets/images/image4.svg',
                             semanticsLabel: 'Acme Logo',
@@ -214,8 +381,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         ),
                       ),
                       InkWell(
-                        onTap: () =>
-                            Navigator.pushNamed(context, MedicalRecipes.routeName),
+                        onTap: () => Navigator.pushNamed(
+                            context, MedicalRecipes.routeName),
                         child: SvgPicture.asset(
                           'assets/images/image3.svg',
                           semanticsLabel: 'Acme Logo',
@@ -233,20 +400,25 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     children: [
                       Expanded(
                           child: BtnLayout(
-                              AppLocalizations.of(context)!.book_an_appointment, () {
-                            if (SharedPrefController().token != null ||
-                                SharedPrefController().token.isNotEmpty) {
-                              Navigator.push(
-                                  context, MaterialPageRoute(builder: (context)=>MyAppointmentBooking(flag:false)));
-                            } else {
-                              Navigator.pushNamed(context, AppointmentBooking.routeName);
-                            }
-                          })),
+                              AppLocalizations.of(context)!.book_an_appointment,
+                              () {
+                        if (SharedPrefController().token != null ||
+                            SharedPrefController().token.isNotEmpty) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MyAppointmentBooking(flag: false)));
+                        } else {
+                          Navigator.pushNamed(
+                              context, AppointmentBooking.routeName);
+                        }
+                      })),
                       Padding(
                         padding: EdgeInsets.all(8.0.r),
                         child: InkWell(
                           onTap: () {
-                            showVidetAlertDialog(context);
+                            // showVidetAlertDialog(context);
                           },
                           child: SvgPicture.asset(
                             'assets/images/image5.svg',
@@ -277,64 +449,62 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             );
           }
         },
-
       ),
     );
   }
 
-  showVidetAlertDialog(BuildContext context) {
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      backgroundColor: Color(0xffF2F2F2),
-      content: Container(
-        width: 300.w, height: 200.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        // padding: EdgeInsets.all(16),
-        child: Stack(children: [
-          Center(
-            child: _controller.value.isInitialized
-                ? AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
-                  )
-                : Container(
-                    width: 300.w,
-                    height: 200.h,
-                  ),
-          ),
-          Opacity(
-            opacity: 0,
-            child: Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    _controller.value.isPlaying
-                        ? _controller.pause()
-                        : _controller.play();
-
-                    // v = !v;
-                  });
-                },
-                child: Icon(
-                  _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                ),
-              ),
-            ),
-          ),
-        ]),
-      ),
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
+// showVidetAlertDialog(BuildContext context) {
+//   // set up the AlertDialog
+//   AlertDialog alert = AlertDialog(
+//     backgroundColor: Color(0xffF2F2F2),
+//     content: Container(
+//       width: 300.w, height: 200.h,
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(15),
+//       ),
+//       // padding: EdgeInsets.all(16),
+//       child: Stack(children: [
+//         Center(
+//           child: _controller.value.isInitialized
+//               ? AspectRatio(
+//                   aspectRatio: _controller.value.aspectRatio,
+//                   child: VideoPlayer(_controller),
+//                 )
+//               : Container(
+//                   width: 300.w,
+//                   height: 200.h,
+//                 ),
+//         ),
+//         Opacity(
+//           opacity: 0,
+//           child: Center(
+//             child: FloatingActionButton(
+//               onPressed: () {
+//                 setState(() {
+//                   _controller.value.isPlaying
+//                       ? _controller.pause()
+//                       : _controller.play();
+//
+//                   // v = !v;
+//                 });
+//               },
+//               child: Icon(
+//                 _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+//               ),
+//             ),
+//           ),
+//         ),
+//       ]),
+//     ),
+//   );
+//
+//   // show the dialog
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return alert;
+//     },
+//   );
+// }
 
 }
