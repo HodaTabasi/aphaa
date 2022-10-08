@@ -214,7 +214,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         profileId: paymentProfileId,
         serverKey: paymentServerKey,
         clientKey: paymentClientKey,
-        cartId: paymentCartIdLive,
+        cartId: /*paymentCartIdLive*/"${DateTime.now().microsecondsSinceEpoch}",
         showBillingInfo: false,
         forceShippingInfo: false,
         cartDescription: "مستشفى أبها الخاص العالمي",
