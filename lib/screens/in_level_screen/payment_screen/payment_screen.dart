@@ -12,6 +12,8 @@ import 'package:flutter_paytabs_bridge/IOSThemeConfiguration.dart';
 import 'package:flutter_paytabs_bridge/PaymentSdkApms.dart';
 import 'package:flutter_paytabs_bridge/PaymentSdkConfigurationDetails.dart';
 import 'package:flutter_paytabs_bridge/PaymentSdkLocale.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkTransactionClass.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkTransactionType.dart';
 import 'package:flutter_paytabs_bridge/flutter_paytabs_bridge.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -216,6 +218,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
         clientKey: paymentClientKey,
         cartId: /*paymentCartIdLive*/"${DateTime.now().microsecondsSinceEpoch}",
         showBillingInfo: false,
+        transactionType: PaymentSdkTransactionType.SALE,
+         transactionClass: PaymentSdkTransactionClass.ECOM,
         forceShippingInfo: false,
         cartDescription: "مستشفى أبها الخاص العالمي",
         merchantName: paymentMerchantName,
