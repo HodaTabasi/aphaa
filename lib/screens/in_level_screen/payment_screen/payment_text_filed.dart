@@ -5,7 +5,8 @@ class MyPaymentTextFeild extends StatelessWidget {
 
   String hint ;
   double h;
-  MyPaymentTextFeild(this.hint,this.h);
+   final TextEditingController? controller;
+  MyPaymentTextFeild(this.hint,this.h,{Key? key,this.controller, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class MyPaymentTextFeild extends StatelessWidget {
         padding: const EdgeInsets.all(5.0),
         child: TextFormField(
           maxLines: 1,
+          controller:  controller,
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),

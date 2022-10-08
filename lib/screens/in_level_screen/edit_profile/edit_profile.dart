@@ -46,8 +46,7 @@ class _EditProfileState extends State<EditProfile> with Helpers {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData && snapshot.data != null) {
-            _pName.text =
-                "${snapshot.data?.firstName} ${snapshot.data?.secondName} ${snapshot.data?.thirdName} ${snapshot.data?.lastName}";
+            _pName.text = "${snapshot.data?.firstName} ${snapshot.data?.secondName} ${snapshot.data?.thirdName} ${snapshot.data?.lastName}";
             _pEmail.text = "${snapshot.data?.email}";
             _pPhone.text = "${snapshot.data?.mobile}";
             _pEmployer.text = "${snapshot.data?.Employer}";

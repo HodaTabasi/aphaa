@@ -35,6 +35,13 @@ OutlineInputBorder outlineInputBorder() {
   );
 }
 
+const paymentProfileId = "52842";
+const paymentServerKey = "SWJNMGNWTK-JG629T9BDR-MZGJNRLT2H";
+const paymentClientKey = "CQKMTP-27R76T-GMP7P2-79NHQK";
+const paymentCartIdTest = "51457";
+const paymentCartIdLive = "52842";
+const paymentMerchantName = "مستشفى أبها الخاص العالمي";
+
 // List<Service> service = [
 //   Service('assets/images/consult.svg','طلب استشارة','طلب استشارة من أي طبيب',''),
 //   Service('assets/images/date.svg','حجز موعد','اضغط هنا لحجز موعد',''),

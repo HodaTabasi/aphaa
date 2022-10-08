@@ -50,6 +50,7 @@ dependencies:
   firebase_auth: ^3.10.0
   another_flushbar: ^1.12.29
   number_pagination: ^0.0.3+2
+  flutter_paytabs_bridge: ^2.3.0
 #  flutter_downloader: ^1.8.4
 #  animated_bottom_navigation_bar: ^1.1.0
 #  path_drawing: "^1.0.0"

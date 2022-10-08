@@ -112,6 +112,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
       ),
       body: GetBuilder<NewAccountGetxController>(
         builder: (value) =>ListView(
+          shrinkWrap: true,
           children: [
             SizedBox(
               height: 10.h,
