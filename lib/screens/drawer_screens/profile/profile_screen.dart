@@ -1,7 +1,6 @@
 import 'package:aphaa_app/api/controllers/auth_api_controller.dart';
 import 'package:aphaa_app/screens/auth/login/login_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/profile/items.dart';
-import 'package:aphaa_app/screens/drawer_screens/profile/notificaton_item.dart';
 import 'package:aphaa_app/screens/in_level_screen/edit_insurance_data/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/edit_profile/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
@@ -15,6 +14,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../../preferences/shared_pref_controller.dart';
 
 import 'package:aphaa_app/helper/helpers.dart' as myHelper;
+
+import 'lang_item.dart';
 
 class ProfileScreen extends StatefulWidget {
 
@@ -109,7 +110,8 @@ class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers{
           TextItem('assets/images/pagemetrecord.svg',AppLocalizations.of(context)!.pay_book,()=>Navigator.pushNamed(context, PaymentRecord.routeName)),
           TextItem('assets/images/editf.svg',AppLocalizations.of(context)!.edit_insurance_data,()=>Navigator.pushNamed(context, EditInsuranceData.routeName)),
           TextItem('assets/images/Lock.svg',AppLocalizations.of(context)!.change_password,()=>Navigator.pushNamed(context, ChangePassword.routeName)),
-          NotificationItem('assets/images/Notification.svg',AppLocalizations.of(context)!.notifications),
+          // NotificationItem('assets/images/Notification.svg',AppLocalizations.of(context)!.notifications),
+          LangItem(),
           TextItem('assets/images/Logout.svg',AppLocalizations.of(context)!.logout,isVisable: true,() async {
             showLoaderDialog(context);
             await AuthApiController().logout().then((value) {

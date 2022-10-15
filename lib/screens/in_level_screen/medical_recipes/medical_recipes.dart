@@ -52,18 +52,19 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
                 color: Colors.white,
                 size: 15.sp,
               )),
-          actions: [
-            Padding(
-              padding: EdgeInsets.all(8.0.r),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset(
-                  'assets/images/Notification.svg',
-                  semanticsLabel: 'Acme Logo',
-                ),
-              ),
-            ),
-          ]),
+          // actions: [
+          //   Padding(
+          //     padding: EdgeInsets.all(8.0.r),
+          //     child: InkWell(
+          //       onTap: () {},
+          //       child: SvgPicture.asset(
+          //         'assets/images/Notification.svg',
+          //         semanticsLabel: 'Acme Logo',
+          //       ),
+          //     ),
+          //   ),
+          // ]
+      ),
       body: FutureBuilder<PrescriptionListResponse?>(
         future: HospitalApiController().getRxList(
             patientCode: SharedPrefController().getValueFor(key: "p_code")),

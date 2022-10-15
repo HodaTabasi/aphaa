@@ -24,4 +24,14 @@ class LanguageGetxController extends GetxController {
     // language.refresh();
     print(language);
   }
+
+  void changeEditLanguage(lang) {
+    // language = language == 'ar'.obs ? 'en'.obs : 'ar'.obs;
+    language.value = lang == 0 ? 'ar' : 'en';
+    SharedPrefController().changeLanguage(language: language.value);
+    var locale = Locale(language.value);
+    Get.updateLocale(locale);
+    // language.refresh();
+    print(language);
+  }
 }

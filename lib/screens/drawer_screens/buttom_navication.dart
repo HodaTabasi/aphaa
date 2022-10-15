@@ -44,18 +44,18 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: pageIndex == 0?AppBar(
-          actions: [
-            Padding(
-              padding:  EdgeInsets.all(8.0.r),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset(
-                  'assets/images/Notification.svg',
-                  semanticsLabel: 'Acme Logo',
-                ),
-              ),
-            ),
-          ],
+          // actions: [
+          //   Padding(
+          //     padding:  EdgeInsets.all(8.0.r),
+          //     child: InkWell(
+          //       onTap: () {},
+          //       child: SvgPicture.asset(
+          //         'assets/images/Notification.svg',
+          //         semanticsLabel: 'Acme Logo',
+          //       ),
+          //     ),
+          //   ),
+          // ],
           leading: Padding(
             padding:  EdgeInsets.all(8.0.r),
             child: CircleAvatar(

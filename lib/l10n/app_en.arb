@@ -2,6 +2,7 @@
   "q1": "what language you want app :",
   "en": "English",
   "ar": "Arabic",
+  "lang": "Language",
 
   "welcome": "Welcome to the patient portal",
   "quick_service": "Quick Service",

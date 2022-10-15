@@ -83,18 +83,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   size: 15.sp,
                 )),
           ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.all(8.0.r),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset(
-                  'assets/images/Notification.svg',
-                  semanticsLabel: 'Acme Logo',
-                ),
-              ),
-            ),
-          ]),
+          // actions: [
+          //   Padding(
+          //     padding: EdgeInsets.all(8.0.r),
+          //     child: InkWell(
+          //       onTap: () {},
+          //       child: SvgPicture.asset(
+          //         'assets/images/Notification.svg',
+          //         semanticsLabel: 'Acme Logo',
+          //       ),
+          //     ),
+          //   ),
+          // ]
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: [
