@@ -37,15 +37,16 @@ class QuickServiceApiController with ApiHelper {
   }
 
 
-  Future<ApiResponse> appointment({name,email,mobile,clinic,date,time,doctor}) async {
+  Future<ApiResponse> appointment({name,email,mobile,clinic,date,time,doctor,cost}) async {
     var myData = {
       'name':"$name",
       'email':"$email",
       'mobile':"$mobile",
       'clinic':"$clinic",
-      'date':"$date",
-      'time':"$time",
-      'doctors_id':"$doctor"
+      'availableDay':"$date",
+      'availableTimes':"$time",
+      'doctor':"$doctor",
+      'cost':"$cost"
     };
     Uri uri = Uri.parse(ApiSettings.appointment);
     var response = await http.post(uri, body:myData,headers: headers);
@@ -54,9 +55,9 @@ class QuickServiceApiController with ApiHelper {
 
     if (response.statusCode == 200 || response.statusCode == 400) {
       var jsonResponse = jsonDecode(response.body);
-      if(response.statusCode == 200){
-        var jsonObject = jsonResponse['items'];
-      }
+      // if(response.statusCode == 200){
+      //   var jsonObject = jsonResponse['items'];
+      // }
       return ApiResponse(
           message: jsonResponse['message'], success: jsonResponse['status']);
     }

@@ -18,85 +18,106 @@ class DoctorDropDownItem extends StatefulWidget {
 }
 
 class _DropDownItenState extends State<DoctorDropDownItem> {
-  String? global ;
+  // String? global;
 
 
   @override
   Widget build(BuildContext context) {
-    print("dse ${widget.myData}");
-
-    return Container(
-      margin:  EdgeInsets.symmetric(horizontal: 16.r,vertical: 8.r),
-      decoration: BoxDecoration(
-        border: Border.all(color: Color(0xff0E4C8F),width: 0.5.w),
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
-              child:   SvgPicture.asset(
-                  widget.iconName,
-                  semanticsLabel: 'Acme Logo'
+    return Stack(
+      children: [
+        Visibility(
+            visible: NewAccountGetxController.to.isUpdateCliniceCode,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.r, vertical: 20.r),
+              child: Row(
+                children: [
+                  Spacer(),
+                  const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                      )),
+                ],
               ),
-            ),
-             VerticalDivider(
-                width:2.w,
-                thickness:0.5.w,
-                color:Color(0xff0E4C8F)
-            ),
-            Expanded(
-              child: Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
-                child: DropdownButton<String>(
-                  isExpanded: true,
-                  // value: widget.global,
-                  underline: SizedBox(),
-                  hint: Text(
-                    widget.dropValue,
-                    style: TextStyle(
-                      color: Colors.grey.shade700,
-                      fontSize: 13.sp,
-                      fontFamily: 'Tajawal',
-                      fontWeight: FontWeight.bold,
+            )),
+        Container(
+          margin:  EdgeInsets.symmetric(horizontal: 16.r,vertical: 8.r),
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xff0E4C8F),width: 0.5.w),
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
+                  child:   SvgPicture.asset(
+                      widget.iconName,
+                      semanticsLabel: 'Acme Logo'
+                  ),
+                ),
+                VerticalDivider(
+                    width:2.w,
+                    thickness:0.5.w,
+                    color:Color(0xff0E4C8F)
+                ),
+                Expanded(
+                  child: Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      // value: widget.global,
+                      underline: SizedBox(),
+                      hint: Text(
+                        widget.dropValue,
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 13.sp,
+                          fontFamily: 'Tajawal',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onChanged: (String? val){
+                        setState(() {
+                          // QuickServiceGetxController.to.doctorName = widget.myData.where((element) => element.doctorName == val).toList().first.doctorName!;
+                          NewAccountGetxController.to.changeglobal(val!);
+                          NewAccountGetxController.to.doctorCode = val;
+                          NewAccountGetxController.to.getDoctorSchedules(val) ;
+                        });
+                      },
+                      value: NewAccountGetxController.to.global,
+                      items: widget.myData.map((value) {
+                        return DropdownMenuItem<String>(
+                          value: value.doctorCode,
+                          child: Text(
+                              value.doctorName!,
+                              style:  TextStyle(
+                                color: Colors.grey.shade700,
+                                fontSize: 13.sp,
+                                fontFamily: 'Tajawal',
+                                fontWeight: FontWeight.bold,
+                              )
+                          ),
+                        );
+                      }).toList(),
+                      icon:  Visibility(
+                        visible: !NewAccountGetxController.to.isUpdateCliniceCode,
+                        child: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: Color(0xff058638),
+                        ),
+                      ),
+
                     ),
                   ),
-                  onChanged: (String? val){
-                    print("ffffff ${val}");
-                    setState(() {
-                      global = val!;
-                      NewAccountGetxController.to.doctorCode = val;
-                      NewAccountGetxController.to.getDoctorSchedules(val) ;
-                    });
-                  },
-                  value: global,
-                  items: widget.myData.map((value) {
-                    return DropdownMenuItem<String>(
-                      value: value.doctorCode,
-                      child: Text(
-                          value.doctorName!,
-                          style:  TextStyle(
-                            color: Colors.grey.shade700,
-                            fontSize: 13.sp,
-                            fontFamily: 'Tajawal',
-                            fontWeight: FontWeight.bold,
-                          )
-                      ),
-                    );
-                  }).toList(),
-                  icon: Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Color(0xff058638),
-                  ),
-
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        )
+      ],
     );
   }
 }

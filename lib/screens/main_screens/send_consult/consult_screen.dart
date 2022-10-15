@@ -178,7 +178,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
         mobile: phone.text,
         name: name.text,
         description: consultText.text,
-        clinic: QuickServiceGetxController.to.clinicName.value,
+        clinic: QuickServiceGetxController.to.clinicName,
         doctors_id: QuickServiceGetxController.to.doctorId);
     if (apiResponse.success) {
       Navigator.pop(context);

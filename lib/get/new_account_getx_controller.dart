@@ -16,7 +16,7 @@ class NewAccountGetxController extends GetxController {
   RxBool isCitizen = false.obs;
  late Patient patient ;
   String companyName = "dar";
-  List<Doctor> doctorsList = [] ;
+  List<Doctor> doctorsList = [];
   List<String> avilableDate = [];
   List<AvailableTime> avilableTime = [];
   String clinicCode = '';
@@ -25,6 +25,8 @@ class NewAccountGetxController extends GetxController {
   String smsCode = '';
   String? verificationId;
   bool isReset = false;
+  bool isUpdateCliniceCode = false;
+  String? global ;
 
   ///////////////
 
@@ -46,6 +48,7 @@ class NewAccountGetxController extends GetxController {
   }
 
   void changeMyDoctorList(List<Doctor> doctor){
+    global = doctor[0].doctorName;
     doctorsList = doctor;
     update();
   }
@@ -53,7 +56,15 @@ class NewAccountGetxController extends GetxController {
     avilableTime = time;
     update();
   }
-
+  void changeBoolisUpdateCliniceCode(value){
+      isUpdateCliniceCode = value;
+    update();
+  }
+  void changeglobal(value){
+    global = value;
+    QuickServiceGetxController.to.doctorName = this.doctorsList.where((element) => element.doctorCode == value).toList().first.doctorName!;
+    update();
+  }
   List<Doctor> getListDoctor(){
     return doctorsList;
   }
@@ -65,21 +76,24 @@ class NewAccountGetxController extends GetxController {
   }
 
   Future<void> changeDropDownValue(value,dropType,{context}) async {
+    doctorsList.clear();
+    global = null;
     var data = await HospitalApiController().getClDrs(clinicCode: value);
-    doctorsList =  data!.doctors!;
+    doctorsList =  data!.doctors ?? [];
+    isUpdateCliniceCode = false;
     update();
     // Navigator.pop(context);
-   switch(dropType){
-     case 1:
-       companyName = value;
-       break;
-     case 2:
-       QuickServiceGetxController.to.changeDoctorName(value) ;
-       break;
-     case 3:
-       QuickServiceGetxController.to.changeClinicName(value);
-       break;
-   }
+   // switch(dropType){
+   //   case 1:
+   //     companyName = value;
+   //     break;
+   //   case 2:
+   //     QuickServiceGetxController.to.changeDoctorName(value) ;
+   //     break;
+   //   case 3:
+   //     QuickServiceGetxController.to.changeClinicName(value);
+   //     break;
+   // }
    // Get.appUpdate();
   }
 

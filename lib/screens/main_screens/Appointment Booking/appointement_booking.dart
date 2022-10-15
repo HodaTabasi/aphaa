@@ -1,22 +1,29 @@
 import 'package:aphaa_app/api/controllers/App_api_controller.dart';
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/helper/helper.dart';
+import 'package:aphaa_app/model/Appointment/AvailableTime.dart';
 import 'package:aphaa_app/model/doctor.dart';
 import 'package:aphaa_app/general/doctor_dropdown_item.dart';
 import 'package:aphaa_app/screens/main_screens/Appointment%20Booking/time_appoiment_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
+import 'package:flutter_calendar_carousel/classes/marked_date.dart';
+import 'package:flutter_calendar_carousel/classes/multiple_marked_dates.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:aphaa_app/helper/helpers.dart' as myHelper ;
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 
+import '../../../api/controllers/hospital_controller.dart';
 import '../../../api/controllers/quick_service_api_controller.dart';
 import '../../../general/dropdown_item.dart';
 import '../../../general/edittext_item.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel, WeekdayFormat;
 
+import '../../../get/new_account_getx_controller.dart';
 import '../../../get/quick_service_getx_controller.dart';
+import '../../../model/Clinic.dart';
 import '../../../model/api_response.dart';
 import '../../../preferences/shared_pref_controller.dart';
 
@@ -29,7 +36,7 @@ class AppointmentBooking extends StatefulWidget {
 
 class _AppointmentBookingState extends State<AppointmentBooking>
     with Helpers, myHelper.Helpers {
-  var myData = ["شركة1", "شركة2", "شركة3"];
+  List<Clinic> myData = [];
   List<Doctor> myDataDoctor = [];
 
   late TextEditingController name;
@@ -40,6 +47,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
   DateTime? _currentDate;
 
   var _value = 0;
+  bool isLoading = false;
 
 
   @override
@@ -47,183 +55,212 @@ class _AppointmentBookingState extends State<AppointmentBooking>
     name = TextEditingController(text: "aisal yosef alsawaf");
     email = TextEditingController(text: "aisal@hotmail.com");
     phone = TextEditingController(text: "0154421157");
-    dateText = TextEditingController(text: "1997-05-02");
+    dateText = TextEditingController();
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    getAllDoctors();
+    getListsData();
+  }
+  getListsData() async {
+    isLoading = true;
+    myData = await HospitalApiController().getClList() ?? [];
+    setState(() {
+      isLoading = false;
+    });
+    // Future.delayed(Duration.zero, () async {
+    //   await HospitalApiController().getClDrs(clinicCode: myData[0].clinicCode).then((value) {
+    //     NewAccountGetxController.to.changeMyDoctorList(value!.doctors!);
+    //     myDataDoctor = value.doctors!;
+    //     setState(() {
+    //       isLoading = false;
+    //     });
+    //   });
+    // });
   }
 
-  Future<void> getAllDoctors() async {
-    myDataDoctor = await AppApiController().getAllDoctors();
-    setState(() {
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        // leadingWidth: 40,
-        title: Text(AppLocalizations.of(context)!.appointment,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.sp,
-              fontFamily: 'Tajawal',
-              fontWeight: FontWeight.bold,
-            )),
-        titleSpacing: 2,
-        leading: InkWell(
-          onTap: () => Navigator.of(context, rootNavigator: true).pop(),
-          child: Container(
-              margin: EdgeInsets.all(15.0.r),
-              padding: EdgeInsets.all(5.0.r),
-              // alignment: Alignment.bottomLeft,
-              // width: 80,
-              // height: 500,
-              decoration: BoxDecoration(
-                  color: const Color(0xff006F2C),
-                  borderRadius: BorderRadius.circular(5)),
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-                size: 15.sp,
-              )),
-        ),
-      ),
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 10.h,
-          ),
-          Padding(
-            padding: EdgeInsets.all(16.0.r),
-            child: Text(
-              AppLocalizations.of(context)!.head_of_appoitment_screen,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          elevation: 0,
+          // leadingWidth: 40,
+          title: Text(AppLocalizations.of(context)!.appointment,
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 15.sp,
+                color: Colors.white,
+                fontSize: 16.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.start,
-            ),
+              )),
+          titleSpacing: 2,
+          leading: InkWell(
+            onTap: () => Navigator.of(context, rootNavigator: true).pop(),
+            child: Container(
+                margin: EdgeInsets.all(15.0.r),
+                padding: EdgeInsets.all(5.0.r),
+                // alignment: Alignment.bottomLeft,
+                // width: 80,
+                // height: 500,
+                decoration: BoxDecoration(
+                    color: const Color(0xff006F2C),
+                    borderRadius: BorderRadius.circular(5)),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                  size: 15.sp,
+                )),
           ),
-          Form(
-            child: Column(
-              children: [
-                EditTextItem(
-                  'assets/images/Profile.svg',
-                  AppLocalizations.of(context)!.pasent_name,
-                  controler: name,
+        ),
+        body: isLoading ? Center(child: CircularProgressIndicator(),)
+            : GetBuilder<NewAccountGetxController>(
+          builder: (value) =>ListView(
+            shrinkWrap: true,
+            children: [
+              SizedBox(
+                height: 10.h,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  AppLocalizations.of(context)!.head_of_appoitment_screen,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15.sp,
+                    fontFamily: 'Tajawal',
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.start,
                 ),
-                EditTextItem(
-                  'assets/images/Message.svg',
-                  AppLocalizations.of(context)!.email,
-                  controler: email,
-                ),
-                EditTextItem(
-                  'assets/images/phone.svg',
-                  AppLocalizations.of(context)!.phone,
-                  controler: phone,
-                ),
-                // DropDownItem(myData, 'assets/images/hospital.svg',
-                //     AppLocalizations.of(context)!.clenice_choesse,
-                //     dropIntValue: 3),
-                DoctorDropDownItem(myDataDoctor, 'assets/images/docgreen.svg',
-                    AppLocalizations.of(context)!.dovtor_choesse,
-                    dropIntValue: 2),
-                EditTextItem(
-                  'assets/images/Calendar.svg',
-                  AppLocalizations.of(context)!.appoitment_date,
-                  b: false,
-                  controler: dateText,
-                ),
-                widget1(),
-                Padding(
-                  padding: EdgeInsets.all(16.0.r),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.access_time_outlined,
-                        color: Colors.green,
-                        size: 23.sp,
+              ),
+              Form(
+                child: Column(
+                  children: [
+                    EditTextItem(
+                      'assets/images/Profile.svg',
+                      AppLocalizations.of(context)!.pasent_name,
+                      controler: name,
+                    ),
+                    EditTextItem(
+                      'assets/images/Message.svg',
+                      AppLocalizations.of(context)!.email,
+                      controler: email,
+                    ),
+                    EditTextItem(
+                      'assets/images/phone.svg',
+                      AppLocalizations.of(context)!.phone,
+                      controler: phone,
+                    ),
+                    DropDownItem(myData, 'assets/images/hospital.svg',
+                        AppLocalizations.of(context)!.clenice_choesse),
+                    DoctorDropDownItem(value.doctorsList, 'assets/images/docgreen.svg',
+                        AppLocalizations.of(context)!.dovtor_choesse),
+                    EditTextItem('assets/images/Calendar.svg',
+                        AppLocalizations.of(context)!.appoitment_date,b: false,controler: dateText),
+                    Visibility(visible:value.global != null,child: widget1(value.avilableDate,value)),
+                    Visibility(
+                      visible: value.avilableTime.isNotEmpty,
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0.r),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.access_time_outlined,
+                              color: Colors.green,
+                              size: 23.sp,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
+                              child: Text(
+                                AppLocalizations.of(context)!.time,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14.sp,
+                                  fontFamily: 'Tajawal',
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0),
-                        child: Text(
-                          AppLocalizations.of(context)!.time,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontFamily: 'Tajawal',
-                            fontWeight: FontWeight.normal,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0.r),
+                      child: SizedBox(
+                        height: 100.h,
+                        // width: 80,
+                        child: Visibility(
+                          visible: value.avilableTime.isNotEmpty,
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            itemCount: value.avilableTime.length,
+                            padding: EdgeInsets.symmetric(horizontal: 10.h),
+                            scrollDirection: Axis.horizontal,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 1,
+                                mainAxisSpacing: 10.h,
+                                crossAxisSpacing: 10.w,
+                                childAspectRatio: 280 / 200),
+                            itemBuilder: (context, index) {
+                              return TimeAppoitmentItem(
+                                  data:value.avilableTime[index],
+                                  title: "",
+                                  value: index,
+                                  groupValue: _value,
+                                  onChanged: (value) => setState(() {
+                                    _value = value;
+                                  }));
+                            },
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 100.h,
-                    // width: 80,
-                    child: GridView.builder(
-                      itemCount: 3,
-                      padding: EdgeInsets.symmetric(horizontal: 10.r),
-                      scrollDirection: Axis.horizontal,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1,
-                          mainAxisSpacing: 10.r,
-                          childAspectRatio: 280 / 200),
-                      itemBuilder: (context, index) {
-                        return TimeAppoitmentItem(
-                            title: "",
-                            value: index,
-                            groupValue: _value,
-                            onChanged: (value) => setState(() {
-                                  _value = value;
-                                }));
-                      },
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(height: 10.h),
+              BtnLayout(AppLocalizations.of(context)!.appointment, ()=>_performAction(value.avilableTime[_value])),
+              Image.asset(
+                "assets/images/image1.png",
+                fit: BoxFit.fitWidth,
+              ),
+            ],
           ),
-          SizedBox(height: 10.h),
-          BtnLayout(AppLocalizations.of(context)!.appointment, () =>_performAction()),
-          Image.asset(
-            "assets/images/image1.png",
-            fit: BoxFit.fitWidth,
-          ),
-        ],
-      ),
-    );
+        ),
+      );
+
   }
 
-  Widget widget1() {
+  Widget widget1(List<String> markedDateMap, NewAccountGetxController value) {
+
+    List<DateTime> event = markedDateMap.map((e){
+      return DateTime.parse(e);
+    }).toList();
+    print(event);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
         // margin: EdgeInsets.symmetric(horizontal: 16.0),
         child: CalendarCarousel<Event>(
           locale: SharedPrefController()
-                  .getValueFor<String>(key: PrefKeys.lang.name) ??
+              .getValueFor<String>(key: PrefKeys.lang.name) ??
               'ar',
           pageScrollPhysics: const NeverScrollableScrollPhysics(),
-          onDayPressed: (DateTime date, List<Event> events) {
-            this.setState(() {
+          onDayPressed: (DateTime date, List<Event> events) async {
+            this.setState(()  {
               _currentDate = date;
               dateText.text =
-                  "${_currentDate!.year}-${_currentDate!.month}-${_currentDate!.day}";
+              "${_currentDate!.year}-${_currentDate!.month}-${_currentDate!.day}";
             });
+            if(event.contains(_currentDate)){
+              await HospitalApiController().getDoctorSchedDtl(clinicCode: value.clinicCode,doctorCode: value.doctorCode,availableDay: _currentDate);
+            } else {
+              showRigectAlertDialog(context);
+            }
           },
           weekendTextStyle: const TextStyle(
             color: Colors.black,
@@ -234,17 +271,17 @@ class _AppointmentBookingState extends State<AppointmentBooking>
 //        child: Text('Custom Header'),
 //      ),
           customDayBuilder: (
-            /// you can provide your own build function to make custom day containers
-            bool isSelectable,
-            int index,
-            bool isSelectedDay,
-            bool isToday,
-            bool isPrevMonthDay,
-            TextStyle textStyle,
-            bool isNextMonthDay,
-            bool isThisMonthDay,
-            DateTime day,
-          ) {
+              /// you can provide your own build function to make custom day containers
+              bool isSelectable,
+              int index,
+              bool isSelectedDay,
+              bool isToday,
+              bool isPrevMonthDay,
+              TextStyle textStyle,
+              bool isNextMonthDay,
+              bool isThisMonthDay,
+              DateTime day,
+              ) {
             /// If you return null, [CalendarCarousel] will build container for current [day] with default function.
             /// This way you can build custom containers for specific days only, leaving rest as default.
 
@@ -256,6 +293,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
             // } else {
             //   return null;
             // }
+
           },
           weekFormat: false,
           // markedDatesMap: _markedDateMap,
@@ -298,16 +336,24 @@ class _AppointmentBookingState extends State<AppointmentBooking>
           daysHaveCircularBorder: true,
           showHeaderButton: false,
           headerMargin: EdgeInsets.all(16),
-
+          isScrollable: true,
+          multipleMarkedDates: MultipleMarkedDates(markedDates:event.map((e) {
+            return MarkedDate(color: Color(0xffedeef5), date: e,textStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 16.sp,
+              fontFamily: 'Tajawal',
+              fontWeight: FontWeight.normal,
+            ));
+          }).toList() ),
           /// null for not rendering any border, true for circular border, false for rectangular border
         ),
       ),
     );
   }
 
-  Future<void> _performAction() async {
+  Future<void> _performAction(AvailableTime avilableTime) async {
     if (_checkData()) {
-      await _sendConsult();
+      await _sendConsult(avilableTime);
     }
   }
 
@@ -324,19 +370,20 @@ class _AppointmentBookingState extends State<AppointmentBooking>
     return false;
   }
 
-  Future<void> _sendConsult() async {
+  Future<void> _sendConsult(AvailableTime avilableTime) async {
     showLoaderDialog(context);
-    ApiResponse apiResponse = await QuickServiceApiController().appointment(email: email.text,mobile: phone.text,name: name.text,date: dateText.text,clinic: QuickServiceGetxController.to.clinicName,doctor: QuickServiceGetxController.to.doctorId,time: "11:00");
+    ApiResponse apiResponse = await QuickServiceApiController().appointment(email: email.text,mobile: phone.text,name: name.text,date: dateText.text,clinic: QuickServiceGetxController.to.clinicName,doctor: QuickServiceGetxController.to.doctorName,time: avilableTime.consultTime24,cost: "3.1");
     if (apiResponse.success) {
       Navigator.pop(context);
       showAlertDialog(context);
+    }else {
+      Navigator.pop(context);
+      showSnackBar(
+        context,
+        message: apiResponse.message,
+        error: !apiResponse.success,
+      );
     }
-    Navigator.pop(context);
-    showSnackBar(
-      context,
-      message: apiResponse.message,
-      error: !apiResponse.success,
-    );
   }
 
 

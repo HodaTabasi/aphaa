@@ -1,5 +1,7 @@
 import 'package:aphaa_app/general/doctor_dropdown_item.dart';
 import 'package:aphaa_app/helper/helper.dart';
+import 'package:aphaa_app/model/Appointment/AvailableTime.dart';
+import 'package:aphaa_app/model/api_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/marked_date.dart';
@@ -9,8 +11,6 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-
-import '../../../api/controllers/App_api_controller.dart';
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/dropdown_item.dart';
@@ -38,22 +38,18 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
   List<Clinic> myData = [];
   List<Doctor> myDataDoctor = [];
 
-  late TextEditingController name;
-  late TextEditingController email;
-  late TextEditingController phone;
+
   late TextEditingController dateText;
 
   DateTime? _currentDate;
 
   var _value = 0;
+  bool isLoading = false;
 
 
   @override
   void initState() {
-    name = TextEditingController(text: "aisal yosef alsawaf");
-    email = TextEditingController(text: "aisal@hotmail.com");
-    phone = TextEditingController(text: "0154421157");
-    dateText = TextEditingController(text: "1997-05-02");
+    dateText = TextEditingController();
     super.initState();
   }
 
@@ -63,21 +59,21 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
     getListsData();
   }
   getListsData() async {
+    isLoading = true;
     myData = await HospitalApiController().getClList() ?? [];
-    Future.delayed(Duration.zero, () async {
-      await HospitalApiController().getClDrs(clinicCode: myData[0].clinicCode).then((value) {
-        NewAccountGetxController.to.changeMyDoctorList(value!.doctors!);
-        myDataDoctor = value.doctors!;
-      });
-    });
-  }
-
-  Future<void> getAllDoctors() async {
-    myDataDoctor = await AppApiController().getAllDoctors();
     setState(() {
+      isLoading = false;
     });
+    // Future.delayed(Duration.zero, () async {
+    //   await HospitalApiController().getClDrs(clinicCode: myData[0].clinicCode).then((value) {
+    //     NewAccountGetxController.to.changeMyDoctorList(value!.doctors!);
+    //     myDataDoctor = value.doctors!;
+    //     setState(() {
+    //       isLoading = false;
+    //     });
+    //   });
+    // });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +106,8 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
         //       size: 15,
         //     )),
       ),
-      body: GetBuilder<NewAccountGetxController>(
+      body: isLoading ? Center(child: CircularProgressIndicator(),)
+      : GetBuilder<NewAccountGetxController>(
         builder: (value) =>ListView(
           shrinkWrap: true,
           children: [
@@ -139,29 +136,32 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                       AppLocalizations.of(context)!.dovtor_choesse),
                   EditTextItem('assets/images/Calendar.svg',
                       AppLocalizations.of(context)!.appoitment_date,b: false,controler: dateText),
-                  widget1(value.avilableDate,value),
-                  Padding(
-                    padding: EdgeInsets.all(16.0.r),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.access_time_outlined,
-                          color: Colors.green,
-                          size: 23.sp,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
-                          child: Text(
-                            AppLocalizations.of(context)!.time,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14.sp,
-                              fontFamily: 'Tajawal',
-                              fontWeight: FontWeight.normal,
-                            ),
+                  Visibility(visible:value.global != null,child: widget1(value.avilableDate,value)),
+                  Visibility(
+                    visible: value.avilableTime.isNotEmpty,
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0.r),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.access_time_outlined,
+                            color: Colors.green,
+                            size: 23.sp,
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
+                            child: Text(
+                              AppLocalizations.of(context)!.time,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontFamily: 'Tajawal',
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -169,25 +169,29 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                     child: SizedBox(
                       height: 100.h,
                       // width: 80,
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        itemCount: value.avilableTime.length,
-                        padding: EdgeInsets.symmetric(horizontal: 10.h),
-                        scrollDirection: Axis.horizontal,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            mainAxisSpacing: 10.h,
-                            childAspectRatio: 280 / 200),
-                        itemBuilder: (context, index) {
-                          return TimeAppoitmentItem(
-                            data:value.avilableTime[index],
-                              title: "",
-                              value: index,
-                              groupValue: _value,
-                              onChanged: (value) => setState(() {
-                                    _value = value;
-                                  }));
-                        },
+                      child: Visibility(
+                        visible: value.avilableTime.isNotEmpty,
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          itemCount: value.avilableTime.length,
+                          padding: EdgeInsets.symmetric(horizontal: 10.h),
+                          scrollDirection: Axis.horizontal,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1,
+                              mainAxisSpacing: 10.h,
+                              crossAxisSpacing: 10.w,
+                              childAspectRatio: 280 / 200),
+                          itemBuilder: (context, index) {
+                            return TimeAppoitmentItem(
+                              data:value.avilableTime[index],
+                                title: "",
+                                value: index,
+                                groupValue: _value,
+                                onChanged: (value) => setState(() {
+                                      _value = value;
+                                    }));
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -195,9 +199,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
               ),
             ),
             SizedBox(height: 10.h),
-            BtnLayout(AppLocalizations.of(context)!.appointment, () {
-              showAlertDialog(context);
-            }),
+            BtnLayout(AppLocalizations.of(context)!.appointment, () =>_performRigestration(value.clinicCode,value.doctorCode,dateText.text,value.avilableTime[_value])),
             Image.asset(
               "assets/images/image1.png",
               fit: BoxFit.fitWidth,
@@ -323,4 +325,20 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
       ),
     );
   }
+
+  _performRigestration(String clinicCode, String doctorCode, String dateText, AvailableTime avilableTime) async{
+    showLoaderDialog(context);
+    ApiResponse response = await HospitalApiController().addAppoitment(patientCode: SharedPrefController().getValueFor(key: "p_code"),clinicCode:clinicCode,doctorCode:doctorCode,patientName: SharedPrefController().getValueFor(key: PrefKeysPatient.firstName.name),consultTime24: avilableTime.consultTime24,patientId: "2320128214",patientMOB: "0558659647",resDate:dateText ,consultSNo: "",resRemarks: "" );
+    print(response.success);
+    if(response.success){
+      Navigator.pop(context);
+      showAlertDialog(context);
+    }else{
+      Navigator.pop(context);
+      showSnackBar(context, message: response.message,error: true);
+    }
+
+  }
 }
+
+

@@ -77,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers{
                   width: 100.w,
                   height: 100.h,
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage('http://i.imgur.com/QSev0hg.jpg'),
+                    backgroundImage: NetworkImage('https://www.kindpng.com/picc/m/685-6851196_person-icon-grey-hd-png-download.png'),
                   ),
                 ),
               ),
@@ -87,14 +87,15 @@ class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers{
             height: 20.h,
           ),
           Text(SharedPrefController()
-              .getValueFor<String>(key: PrefKeysPatient.firstName.name)??"محمد محمود" ,
+              .getValueFor<String>(key: PrefKeysPatient.firstName.name)??" " ,
               style:  TextStyle(
                 color: Colors.black,
                 fontSize: 15.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.normal,
               ),textAlign: TextAlign.center,),
-          Text('#2031456',
+          Text(SharedPrefController()
+              .getValueFor<String>(key: PrefKeysPatient.lastName.name)??" ",
               style:  TextStyle(
                 color: Colors.black,
                 fontSize: 15.sp,

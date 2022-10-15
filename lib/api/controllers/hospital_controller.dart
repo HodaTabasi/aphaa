@@ -21,6 +21,7 @@ import '../../model/Clinic.dart';
 import '../../model/ServiceTest.dart';
 import '../../model/VitalSign/VitalSignResponse.dart';
 import '../../model/VitalSign/vitalSignsDils.dart';
+import '../../model/api_response.dart';
 import '../../model/prescriptionListResponse/PrescriptionListResponse.dart';
 import '../../model/prescriptionListResponse/prescriptionList.dart';
 import '../../preferences/shared_pref_controller.dart';
@@ -28,7 +29,6 @@ import '../api_helper.dart';
 import 'package:http/http.dart' as http;
 
 class HospitalApiController with ApiHelper {
-
   // Future<List<FamilyMember>> getFamilyMembers(patientCode) async {
   //   print(patientCode);
   //   final queryParameters = {
@@ -53,7 +53,8 @@ class HospitalApiController with ApiHelper {
   //   return [];
   // }
 
-  Future<FamillyResponse?> getFamilyMembers({patientCode,page = 1,offset = 1}) async {
+  Future<FamillyResponse?> getFamilyMembers(
+      {patientCode, page = 1, offset = 1}) async {
     print(patientCode);
     final queryParameters = {
       // 'patientCode': '$patientCode',
@@ -61,12 +62,12 @@ class HospitalApiController with ApiHelper {
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
 
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}familyMembers', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}familyMembers', queryParameters);
     final response = await http.get(uri);
     print(response.body);
     if (response.statusCode == 200) {
@@ -77,48 +78,52 @@ class HospitalApiController with ApiHelper {
     return null;
   }
 
-  Future<List<ServiceTest>> getLabReports({patientCode,page = 1,offset = 1}) async {
+  Future<List<ServiceTest>> getLabReports(
+      {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
       // 'patientCode': '$patientCode',
       'patientCode': '0/372081',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}labReports', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}labReports', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['services'] as List;
-      return jsonArray.map((jsonObject) => ServiceTest.fromJson(jsonObject)).toList();
+      return jsonArray
+          .map((jsonObject) => ServiceTest.fromJson(jsonObject))
+          .toList();
     }
     return [];
-
   }
 
-  Future<List<ServiceTest>> getRadReports({patientCode,page = 1,offset = 1}) async {
+  Future<List<ServiceTest>> getRadReports(
+      {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
       // 'patientCode': '$patientCode',
       'patientCode': '0/372081',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}radReports', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}radReports', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['services'] as List;
-      return jsonArray.map((jsonObject) => ServiceTest.fromJson(jsonObject)).toList();
+      return jsonArray
+          .map((jsonObject) => ServiceTest.fromJson(jsonObject))
+          .toList();
     }
     return [];
-
   }
 
   // Future<List<Appointments>> getNextAppt({patientCode,page = 1,offset = 1}) async {
@@ -143,38 +148,40 @@ class HospitalApiController with ApiHelper {
   //
   // }
 
-  Future<AppointmentResponse?> getNextAppt({patientCode,page = 1,offset = 1}) async {
+  Future<AppointmentResponse?> getNextAppt(
+      {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
       // 'patientCode': '$patientCode',
       'patientCode': '0/32230',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}nextAppt', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}nextAppt', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      return  AppointmentResponse.fromJson(jsonResponse);
+      return AppointmentResponse.fromJson(jsonResponse);
     }
     return null;
   }
 
-  Future<AppointmentResponse?> getPrevAppt({patientCode,page = 1,offset = 1}) async {
+  Future<AppointmentResponse?> getPrevAppt(
+      {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
       // 'patientCode': '$patientCode',
       'patientCode': '0/32230',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}prevAppt', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}prevAppt', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
@@ -226,18 +233,19 @@ class HospitalApiController with ApiHelper {
   //   return [];
   // }
 
-  Future<PrescriptionListResponse?> getRxList({patientCode,page = 1,offset = 1}) async {
+  Future<PrescriptionListResponse?> getRxList(
+      {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
       // 'patientCode': '$patientCode',
       'patientCode': '0/32230',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}rxList', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}rxList', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
@@ -246,7 +254,8 @@ class HospitalApiController with ApiHelper {
     return null;
   }
 
-  Future<PrescriptionListItems?> getRxItems({invoiceNo,invoiceDate,invoiceType}) async {
+  Future<PrescriptionListItems?> getRxItems(
+      {invoiceNo, invoiceDate, invoiceType}) async {
     final queryParameters = {
       'invoiceNo': '$invoiceNo',
       // 'invoiceNo': '3926',
@@ -257,58 +266,60 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '50',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}rxItems', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}rxItems', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200 || response.statusCode == 400) {
       var jsonResponse = jsonDecode(response.body);
       if (response.statusCode == 200) {
         var jsonObject = jsonResponse;
-        PrescriptionListItems prescriptionListItems = PrescriptionListItems.fromJson(jsonObject);
+        PrescriptionListItems prescriptionListItems =
+            PrescriptionListItems.fromJson(jsonObject);
         return prescriptionListItems;
       }
     }
     return null;
-
   }
 
-  Future<SickLeavesResponse?> getSickLeaves({patientCode,page = 1,offset = 1}) async {
+  Future<SickLeavesResponse?> getSickLeaves(
+      {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
       'patientCode': '0/37416',
       // 'patientCode': '$patientCode',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}sickLeaves', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}sickLeaves', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       return SickLeavesResponse.fromJson(jsonResponse);
     }
     return null;
-
   }
 
   Future<List<LeaveDetail>> getSickLeaveDtl({leaveId}) async {
     final queryParameters = {
       'leaveId': '$leaveId',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}sickLeaveDtl', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}sickLeaveDtl', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['leaveDetail'] as List;
-      return jsonArray.map((jsonObject) => LeaveDetail.fromJson(jsonObject)).toList();
+      return jsonArray
+          .map((jsonObject) => LeaveDetail.fromJson(jsonObject))
+          .toList();
     }
     return [];
   }
@@ -334,18 +345,19 @@ class HospitalApiController with ApiHelper {
   //   return [];
   // }
 
-  Future<ApprovalsResponse?> getSrvApvl({patientCode,page = 1,offset = 1}) async {
+  Future<ApprovalsResponse?> getSrvApvl(
+      {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
       'patientCode': '0/7702',
       // 'patientCode': '$patientCode',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}srvApvl', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}srvApvl', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
@@ -360,20 +372,21 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '100',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}srvApvlDtl', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}srvApvlDtl', queryParameters);
     final response = await http.get(uri);
     print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['approvalItems'] as List;
-      return jsonArray.map((jsonObject) => ApprovalItem.fromJson(jsonObject)).toList();
+      return jsonArray
+          .map((jsonObject) => ApprovalItem.fromJson(jsonObject))
+          .toList();
     }
     return [];
-
   }
 
   // Future<List<Doctor>> getVisitedDrs({patientCode,page = 1,offset = 1}) async {
@@ -398,19 +411,20 @@ class HospitalApiController with ApiHelper {
   //   return [];
   // }
 
-  Future<VisitedDrsResponse?> getVisitedDrs({patientCode,page = 1,offset = 1}) async {
+  Future<VisitedDrsResponse?> getVisitedDrs(
+      {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
       // 'patientCode': '$patientCode',
       'patientCode': '0/32230',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
 
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}visitedDrs', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}visitedDrs', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
@@ -440,18 +454,19 @@ class HospitalApiController with ApiHelper {
   //   return [];
   // }
 
-  Future<VitalSignResponse?> getPtVS({patientCode,page = 1,offset = 1}) async {
+  Future<VitalSignResponse?> getPtVS(
+      {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
       'patientCode': '0/32230',
       // 'patientCode': '$patientCode',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVS', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}PtVS', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
@@ -466,31 +481,32 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '7',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVSDtl', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}PtVSDtl', queryParameters);
     final response = await http.get(uri);
     print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['vitalSigns'] as List;
-      return jsonArray.map((jsonObject) => VitalSignDtils.fromJson(jsonObject)).toList();
+      return jsonArray
+          .map((jsonObject) => VitalSignDtils.fromJson(jsonObject))
+          .toList();
     }
     return [];
-
   }
 
   Future<Eligibility?> getPtElg({patientId}) async {
     final queryParameters = {
       'patientId': '$patientId',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
 
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtElg', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}PtElg', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200 || response.statusCode == 400) {
       var jsonResponse = jsonDecode(response.body);
@@ -512,39 +528,41 @@ class HospitalApiController with ApiHelper {
       'clinicCode': '25',
       'fileName': '89_02072020_2_0033610_02072020100255.pdf',
     };
-    final uri =
-    Uri.https(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVSDtl', queryParameters);
+    final uri = Uri.https(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}PtVSDtl', queryParameters);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       print("gggf");
     }
   }
 
   //////////// بيانات الدكتور ///////
 
-  Future<DoctorListResponse?>getClDrs({clinicCode="",flag = false,page = 1,offset = 1}) async {
+  Future<DoctorListResponse?> getClDrs(
+      {clinicCode = "", flag = false, page = 1, offset = 1}) async {
     final queryParameters = {
       'clinicCode': '$clinicCode',
-      'pageNo': '${flag?page:1}',
-      'offset': '${flag?offset:1}',
-      'rows': '${flag?15:100}',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'pageNo': '${flag ? page : 1}',
+      'offset': '${flag ? offset : 1}',
+      'rows': '${flag ? 15 : 100}',
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
 
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase3}clDrs', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase3}clDrs', queryParameters);
 
     print(uri);
+
     final response = await http.get(uri);
     // var jsonResponse = jsonDecode(response.body);
-    // print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       return DoctorListResponse.fromJson(jsonResponse);
     }
     return null;
   }
+
   // Future<List<Doctor>>getClDrs({clinicCode="",flag = false}) async {
   //   final queryParameters = {
   //     'clinicCode': '$clinicCode',
@@ -575,19 +593,20 @@ class HospitalApiController with ApiHelper {
       'pageNo': '1',
       'offset': '1',
       'rows': '100',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
     // 'http://aiph.me:8000/api/clinic/clList?pageNo=1&offset=1&rows=5&lang=AR'
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase3}clList', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase3}clList', queryParameters);
     print(uri);
     final response = await http.get(uri);
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       if (response.statusCode == 200) {
         var jsonArray = jsonResponse['clinics'] as List;
-        return jsonArray.map((jsonObject) => Clinic.fromJson(jsonObject))
+        return jsonArray
+            .map((jsonObject) => Clinic.fromJson(jsonObject))
             .toList();
       }
       return [];
@@ -597,73 +616,114 @@ class HospitalApiController with ApiHelper {
   Future<Doctor?> getDoctorDtl({doctorCode}) async {
     final queryParameters = {
       // 'doctorCode': '$doctorCode',
-       'doctorCode': '1',
+      'doctorCode': '1',
       'pageNo': '1',
       'offset': '1',
       'rows': '100',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
 
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase2}DoctorDtl', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase2}DoctorDtl', queryParameters);
     final response = await http.get(uri);
     var jsonResponse = jsonDecode(response.body);
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       print(response.statusCode);
       return Doctor.fromJson(jsonResponse);
     }
     return null;
-
   }
 
-  Future<List<String>> getDoctorSched({clinicCode,doctorCode}) async {
+  Future<List<String>> getDoctorSched({clinicCode, doctorCode}) async {
     final queryParameters = {
-      'clinicCode':'$clinicCode',
-      'doctorCode':'$doctorCode',
+      'clinicCode': '$clinicCode',
+      'doctorCode': '$doctorCode',
       'pageNo': '1',
       'offset': '1',
       'rows': '100',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
 
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase2}DoctorSched', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase2}DoctorSched', queryParameters);
     final response = await http.get(uri);
 
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['availableDays'] as List;
       return jsonArray.map((jsonObject) {
-        String s =jsonObject['availableDay'];
+        String s = jsonObject['availableDay'];
         return s;
       }).toList();
     }
     return [];
   }
 
-  Future<List<AvailableTime>> getDoctorSchedDtl({clinicCode, doctorCode,availableDay}) async {
-
+  Future<List<AvailableTime>> getDoctorSchedDtl(
+      {clinicCode, doctorCode, availableDay}) async {
     final queryParameters = {
-      'clinicCode':'$clinicCode',
-      'doctorCode':'$doctorCode',
-      'availableDay':'${availableDay.toString().split(" ").first}',
+      'clinicCode': '$clinicCode',
+      'doctorCode': '$doctorCode',
+      'availableDay': '${availableDay.toString().split(" ").first}',
       'pageNo': '1',
       'offset': '1',
       'rows': '100',
-      'lang': SharedPrefController()
-          .getValueFor<String>(key: PrefKeys.lang.name),
+      'lang':
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
     };
 
-    final uri =
-    Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase2}DoctorSchedDtl', queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase2}DoctorSchedDtl', queryParameters);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['availableTimes'] as List;
-      NewAccountGetxController.to.changeDoctorTimeList(jsonArray.map((jsonObject) =>AvailableTime.fromJson(jsonObject)).toList());
+      NewAccountGetxController.to.changeDoctorTimeList(jsonArray
+          .map((jsonObject) => AvailableTime.fromJson(jsonObject))
+          .toList());
     }
     return [];
+  }
+
+  Future<ApiResponse> addAppoitment(
+      {patientCode,
+      patientName,
+      patientId,
+      patientMOB,
+      doctorCode,
+      clinicCode,
+      resDate,
+      consultTime24,
+      consultSNo,
+      resRemarks}) async {
+    Uri uri = Uri.parse('http://aiph.me:8000/api/clinic/clRes');
+    var response = await http.post(uri, body: {
+      "patientCode": '$patientCode',
+      "patientName": '$patientName',
+      "patientId": '$patientId',
+      "patientMOB": '$patientMOB',
+      "doctorCode": '$doctorCode',
+      "clinicCode": '$clinicCode',
+      "resDate": '$resDate',
+      "consultTime24": '$consultTime24',
+      "consultSNo": '$consultSNo',
+      "resRemarks": '$resRemarks',
+      "lang":
+          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
+    });
+
+
+    print(response.body);
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      var jsonResponse = jsonDecode(response.body);
+      if (response.statusCode == 200) {}
+      return ApiResponse(
+        message: jsonResponse['resStatusDesc']??'add Success',
+        success: jsonResponse['resStatusCode'] == "1" ?true:false,
+      );
+    }
+    return failedResponse;
   }
 }

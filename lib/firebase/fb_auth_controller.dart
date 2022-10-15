@@ -18,7 +18,7 @@ class FireBaseAuthController {
   Future<void> verifyPhoneNumber({phoneNumber,context}) async {
 
     await _fbAuth.verifyPhoneNumber(
-      phoneNumber: '+972$phoneNumber',
+      phoneNumber: '+966$phoneNumber',
       verificationCompleted: (PhoneAuthCredential credential) {
         NewAccountGetxController.to.smsCode = credential.smsCode!;
         Navigator.pushNamed(context, OTPScreen.routeName);

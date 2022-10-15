@@ -2,7 +2,9 @@ import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
+import '../get/quick_service_getx_controller.dart';
 import '../model/Clinic.dart';
 
 class DropDownItem extends StatefulWidget {
@@ -61,7 +63,9 @@ class _DropDownItenState extends State<DropDownItem> {
                   onChanged: (val) {
                     setState(() {
                       global = val!;
+                      QuickServiceGetxController.to.clinicName = widget.myData.where((element) => element.clinicCode == val).toList().first.clinicName!;
                       NewAccountGetxController.to.clinicCode = val;
+                      NewAccountGetxController.to.changeBoolisUpdateCliniceCode(true);
                       NewAccountGetxController.to.changeDropDownValue(val, widget.dropIntValue) ;
                       setState(() {
                       });

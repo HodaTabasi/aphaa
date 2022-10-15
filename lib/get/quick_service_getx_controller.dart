@@ -8,12 +8,13 @@ class QuickServiceGetxController extends GetxController {
 
   static QuickServiceGetxController get to => Get.find<QuickServiceGetxController>();
 
-   RxString clinicName = "anonumus".obs;
+   String clinicName = "anonumus";
+   String doctorName = "anonumus";
    String? doctorId;
    Doctor? doctor;
    bool fromHome = false;
    void changeClinicName(name){
-     clinicName.value = name;
+     clinicName = name;
    }
 
   void changeDoctorName(name){
