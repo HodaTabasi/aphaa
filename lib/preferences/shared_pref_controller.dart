@@ -1,7 +1,7 @@
 import 'package:aphaa_app/model/Patient.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum PrefKeys { loggedIn, id, name, email, lang }
+enum PrefKeys { loggedIn, id, name, email, lang ,isFirstLancsh}
 
 enum PrefKeysPatient {
   id,
@@ -72,6 +72,13 @@ class SharedPrefController {
 
   bool get loggedIn =>
       _sharedPreferences.getBool(PrefKeys.loggedIn.name) ?? false;
+
+  Future<void> setfirstLanch(value) async {
+    await _sharedPreferences.setBool(PrefKeys.isFirstLancsh.name,value);
+  }
+
+  bool get isFirstLancsh =>
+      _sharedPreferences.getBool(PrefKeys.isFirstLancsh.name) ?? false;
 
   T? getValueFor<T>({required String key}) {
     if (_sharedPreferences.containsKey(key)) {

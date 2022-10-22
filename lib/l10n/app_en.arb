@@ -3,7 +3,7 @@
   "en": "English",
   "ar": "Arabic",
   "lang": "Language",
-
+  "no_doctor_found":"No Doctor Found",
   "welcome": "Welcome to the patient portal",
   "quick_service": "Quick Service",
   "consultation_request": "Consultation request",

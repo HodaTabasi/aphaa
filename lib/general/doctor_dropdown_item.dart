@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class DoctorDropDownItem extends StatefulWidget {
   List<Doctor>  myData;
   String iconName;
@@ -104,10 +106,10 @@ class _DropDownItenState extends State<DoctorDropDownItem> {
                       }).toList(),
                       icon:  Visibility(
                         visible: !NewAccountGetxController.to.isUpdateCliniceCode,
-                        child: Icon(
+                        child: widget.myData.isNotEmpty?Icon(
                           Icons.keyboard_arrow_down,
                           color: Color(0xff058638),
-                        ),
+                        ):Text(AppLocalizations.of(context)!.no_doctor_found ,style: TextStyle(fontSize: 14.r,fontFamily: 'Tajawal'),),
                       ),
 
                     ),

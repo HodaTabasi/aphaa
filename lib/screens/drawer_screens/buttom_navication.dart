@@ -62,8 +62,9 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
               child: Image.asset(
                 'assets/images/logo.png',
                 width: 30.w,
-                height: 30.h,
+                height: 28.h,
               ),
+              backgroundColor: Colors.white,
             ),
           ),
           // leadingWidth: 70.w,

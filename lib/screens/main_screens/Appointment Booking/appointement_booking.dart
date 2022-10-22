@@ -158,6 +158,11 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                         AppLocalizations.of(context)!.clenice_choesse),
                     DoctorDropDownItem(value.doctorsList, 'assets/images/docgreen.svg',
                         AppLocalizations.of(context)!.dovtor_choesse),
+                    // Visibility(
+                    //   visible: value.doctorsList.isNotEmpty,
+                    //   child: DoctorDropDownItem(value.doctorsList, 'assets/images/docgreen.svg',
+                    //       AppLocalizations.of(context)!.dovtor_choesse),
+                    // ),
                     EditTextItem('assets/images/Calendar.svg',
                         AppLocalizations.of(context)!.appoitment_date,b: false,controler: dateText),
                     Visibility(visible:value.global != null,child: widget1(value.avilableDate,value)),

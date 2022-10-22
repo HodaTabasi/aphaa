@@ -71,6 +71,7 @@ class NewAccountGetxController extends GetxController {
 
   getDoctorSchedules(value) async {
     var data = await HospitalApiController().getDoctorSched(doctorCode: value,clinicCode: clinicCode);
+    print("dgs ${data}");
     avilableDate =  data;
     update();
   }

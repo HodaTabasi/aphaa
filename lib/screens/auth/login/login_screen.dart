@@ -216,13 +216,14 @@ class _LoginScreenState extends State<LoginScreen> with Helpers{
       Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
     }else {
       Navigator.pop(context);
+      showSnackBar(
+        context,
+        message: apiResponse.message,
+        error: !apiResponse.success,
+      );
     }
 
-    showSnackBar(
-      context,
-      message: apiResponse.message,
-      error: !apiResponse.success,
-    );
+
   }
 
   @override

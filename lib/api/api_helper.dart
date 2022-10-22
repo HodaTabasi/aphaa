@@ -5,7 +5,7 @@ import '../preferences/shared_pref_controller.dart';
 
 mixin ApiHelper {
   ApiResponse get failedResponse =>
-      ApiResponse(message: 'Something went wrong', success: false);
+      ApiResponse(message: SharedPrefController().getValueFor(key: PrefKeys.lang.name) == 'ar'?'حصل خطا ما':'Something went wrong', success: false);
 
   Map<String, String> get headers {
     return {

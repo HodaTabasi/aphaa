@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data!.length,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      // physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return Center(child: InkWell(
                             onTap: (){

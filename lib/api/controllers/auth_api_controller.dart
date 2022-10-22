@@ -42,7 +42,7 @@ class AuthApiController with ApiHelper {
         SharedPrefController().setValuePCode(pCode: jsonObject["p_code"]);
       }
       return ApiResponse(
-          message: jsonResponse['message'], success: jsonResponse['status']);
+          message: jsonResponse['message'], success: jsonResponse['status']??false);
     }
     return failedResponse;
   }
@@ -56,7 +56,7 @@ class AuthApiController with ApiHelper {
     });
     print(response);
 
-    if (response.statusCode == 200 || response.statusCode == 400) {
+    if (response.statusCode == 200 || response.statusCode == 404) {
       var jsonResponse = jsonDecode(response.body);
       if (response.statusCode == 200) {
         var jsonObject = jsonResponse['items'];
@@ -81,7 +81,7 @@ class AuthApiController with ApiHelper {
         var jsonResponse = jsonDecode(response.body);
         return ApiResponse(message: jsonResponse['message'], success: jsonResponse['status']);
       }else {
-        return  ApiResponse(message: 'Logged out successfully', success: true);
+        return  ApiResponse(message: SharedPrefController().getValueFor(key: PrefKeys.lang.name) == 'ar'?'تسجيل الدخول بنجاح':'Logged out successfully', success: true);
       }
       var jsonResponse = jsonDecode(response.body);
       return ApiResponse(
