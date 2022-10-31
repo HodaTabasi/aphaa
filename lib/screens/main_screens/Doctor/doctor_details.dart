@@ -414,18 +414,18 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               context, AppointmentBooking.routeName);
                         }
                       })),
-                      Padding(
-                        padding: EdgeInsets.all(8.0.r),
-                        child: InkWell(
-                          onTap: () {
-                            // showVidetAlertDialog(context);
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/image5.svg',
-                            semanticsLabel: 'Acme Logo',
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.all(8.0.r),
+                      //   child: InkWell(
+                      //     onTap: () {
+                      //       // showVidetAlertDialog(context);
+                      //     },
+                      //     child: SvgPicture.asset(
+                      //       'assets/images/image5.svg',
+                      //       semanticsLabel: 'Acme Logo',
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

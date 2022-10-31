@@ -55,7 +55,7 @@ class _DoctorFillterState extends State<DoctorFillter> {
           ),
           SizedBox(height: 20.h,),
           DropDownItem([],'assets/images/hospital.svg',AppLocalizations.of(context)!.clenice_choesse),
-          DropDownItem([],'assets/images/docgreen.svg',AppLocalizations.of(context)!.dovtor_choesse),
+          // DropDownItem([],'assets/images/docgreen.svg',AppLocalizations.of(context)!.dovtor_choesse),
           SizedBox(height: 25.h,),
           SizedBox(child: BtnLayout('بحث',(){}),width: 200.w,)
         ],

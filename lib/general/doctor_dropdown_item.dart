@@ -111,7 +111,6 @@ class _DropDownItenState extends State<DoctorDropDownItem> {
                           color: Color(0xff058638),
                         ):Text(AppLocalizations.of(context)!.no_doctor_found ,style: TextStyle(fontSize: 14.r,fontFamily: 'Tajawal'),),
                       ),
-
                     ),
                   ),
                 ),

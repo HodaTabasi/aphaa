@@ -199,7 +199,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
               ),
             ),
             SizedBox(height: 10.h),
-            BtnLayout(AppLocalizations.of(context)!.appointment, () =>_performRigestration(value.clinicCode,value.doctorCode,dateText.text,value.avilableTime[_value])),
+            BtnLayout(AppLocalizations.of(context)!.appointment, () =>_performAction(value)),
             Image.asset(
               "assets/images/image1.png",
               fit: BoxFit.fitWidth,
@@ -325,6 +325,24 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
       ),
     );
   }
+
+  Future<void> _performAction(value) async {
+    if (_checkData(value)) {
+      await _performRigestration(value.clinicCode,value.doctorCode,dateText.text,value.avilableTime[_value]);
+    }
+  }
+
+  bool _checkData(value) {
+    if (value.clinicCode.isNotEmpty &&
+        value.doctorCode.isNotEmpty &&
+        dateText.text.isNotEmpty &&
+        value.avilableTime[_value] != null) {
+      return true;
+    }
+    showSnackBar(context, message:AppLocalizations.of(context)!.enter_required_data, error: true);
+    return false;
+  }
+
 
   _performRigestration(String clinicCode, String doctorCode, String dateText, AvailableTime avilableTime) async{
     showLoaderDialog(context);

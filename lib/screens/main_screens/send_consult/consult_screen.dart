@@ -32,6 +32,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
   List<Clinic> myData = [];
 
   List<Doctor> myDataDoctor = [];
+  bool isLoading = false;
 
   late TextEditingController name;
   late TextEditingController email;
@@ -54,27 +55,30 @@ class _SendConsultScreenState extends State<SendConsultScreen>
   }
 
   getListsData() async {
+    isLoading = true;
     myData = await HospitalApiController().getClList() ?? [];
-    Future.delayed(Duration.zero, () async {
-      await HospitalApiController().getClDrs(clinicCode: myData[0].clinicCode).then((value) {
-        // Navigator.pop(context);
-        NewAccountGetxController.to.changeMyDoctorList(value!.doctors!);
-        myDataDoctor = value.doctors!;
-      });
-      setState(() {
-        print("object");
-        // showLoaderDialog(context);
-      });
-      // NewAccountGetxController().changeDropDownValue(myData[0].clinicCode, 2,context: context);
-      // print("ff aa s ${id}");
+    setState(() {
+      isLoading = false;
     });
+    // Future.delayed(Duration.zero, () async {
+    //   await HospitalApiController()
+    //       .getClDrs(clinicCode: myData[0].clinicCode)
+    //       .then((value) {
+    //     // Navigator.pop(context);
+    //     NewAccountGetxController.to.changeMyDoctorList(value!.doctors!);
+    //     myDataDoctor = value.doctors!;
+    //   });
+    //
+    //   // NewAccountGetxController().changeDropDownValue(myData[0].clinicCode, 2,context: context);
+    //   // print("ff aa s ${id}");
+    // });
     // HospitalApiController().getClDrs();
   }
 
-  Future<void> getAllDoctors() async {
-    myDataDoctor = await AppApiController().getAllDoctors();
-    setState(() {});
-  }
+  // Future<void> getAllDoctors() async {
+  //   myDataDoctor = await AppApiController().getAllDoctors();
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -108,48 +112,73 @@ class _SendConsultScreenState extends State<SendConsultScreen>
               )),
         ),
       ),
-      body: GetBuilder<NewAccountGetxController>(
-        builder: (value) => ListView(
-          children: [
-             SizedBox(
-              height: 10.h,
-            ),
-            Padding(
-              padding:  EdgeInsets.all(16.0.r),
-              child: Text(
-                AppLocalizations.of(context)!.head_of_consult_screen,
-                style:  TextStyle(
-                  color: Colors.black,
-                  fontSize: 15.sp,
-                  fontFamily: 'Tajawal',
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.start,
-              ),
-            ),
-            Form(
-              child: Column(
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : GetBuilder<NewAccountGetxController>(
+              builder: (value) => ListView(
                 children: [
-                  EditTextItem('assets/images/Profile.svg',AppLocalizations.of(context)!.pasent_name ,controler: name,),
-                  EditTextItem('assets/images/Message.svg', AppLocalizations.of(context)!.email,controler: email,),
-                  EditTextItem('assets/images/phone.svg', AppLocalizations.of(context)!.phone,controler: phone,),
-                  DropDownItem(
-                      myData, 'assets/images/hospital.svg', AppLocalizations.of(context)!.clenice_choesse,dropIntValue: 3,),
-                  DoctorDropDownItem(
-                      value.getListDoctor(), 'assets/images/docgreen.svg', AppLocalizations.of(context)!.dovtor_choesse,dropIntValue: 2,),
-                   TextAreaWidget(consultText)
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0.r),
+                    child: Text(
+                      AppLocalizations.of(context)!.head_of_consult_screen,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15.sp,
+                        fontFamily: 'Tajawal',
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  Form(
+                    child: Column(
+                      children: [
+                        EditTextItem(
+                          'assets/images/Profile.svg',
+                          AppLocalizations.of(context)!.pasent_name,
+                          controler: name,
+                        ),
+                        EditTextItem(
+                          'assets/images/Message.svg',
+                          AppLocalizations.of(context)!.email,
+                          controler: email,
+                        ),
+                        EditTextItem(
+                          'assets/images/phone.svg',
+                          AppLocalizations.of(context)!.phone,
+                          controler: phone,
+                        ),
+                        DropDownItem(
+                          myData,
+                          'assets/images/hospital.svg',
+                          AppLocalizations.of(context)!.clenice_choesse,
+                          dropIntValue: 3,
+                        ),
+                        DoctorDropDownItem(
+                          value.getListDoctor(),
+                          'assets/images/docgreen.svg',
+                          AppLocalizations.of(context)!.dovtor_choesse,
+                          dropIntValue: 2,
+                        ),
+                        TextAreaWidget(consultText)
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                  BtnLayout(AppLocalizations.of(context)!.consult_send,
+                      () => _performAction()),
+                  Image.asset(
+                    "assets/images/image1.png",
+                    fit: BoxFit.fitWidth,
+                  ),
                 ],
               ),
             ),
-             SizedBox(height: 10.h),
-            BtnLayout(AppLocalizations.of(context)!.consult_send, () => _performAction()),
-            Image.asset(
-              "assets/images/image1.png",
-              fit: BoxFit.fitWidth,
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -163,15 +192,28 @@ class _SendConsultScreenState extends State<SendConsultScreen>
     if (email.text.isNotEmpty &&
         phone.text.isNotEmpty &&
         consultText.text.isNotEmpty &&
-        name.text.isNotEmpty) {
+        name.text.isNotEmpty &&
+        QuickServiceGetxController.to.clinicName.isNotEmpty &&
+        QuickServiceGetxController.to.doctorName.isNotEmpty) {
       return true;
+    }else if(QuickServiceGetxController.to.clinicName.isEmpty){
+      showSnackBar(context,
+          message: AppLocalizations.of(context)!.select_clinic,
+          error: true);
+      return false;
+    } else if(QuickServiceGetxController.to.doctorName.isEmpty){
+      showSnackBar(context,
+          message: AppLocalizations.of(context)!.select_doctor,
+          error: true);
+      return false;
     }
-    showSnackBar(context, message: 'Enter required data!', error: true);
+    showSnackBar(context,
+        message: AppLocalizations.of(context)!.enter_required_data,
+        error: true);
     return false;
   }
 
   Future<void> _sendConsult() async {
-    print("cdd ${QuickServiceGetxController.to.doctorId}");
     showLoaderDialog(context);
     ApiResponse apiResponse = await QuickServiceApiController().consultation(
         email: email.text,
@@ -179,10 +221,12 @@ class _SendConsultScreenState extends State<SendConsultScreen>
         name: name.text,
         description: consultText.text,
         clinic: QuickServiceGetxController.to.clinicName,
-        doctors_id: QuickServiceGetxController.to.doctorId);
+        doctors_id: QuickServiceGetxController.to.doctorName);
     if (apiResponse.success) {
-      Navigator.pop(context);
-      showAlertDialog(context);
+      QuickServiceGetxController.to.clinicName = "";
+     QuickServiceGetxController.to.doctorName = "";
+      // Navigator.pop(context);
+      // showAlertDialog(context);
     }
     Navigator.pop(context);
     showSnackBar(

@@ -295,7 +295,7 @@ class _CreateAccountNextState extends State<CreateAccountNext>
       if (employer.text.isNotEmpty) return true;
     }
 
-    showSnackBar(context, message: 'Enter required data!', error: true);
+    showSnackBar(context, message: AppLocalizations.of(context)!.enter_required_data, error: true);
     return false;
   }
 

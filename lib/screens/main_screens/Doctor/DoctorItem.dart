@@ -72,7 +72,7 @@ class DoctorItem extends StatelessWidget {
           Positioned(
             bottom: 0,
             right: 0,
-            // left: 0,
+             left: 0,
             child: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, DoctorDetails.routeName);
@@ -86,8 +86,13 @@ class DoctorItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Color(0xff0E4C8F),
                   borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(10.r),
                     bottomLeft: Radius.circular(10.r),
+                    bottomRight: Radius.circular(10.r),
+                  ),
+                  border: Border.all(
+                    width: 2,
+                    color: Color(0xff0E4C8F),
+                    style: BorderStyle.solid,
                   ),
                 ),
                 child: Text(

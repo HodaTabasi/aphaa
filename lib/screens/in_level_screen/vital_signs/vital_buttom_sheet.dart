@@ -333,7 +333,7 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                 ],
               );
             } else {
-              return Center(
+              return const Center(
                 child: Text(
                   'NO DATA',
                   style: TextStyle(

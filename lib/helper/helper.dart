@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 mixin Helpers {
   showAlertDialog(BuildContext context) {
     Widget continueButton = Center(
@@ -55,9 +57,9 @@ mixin Helpers {
   showRigectAlertDialog(BuildContext context) {
     Widget continueButton = Center(
       child: TextButton(
-          child: Text('هذا الموعد غير متاح',
+          child: Text(AppLocalizations.of(context)!.this_date_is_not_available,
               style: TextStyle(
-                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.green)),
+                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.black)),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
           }),
@@ -66,13 +68,14 @@ mixin Helpers {
       child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.red),
             onPressed: () {
               Navigator.pop(context);
             },
             child: Text(
-              'موافق',
+              AppLocalizations.of(context)!.ok,
               style: TextStyle(
-                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.black45),
+                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.white),
               textAlign: TextAlign.center,
             ),
           )),
@@ -87,9 +90,9 @@ mixin Helpers {
         ),
         padding: EdgeInsets.all(16),
         child: Icon(
-          Icons.check_circle,
+          Icons.error,
           size: 60,
-          color: Colors.green,
+          color: Colors.red,
         ),
       ),
       actions: [

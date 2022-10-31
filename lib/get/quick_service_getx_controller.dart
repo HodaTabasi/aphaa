@@ -8,8 +8,8 @@ class QuickServiceGetxController extends GetxController {
 
   static QuickServiceGetxController get to => Get.find<QuickServiceGetxController>();
 
-   String clinicName = "anonumus";
-   String doctorName = "anonumus";
+   String clinicName = "";
+   String doctorName = "";
    String? doctorId;
    Doctor? doctor;
    bool fromHome = false;

@@ -125,7 +125,7 @@ class _OfferDetailsState extends State<OfferDetails> {
                       ),
                     ),
                     Text(
-                      "${instalation.price}",
+                      "${instalation.price} ريال ",
                       style:  TextStyle(
                         color: Color(0xff2D2D2D),
                         fontSize: 15.sp,
@@ -137,7 +137,7 @@ class _OfferDetailsState extends State<OfferDetails> {
                 ),
               ),
               ListTile(
-                title: Text('اسم العيادة هنا',style : TextStyle(
+                title: Text('${instalation.clinic}',style : TextStyle(
                   color: Colors.black,
                   fontSize: 14.sp,
                   fontFamily: 'Tajawal',

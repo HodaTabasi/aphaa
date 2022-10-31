@@ -30,6 +30,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
   late TextEditingController phone;
   late TextEditingController inCompany;
   late TextEditingController inId;
+  late TextEditingController _pEmail;
 
   XFile? _pickedImage;
   late ImagePicker _imagePicker;
@@ -40,6 +41,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
   void initState() {
     name = TextEditingController(text: "aisal yosef alsawaf");
     userId = TextEditingController(text: "aisal@hotmail.com");
+    _pEmail = TextEditingController(text: "hhh@gmail.com");
     phone = TextEditingController(text: "0154421157");
     inCompany = TextEditingController(text: "cash");
     inId = TextEditingController(text: "2520");
@@ -102,6 +104,11 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
                 EditTextItem('assets/images/Profile.svg',
                     AppLocalizations.of(context)!.pasent_name,controler: name,),
                 EditTextItem('assets/images/id.svg', AppLocalizations.of(context)!.identity_iqama,controler: userId,),
+                EditTextItem(
+                  'assets/images/Message.svg',
+                  AppLocalizations.of(context)!.email,
+                  controler: _pEmail,
+                ),
                 EditTextItem('assets/images/phone.svg',
                     AppLocalizations.of(context)!.phone,controler: phone,),
                 EditTextItem('assets/images/scure.svg', AppLocalizations.of(context)!.insurance_company_cash,controler: inCompany,),
@@ -184,21 +191,21 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
   }
 
   bool _checkData() {
-
     if (userId.text.isNotEmpty &&
         phone.text.isNotEmpty &&
         name.text.isNotEmpty  &&
         inId.text.isNotEmpty  &&
+        _pEmail.text.isNotEmpty  &&
         inCompany.text.isNotEmpty && _pickedImage != null) {
       return true;
     }
-    showSnackBar(context, message: 'Enter required data!', error: true);
+    showSnackBar(context, message: AppLocalizations.of(context)!.enter_required_data, error: true);
     return false;
   }
 
   Future<void> _uploadImage() async {
     showLoaderDialog(context);
-    ApiResponse apiResponse = await QuickServiceApiController().openFile(mobile: phone.text,name: name.text,identity_number: userId.text,insurance_number: inId.text,paying_type: inCompany.text,image:  _pickedImage!.path);
+    ApiResponse apiResponse = await QuickServiceApiController().openFile(mobile: phone.text,name: name.text,identity_number: userId.text,insurance_number: inId.text,paying_type: inCompany.text,image:  _pickedImage!.path,email:_pEmail.text );
     if (apiResponse.success) {
       Navigator.pop(context);
       showAlertDialog(context);

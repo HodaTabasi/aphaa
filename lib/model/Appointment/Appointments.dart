@@ -20,7 +20,7 @@ class Appointments {
         this.y});
 
   Appointments.fromJson(Map<String, dynamic> json) {
-    date = json['Date'];
+    date = json['date'];
     time = json['time'];
     reservationStatus = json['reservationStatus'];
     clinic =
@@ -33,7 +33,7 @@ class Appointments {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Date'] = this.date;
+    data['date'] = this.date;
     data['time'] = this.time;
     data['reservationStatus'] = this.reservationStatus;
     if (this.clinic != null) {

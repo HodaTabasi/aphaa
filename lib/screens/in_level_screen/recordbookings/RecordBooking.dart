@@ -192,6 +192,7 @@ class _RexcordBookingState extends State<RexcordBooking> {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasData && snapshot.data != null) {
+                        print(snapshot.data!.myPrevAppointments![0].date);
                         return ListView(
                           shrinkWrap: true,
                           children: [

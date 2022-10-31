@@ -1,4 +1,3 @@
-import 'package:aphaa_app/api/controllers/App_api_controller.dart';
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/helper/helper.dart';
 import 'package:aphaa_app/model/Appointment/AvailableTime.dart';
@@ -371,7 +370,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
         dateText.text.isNotEmpty) {
       return true;
     }
-    showSnackBar(context, message: 'Enter required data!', error: true);
+    showSnackBar(context, message: AppLocalizations.of(context)!.enter_required_data, error: true);
     return false;
   }
 

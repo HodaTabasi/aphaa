@@ -24,8 +24,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> with Helpers{
   var value = false;
-  var _emailTextController = TextEditingController(text: "0592265897");
-  var _passwordTextController =  TextEditingController(text: "123456789");
+  var _emailTextController = TextEditingController(text: "0592171804");
+  var _passwordTextController =  TextEditingController(text: "20003000");
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers{
         _passwordTextController.text.isNotEmpty) {
       return true;
     }
-    showSnackBar(context, message: 'Enter required data!', error: true);
+    showSnackBar(context, message: AppLocalizations.of(context)!.enter_required_data, error: true);
     return false;
   }
 

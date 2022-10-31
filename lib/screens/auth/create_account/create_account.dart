@@ -144,7 +144,7 @@ class _CreateAccountState extends State<CreateAccount> with Helpers {
       }
       return true;
     }
-    showSnackBar(context, message: 'Enter required data!', error: true);
+    showSnackBar(context, message:AppLocalizations.of(context)!.enter_required_data, error: true);
     return false;
   }
 

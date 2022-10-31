@@ -28,7 +28,9 @@
    "dovtor_choesse":"اختر الطبيب",
    "consult_note":"نص الاستشارة",
    "consult_send":"ارسل الاستشارة",
-
+   "this_date_is_not_available":"هذا الموعد غير متاح",
+   "ok":"موافق",
+"enter_required_data":"الرجاء ادخال الحقول اللازمة",
    "time":"الوقت",
    "appoitment_date":"تاريخ الحجز",
    "to":"الى",
@@ -76,9 +78,11 @@
     "edit_profile":"تعديل الملف الشخصي ",
     "pay_book":"سجل المدفوعات ",
     "edit_insurance_data":"تعديل بيانات التأمين ",
-    "change_password":"تغيير كلمة المرور ",
+    "change_password":"تعديل كلمة المرور ",
     "notifications":"الإشعارات ",
     "logout":"تسجيل خروج ",
+    "select_clinic":"الرجاء اختيار عيادة من القائمة",
+    "select_doctor":"الرجاء اختيار دكتور من القائمة",
 
     "reservations":"الحجوزات ",
     "add_appointment":"اضافة موعد",

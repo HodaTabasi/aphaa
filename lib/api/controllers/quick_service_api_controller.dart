@@ -18,7 +18,7 @@ class QuickServiceApiController with ApiHelper {
     'mobile':"$mobile",
     'clinic':"$clinic",
     'description':"$description",
-    'doctors_id':"$doctors_id"
+    'doctor':"$doctors_id"
     };
     Uri uri = Uri.parse(ApiSettings.consultation);
     var response = await http.post(uri, body:myData,headers: headers);
@@ -100,7 +100,7 @@ insurance_number:2520
   //     success: false,
   //   );
   // }
-  Future<ApiResponse> openFile({name,identity_number,mobile,paying_type,insurance_number,image}) async {
+  Future<ApiResponse> openFile({name,identity_number,mobile,paying_type,insurance_number,image,email}) async {
     Uri uri = Uri.parse(ApiSettings.openFile);
     var request = http.MultipartRequest('POST', uri);
     var file = await http.MultipartFile.fromPath('image', image);
@@ -109,16 +109,17 @@ insurance_number:2520
     request.fields["mobile"] = mobile;
     request.fields["paying_type"] = paying_type;
     request.fields["insurance_number"] = insurance_number;
+    request.fields["email"] = email;
 
     request.files.add(file);
     // request.fields['KEY'] = 'VALUE';
     request.headers[HttpHeaders.authorizationHeader] = SharedPrefController().token;
     request.headers[HttpHeaders.acceptHeader] = 'application/json';
     var response = await request.send();
-
+    // print(jsonDecode(await response.stream.transform(utf8.decoder).first));
+    var body = await response.stream.transform(utf8.decoder).first;
+    var jsonResponse = jsonDecode(body);
     if (response.statusCode == 201 || response.statusCode == 400 || response.statusCode == 200) {
-      var body = await response.stream.transform(utf8.decoder).first;
-      var jsonResponse = jsonDecode(body);
       var apiResponse = ApiResponse(
         message: jsonResponse['message'],
         success: jsonResponse['status'],
@@ -129,8 +130,8 @@ insurance_number:2520
       return apiResponse;
     }
     return ApiResponse(
-      message: 'Something went wrong',
-      success: false,
+      message: jsonResponse['message'],
+      success: jsonResponse['status']??false,
     );
   }
 }

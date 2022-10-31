@@ -18,6 +18,12 @@
   "login": "login",
   "register": "new account",
   "or":"Or",
+  "this_date_is_not_available":"This date is not available",
+  "ok":"Ok",
+  "enter_required_data":"Enter required data!",
+  "select_clinic":"select clinic from list",
+  "select_doctor":"select doctor from list",
+
 
    "head_of_consult_screen":"To request a consultation, please enter the following information:",
    "pasent_name":"Patient Name",

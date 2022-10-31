@@ -14,16 +14,77 @@ import '../../../model/api_response.dart';
 class EditInsuranceData extends StatefulWidget {
 
   static String routeName = "/edit_profile_insurance";
+  final String? restorationId = "1";
 
   @override
   State<EditInsuranceData> createState() => _EditInsuranceDataState();
 }
 
-class _EditInsuranceDataState extends State<EditInsuranceData> with Helpers {
+class _EditInsuranceDataState extends State<EditInsuranceData> with RestorationMixin,Helpers {
 
   TextEditingController _insurance_number = TextEditingController();
   TextEditingController _insurance_name = TextEditingController();
   TextEditingController _insurance_date = TextEditingController();
+
+  // In this example, the restoration ID for the mixin is passed in through
+  // the [StatefulWidget]'s constructor.
+  @override
+  String? get restorationId => widget.restorationId;
+
+  final RestorableDateTime _selectedDate =
+  RestorableDateTime(DateTime(2021, 7, 25));
+  late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
+  RestorableRouteFuture<DateTime?>(
+    onComplete: _selectDate,
+    onPresent: (NavigatorState navigator, Object? arguments) {
+      return navigator.restorablePush(
+        _datePickerRoute,
+        arguments: _selectedDate.value.millisecondsSinceEpoch,
+      );
+    },
+  );
+
+  static Route<DateTime> _datePickerRoute(
+      BuildContext context,
+      Object? arguments,
+      ) {
+    return DialogRoute<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return DatePickerDialog(
+          restorationId: 'date_picker_dialog',
+          initialEntryMode: DatePickerEntryMode.calendarOnly,
+          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
+          firstDate: DateTime(2021),
+          lastDate: DateTime(2022),
+        );
+      },
+    );
+  }
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_selectedDate, 'selected_date');
+    registerForRestoration(
+        _restorableDatePickerRouteFuture, 'date_picker_route_future');
+  }
+
+  void _selectDate(DateTime? newSelectedDate) {
+    if (newSelectedDate != null) {
+      setState(() {
+        _selectedDate.value = newSelectedDate;
+        setState(() {
+          _insurance_date.text =
+          "${_selectedDate.value.year}-${_selectedDate.value.month}-${_selectedDate.value.day}";
+        });
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //   content: Text(
+        //       'Selected: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
+        // ));
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +122,13 @@ class _EditInsuranceDataState extends State<EditInsuranceData> with Helpers {
                 ),
                 EditTextItem('assets/images/snum.svg',
                   AppLocalizations.of(context)!.insurance_number,controler: _insurance_number,),
-                EditTextItem(
-                    'assets/images/Calendar.svg', AppLocalizations.of(context)!.insurance_end_date,b: false,controler: _insurance_date),
+                InkWell(
+                  onTap: () {
+                    _restorableDatePickerRouteFuture.present();
+                  },
+                  child: EditTextItem(
+                      'assets/images/Calendar.svg', AppLocalizations.of(context)!.insurance_end_date,b: false,controler: _insurance_date),
+                ),
 
                 // DropDownItem(["m1","m2"],
                 //     'assets/images/company.svg', AppLocalizations.of(context)!.insurance_companies,dropIntValue: 1),
