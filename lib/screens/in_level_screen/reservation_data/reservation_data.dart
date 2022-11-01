@@ -1,13 +1,28 @@
+import 'dart:io';
+
 import 'package:aphaa_app/general/btn_layout.dart';
+import 'package:aphaa_app/helper/helpers.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_screen/payment_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/reservation_data/payment_way_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkConfigurationDetails.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../model/offer.dart';
+import 'package:flutter_paytabs_bridge/BaseBillingShippingInfo.dart';
+import 'package:flutter_paytabs_bridge/IOSThemeConfiguration.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkApms.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkConfigurationDetails.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkLocale.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkTransactionClass.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkTransactionType.dart';
+import 'package:flutter_paytabs_bridge/flutter_paytabs_bridge.dart';
+import 'package:aphaa_app/helper/constant.dart';
+import 'package:aphaa_app/preferences/shared_pref_controller.dart';
+import 'package:aphaa_app/screens/drawer_screens/done/done_screen.dart';
 
 class ReservationData extends StatefulWidget {
   static String routeName = "/ReservationData";
@@ -15,10 +30,23 @@ class ReservationData extends StatefulWidget {
   State<ReservationData> createState() => _ReservationDataState();
 }
 
-class _ReservationDataState extends State<ReservationData> {
+class _ReservationDataState extends State<ReservationData> with Helpers1{
   var _value = 0;
 
   var instalation;
+
+  PaymentSdkConfigurationDetails configuration =
+  PaymentSdkConfigurationDetails();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    //after create page do configurations for payment
+    // if(mounted){
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +55,7 @@ class _ReservationDataState extends State<ReservationData> {
     if(routeArgs1 != null){
       instalation = routeArgs1['data'];
       print('instalation ${instalation?.price}');
+      doPaymentConfiguration();
     }
 
     return Scaffold(
@@ -70,7 +99,7 @@ class _ReservationDataState extends State<ReservationData> {
       ),
       body: ListView(
         children: [
-          SizedBox(height: 20.h),
+          SizedBox(height: 50.h),
            Padding(
             padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Text(
@@ -113,7 +142,7 @@ class _ReservationDataState extends State<ReservationData> {
                         ),
                       ),
                       subtitle: Text(
-                        'اسم العيادة هنا',
+                        '${instalation.clinic}',
                         style:  TextStyle(
                           color: Color(0xff2D2D2D),
                           fontSize: 13.sp,
@@ -151,63 +180,63 @@ class _ReservationDataState extends State<ReservationData> {
             ]),
           ),
           SizedBox(height: 20.h),
-           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
-            child: Text(
-              AppLocalizations.of(context)!.payment_method,
-              style:  TextStyle(
-                color: Color(0xff2D2D2D),
-                fontSize: 15.sp,
-                fontFamily: 'Tajawal',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          // ListView.builder(
-          //   itemCount: 2,
-          //   shrinkWrap: true,
-          //     physics: NeverScrollableScrollPhysics(),
-          //     itemBuilder: (context,index){
-          //   return PaymentSelectedItem(
-          //     title: 'مدى',
-          //     value: 0,
-          //     groupValue: _value,
-          //     onChanged: (value) => setState(() => _value = value),
-          //   );
-          // }),
-          //
-          PaymentSelectedItem(
-            title: 'مدى',
-            value: 0,
-            groupValue: _value,
-            onChanged: (value) => setState(() => _value = value),
-          ),
-          PaymentSelectedItem(
-            title: 'فيزا',
-            value: 1,
-            groupValue: _value,
-            onChanged: (value) => setState(() => _value = value),
-          ),
-          Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SvgPicture.asset(
-                  'assets/images/add.svg',
-                  semanticsLabel: 'Acme Logo',
-                ),
-                Padding(
-                  padding:  EdgeInsets.all(8.0.r),
-                  child: Text(
-                    AppLocalizations.of(context)!.add_a_new_payment_card,
-                    style: TextStyle(
-                        fontFamily: 'Tajawal', color: Colors.black, fontSize: 13.sp),
-                  ),
-                )
-              ],
-            ),
-          ),
+          //  Padding(
+          //   padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
+          //   child: Text(
+          //     AppLocalizations.of(context)!.payment_method,
+          //     style:  TextStyle(
+          //       color: Color(0xff2D2D2D),
+          //       fontSize: 15.sp,
+          //       fontFamily: 'Tajawal',
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          // ),
+          // // ListView.builder(
+          // //   itemCount: 2,
+          // //   shrinkWrap: true,
+          // //     physics: NeverScrollableScrollPhysics(),
+          // //     itemBuilder: (context,index){
+          // //   return PaymentSelectedItem(
+          // //     title: 'مدى',
+          // //     value: 0,
+          // //     groupValue: _value,
+          // //     onChanged: (value) => setState(() => _value = value),
+          // //   );
+          // // }),
+          // //
+          // PaymentSelectedItem(
+          //   title: 'مدى',
+          //   value: 0,
+          //   groupValue: _value,
+          //   onChanged: (value) => setState(() => _value = value),
+          // ),
+          // PaymentSelectedItem(
+          //   title: 'فيزا',
+          //   value: 1,
+          //   groupValue: _value,
+          //   onChanged: (value) => setState(() => _value = value),
+          // ),
+          // Padding(
+          //   padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.end,
+          //     children: [
+          //       SvgPicture.asset(
+          //         'assets/images/add.svg',
+          //         semanticsLabel: 'Acme Logo',
+          //       ),
+          //       Padding(
+          //         padding:  EdgeInsets.all(8.0.r),
+          //         child: Text(
+          //           AppLocalizations.of(context)!.add_a_new_payment_card,
+          //           style: TextStyle(
+          //               fontFamily: 'Tajawal', color: Colors.black, fontSize: 13.sp),
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // ),
            Padding(
             padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
             child: Text(
@@ -316,11 +345,122 @@ class _ReservationDataState extends State<ReservationData> {
           ),
            SizedBox(height: 20.h,),
           BtnLayout(AppLocalizations.of(context)!.continue_to_pay, () {
-            Navigator.pushNamed(context, PaymentScreen.routeName);
+            onBookClick(context);
+            // Navigator.pushNamed(context, PaymentScreen.routeName);
           }),
            SizedBox(height: 10.h,),
         ],
       ),
     );
+  }
+
+
+  void onBookClick(context) {
+    //TODO : validate form
+    // if (cardNameController.text.isEmpty) {
+    //   //TODO : show error message for card name
+    //   return;
+    // }
+    // if (cardNumberController.text.isEmpty) {
+    //   //TODO : show error message for card number
+    //   return;
+    // }
+    // if (cardDateController.text.isEmpty) {
+    //   //TODO : show error message for card date
+    //   return;
+    // }
+    // if (cardCVVController.text.isEmpty) {
+    //   //TODO : show error message for cvv
+    //   return;
+    // }
+
+    //TODO : [if pass] Start payment by calling startCardPayment method and handle the transaction details
+
+    startPaymentWithCard(context);
+  }
+
+  void doPaymentConfiguration() {
+    ///todo this data required to show payment page
+    ///todo: here you need to add user data if exist at lest [*** user name and email]
+    bool? isLogin = SharedPrefController().getValueFor<bool>(key: PrefKeysPatient.isLoggedIn.name);
+    if(isLogin != null && !isLogin){
+      return;
+    }
+    var firstName = "${SharedPrefController().getValueFor<String>(key: PrefKeysPatient.firstName.name)}  ${SharedPrefController().getValueFor<String>(key: PrefKeysPatient.lastName.name)}";
+    var email = SharedPrefController().getValueFor<String>(key: PrefKeysPatient.email.name) ??"t@t.com";
+    var mobile = SharedPrefController().getValueFor<String>(key: PrefKeysPatient.mobile.name) ??"+970111111111";
+    if(email.isEmpty){
+      email = "t@t.com";
+    }
+    print("$firstName $email , $mobile");
+    var billingDetails = BillingDetails("$firstName", "$email",
+        "$mobile", "st. 12", "eg", "dubai", "dubai", "12345");
+    var shippingDetails = ShippingDetails("$firstName", "$email",
+        "$mobile", "st. 12", "eg", "dubai", "dubai", "12345");
+
+    //todo this data required to show alternativePaymentMethods
+    List<PaymentSdkAPms> apms = [];
+    apms.add(PaymentSdkAPms.AMAN);
+
+    configuration = PaymentSdkConfigurationDetails(
+        profileId: paymentProfileId,
+        serverKey: paymentServerKey,
+        clientKey: paymentClientKey,
+        cartId: /*paymentCartIdLive*/"${DateTime.now().microsecondsSinceEpoch}",
+        showBillingInfo: false,
+        transactionType: PaymentSdkTransactionType.SALE,
+        transactionClass: PaymentSdkTransactionClass.ECOM,
+        forceShippingInfo: false,
+        cartDescription: "مستشفى أبها الخاص العالمي",
+        merchantName: paymentMerchantName,
+        screentTitle: "Pay with Card",
+        billingDetails: billingDetails,
+        shippingDetails: shippingDetails,
+        locale: PaymentSdkLocale.EN,
+        //PaymentSdkLocale.AR or PaymentSdkLocale.DEFAULT
+        amount: instalation.price *0.15, //release her amount
+        currencyCode: "SAR",
+        merchantCountryCode: "SA",
+        alternativePaymentMethods: apms,
+        linkBillingNameWithCardHolderName: false);
+
+    //Options to show billing and shipping info
+    configuration.showBillingInfo = true;
+    configuration.showShippingInfo = false;
+
+    //Set merchant logo from the project assets:
+    if (Platform.isIOS) {
+      var theme = IOSThemeConfigurations();
+      theme.logoImage = "assets/images/logo.png";
+      configuration.iOSThemeConfigurations = theme;
+    }
+  }
+
+  void startPaymentWithCard(context) {
+    //test card data todo 4111111111111111  || name = Visa || cvv = 123
+    FlutterPaytabsBridge.startCardPayment(configuration, (event) {
+      setState(() {
+        print(event);
+        if (event["status"] == "success") {
+          // Handle transaction details here.
+          var transactionDetails = event["data"];
+          print(transactionDetails);
+
+          if (transactionDetails["isSuccess"]) {
+            print("successful transaction");
+            //todo : here show  successful transaction message
+            Navigator.pushNamed(context, DoneScreens.routeName);
+          } else {
+            //todo : here show  invalid card message
+            showSnackBar(context, message: "failed transaction",error: true);
+            print("failed transaction");
+          }
+        } else if (event["status"] == "error") {
+          // Handle error here.
+        } else if (event["status"] == "event") {
+          // Handle events here.
+        }
+      });
+    });
   }
 }
