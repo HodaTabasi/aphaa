@@ -21,6 +21,7 @@ import 'package:aphaa_app/screens/main_screens/open_medocal/opening_medical_file
 import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
 import 'package:flutter/widgets.dart';
 import '../screens/auth/create_account/create_account_next.dart';
+import '../screens/auth/create_account1/new_account_first.dart';
 import '../screens/drawer_screens/Booking/my_appointment_booking.dart';
 import '../screens/drawer_screens/buttom_navication.dart';
 import '../screens/drawer_screens/done/done_screen.dart';
@@ -44,6 +45,7 @@ final Map<String, WidgetBuilder> routes = {
   SelectLanguage.routeName: (context) => SelectLanguage(),
   Screen2Splash.routeName: (context) => Screen2Splash(),
   QuickServices.routeName: (context) => QuickServices(),
+  NewAccountFirst.routeName: (context) => NewAccountFirst(),
   ////////////////
   AppointmentBooking.routeName: (context) => AppointmentBooking(),
   OpeningMedicalFile.routeName: (context) => OpeningMedicalFile(),

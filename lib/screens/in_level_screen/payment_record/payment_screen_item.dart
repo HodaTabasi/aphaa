@@ -1,9 +1,13 @@
+import 'package:aphaa_app/model/PatientPaymentRecord.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaymentScreenItem extends StatelessWidget {
+  PatientPaymentRecord patientPaymentRecord;
+  PaymentScreenItem(this.patientPaymentRecord);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -38,7 +42,7 @@ class PaymentScreenItem extends StatelessWidget {
                               fontFamily: 'Tajawal'),
                           children: <TextSpan>[
                             TextSpan(
-                              text: '  20.8.2022  ',
+                              text: '  ${patientPaymentRecord.invDate}  ',
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black45,
@@ -61,7 +65,7 @@ class PaymentScreenItem extends StatelessWidget {
                               fontFamily: 'Tajawal'),
                           children: <TextSpan>[
                             TextSpan(
-                              text: '  11:00 a.m  ',
+                              text: '  ${patientPaymentRecord.invNo}  ',
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black45,
@@ -89,7 +93,7 @@ class PaymentScreenItem extends StatelessWidget {
                               fontFamily: 'Tajawal'),
                           children: <TextSpan>[
                             TextSpan(
-                              text: '  أسنان  ',
+                              text: '  ${patientPaymentRecord.invType}  ',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black45,
@@ -100,57 +104,57 @@ class PaymentScreenItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                      child: Text.rich(
-                        TextSpan(
-                          text: AppLocalizations.of(context)!.the_doctor,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 12.sp,
-                              fontFamily: 'Tajawal'),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: ' محمود أحمد  ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black45,
-                                  fontSize: 12.sp,
-                                  fontFamily: 'Tajawal'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                    //   child: Text.rich(
+                    //     TextSpan(
+                    //       text: AppLocalizations.of(context)!.the_doctor,
+                    //       style: TextStyle(
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.black,
+                    //           fontSize: 12.sp,
+                    //           fontFamily: 'Tajawal'),
+                    //       children: <TextSpan>[
+                    //         TextSpan(
+                    //           text: ' محمود أحمد  ',
+                    //           style: TextStyle(
+                    //               fontWeight: FontWeight.w700,
+                    //               color: Colors.black45,
+                    //               fontSize: 12.sp,
+                    //               fontFamily: 'Tajawal'),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                      child: Text.rich(
-                        TextSpan(
-                          text: AppLocalizations.of(context)!.descraptipn,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 12.sp,
-                              fontFamily: 'Tajawal'),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'عرض زراعة أسنان',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black45,
-                                  fontSize: 12.sp,
-                                  fontFamily: 'Tajawal'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                    //   child: Text.rich(
+                    //     TextSpan(
+                    //       text: AppLocalizations.of(context)!.descraptipn,
+                    //       style: TextStyle(
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.black,
+                    //           fontSize: 12.sp,
+                    //           fontFamily: 'Tajawal'),
+                    //       children: <TextSpan>[
+                    //         TextSpan(
+                    //           text: 'عرض زراعة أسنان',
+                    //           style: TextStyle(
+                    //               fontWeight: FontWeight.w500,
+                    //               color: Colors.black45,
+                    //               fontSize: 12.sp,
+                    //               fontFamily: 'Tajawal'),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
 
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
@@ -164,7 +168,7 @@ class PaymentScreenItem extends StatelessWidget {
                               fontFamily: 'Tajawal'),
                           children: <TextSpan>[
                             TextSpan(
-                              text: '500',
+                              text: ' ${patientPaymentRecord.totalAmt} ',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black45,
@@ -191,12 +195,12 @@ class PaymentScreenItem extends StatelessWidget {
               padding: EdgeInsets.all(10.r),
               margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
               decoration: BoxDecoration(
-                  color: Color(0xffEE1131),
+                  color: Colors.green,
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(8.r),
                       topRight: Radius.circular(40.r))),
               child: Text(
-                "مرفوض",
+                "مقيول",
                 style: TextStyle(
                     color: Colors.white, fontFamily: 'Tajawal', fontSize: 13.sp),
                 textAlign: TextAlign.center,

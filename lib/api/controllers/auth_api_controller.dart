@@ -11,6 +11,14 @@ import '../api_settings.dart';
 
 class AuthApiController with ApiHelper {
   Future<ApiResponse> register({Patient? student,flag = false}) async {
+    // print(student);
+    // print(student!.payingType);
+    // print(student.identityNumber);
+    // print(student.Employer);
+    // print(student.p_code);
+    // print(student.insuranceNumber);
+    // print(student.insuranceDate);
+    // print(student.insuranceName);
     // {
     //   'first_name': student.firstName,
     // 'second_name': student.secondName,
@@ -33,7 +41,7 @@ class AuthApiController with ApiHelper {
 
     print(response.body);
 
-    if (response.statusCode == 200 || response.statusCode == 400) {
+    if (response.statusCode == 200 || response.statusCode == 422) {
       var jsonResponse = jsonDecode(response.body);
       if (response.statusCode == 200) {
         var jsonObject = jsonResponse['items'];

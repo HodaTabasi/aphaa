@@ -23,6 +23,7 @@
   "enter_required_data":"Enter required data!",
   "select_clinic":"select clinic from list",
   "select_doctor":"select doctor from list",
+  "something_wrong":"Something Wrong in server try again later",
 
 
    "head_of_consult_screen":"To request a consultation, please enter the following information:",
@@ -114,7 +115,7 @@
        "medicament_name":"medicament name ",
         "times_of_use":"times of use ",
         "how_to_use":"how to use",
-        "price":"price",
+        "price":"price :",
         "total_bill":"total bill :",
         "the_total":"the total",
         "tax":"tax (15%)",
@@ -123,11 +124,11 @@
         "about_me":"about me : ",
 
          "payment_date":"payment date : ",
-         "payment_time":" payment time : ",
+         "payment_time":" invoices Number : ",
          "the_doctor":" the doctor : ",
          "descraptipn":" descraptipn : ",
 
-         "payment_data":"payment data ",
+         "payment_data":"payment date ",
           "the_name_on_the_card":"the name on the card ",
           "pay_now":"pay now ",
 

@@ -4,9 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../model/Clinic.dart';
+import '../model/InsuranceCompany.dart';
 
 class DropDownInsuranceItem extends StatefulWidget {
-  List<String> myData;
+  List<InsuranceCompany> myData;
   String iconName;
   String dropValue;
   int? dropIntValue;
@@ -69,11 +70,11 @@ class _DropDownItenState extends State<DropDownInsuranceItem> {
                   },
                   value: global,
                   // value: dropdownValue,
-                  items: widget.myData.map((String value) {
+                  items: widget.myData.map((value) {
                     return new DropdownMenuItem<String>(
-                      value: value,
+                      value: value.companyCode,
                       child: Text(
-                          value,
+                          value.companyName!,
                           style:  TextStyle(
                             color: Colors.grey.shade700,
                             fontSize: 13.sp,

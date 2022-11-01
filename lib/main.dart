@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'get/language_getx_controller.dart';
+import 'helper/SizeConfig.dart';
 import 'helper/constant.dart';
 import 'helper/routes.dart';
 import 'firebase_options.dart';

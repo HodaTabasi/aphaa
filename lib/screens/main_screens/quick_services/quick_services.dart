@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../helper/SizeConfig.dart';
 import '../../../model/service.dart';
+import '../../auth/create_account1/new_account_first.dart';
 import '../Appointment Booking/appointement_booking.dart';
 import '../Doctor/doctors_screen.dart';
 import '../open_medocal/opening_medical_file.dart';
@@ -20,6 +22,7 @@ class QuickServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     List<Service> service = [
       Service(
           'assets/images/consult.svg',
@@ -157,7 +160,7 @@ class QuickServices extends StatelessWidget {
                   OrWidget(),
                   InkWell(
                     onTap: () =>
-                        Navigator.pushNamed(context, CreateAccount.routeName),
+                        Navigator.pushNamed(context, NewAccountFirst.routeName),
                     child: GeneratedGroup40944Widget(),
                   )
                 ],

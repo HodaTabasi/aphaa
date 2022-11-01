@@ -25,7 +25,7 @@ class _OTPScreenState extends State<OTPScreen> {
   onPress() async {
     myCode = NewAccountGetxController.to.makeCode();
     // String  id = NewAccountGetxController.to.smsCode;
-    await FireBaseAuthController().handleManualOTP(myCode, context);
+    await FireBaseAuthController().handleManualOTP(myCode, context,NewAccountGetxController.to.flag);
   }
   @override
   Widget build(BuildContext context) {

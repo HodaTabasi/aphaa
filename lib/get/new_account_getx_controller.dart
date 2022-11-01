@@ -4,6 +4,7 @@ import 'package:aphaa_app/model/Appointment/AvailableTime.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../model/Eligibility.dart';
 import '../model/Patient.dart';
 import '../model/doctor.dart';
 
@@ -27,6 +28,8 @@ class NewAccountGetxController extends GetxController {
   bool isReset = false;
   bool isUpdateCliniceCode = false;
   String? global ;
+  Eligibility? eligibility;
+  bool flag = false;
 
   ///////////////
 
@@ -37,12 +40,17 @@ class NewAccountGetxController extends GetxController {
   final num5Controller = TextEditingController();
   final num6Controller = TextEditingController();
 
+  TextEditingController pID = TextEditingController(text: "2320128214");
+
   void changeIsCitizen(value){
     isCitizen.value = value;
     Get.appUpdate();
   }
+  void setEligibility(eli){
+    eligibility = eli;
+  }
 
-  void addPatient(Patient p ){
+  void addPatient(Patient p){
     patient = p;
     print(patient);
   }

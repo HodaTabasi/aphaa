@@ -1,3 +1,4 @@
+import 'package:aphaa_app/screens/auth/create_account1/create_account_next1.dart';
 import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +16,8 @@ import '../../drawer_screens/buttom_navication.dart';
 import '../create_account/create_account.dart';
 import 'package:aphaa_app/helper/helpers.dart';
 
+import '../create_account1/new_account_first.dart';
+
 class LoginScreen extends StatefulWidget {
 
   static String routeName = "/login";
@@ -24,8 +27,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> with Helpers{
   var value = false;
-  var _emailTextController = TextEditingController(text: "0592171804");
-  var _passwordTextController =  TextEditingController(text: "20003000");
+  var _emailTextController = TextEditingController(text: "0592265550");
+  var _passwordTextController =  TextEditingController(text: "123456789");
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers{
           Center(
             child: InkWell(
               onTap: () =>
-                  Navigator.pushNamed(context, CreateAccount.routeName),
+                  Navigator.pushNamed(context, NewAccountFirst.routeName),
               child: Text.rich(
                 TextSpan(
                   text: AppLocalizations.of(context)!.no_account_have,

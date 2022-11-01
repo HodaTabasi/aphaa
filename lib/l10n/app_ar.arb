@@ -83,7 +83,7 @@
     "logout":"تسجيل خروج ",
     "select_clinic":"الرجاء اختيار عيادة من القائمة",
     "select_doctor":"الرجاء اختيار دكتور من القائمة",
-
+ "something_wrong":"هنالك خطا في السيرفر حاول مجددا لاحقا",
     "reservations":"الحجوزات ",
     "add_appointment":"اضافة موعد",
     "offers":"العروض ",
@@ -106,7 +106,7 @@
      "medicament_name":"اسم الدواء ",
      "times_of_use":"مرات الاستخدام ",
      "how_to_use":"كيفية الاستخدام",
-     "price":"السعر",
+     "price":"السعر : ",
      "total_bill":"إجمالي الفاتورة :",
      "the_total":"المجموع",
      "the total":"المجموع",
@@ -116,11 +116,11 @@
      "about_me":"نبذة عني : ",
 
      "payment_date":"تاريخ الدفع : ",
-     "payment_time":" وقت الدفع : ",
+     "payment_time":" رقم الفاتورة : ",
      "the_doctor":" الطبيب : ",
      "descraptipn":" الوصف : ",
 
-     "payment_data":"بيانات الدفع ",
+     "payment_data":"تاريخ الدفع ",
      "the_name_on_the_card":"الاسم على البطاقة ",
      "pay_now":"ادفع الآن ",
 

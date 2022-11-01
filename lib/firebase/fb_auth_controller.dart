@@ -4,9 +4,15 @@ import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../api/controllers/auth_api_controller.dart';
+import '../model/api_response.dart';
+import '../preferences/shared_pref_controller.dart';
 import '../screens/auth/create_account/create_account_next.dart';
+import 'package:aphaa_app/helper/helpers.dart';
 
-class FireBaseAuthController {
+import '../screens/drawer_screens/buttom_navication.dart';
+
+class FireBaseAuthController with Helpers{
   FirebaseAuth _fbAuth = FirebaseAuth.instance;
   static FireBaseAuthController? _inestance ;
   FireBaseAuthController._();
@@ -45,7 +51,7 @@ class FireBaseAuthController {
 
   }
 
-  Future<void> verifyPhoneNumber1({userPhone, context}) async {
+  Future<void> verifyPhoneNumber1({userPhone, context,flag}) async {
     print("gggggggggggg ${userPhone}");
     /// NOTE: Either append your phone number country code or add in the code itself
     /// Since I'm in India we use "+91 " as prefix `phoneNumber`
@@ -62,7 +68,7 @@ class FireBaseAuthController {
       print('verificationCompleted');
       print(_phoneAuthCredential);
       // Provider.of<NewUserProvider>(context, listen: false).changeLoading(false);
-      afterPhoneVerification (context) ;
+      afterPhoneVerification (context,flag) ;
       // if(  Provider.of<MainProvider>(context,
       //     listen: false).isReset){
       //   PhoneAuthCredential _phoneAuthCredential =
@@ -124,7 +130,7 @@ class FireBaseAuthController {
 
   }
 
-  Future<void> handleManualOTP (String _otpCode ,context) async {
+  Future<void> handleManualOTP (String _otpCode ,context,flag) async {
     // Create a PhoneAuthCredential with the code
     PhoneAuthCredential _phoneAuthCredential =
     PhoneAuthProvider.credential(verificationId: NewAccountGetxController.to.verificationId! , smsCode: _otpCode );
@@ -145,17 +151,32 @@ class FireBaseAuthController {
       // sendSMS(countryCode+phone,_phoneAuthCredential.smsCode,context);
 
     }else{
-      afterPhoneVerification (context) ;
+      afterPhoneVerification (context,flag) ;
     }
   }
 
 
-  void afterPhoneVerification(context) {
+  Future<void> afterPhoneVerification(context,flag) async {
     if(NewAccountGetxController.to.isReset) {
-      Navigator.pushReplacementNamed(context, CreateAccountNext.routeName);
-    } else {
-
       Navigator.pushReplacementNamed(context, ChangePassword.routeName);
+    } else {
+      showLoaderDialog(context);
+      ApiResponse apiResponse = await AuthApiController()
+          .register(student: NewAccountGetxController.to.patient, flag: flag);
+
+      if (apiResponse.success) {
+        SharedPrefController()
+            .setValuePCode(pCode: NewAccountGetxController.to.patient.p_code!);
+        Navigator.pop(context);
+        Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
+      } else {
+        Navigator.pop(context);
+        showSnackBar(
+          context,
+          message: apiResponse.message,
+          error: !apiResponse.success,
+        );
+      }
     }
   }
 }

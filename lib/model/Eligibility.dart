@@ -2,19 +2,22 @@ class Eligibility {
   String? patientCode;
   String? patientName;
   String? patientMOB;
-  String? isEligibility;
+  String? isEligible;
+  String? isInsured;
 
   Eligibility(
       {this.patientCode,
         this.patientName,
         this.patientMOB,
-        this.isEligibility});
+        this.isEligible,
+        this.isInsured});
 
   Eligibility.fromJson(Map<String, dynamic> json) {
     patientCode = json['patientCode'];
     patientName = json['patientName'];
     patientMOB = json['patientMOB'];
-    isEligibility = json['IsEligibility'];
+    isEligible = json['isEligible'];
+    isInsured = json['isInsured'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,12 +25,12 @@ class Eligibility {
     data['patientCode'] = this.patientCode;
     data['patientName'] = this.patientName;
     data['patientMOB'] = this.patientMOB;
-    data['IsEligibility'] = this.isEligibility;
+    data['isEligible'] = this.isEligible;
+    data['isInsured'] = this.isInsured;
     return data;
   }
-
   @override
   String toString() {
-    return 'Eligibility{patientCode: $patientCode, patientName: $patientName, patientMOB: $patientMOB, isEligibility: $isEligibility}';
+    return 'Eligibility{patientCode: $patientCode, patientName: $patientName, patientMOB: $patientMOB, isEligibility: $isEligible}';
   }
 }

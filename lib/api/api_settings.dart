@@ -30,6 +30,7 @@ class ApiSettings {
 
  ///////////////////////////////////
   static const String HospitalBase3 = '/api/clinic/';
+  static const String HospitalBase4 = '/api/invoice/';
 
 // static const String images = '${_baseUrl}student/images/{id}';
 // static const String images = '${_baseUrl}student/images/{id}';

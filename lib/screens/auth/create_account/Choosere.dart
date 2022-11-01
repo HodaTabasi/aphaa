@@ -29,6 +29,7 @@ class _ChoosereState extends State<Choosere> {
                 onChanged: (value) => setState(() {
                   _value = value;
                   NewAccountGetxController.to.changeIsCitizen(true);
+                  NewAccountGetxController.to.pID.text = "";
                 }),
               )),
           Flexible(
@@ -39,6 +40,7 @@ class _ChoosereState extends State<Choosere> {
                   onChanged: (value) => setState(() {
                     _value = value;
                     NewAccountGetxController.to.changeIsCitizen(false);
+                    NewAccountGetxController.to.pID.text = "";
                   } ))),
         ],
       ),

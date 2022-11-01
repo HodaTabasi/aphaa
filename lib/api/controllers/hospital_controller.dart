@@ -18,6 +18,8 @@ import '../../model/Appointment/AppointmentResponse.dart';
 import '../../model/ApprovalsResponse/ApprovalItem.dart';
 import '../../model/ApprovalsResponse/ApprovalsResponse.dart';
 import '../../model/Clinic.dart';
+import '../../model/InsuranceCompany.dart';
+import '../../model/PatientPaymentRecord.dart';
 import '../../model/ServiceTest.dart';
 import '../../model/VitalSign/VitalSignResponse.dart';
 import '../../model/VitalSign/vitalSignsDils.dart';
@@ -497,6 +499,53 @@ class HospitalApiController with ApiHelper {
     }
     return [];
   }
+
+  Future<List<InsuranceCompany>> getInsuranceCompany() async {
+    final queryParameters = {
+      'lang':
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
+    };
+
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase3}compList', queryParameters);
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['companies'] as List;
+      print(jsonArray);
+      return jsonArray
+          .map((jsonObject) => InsuranceCompany.fromJson(jsonObject))
+          .toList();
+    }
+    return [];
+  }
+
+  Future<List<PatientPaymentRecord>> getPatientpayment({patientCode,page = 1,offset = 1}) async {
+    final queryParameters = {
+      'patientCode': '0/595907',
+      // 'patientCode': '$patientCode',
+      'pageNo': '$page',
+      'offset': '$offset',
+      'rows': '7',
+      'lang': SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
+    };
+
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase4}ptPymt', queryParameters);
+    final response = await http.get(uri);
+    print(response.body);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonArray = jsonResponse['invoices'] as List;
+      print(jsonArray);
+      return jsonArray
+          .map((jsonObject) => PatientPaymentRecord.fromJson(jsonObject))
+          .toList();
+    }
+    return [];
+  }
+
+
 
   Future<Eligibility?> getPtElg({patientId}) async {
     final queryParameters = {
