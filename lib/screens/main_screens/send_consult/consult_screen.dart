@@ -28,7 +28,7 @@ class SendConsultScreen extends StatefulWidget {
 }
 
 class _SendConsultScreenState extends State<SendConsultScreen>
-    with Helpers, myHelper.Helpers {
+    with Helpers, myHelper.Helpers1 {
   List<Clinic> myData = [];
 
   List<Doctor> myDataDoctor = [];

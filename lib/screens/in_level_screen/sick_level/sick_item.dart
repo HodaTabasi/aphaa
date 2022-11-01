@@ -33,60 +33,62 @@ class SickItem extends StatelessWidget {
           border: Border.all(color: Color(0xff0E4C8F), width: 0.5.w),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FittedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 14.r),
-                    child: Text.rich(
-                      TextSpan(
-                        text: AppLocalizations.of(context)!.date_of_visit,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                            fontSize: 11.sp,
-                            fontFamily: 'Tajawal'),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '  $sickDate  ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black45,
-                                fontSize: 10.sp,
-                                fontFamily: 'Tajawal'),
-                          ),
-                        ],
-                      ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+              child: Text.rich(
+                TextSpan(
+                  text: AppLocalizations.of(context)!.date_of_visit,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontSize: 11.sp,
+                      fontFamily: 'Tajawal'),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '  $sickDate  ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black45,
+                          fontSize: 10.sp,
+                          fontFamily: 'Tajawal'),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 14.r),
-                    child: Text.rich(
-                      TextSpan(
-                        text: AppLocalizations.of(context)!.physician,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                            fontSize: 12.sp,
-                            fontFamily: 'Tajawal'),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: ' $sickDocName  ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black45,
-                                fontSize: 12.sp,
-                                fontFamily: 'Tajawal'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+              child: Text.rich(
+                TextSpan(
+                  text: AppLocalizations.of(context)!.physician,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontFamily: 'Tajawal'),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: ' $sickDocName  ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black45,
+                          fontSize: 12.sp,
+                          fontFamily: 'Tajawal'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // FittedBox(
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //
+            //     ],
+            //   ),
+            // ),
              Padding(
               padding: EdgeInsets.symmetric(horizontal: 80.0.h,),
               child: MySeparator(color: Color(0xff0E4C8F)),

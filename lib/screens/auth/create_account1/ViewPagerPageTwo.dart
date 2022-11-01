@@ -20,7 +20,7 @@ class ViewPagerPageTow extends StatefulWidget {
 }
 
 class _ViewPagerPageTowState extends State<ViewPagerPageTow>
-    with myHelper.Helpers {
+    with myHelper.Helpers1 {
   TextEditingController _pName = TextEditingController(
       text: NewAccountGetxController.to.eligibility?.patientName);
   TextEditingController _pEmail = TextEditingController(text: "hhh@gmail.com");

@@ -12,7 +12,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class TestResultItem extends StatelessWidget with Helpers {
+class TestResultItem extends StatelessWidget with Helpers1 {
   ServiceTest? serviceTest;
 
   TestResultItem({this.serviceTest});

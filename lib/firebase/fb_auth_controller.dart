@@ -12,7 +12,7 @@ import 'package:aphaa_app/helper/helpers.dart';
 
 import '../screens/drawer_screens/buttom_navication.dart';
 
-class FireBaseAuthController with Helpers{
+class FireBaseAuthController with Helpers1{
   FirebaseAuth _fbAuth = FirebaseAuth.instance;
   static FireBaseAuthController? _inestance ;
   FireBaseAuthController._();

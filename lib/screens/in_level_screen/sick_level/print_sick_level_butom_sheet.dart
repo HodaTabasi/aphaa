@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:aphaa_app/general/download_btn.dart';
+import 'package:aphaa_app/helper/helpers.dart';
 import 'package:aphaa_app/model/SickLeaves/LeaveDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +9,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../helper/FileProcess.dart';
+import '../../../model/getPDF.dart';
+import '../../../preferences/shared_pref_controller.dart';
 
 class PrintButtomSheetSickLevel extends StatefulWidget {
   String leaveId;
@@ -16,7 +22,7 @@ class PrintButtomSheetSickLevel extends StatefulWidget {
   State<PrintButtomSheetSickLevel> createState() => _PrintButtomSheetSickLevelState();
 }
 
-class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> {
+class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> with Helpers1{
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -192,7 +198,26 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> {
                   ),
                 ),
                 SizedBox(height: 20.h,),
-                downloadBtn(),
+                Visibility(
+                  visible: snapshot.data!.first.fileName!.isNotEmpty,
+                    child: InkWell(
+                      onTap: () async {
+                        showLoaderDialog(context);
+                        PdfClass base64 = await HospitalApiController().getPdfFile(
+                            patientCode:
+                            SharedPrefController().getValueFor(key: "p_code"),
+                            clinicCode: snapshot.data!.first.clinic!.clinicCode,
+                            serviceType: snapshot.data!.first.clinic!.clinicName,
+                            fileName: snapshot.data!.first.fileName);
+                        if (base64 == null)
+                          showSnackBar(context, message: AppLocalizations.of(context)!.no_file_find,error: true);
+                        else {
+                          File file =  await FileProcess.downloadFile(base64.pdfFile, snapshot.data!.first.fileName);
+                          Navigator.pop(context);
+                          showSnackBar(context, message: "${AppLocalizations.of(context)!.download_successfully} ${file.path} ",error: false);
+                        }
+                      },
+                        child: downloadBtn())),
               ],
             );
           } else {

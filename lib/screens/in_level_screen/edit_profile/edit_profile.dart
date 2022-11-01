@@ -17,7 +17,7 @@ class EditProfile extends StatefulWidget {
   State<EditProfile> createState() => _EditProfileState();
 }
 
-class _EditProfileState extends State<EditProfile> with Helpers {
+class _EditProfileState extends State<EditProfile> with Helpers1 {
   TextEditingController _pName = TextEditingController();
   TextEditingController _pEmail = TextEditingController();
   TextEditingController _pPhone = TextEditingController();

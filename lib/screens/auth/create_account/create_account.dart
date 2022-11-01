@@ -24,7 +24,7 @@ class CreateAccount extends StatefulWidget {
   State<CreateAccount> createState() => _CreateAccountState();
 }
 
-class _CreateAccountState extends State<CreateAccount> with Helpers {
+class _CreateAccountState extends State<CreateAccount> with Helpers1 {
   TextEditingController _pName = TextEditingController(text: "huda mohammed ahmed tabasi");
   TextEditingController _pEmail = TextEditingController(text: "hhh@gmail.com");
   TextEditingController _pPhone = TextEditingController(text: "0568523654");

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
+import 'package:aphaa_app/helper/FileProcess.dart';
 import 'package:aphaa_app/model/doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,12 +41,12 @@ class DoctorItem extends StatelessWidget {
                 padding: EdgeInsets.all(8.0.r),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0.r),
-                  child: Image.network(
-                    "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bGVuc3xlbnwwfHwwfHw%3D&w=1000&q=80",
+                  child: doctor.img!.isEmpty ?Image.network(
+                    "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__340.png",
                     // "https://jihadm33.sg-host.com/public/storage/${doctor.img}",
                     width: 144.w,
                     height: 114.h,
-                  ),
+                  ):Image.memory(base64Decode(doctor.img!)),
                 ),
               ),
               Text(

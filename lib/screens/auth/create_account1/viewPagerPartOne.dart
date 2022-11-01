@@ -22,7 +22,7 @@ class ViewPagerPartOne extends StatefulWidget {
   State<ViewPagerPartOne> createState() => _ViewPagerPartOneState();
 }
 
-class _ViewPagerPartOneState extends State<ViewPagerPartOne> with  myHelper.Helpers{
+class _ViewPagerPartOneState extends State<ViewPagerPartOne> with  myHelper.Helpers1{
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

@@ -34,7 +34,7 @@ class MyAppointmentBooking extends StatefulWidget {
 }
 
 class _MyAppointmentBookingState extends State<MyAppointmentBooking>
-    with Helpers ,myHelper.Helpers {
+    with Helpers ,myHelper.Helpers1 {
   List<Clinic> myData = [];
   List<Doctor> myDataDoctor = [];
 

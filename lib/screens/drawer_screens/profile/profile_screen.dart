@@ -24,7 +24,7 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers{
+class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers1{
   @override
   Widget build(BuildContext context) {
     return Scaffold(

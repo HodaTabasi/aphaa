@@ -20,7 +20,7 @@ class EditInsuranceData extends StatefulWidget {
   State<EditInsuranceData> createState() => _EditInsuranceDataState();
 }
 
-class _EditInsuranceDataState extends State<EditInsuranceData> with RestorationMixin,Helpers {
+class _EditInsuranceDataState extends State<EditInsuranceData> with RestorationMixin,Helpers1 {
 
   TextEditingController _insurance_number = TextEditingController();
   TextEditingController _insurance_name = TextEditingController();

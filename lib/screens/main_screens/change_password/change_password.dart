@@ -22,7 +22,7 @@ class ChangePassword extends StatefulWidget {
   State<ChangePassword> createState() => _ChangePasswordState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> with Helpers{
+class _ChangePasswordState extends State<ChangePassword> with Helpers1{
 
   TextEditingController _pPassword = TextEditingController();
   TextEditingController _prePassword = TextEditingController();

@@ -23,7 +23,7 @@ class OpeningMedicalFile extends StatefulWidget {
   State<OpeningMedicalFile> createState() => _OpeningMedicalFileState();
 }
 
-class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, myHelper.Helpers {
+class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, myHelper.Helpers1 {
 
   late TextEditingController name;
   late TextEditingController userId;

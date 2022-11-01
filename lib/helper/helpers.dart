@@ -1,7 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
-mixin Helpers {
+mixin Helpers1 {
   void showSnackBar(BuildContext context,
       {required String message, bool error = false}) {
     ScaffoldMessenger.of(context).showSnackBar(

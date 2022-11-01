@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:aphaa_app/api/controllers/hospital_controller.dart';
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/general/my_separator.dart';
@@ -85,18 +87,19 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                   size: 15.sp,
                 )),
           ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.all(8.0.r),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset(
-                  'assets/images/Notification.svg',
-                  semanticsLabel: 'Acme Logo',
-                ),
-              ),
-            ),
-          ]),
+          // actions: [
+          //   Padding(
+          //     padding: EdgeInsets.all(8.0.r),
+          //     child: InkWell(
+          //       onTap: () {},
+          //       child: SvgPicture.asset(
+          //         'assets/images/Notification.svg',
+          //         semanticsLabel: 'Acme Logo',
+          //       ),
+          //     ),
+          //   ),
+          // ]
+      ),
       body: FutureBuilder<Doctor?>(
         future: HospitalApiController().getDoctorDtl(
             doctorCode: QuickServiceGetxController.to.doctor?.doctorCode),
@@ -121,11 +124,12 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     padding: EdgeInsets.all(8.0.r),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0.r),
-                      child: Image.network(
-                        "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bGVuc3xlbnwwfHwwfHw%3D&w=1000&q=80",
-                        // width: 144,
-                        // height: 114,
-                      ),
+                      child: snapshot.data!.img!.isEmpty ?Image.network(
+                        "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__340.png",
+                        // "https://jihadm33.sg-host.com/public/storage/${doctor.img}",
+                        width: 144.w,
+                        height: 114.h,
+                      ):Image.memory(base64Decode(snapshot.data!.img!)),
                     ),
                   ),
                 ),

@@ -126,10 +126,7 @@ class _TestResultsState extends State<TestResults> {
                                 itemBuilder: (context, index) {
                                   return TestResultItem(serviceTest: snapshot.data![index]);
                                 }),
-                            Image.asset(
-                              "assets/images/image1.png",
-                              fit: BoxFit.fitWidth,
-                            ),
+
                           ],
                         );
                       } else {
@@ -163,10 +160,10 @@ class _TestResultsState extends State<TestResults> {
                                 itemBuilder: (context, index) {
                                   return TestResultItem(serviceTest: snapshot.data![index]);
                                 }),
-                            Image.asset(
-                              "assets/images/image1.png",
-                              fit: BoxFit.fitWidth,
-                            ),
+                            // Image.asset(
+                            //   "assets/images/image1.png",
+                            //   fit: BoxFit.fitWidth,
+                            // ),
                           ],
                         );
                       } else {
@@ -190,6 +187,7 @@ class _TestResultsState extends State<TestResults> {
 
           ],
         ),
+        bottomSheet: Image.asset("assets/images/image1.png",fit: BoxFit.cover),
       ),
     );
   }

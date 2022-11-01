@@ -25,7 +25,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with Helpers{
+class _LoginScreenState extends State<LoginScreen> with Helpers1{
   var value = false;
   var _emailTextController = TextEditingController(text: "0592265550");
   var _passwordTextController =  TextEditingController(text: "123456789");
