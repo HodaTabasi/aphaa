@@ -29,6 +29,7 @@ import '../../model/prescriptionListResponse/prescriptionList.dart';
 import '../../preferences/shared_pref_controller.dart';
 import '../api_helper.dart';
 import 'package:http/http.dart' as http;
+import '../../model/getPDF.dart';
 
 class HospitalApiController with ApiHelper {
   // Future<List<FamilyMember>> getFamilyMembers(patientCode) async {
@@ -569,19 +570,22 @@ class HospitalApiController with ApiHelper {
   }
 
   //تحميل ملفات
-  getPdfFile(patientCode) async {
+  getPdfFile({patientCode,serviceType,clinicCode,fileName}) async {
     final queryParameters = {
       'patientCode': '$patientCode',
       // 'patientCode': '0/372081',
-      'serviceType': 'lab-test',
-      'clinicCode': '25',
-      'fileName': '89_02072020_2_0033610_02072020100255.pdf',
+      'serviceType': '$serviceType',
+      'clinicCode': '$clinicCode',
+      'fileName': '$fileName',
     };
-    final uri = Uri.https(ApiSettings.HospitalBase,
-        '${ApiSettings.HospitalBase1}PtVSDtl', queryParameters);
+    print(queryParameters);
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase1}pdfFile', queryParameters);
     final response = await http.get(uri);
+    print(response.body);
     if (response.statusCode == 200) {
-      print("gggf");
+      var jsonResponse = jsonDecode(response.body);
+      return PdfClass.fromJson(jsonResponse['pdfFile']);
     }
   }
 

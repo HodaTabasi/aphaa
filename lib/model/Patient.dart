@@ -78,6 +78,7 @@ class Patient {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     Employer = json['Employer'];
+    p_code = json['p_code'];
   }
 
   Map<String, dynamic> toJson() {

@@ -44,6 +44,8 @@ dependencies:
   flutter_svg: ^1.1.4
   flutter_calendar_carousel: ^2.4.0
   video_player: ^2.4.7
+  path_provider: ^2.0.9
+  open_file: ^3.2.1
   http: ^0.13.4
   image_picker: ^0.8.5+3
   firebase_core: ^1.23.0

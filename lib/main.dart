@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
+import 'package:aphaa_app/helper/FileProcess.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/main_screens/quick_services/quick_services.dart';
 import 'package:aphaa_app/screens/splach/screen_2_splash.dart';
@@ -31,6 +32,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = new MyHttpOverrides();
   await SharedPrefController().initPref();
+  FileProcess.checkDocumentFolder();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

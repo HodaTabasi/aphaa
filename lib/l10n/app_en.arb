@@ -120,6 +120,8 @@
         "the_total":"the total",
         "tax":"tax (15%)",
         "aggregate":"aggregate ",
+        "download_successfully":"Download successfully in ",
+        "no_file_find":"No PDF find ",
 
         "about_me":"about me : ",
 
