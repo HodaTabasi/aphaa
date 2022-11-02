@@ -52,8 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
           SickLeave.routeName),
       Service('assets/images/40697.svg', AppLocalizations.of(context)!.my_medical_recipes, '',
           MedicalRecipes.routeName),
-      Service(
-          'assets/images/d40714.svg', AppLocalizations.of(context)!.vaccsien, '', Vaccinations.routeName),
+      // Service(
+      //     'assets/images/d40714.svg', AppLocalizations.of(context)!.vaccsien, '', Vaccinations.routeName),
     ];
 
     return  ListView(
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             GridView.builder(
               shrinkWrap: true,
-              itemCount: 7,
+              itemCount: 6,
               physics: const NeverScrollableScrollPhysics(),
               padding:  EdgeInsets.symmetric(horizontal: 10.r),
               scrollDirection: Axis.vertical,

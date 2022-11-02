@@ -1,4 +1,3 @@
-import 'package:aphaa_app/screens/auth/create_account1/create_account_next1.dart';
 import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,9 +10,7 @@ import '../../../general/password_item.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../model/api_response.dart';
-import '../../../preferences/shared_pref_controller.dart';
 import '../../drawer_screens/buttom_navication.dart';
-import '../create_account/create_account.dart';
 import 'package:aphaa_app/helper/helpers.dart';
 
 import '../create_account1/new_account_first.dart';
@@ -36,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> with Helpers1{
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        // leadingWidth: 40,
         title: Text(AppLocalizations.of(context)!.login,
             style:  TextStyle(
               color: Colors.white,
@@ -46,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers1{
             )),
         titleSpacing: 2,
         leading: InkWell(
-          onTap: ()=>Navigator.of(context, rootNavigator: true).pop(),
+          onTap: ()=> Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
               margin:  EdgeInsets.all(15.0.r),
               padding:  EdgeInsets.all(5.0.r),

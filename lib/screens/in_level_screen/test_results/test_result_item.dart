@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:aphaa_app/api/controllers/hospital_controller.dart';
 import 'package:aphaa_app/helper/FileProcess.dart';
 import 'package:aphaa_app/helper/helpers.dart';
-import 'package:aphaa_app/model/ServiceTest.dart';
+import 'package:aphaa_app/model/lab_rad_result/ServiceTest.dart';
 import 'package:aphaa_app/model/getPDF.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:flutter/material.dart';

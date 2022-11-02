@@ -92,7 +92,7 @@ class FamillyItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(),
+              // Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

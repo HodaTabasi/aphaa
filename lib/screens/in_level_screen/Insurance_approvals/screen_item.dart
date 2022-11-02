@@ -112,7 +112,7 @@ class InsuranceItem extends StatelessWidget {
                 padding: EdgeInsets.all(10),
                 margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
                 decoration: BoxDecoration(
-                    color: Color(0xffEE1131),
+                    color: approvals.reqStatus == "لم يتخذ قرار بعد" ?Color(0xffEE1131):Colors.green,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(8.r),
                         bottomRight: Radius.circular(20.r))),

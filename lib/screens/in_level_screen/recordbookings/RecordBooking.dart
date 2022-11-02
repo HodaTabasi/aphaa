@@ -1,4 +1,6 @@
 import 'package:aphaa_app/model/Appointment/Appointments.dart';
+import 'package:aphaa_app/screens/in_level_screen/recordbookings/next_booking.dart';
+import 'package:aphaa_app/screens/in_level_screen/recordbookings/prev_booking.dart';
 import 'package:aphaa_app/screens/in_level_screen/recordbookings/scedual_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -116,138 +118,9 @@ class _RexcordBookingState extends State<RexcordBooking> {
               child: TabBarView(
                 children: [
                   // first tab bar view widget
-                  FutureBuilder<AppointmentResponse?>(
-                    future: HospitalApiController().getNextAppt(
-                        patientCode:
-                            SharedPrefController().getValueFor(key: "p_code"),
-                        page: selectedPageNumber,
-                        offset: offSet),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasData && snapshot.data != null) {
-                        return ListView(
-                          shrinkWrap: true,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.0.r),
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemCount:
-                                      snapshot.data!.myNextAppointments!.length,
-                                  itemBuilder: (context, index) {
-                                    return ScedualBookingItem(snapshot
-                                        .data!.myNextAppointments![index]);
-                                  }),
-                            ),
-                            Visibility(
-                              visible: snapshot.data!.pages!.length > 1,
-                              child: NumberPagination(
-                                onPageChanged: (int pageNumber) {
-                                  //do somthing for selected page
-                                  setState(() {
-                                    selectedPageNumber = pageNumber;
-                                    offSet = snapshot.data!
-                                        .pages![selectedPageNumber - 1].offset!;
-                                  });
-                                },
-                                pageTotal: snapshot.data!.pages!.length,
-                                pageInit: selectedPageNumber,
-                                // picked number when init page
-                                colorPrimary: Colors.green,
-                                colorSub: Colors.white,
-                                fontFamily: 'Tajawal',
-                              ),
-                            ),
-                            Image.asset(
-                              "assets/images/image1.png",
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Center(
-                          child: Text(
-                            'NO DATA',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Tajawal',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                  ),
+                  NextBooking(),
                   // // second tab bar viiew widget
-                  FutureBuilder<AppointmentResponse?>(
-                    future: HospitalApiController().getPrevAppt(
-                        patientCode:
-                            SharedPrefController().getValueFor(key: "p_code"),
-                        offset: offSet,
-                        page: selectedPageNumber),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasData && snapshot.data != null) {
-                        print(snapshot.data!.myPrevAppointments![0].date);
-                        return ListView(
-                          shrinkWrap: true,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.0.r),
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemCount:
-                                      snapshot.data!.myPrevAppointments!.length,
-                                  itemBuilder: (context, index) {
-                                    return ScedualBookingItem(snapshot
-                                        .data!.myPrevAppointments![index]);
-                                  }),
-                            ),
-                            Visibility(
-                              visible: snapshot.data!.pages!.length > 1,
-                              child: NumberPagination(
-                                onPageChanged: (int pageNumber) {
-                                  //do somthing for selected page
-                                  setState(() {
-                                    selectedPageNumber = pageNumber;
-                                    offSet = snapshot.data!
-                                        .pages![selectedPageNumber - 1].offset!;
-                                  });
-                                },
-                                pageTotal: snapshot.data!.pages!.length,
-                                pageInit: selectedPageNumber,
-                                // picked number when init page
-                                colorPrimary: Colors.green,
-                                colorSub: Colors.white,
-                                fontFamily: 'Tajawal',
-                              ),
-                            ),
-                            Image.asset(
-                              "assets/images/image1.png",
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Center(
-                          child: Text(
-                            'NO DATA',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Tajawal',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                  ),
+                  PrevBooking()
                 ],
               ),
             ),

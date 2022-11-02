@@ -30,11 +30,12 @@ class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButt
         padding: EdgeInsets.all(8.r),
 
         child:  FutureBuilder<PrescriptionListItems?>(
-          future: HospitalApiController().getRxItems(invoiceDate: widget.prescriptionlist.invoiceDate,invoiceNo: widget.prescriptionlist.invoiceNo,invoiceType: widget.prescriptionlist.invoiceType),
+          future: HospitalApiController().getRxItems(invoiceDate: widget.prescriptionlist.invoiceDate,invoiceNo: widget.prescriptionlist.invoiceNo,invoiceType: widget.prescriptionlist.invoiceType,page: 1,offset: 1),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
+              print("dgsd ${snapshot.data!.prescriptionItems}");
               return   Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -343,7 +344,7 @@ class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButt
                     ),
                   ),
                   SizedBox(height: 20.h,),
-                  downloadBtn(),
+                  //downloadBtn(),
                   SizedBox(height: 10.h,),
                   // Image.asset(
                   //   "assets/images/image1.png",

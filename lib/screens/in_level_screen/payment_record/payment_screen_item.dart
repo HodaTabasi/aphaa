@@ -1,4 +1,4 @@
-import 'package:aphaa_app/model/PatientPaymentRecord.dart';
+import 'package:aphaa_app/model/patent_payment_record/PatientPaymentRecord.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -21,6 +21,7 @@ class MedicalRecipesItem extends StatelessWidget {
         border: Border.all(color: Color(0xff0E4C8F), width: 0.5.r),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,8 +74,7 @@ class MedicalRecipesItem extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
             children: [
               FittedBox(
                 child: Padding(
@@ -85,7 +85,7 @@ class MedicalRecipesItem extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w800,
                           color: Colors.black,
-                          fontSize: 10.sp,
+                          fontSize: 12.sp,
                           fontFamily: 'Tajawal'),
                       children: <TextSpan>[
                         TextSpan(
@@ -93,7 +93,7 @@ class MedicalRecipesItem extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.black45,
-                              fontSize: 10.sp,
+                              fontSize: 12.sp,
                               fontFamily: 'Tajawal'),
                         ),
                       ],
@@ -110,7 +110,7 @@ class MedicalRecipesItem extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
-                          fontSize: 10.sp,
+                          fontSize: 12.sp,
                           fontFamily: 'Tajawal'),
                       children: <TextSpan>[
                         TextSpan(
@@ -118,7 +118,7 @@ class MedicalRecipesItem extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: Colors.black45,
-                              fontSize: 10.sp,
+                              fontSize: 12.sp,
                               fontFamily: 'Tajawal'),
                         ),
                       ],
@@ -159,23 +159,23 @@ class MedicalRecipesItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              InkWell(
-                onTap: (){
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    builder: (context) => PrintMedicalRecipesButtomSheet(prescriptionlist),
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(8.r,0.r,16.r,10.r),
-                  child: SvgPicture.asset(
-                    'assets/images/print.svg',
-                    semanticsLabel: 'Acme Logo',
-                  ),
-                ),
-              ),
+              // InkWell(
+              //   onTap: (){
+              //     showModalBottomSheet(
+              //       isScrollControlled: true,
+              //       backgroundColor: Colors.transparent,
+              //       context: context,
+              //       builder: (context) => PrintMedicalRecipesButtomSheet(prescriptionlist),
+              //     );
+              //   },
+              //   child: Padding(
+              //     padding: EdgeInsets.fromLTRB(8.r,0.r,16.r,10.r),
+              //     child: SvgPicture.asset(
+              //       'assets/images/print.svg',
+              //       semanticsLabel: 'Acme Logo',
+              //     ),
+              //   ),
+              // ),
               InkWell(
                 onTap: (){
                   showModalBottomSheet(

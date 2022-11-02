@@ -1,4 +1,4 @@
-import 'package:aphaa_app/model/ServiceTest.dart';
+import 'package:aphaa_app/model/lab_rad_result/ServiceTest.dart';
 import 'package:aphaa_app/screens/in_level_screen/test_results/test_result_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +8,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../preferences/shared_pref_controller.dart';
+import 'Rab_result.dart';
+import 'lab_result.dart';
 
 class TestResults extends StatefulWidget {
   static String routeName = "/TestResults";
@@ -17,9 +19,7 @@ class TestResults extends StatefulWidget {
 }
 
 class _TestResultsState extends State<TestResults> {
-  int selectedPageNumber = 1;
 
-  String offSet = "1";
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +73,6 @@ class _TestResultsState extends State<TestResults> {
               height: 60.h,
               child: TabBar(
                 onTap: (index) {
-                  selectedPageNumber = 1;
-                  offSet = "1";
                 },
                 indicatorWeight: 2,
                 indicatorPadding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -110,76 +108,9 @@ class _TestResultsState extends State<TestResults> {
               child: TabBarView(
                 children: [
                   // first tab bar view widget
-                  FutureBuilder<List<ServiceTest>>(
-                    future: HospitalApiController().getLabReports(patientCode: SharedPrefController().getValueFor(key: "p_code"),page: selectedPageNumber,offset: offSet),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                        return ListView(
-                          shrinkWrap: true,
-                          children: [
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) {
-                                  return TestResultItem(serviceTest: snapshot.data![index]);
-                                }),
-
-                          ],
-                        );
-                      } else {
-                        return Center(
-                          child: Text(
-                            'NO DATA',
-                            style: TextStyle(
-                                fontSize: 23,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade700,
-                                fontFamily: 'Tajawal'),
-                          ),
-                        );
-                      }
-                    },
-                  ),
+                  LabResult(),
                   // // second tab bar viiew widget
-                  FutureBuilder<List<ServiceTest>>(
-                    future: HospitalApiController().getRadReports(patientCode: SharedPrefController().getValueFor(key: "p_code"),page: selectedPageNumber,offset: offSet),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                        return ListView(
-                          shrinkWrap: true,
-                          children: [
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) {
-                                  return TestResultItem(serviceTest: snapshot.data![index]);
-                                }),
-                            // Image.asset(
-                            //   "assets/images/image1.png",
-                            //   fit: BoxFit.fitWidth,
-                            // ),
-                          ],
-                        );
-                      } else {
-                        return Center(
-                          child: Text(
-                            'NO DATA',
-                            style: TextStyle(
-                                fontSize: 23,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade700,
-                                fontFamily: 'Tajawal'),
-                          ),
-                        );
-                      }
-                    },
-                  ),
+                  RabResult(),
                 ],
               ),
             ),
@@ -187,7 +118,7 @@ class _TestResultsState extends State<TestResults> {
 
           ],
         ),
-        bottomSheet: Image.asset("assets/images/image1.png",fit: BoxFit.cover),
+        // bottomSheet: Image.asset("assets/images/image1.png",fit: BoxFit.cover),
       ),
     );
   }

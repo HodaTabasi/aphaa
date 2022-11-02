@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:number_pagination/number_pagination.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../model/Pages.dart';
 import '../../../model/prescriptionListResponse/PrescriptionListResponse.dart';
 import '../../../model/prescriptionListResponse/prescriptionList.dart';
 import '../../../preferences/shared_pref_controller.dart';
@@ -19,9 +20,86 @@ class MedicalRecipes extends StatefulWidget {
 }
 
 class _MedicalRecipesState extends State<MedicalRecipes> {
-  int selectedPageNumber = 1;
+  String selectedPageNumber = "1";
+  List<PrescriptionList> list = [];
+  List<Pages> pageList = [];
 
   String offSet = "1";
+
+  int _page = 0;
+
+  bool _isFirstLoadRunning = false;
+  bool _hasNextPage = true;
+
+  bool _isLoadMoreRunning = false;
+
+  void _loadMore() async {
+    if (_hasNextPage == true &&
+        _isFirstLoadRunning == false &&
+        _isLoadMoreRunning == false &&
+        _controller.position.extentAfter < 300.h) {
+      print(_page);
+      print(pageList.length);
+      if(_page < pageList.length-1){
+        setState(() {
+          _isLoadMoreRunning = true; // Display a progress indicator at the bottom
+        });
+
+        _page += 1;
+        selectedPageNumber = pageList[_page].page!; // Increase _page by 1
+        offSet = pageList[_page].offset!;
+
+        PrescriptionListResponse? v = await HospitalApiController().getRxList(
+            patientCode: SharedPrefController().getValueFor(key: "p_code"),
+            page: selectedPageNumber,
+            offset: offSet);
+
+        list.addAll(v!.prescriptionList ?? []);
+
+        setState(() {
+          _isLoadMoreRunning = false;
+        });
+      } else {
+        setState(() {
+          _isLoadMoreRunning = false;
+          _hasNextPage = false;
+        });
+      }
+
+    }
+  }
+
+  void _firstLoad() async {
+    setState(() {
+      _isFirstLoadRunning = true;
+    });
+
+    await getData();
+
+    setState(() {
+      _isFirstLoadRunning = false;
+    });
+  }
+
+  late ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _firstLoad();
+    _controller = ScrollController()..addListener(_loadMore);
+  }
+
+  getData() async {
+    PrescriptionListResponse? v = await HospitalApiController().getRxList(
+        patientCode: SharedPrefController().getValueFor(key: "p_code"),
+        page: selectedPageNumber,
+        offset: offSet);
+    list = v!.prescriptionList ?? [];
+    pageList = v.pages ?? [];
+
+    print(v.pages!.length);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,65 +143,38 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
           //   ),
           // ]
       ),
-      body: FutureBuilder<PrescriptionListResponse?>(
-        future: HospitalApiController().getRxList(
-            patientCode: SharedPrefController().getValueFor(key: "p_code")),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasData && snapshot.data != null) {
-            return ListView(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8.0.r),
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: snapshot.data!.prescriptionList!.length,
-                      itemBuilder: (context, index) {
-                        return MedicalRecipesItem(
-                            snapshot.data!.prescriptionList![index]);
-                      }),
-                ),
-                Visibility(
-                  visible: snapshot.data!.pages!.length > 1,
-                  child: NumberPagination(
-                    onPageChanged: (int pageNumber) {
-                      //do somthing for selected page
-                      setState(() {
-                        selectedPageNumber = pageNumber;
-                        offSet = snapshot
-                            .data!.pages![selectedPageNumber - 1].offset!;
-                      });
-                    },
-                    pageTotal: snapshot.data!.pages!.length,
-                    pageInit: selectedPageNumber,
-                    // picked number when init page
-                    colorPrimary: Colors.green,
-                    colorSub: Colors.white,
-                    fontFamily: 'Tajawal',
-                  ),
-                ),
-                Image.asset(
-                  "assets/images/image1.png",
-                  fit: BoxFit.fitWidth,
-                ),
-              ],
-            );
-          } else {
-            return Center(
-              child: Text(
-                'NO DATA',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: 'Tajawal',
-                  fontWeight: FontWeight.bold,
-                ),
+      body: _isFirstLoadRunning
+          ? const Center(
+        child: CircularProgressIndicator(),
+      )
+          : Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(8.0.r),
+              child: ListView.builder(
+                  // shrinkWrap: true,
+                  // physics: NeverScrollableScrollPhysics(),
+                controller: _controller,
+                  itemCount: list.length,
+                  itemBuilder: (context, index) {
+                    return MedicalRecipesItem(
+                        list[index]);
+                  }),
+            ),
+          ),
+          if (_isLoadMoreRunning == true)
+            const Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 40),
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
-            );
-          }
-        },
+            ),
+
+          if (_hasNextPage == false)
+            const Center(
+            ),
+        ],
       ),
     );
   }

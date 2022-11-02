@@ -6,6 +6,7 @@ class PrescriptionList {
   String? invoiceDate;
   String? invoiceType;
   String? invoiceStatus;
+  String? invoiceFlag;
   Clinic? clinic;
   Doctor? doctor;
 
@@ -14,6 +15,7 @@ class PrescriptionList {
         this.invoiceDate,
         this.invoiceType,
         this.invoiceStatus,
+        this.invoiceFlag,
         this.clinic,
         this.doctor});
 
@@ -22,6 +24,7 @@ class PrescriptionList {
     invoiceDate = json['invoiceDate'];
     invoiceType = json['invoiceType'];
     invoiceStatus = json['invoiceStatus'];
+    invoiceFlag = json['invoiceFlag'];
     clinic =
     json['clinic'] != null ? new Clinic.fromJson(json['clinic']) : null;
     doctor =
@@ -34,6 +37,7 @@ class PrescriptionList {
     data['invoiceDate'] = this.invoiceDate;
     data['invoiceType'] = this.invoiceType;
     data['invoiceStatus'] = this.invoiceStatus;
+    data['invoiceFlag'] = this.invoiceFlag;
     if (this.clinic != null) {
       data['clinic'] = this.clinic!.toJson();
     }
@@ -43,5 +47,3 @@ class PrescriptionList {
     return data;
   }
 }
-
-

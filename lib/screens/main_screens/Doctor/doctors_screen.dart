@@ -1,11 +1,14 @@
 import 'package:aphaa_app/api/controllers/hospital_controller.dart';
+import 'package:aphaa_app/helper/FileProcess.dart';
 import 'package:aphaa_app/model/doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:number_pagination/number_pagination.dart';
 
+import '../../../model/Pages.dart';
 import '../../../model/allDocResponse.dart';
+import '../../../preferences/shared_pref_controller.dart';
 import '../Appointment Booking/doctor_filtter.dart';
 import 'DoctorItem.dart';
 
@@ -17,12 +20,85 @@ class DoctorsScreen extends StatefulWidget {
 }
 
 class _DoctorsScreenState extends State<DoctorsScreen> {
-  var selectedPageNumber = 1;
+  String selectedPageNumber = "1";
+  List<Doctor> list = [];
+  List<Pages> pageList = [];
 
   String offSet = "1";
 
+  int _page = 0;
+
+  bool _isFirstLoadRunning = false;
+  bool _hasNextPage = true;
+
+  bool _isLoadMoreRunning = false;
+
+  void _loadMore() async {
+    if (_hasNextPage == true &&
+        _isFirstLoadRunning == false &&
+        _isLoadMoreRunning == false &&
+        _controller.position.extentAfter < 300.h) {
+      print(_page);
+      print(pageList.length);
+      if(_page < pageList.length-1){
+        setState(() {
+          _isLoadMoreRunning = true; // Display a progress indicator at the bottom
+        });
+
+        _page += 1;
+        selectedPageNumber = pageList[_page].page!; // Increase _page by 1
+        offSet = pageList[_page].offset!;
+
+        DoctorListResponse? v = await  HospitalApiController().getClDrs(flag: true,page: selectedPageNumber,offset: offSet);
+
+        list.addAll(v!.doctors ?? []);
+
+        setState(() {
+          _isLoadMoreRunning = false;
+        });
+      } else {
+        setState(() {
+          _isLoadMoreRunning = false;
+          _hasNextPage = false;
+        });
+      }
+
+    }
+  }
+
+  void _firstLoad() async {
+    setState(() {
+      _isFirstLoadRunning = true;
+    });
+
+    await getData();
+
+    setState(() {
+      _isFirstLoadRunning = false;
+    });
+  }
+
+  late ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _firstLoad();
+    _controller = ScrollController()..addListener(_loadMore);
+  }
+
+  getData() async {
+    DoctorListResponse? v = await  HospitalApiController().getClDrs(flag: true,page: selectedPageNumber,offset: offSet);
+    list = v!.doctors ?? [];
+    pageList = v.pages ?? [];
+
+    print(v.pages!.length);
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    FileProcess.checkDocumentFolder();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -54,141 +130,112 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               )),
         ),
       ),
-      body: FutureBuilder<DoctorListResponse?>(
-        future: HospitalApiController().getClDrs(flag: true),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasData && snapshot.data != null) {
-            return ListView(
-              children: [
-                SizedBox(
-                  height: 20.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.r),
-                                borderSide: BorderSide(
-                                    color: Color.fromRGBO(140, 171, 205, 0.12),
-                                    width: 0.5.w),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.r),
-                                borderSide: BorderSide(
-                                    color: Color.fromRGBO(140, 171, 205, 0.12),
-                                    width: 0.5.w),
-                              ),
-                              hintText:
-                                  AppLocalizations.of(context)!.find_a_doctor,
-                              hintStyle: TextStyle(
-                                color: Color(0xff739ECC),
-                                fontSize: 13.sp,
-                                fontFamily: 'Tajawal',
-                                fontWeight: FontWeight.bold,
-                              ),
-                              fillColor: Color.fromRGBO(140, 171, 205, 0.12),
-                              filled: true,
-                              prefixIcon: Icon(
-                                Icons.search_sharp,
-                                color: Color(0xff0E4C8F),
-                              )),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                          isScrollControlled: false,
-                          backgroundColor: Colors.transparent,
-                          context: context,
-                          builder: (context) => DoctorFillter(),
-                        );
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(12.r),
-                        margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
-                        decoration: BoxDecoration(
-                          color: Color(0xff0E4C8F),
+      body: _isFirstLoadRunning
+          ? const Center(
+        child: CircularProgressIndicator(),
+      )
+          :Column(
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(140, 171, 205, 0.12),
+                              width: 0.5.w),
                         ),
-                        child: Icon(
-                          Icons.filter_list_alt,
-                          color: Colors.white,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(140, 171, 205, 0.12),
+                              width: 0.5.w),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0.r),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data!.doctors!.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 10.r),
-                    scrollDirection: Axis.vertical,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 15.h,
-                        crossAxisSpacing: 15.w,
-                        childAspectRatio: 240 / 330),
-                    itemBuilder: (context, index) {
-                      return DoctorItem(snapshot.data!.doctors![index]);
-                    },
+                        hintText:
+                        AppLocalizations.of(context)!.find_a_doctor,
+                        hintStyle: TextStyle(
+                          color: Color(0xff739ECC),
+                          fontSize: 13.sp,
+                          fontFamily: 'Tajawal',
+                          fontWeight: FontWeight.bold,
+                        ),
+                        fillColor: Color.fromRGBO(140, 171, 205, 0.12),
+                        filled: true,
+                        prefixIcon: Icon(
+                          Icons.search_sharp,
+                          color: Color(0xff0E4C8F),
+                        )),
                   ),
-                ),
-                Visibility(
-                  visible: snapshot.data!.pages!.length > 1,
-                  child: NumberPagination(
-                    controlButton: ColoredBox(
-                      color: Colors.white,
-                    ),
-                    onPageChanged: (int pageNumber) {
-                      //do somthing for selected page
-                      setState(() {
-                        selectedPageNumber = pageNumber;
-                        offSet = snapshot.data!
-                            .pages![selectedPageNumber - 1].offset!;
-                      });
-                    },
-                    pageTotal: snapshot.data!.pages!.length,
-                    pageInit: selectedPageNumber,
-                    // picked number when init page
-                    colorPrimary: Colors.green,
-                    colorSub: Colors.white,
-                    fontFamily: 'Tajawal',
-                  ),
-                ),
-                Image.asset(
-                  "assets/images/image1.png",
-                  fit: BoxFit.fitWidth,
-                ),
-              ],
-            );
-          } else {
-            return Center(
-              child: Text(
-                'NO DATA',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: 'Tajawal',
-                  fontWeight: FontWeight.bold,
                 ),
               ),
-            );
-          }
-        },
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    isScrollControlled: false,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) => DoctorFillter(),
+                  );
+                },
+                child: Container(
+                  padding: EdgeInsets.all(12.r),
+                  margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                  decoration: BoxDecoration(
+                    color: Color(0xff0E4C8F),
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Icon(
+                    Icons.filter_list_alt,
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Expanded(
+                child: Padding(
+            padding: EdgeInsets.all(8.0.r),
+            child: GridView.builder(
+               // shrinkWrap: true,
+                itemCount: list.length,
+                controller: _controller,
+                // physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: 10.r),
+                scrollDirection: Axis.vertical,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 15.h,
+                    crossAxisSpacing: 15.w,
+                    childAspectRatio: 240 / 330),
+                itemBuilder: (context, index) {
+                  return DoctorItem(list[index]);
+                },
+            ),
+          ),
+              ),
+          if (_isLoadMoreRunning == true)
+            const Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 40),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+
+          if (_hasNextPage == false)
+            const Center(
+            ),
+        ],
       ),
     );
     // Image.asset(

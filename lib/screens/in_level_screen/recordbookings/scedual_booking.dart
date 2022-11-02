@@ -18,6 +18,7 @@ class ScedualBookingItem extends StatelessWidget {
         border: Border.all(color: Color(0xff0E4C8F), width: 0.5.w),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,33 +46,37 @@ class ScedualBookingItem extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.booking_time,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '  ${appointments.time}  ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black45,
-                            fontSize: 12.sp,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
+              Visibility(
+                visible: appointments.time!.isNotEmpty,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
+                  child: Text.rich(
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.booking_time,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 12.sp,
+                          fontFamily: 'Tajawal'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '  ${appointments.time}  ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black45,
+                              fontSize: 12.sp,
+                              fontFamily: 'Tajawal'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
@@ -149,34 +154,34 @@ class ScedualBookingItem extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.notes,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '  ${appointments.notes}  ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black45,
-                            fontSize: 12,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Padding(
+          //       padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+          //       child: Text.rich(
+          //         TextSpan(
+          //           text: AppLocalizations.of(context)!.notes,
+          //           style: TextStyle(
+          //               fontWeight: FontWeight.bold,
+          //               color: Colors.black,
+          //               fontSize: 12.sp,
+          //               fontFamily: 'Tajawal'),
+          //           children: <TextSpan>[
+          //             TextSpan(
+          //               text: '  ${appointments.notes}  ',
+          //               style: TextStyle(
+          //                   fontWeight: FontWeight.w500,
+          //                   color: Colors.black45,
+          //                   fontSize: 12,
+          //                   fontFamily: 'Tajawal'),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

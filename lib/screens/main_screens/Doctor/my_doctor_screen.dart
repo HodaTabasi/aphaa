@@ -7,6 +7,7 @@ import 'package:number_pagination/number_pagination.dart';
 
 import '../../../api/controllers/App_api_controller.dart';
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../model/Pages.dart';
 import '../../../model/VisitedDrs/VisitedDrsResponse.dart';
 import '../../../model/doctor.dart';
 import '../../../preferences/shared_pref_controller.dart';
@@ -20,14 +21,81 @@ class MyDoctorsScreen extends StatefulWidget {
 }
 
 class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
-  int selectedPageNumber = 0;
+  String selectedPageNumber = "1";
+  List<Doctor> list = [];
+  List<Pages> pageList = [];
 
   String offSet = "1";
 
+  int _page = 0;
+
+  bool _isFirstLoadRunning = false;
+  bool _hasNextPage = true;
+
+  bool _isLoadMoreRunning = false;
+
+  void _loadMore() async {
+    if (_hasNextPage == true &&
+        _isFirstLoadRunning == false &&
+        _isLoadMoreRunning == false &&
+        _controller.position.extentAfter < 300.h) {
+      print(_page);
+      print(pageList.length);
+      if(_page < pageList.length-1){
+        setState(() {
+          _isLoadMoreRunning = true; // Display a progress indicator at the bottom
+        });
+
+        _page += 1;
+        selectedPageNumber = pageList[_page].page!; // Increase _page by 1
+        offSet = pageList[_page].offset!;
+
+        VisitedDrsResponse? v = await  HospitalApiController().getVisitedDrs(
+            patientCode: SharedPrefController().getValueFor(key: "p_code"),page: selectedPageNumber,offset: offSet);
+
+        list.addAll(v!.doctors ?? []);
+
+        setState(() {
+          _isLoadMoreRunning = false;
+        });
+      } else {
+        setState(() {
+          _isLoadMoreRunning = false;
+          _hasNextPage = false;
+        });
+      }
+
+    }
+  }
+
+  void _firstLoad() async {
+    setState(() {
+      _isFirstLoadRunning = true;
+    });
+
+    await getData();
+
+    setState(() {
+      _isFirstLoadRunning = false;
+    });
+  }
+
+  late ScrollController _controller;
 
   @override
   void initState() {
     super.initState();
+    _firstLoad();
+    _controller = ScrollController()..addListener(_loadMore);
+  }
+
+  getData() async {
+    VisitedDrsResponse? v = await  HospitalApiController().getVisitedDrs(
+        patientCode: SharedPrefController().getValueFor(key: "p_code"),page: selectedPageNumber,offset: offSet);
+    list = v!.doctors ?? [];
+    pageList = v.pages ?? [];
+
+    //print(v.pages!.length);
   }
 
   @override
@@ -62,90 +130,65 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
                   size: 15.sp,
                 )),
           ),
-          actions: [
-            Padding(
+          // actions: [
+          //   Padding(
+          //     padding: EdgeInsets.all(8.0.r),
+          //     child: InkWell(
+          //       onTap: () {},
+          //       child: SvgPicture.asset(
+          //         'assets/images/Notification.svg',
+          //         semanticsLabel: 'Acme Logo',
+          //       ),
+          //     ),
+          //   ),
+          // ]
+      ),
+      body: _isFirstLoadRunning
+          ? const Center(
+        child: CircularProgressIndicator(),
+      )
+          :Column(
+        children: [
+          SizedBox(
+            height: 20,
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Expanded(
+            child: Padding(
               padding: EdgeInsets.all(8.0.r),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset(
-                  'assets/images/Notification.svg',
-                  semanticsLabel: 'Acme Logo',
-                ),
+              child: GridView.builder(
+                // shrinkWrap: true,
+                itemCount: list.length,
+                controller: _controller,
+                // physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: 10.r),
+                scrollDirection: Axis.vertical,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 15.h,
+                    crossAxisSpacing: 15.w,
+                    childAspectRatio: 240 / 330),
+                itemBuilder: (context, index) {
+                  return DoctorItem(list[index]);
+                },
               ),
             ),
-          ]),
-      body: FutureBuilder<VisitedDrsResponse?>(
-        future: HospitalApiController().getVisitedDrs(
-            patientCode: SharedPrefController().getValueFor(key: "p_code"),page: selectedPageNumber,offset: offSet),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasData && snapshot.data != null) {
-            return ListView(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0.r),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data!.doctors!.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 10.r),
-                    scrollDirection: Axis.vertical,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 15.h,
-                        crossAxisSpacing: 15.w,
-                        childAspectRatio: 240 / 330),
-                    itemBuilder: (context, index) {
-                      return DoctorItem(snapshot.data!.doctors![index]);
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible:snapshot.data!.pages!.length > 1 ,
-                  child: NumberPagination(
-                    onPageChanged: (int pageNumber) {
-                      //do somthing for selected page
-                      setState(() {
-                        selectedPageNumber = pageNumber;
-                        offSet = snapshot.data!.pages![selectedPageNumber-1].offset!;
-                      });
-                    },
-                    pageTotal: snapshot.data!.pages!.length,
-                    pageInit: selectedPageNumber,
-                    // picked number when init page
-                    colorPrimary: Colors.green,
-                    colorSub: Colors.white,
-                    fontFamily: 'Tajawal',
-                  ),
-                ),
-                Image.asset(
-                  "assets/images/image1.png",
-                  fit: BoxFit.fitWidth,
-                ),
-              ],
-            );
-          } else {
-            return Center(
-              child: Text(
-                'NO DATA',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: 'Tajawal',
-                  fontWeight: FontWeight.bold,
-                ),
+          ),
+          if (_isLoadMoreRunning == true)
+            const Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 40),
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
-            );
-          }
-        },
-      ),
+            ),
+
+          if (_hasNextPage == false)
+            const Center(
+            ),
+        ],
+      )
     );
   }
 }

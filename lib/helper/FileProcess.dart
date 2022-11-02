@@ -22,6 +22,18 @@ class FileProcess {
     }
   }
 
+  static Future<File> downloadFile1(base64r,fileName) async {
+    final base64str = base64r;
+    Uint8List bytes = base64.decode(base64str);
+    await checkDocumentFolder();
+    String dir =
+        directory!.path + "/" + fileName;
+    File file = new File(dir);
+    if (!file.existsSync()) file.create();
+    await file.writeAsBytes(bytes);
+    return file;
+  }
+
   static Future<File> downloadFile(base64r,fileName) async {
     final base64str = base64r;
     Uint8List bytes = base64.decode(base64str);
