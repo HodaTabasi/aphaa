@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:aphaa_app/model/OpenFileResponse.dart';
 import 'package:aphaa_app/model/Patient.dart';
 import 'package:http/http.dart' as http;
 
@@ -124,8 +125,9 @@ insurance_number:2520
         message: jsonResponse['message'],
         success: jsonResponse['status'],
       );
-      if (response.statusCode == 201) {
-        apiResponse.object = image;
+      if (response.statusCode == 200) {
+        print("dfsdf");
+        apiResponse.object = OpenFileResponse.fromJson(jsonResponse['items']);
       }
       return apiResponse;
     }

@@ -17,6 +17,7 @@ class SelectLanguage extends StatefulWidget {
 
 class _SelectLanguageState extends State<SelectLanguage> {
   var _value =  SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) != null? SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar' ?0 :1 : 0;
+  String s =SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == null ?"العربية":SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'? "العربية" :"English" ;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +35,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
           decoration: BoxDecoration(
               color: const Color(0xff006F2C),
               borderRadius: BorderRadius.circular(10)),
-          child: Text(
-            SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'? "العربية" :"English",
+          child: Text(SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == null ?"العربية":SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'? "العربية" :"English",
             style: TextStyle(
               color: Colors.white,
               fontSize: 14.sp,

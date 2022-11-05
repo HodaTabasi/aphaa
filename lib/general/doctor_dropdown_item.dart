@@ -86,7 +86,7 @@ class _DropDownItenState extends State<DoctorDropDownItem> {
                           // QuickServiceGetxController.to.doctorName = widget.myData.where((element) => element.doctorName == val).toList().first.doctorName!;
                           NewAccountGetxController.to.changeglobal(val!);
                           NewAccountGetxController.to.doctorCode = val;
-                          NewAccountGetxController.to.getDoctorSchedules(val) ;
+                          NewAccountGetxController.to.getDoctorSchedules(val,DateTime.now().month,DateTime.now().year) ;
                         });
                       },
                       value: NewAccountGetxController.to.global,

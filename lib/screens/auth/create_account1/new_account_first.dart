@@ -38,7 +38,7 @@ class _NewAccountFirstState extends State<NewAccountFirst>  {
         body: PageView(
           controller: controller,
           scrollDirection: Axis.horizontal,
-          //physics: NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             ViewPagerPartOne(controller: controller,),
             ViewPagerPageTow(controller: controller,),

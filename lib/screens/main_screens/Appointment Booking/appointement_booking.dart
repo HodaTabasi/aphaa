@@ -1,6 +1,6 @@
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/helper/helper.dart';
-import 'package:aphaa_app/model/Appointment/AvailableTime.dart';
+import 'package:aphaa_app/model/time_avilable_response/AvailableTime.dart';
 import 'package:aphaa_app/model/doctor.dart';
 import 'package:aphaa_app/general/doctor_dropdown_item.dart';
 import 'package:aphaa_app/screens/main_screens/Appointment%20Booking/time_appoiment_item.dart';
@@ -254,6 +254,10 @@ class _AppointmentBookingState extends State<AppointmentBooking>
               .getValueFor<String>(key: PrefKeys.lang.name) ??
               'ar',
           pageScrollPhysics: const NeverScrollableScrollPhysics(),
+          onCalendarChanged: (DateTime date){
+            print(" ${date.year} ${date.month}");
+            NewAccountGetxController.to.getDoctorSchedules(NewAccountGetxController.to.doctorCode,date.month,date.year);
+          },
           onDayPressed: (DateTime date, List<Event> events) async {
             this.setState(()  {
               _currentDate = date;
@@ -338,7 +342,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
           dayPadding: 8,
           customGridViewPhysics: NeverScrollableScrollPhysics(),
           daysHaveCircularBorder: true,
-          showHeaderButton: false,
+          showHeaderButton: true,
           headerMargin: EdgeInsets.all(16),
           isScrollable: true,
           multipleMarkedDates: MultipleMarkedDates(markedDates:event.map((e) {

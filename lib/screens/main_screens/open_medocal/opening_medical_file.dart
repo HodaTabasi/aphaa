@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/helper/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,6 +16,7 @@ import '../../../general/edittext_item.dart';
 import 'package:aphaa_app/helper/helpers.dart' as myHelper ;
 
 import '../../../model/api_response.dart';
+import '../../auth/create_account1/new_account_first.dart';
 
 class OpeningMedicalFile extends StatefulWidget {
   static String routeName = "/open_media_file";
@@ -208,7 +210,10 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
     ApiResponse apiResponse = await QuickServiceApiController().openFile(mobile: phone.text,name: name.text,identity_number: userId.text,insurance_number: inId.text,paying_type: inCompany.text,image:  _pickedImage!.path,email:_pEmail.text );
     if (apiResponse.success) {
       Navigator.pop(context);
-      showAlertDialog(context);
+      NewAccountGetxController.to.fileData = apiResponse.object;
+      NewAccountGetxController.to.fromOpenFile = true;
+      Navigator.pushNamed(context, NewAccountFirst.routeName);
+      // showAlertDialog(context);
     }else {
       Navigator.pop(context);
     }

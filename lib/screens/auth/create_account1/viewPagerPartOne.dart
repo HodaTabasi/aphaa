@@ -23,6 +23,12 @@ class ViewPagerPartOne extends StatefulWidget {
 }
 
 class _ViewPagerPartOneState extends State<ViewPagerPartOne> with  myHelper.Helpers1{
+
+  @override
+  void initState() {
+    NewAccountGetxController.to.fromOpenFile?NewAccountGetxController.to.pID.text = NewAccountGetxController.to.fileData!.identityNumber!:"";
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

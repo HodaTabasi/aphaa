@@ -4,6 +4,7 @@ import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
 import 'package:aphaa_app/helper/FileProcess.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
+import 'package:aphaa_app/screens/drawer_screens/buttom_navication.dart';
 import 'package:aphaa_app/screens/main_screens/quick_services/quick_services.dart';
 import 'package:aphaa_app/screens/splach/screen_2_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,14 +20,14 @@ import 'helper/constant.dart';
 import 'helper/routes.dart';
 import 'firebase_options.dart';
 
-class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -87,7 +88,10 @@ class MyApp extends StatelessWidget {
                 primarySwatch: colorCustom,
               ),
               initialRoute: SharedPrefController().isFirstLancsh
-                  ? QuickServices.routeName
+                  ? SharedPrefController()
+                          .getValueFor(key: PrefKeysPatient.isLoggedIn.name)
+                      ? ButtomNavigations.routeName
+                      : QuickServices.routeName
                   : Screen2Splash.routeName,
               routes: routes,
             );

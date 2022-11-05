@@ -115,6 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers1{
           TextItem('assets/images/Logout.svg',AppLocalizations.of(context)!.logout,isVisable: true,() async {
             showLoaderDialog(context);
             await AuthApiController().logout().then((value) {
+              SharedPrefController().clear();
               Navigator.of(context).pushAndRemoveUntil(
                 CupertinoPageRoute(
                     builder: (context) => LoginScreen()

@@ -48,6 +48,7 @@ class SharedPrefController {
     await _sharedPreferences.setString(PrefKeysPatient.insuranceDate.name, student.insuranceDate??"");
     await _sharedPreferences.setString(PrefKeysPatient.insuranceName.name, student.insuranceName??"");
     await _sharedPreferences.setString(PrefKeysPatient.insuranceNumber.name, student.insuranceNumber??"");
+    await _sharedPreferences.setString(PrefKeysPatient.mobile.name, student.mobile??"");
     await _sharedPreferences.setString(
         PrefKeysPatient.token.name, 'Bearer ${student.token}');
     // await _sharedPreferences.setString(

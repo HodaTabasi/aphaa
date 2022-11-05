@@ -1,12 +1,14 @@
 import 'package:aphaa_app/api/controllers/hospital_controller.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
-import 'package:aphaa_app/model/Appointment/AvailableTime.dart';
+import 'package:aphaa_app/model/time_avilable_response/AvailableTime.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/Eligibility.dart';
+import '../model/OpenFileResponse.dart';
 import '../model/Patient.dart';
 import '../model/doctor.dart';
+import '../model/time_avilable_response/TimeAvilableResponse.dart';
 
 class NewAccountGetxController extends GetxController {
 
@@ -30,6 +32,10 @@ class NewAccountGetxController extends GetxController {
   String? global ;
   Eligibility? eligibility;
   bool flag = false;
+  TimeAvilableResponse? timeResponse ;
+
+  OpenFileResponse? fileData;
+  bool fromOpenFile = false;
 
   ///////////////
 
@@ -60,8 +66,9 @@ class NewAccountGetxController extends GetxController {
     doctorsList = doctor;
     update();
   }
-  void changeDoctorTimeList(List<AvailableTime> time){
-    avilableTime = time;
+  void changeDoctorTimeList(TimeAvilableResponse response){
+    avilableTime = response.availableTimes ?? [];
+    timeResponse = response;
     update();
   }
   void changeBoolisUpdateCliniceCode(value){
@@ -77,9 +84,8 @@ class NewAccountGetxController extends GetxController {
     return doctorsList;
   }
 
-  getDoctorSchedules(value) async {
-    var data = await HospitalApiController().getDoctorSched(doctorCode: value,clinicCode: clinicCode);
-    print("dgs ${data}");
+  getDoctorSchedules(value,month,year) async {
+    var data = await HospitalApiController().getDoctorSched(doctorCode: value,clinicCode: clinicCode,month:month,year: year );
     avilableDate =  data;
     update();
   }
