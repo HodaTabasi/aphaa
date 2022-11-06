@@ -72,7 +72,7 @@ class InsuranceItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.the_request,
+                          AppLocalizations.of(context)!.req_number,
                           style:  TextStyle(
                             color: Color(0xff2D2D2D),
                             fontSize: 12.sp,

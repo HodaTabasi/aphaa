@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:aphaa_app/get/doctor_getx_controller.dart';
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
 import 'package:aphaa_app/helper/FileProcess.dart';
@@ -49,6 +50,9 @@ class MyApp extends StatelessWidget {
   final QuickServiceGetxController quickServiceGetxController =
       Get.put<QuickServiceGetxController>(QuickServiceGetxController());
 
+  final DoctorGetxController doctorGetxController =
+  Get.put<DoctorGetxController>(DoctorGetxController());
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -89,7 +93,7 @@ class MyApp extends StatelessWidget {
               ),
               initialRoute: SharedPrefController().isFirstLancsh
                   ? SharedPrefController()
-                          .getValueFor(key: PrefKeysPatient.isLoggedIn.name)
+                          .getValueFor(key: PrefKeysPatient.isLoggedIn.name)??false
                       ? ButtomNavigations.routeName
                       : QuickServices.routeName
                   : Screen2Splash.routeName,

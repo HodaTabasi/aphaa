@@ -50,6 +50,7 @@ class _DoctorItemState extends State<DoctorItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        // print(widget.doctor.doctorName);
         QuickServiceGetxController.to.saveDoctor(widget.doctor);
 
         Navigator.pushNamed(context, DoctorDetails.routeName);

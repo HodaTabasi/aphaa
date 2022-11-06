@@ -2,8 +2,13 @@ import 'package:aphaa_app/general/dropdown_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/btn_layout.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../get/doctor_getx_controller.dart';
+import '../../../get/new_account_getx_controller.dart';
+import '../../../model/Clinic.dart';
 
 class DoctorFillter extends StatefulWidget {
   @override
@@ -11,6 +16,32 @@ class DoctorFillter extends StatefulWidget {
 }
 
 class _DoctorFillterState extends State<DoctorFillter> {
+
+
+  bool isLoading = false;
+  List<Clinic> myData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getListsData();
+  }
+  getListsData() async {
+    isLoading = true;
+    myData = await HospitalApiController().getClList() ?? [];
+    setState(() {
+      isLoading = false;
+    });
+    // Future.delayed(Duration.zero, () async {
+    //   await HospitalApiController().getClDrs(clinicCode: myData[0].clinicCode).then((value) {
+    //     NewAccountGetxController.to.changeMyDoctorList(value!.doctors!);
+    //     myDataDoctor = value.doctors!;
+    //     setState(() {
+    //       isLoading = false;
+    //     });
+    //   });
+    // });
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +51,9 @@ class _DoctorFillterState extends State<DoctorFillter> {
       ),
       padding: EdgeInsets.all(8.r),
       // margin: EdgeInsets.all(8),
-      child: Column(
+      child: isLoading?
+         const Center(child: CircularProgressIndicator())
+          :Column(
         children: [
           SizedBox(height: 20.r,),
           Padding(
@@ -54,10 +87,13 @@ class _DoctorFillterState extends State<DoctorFillter> {
             ),
           ),
           SizedBox(height: 20.h,),
-          DropDownItem([],'assets/images/hospital.svg',AppLocalizations.of(context)!.clenice_choesse),
+          DropDownItem(myData,'assets/images/hospital.svg',AppLocalizations.of(context)!.clenice_choesse),
           // DropDownItem([],'assets/images/docgreen.svg',AppLocalizations.of(context)!.dovtor_choesse),
           SizedBox(height: 25.h,),
-          SizedBox(child: BtnLayout('بحث',(){}),width: 200.w,)
+          SizedBox(child: BtnLayout('بحث',(){
+            Navigator.pop(context);
+            DoctorGetxController.to.firstLoad(clinicCode: NewAccountGetxController.to.clinicCode);
+          }),width: 200.w,)
         ],
       ),
     );

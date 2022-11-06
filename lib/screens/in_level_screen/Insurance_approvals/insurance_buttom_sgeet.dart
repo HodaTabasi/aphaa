@@ -44,14 +44,14 @@ class _InsuranceButtomSheetState extends State<InsuranceButtomSheet> {
                   ListView.builder(
                     itemCount: snapshot.data!.length,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      // physics: NeverScrollableScrollPhysics(),
                       itemBuilder: ((context, index) {
                     return Stack(
                       // fit: StackFit.expand,
                         children: [
                           Container(
                             // width: MediaQuery.of(context).size.width - 50,
-                            height: 150.h,
+                            height: 200.h,
                             padding: EdgeInsets.only(left: 16.r, right: 16.r, top: 12.r, bottom: 10.r),
                             margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
                             // margin: EdgeInsets.all(8),
@@ -68,7 +68,7 @@ class _InsuranceButtomSheetState extends State<InsuranceButtomSheet> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      AppLocalizations.of(context)!.medical_file_number,
+                                      AppLocalizations.of(context)!.insurance_approval_number,
                                       style:  TextStyle(
                                         color: Color(0xff2D2D2D),
                                         fontSize: 12.sp,
@@ -110,7 +110,106 @@ class _InsuranceButtomSheetState extends State<InsuranceButtomSheet> {
                                           padding:  EdgeInsets.all(8.0.r),
                                           child: Text(
                                             overflow: TextOverflow.fade,
-                                            '${snapshot.data![index].approvalDetail}',
+                                            '${snapshot.data![index].serviceName}',
+                                            style:  TextStyle(
+                                              color: Color(0xff2D2D2D),
+                                              fontSize: 12.sp,
+                                              fontFamily: 'Tajawal',
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                                  child: Row(
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!.service_type,
+                                        style:  TextStyle(
+                                          color: Color(0xff2D2D2D),
+                                          fontSize: 12.sp,
+                                          fontFamily: 'Tajawal',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Padding(
+                                          padding:  EdgeInsets.all(8.0.r),
+                                          child: Text(
+                                            overflow: TextOverflow.fade,
+                                            '${snapshot.data![index].serviceType}',
+                                            style:  TextStyle(
+                                              color: Color(0xff2D2D2D),
+                                              fontSize: 12.sp,
+                                              fontFamily: 'Tajawal',
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                                  child: Row(
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!.service_price,
+                                        style:  TextStyle(
+                                          color: Color(0xff2D2D2D),
+                                          fontSize: 12.sp,
+                                          fontFamily: 'Tajawal',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Padding(
+                                          padding:  EdgeInsets.all(8.0.r),
+                                          child: Text(
+                                            overflow: TextOverflow.fade,
+                                            '${snapshot.data![index].servicePrice}',
+                                            style:  TextStyle(
+                                              color: Color(0xff2D2D2D),
+                                              fontSize: 12.sp,
+                                              fontFamily: 'Tajawal',
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                                  child: Row(
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!.validity_period,
+                                        style:  TextStyle(
+                                          color: Color(0xff2D2D2D),
+                                          fontSize: 12.sp,
+                                          fontFamily: 'Tajawal',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Padding(
+                                          padding:  EdgeInsets.all(8.0.r),
+                                          child: Text(
+                                            overflow: TextOverflow.fade,
+                                            '${snapshot.data![index].validityPeriod}',
                                             style:  TextStyle(
                                               color: Color(0xff2D2D2D),
                                               fontSize: 12.sp,
@@ -137,7 +236,7 @@ class _InsuranceButtomSheetState extends State<InsuranceButtomSheet> {
                               padding: EdgeInsets.all(10),
                               margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
                               decoration: BoxDecoration(
-                                  color: Color(0xffEE1131),
+                                  color: snapshot.data![index].approvalStatus == "لم يتخذ قرار بعد"?Color(0xffEE1131):Colors.green,
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(8.r),
                                       bottomRight: Radius.circular(20.r))),

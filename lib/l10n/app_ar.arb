@@ -181,6 +181,11 @@
      "prior_experiences":"خبرات سابقة",
      "medical_services_information":"معلومات الخدمات الطبية",
      "skill_name":"اسم الخدمة",
+     "insurance_approval_number":"رقم موافقة التامين:",
+     "service_type":"نوع الخدمة",
+     "service_price":"سعر الخدمة",
+     "validity_period":"فترة الصلاحية",
+     "req_number":"رقم الطلب",
      "skill_pec":"العلامة المئوية"
 
 

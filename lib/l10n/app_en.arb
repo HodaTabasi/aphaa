@@ -189,6 +189,11 @@
                  "prior_experiences":"prior experiences",
                  "medical_services_information":"Medical Services Information",
                  "skill_name":"Skill Name",
+                 "insurance_approval_number":"insurance approval number",
+                 "service_type":"service type",
+                 "service_price":"service price",
+                 "req_number":"request nubmer",
+                 "validity_period":"validity period",
                  "skill_pec":"Percentage"
 
 

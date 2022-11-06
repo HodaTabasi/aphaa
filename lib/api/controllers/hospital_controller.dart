@@ -674,9 +674,10 @@ class HospitalApiController with ApiHelper {
   }
 
   Future<Doctor?> getDoctorDtl({doctorCode}) async {
+    print(doctorCode);
     final queryParameters = {
       'doctorCode': '$doctorCode',
-      'doctorCode': '1',
+      // 'doctorCode': '1',
       'pageNo': '1',
       'offset': '1',
       'rows': '100',

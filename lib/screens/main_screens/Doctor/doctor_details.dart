@@ -31,19 +31,28 @@ class _DoctorDetailsState extends State<DoctorDetails> {
 
   var instalation;
 
-  // late Doctor doctor;
+  var img;
 
   @override
   void initState() {
-    // getDoctorData();
+    print(QuickServiceGetxController.to.doctor?.doctorName);
+    print(QuickServiceGetxController.to.doctor?.doctorCode);
     super.initState();
-    // _controller = VideoPlayerController.network(
-    //     'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
-    //   ..initialize().then((_) {
-    //     // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-    //     setState(() {});
-    //   });
   }
+
+  // late Doctor doctor;
+
+  // @override
+  // void initState() {
+  //   // getDoctorData();
+  //   super.initState();
+  //   // _controller = VideoPlayerController.network(
+  //   //     'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
+  //   //   ..initialize().then((_) {
+  //   //     // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+  //   //     setState(() {});
+  //   //   });
+  // }
 
   // getDoctorData() async {
   //   doctor = await HospitalApiController().getDoctorDtl(doctorCode:QuickServiceGetxController.to.doctor?.doctorCode ) ?? Doctor();
@@ -124,12 +133,21 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     padding: EdgeInsets.all(8.0.r),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0.r),
-                      child: snapshot.data!.img!.isEmpty ?Image.network(
+                      child: snapshot.data!.img!.isEmpty
+                          ? Image.network(
                         "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__340.png",
                         // "https://jihadm33.sg-host.com/public/storage/${doctor.img}",
                         width: 144.w,
                         height: 114.h,
-                      ):Image.memory(base64Decode(snapshot.data!.img!)),
+                      )
+                          : img != null
+                          ? Image.file(img!)
+                          : Image.network(
+                        "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__340.png",
+                        // "https://jihadm33.sg-host.com/public/storage/${doctor.img}",
+                        width: 144.w,
+                        height: 114.h,
+                      ),
                     ),
                   ),
                 ),
