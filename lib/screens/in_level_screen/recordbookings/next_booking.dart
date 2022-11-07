@@ -1,14 +1,20 @@
+import 'package:aphaa_app/helper/nerwork_connectivity.dart';
 import 'package:aphaa_app/screens/in_level_screen/recordbookings/scedual_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../general/NewWidgetNetworkFirst.dart';
+import '../../../general/NewWidgetNetworkLoadMore.dart';
 import '../../../model/Appointment/AppointmentResponse.dart';
 import '../../../model/Appointment/Appointments.dart';
 import '../../../model/Pages.dart';
 import '../../../preferences/shared_pref_controller.dart';
 
 class NextBooking extends StatefulWidget {
+  NetworkConnectivity networkConnectivity;
+  NextBooking(this.networkConnectivity);
+
   @override
   State<NextBooking> createState() => _NextBookingState();
 }
@@ -26,8 +32,15 @@ class _NextBookingState extends State<NextBooking> {
   bool _hasNextPage = true;
 
   bool _isLoadMoreRunning = false;
+  bool _isNoNetworkConnect = false;
+  bool _isNoNetworkConnectInLoadMore = false;
 
   void _loadMore() async {
+    bool x = await widget.networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = false;
+      });
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
         _isLoadMoreRunning == false &&
@@ -62,18 +75,31 @@ class _NextBookingState extends State<NextBooking> {
         });
       }
     }
+    } else {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = true;
+      });
+    }
   }
 
   void _firstLoad() async {
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
+    bool x = await widget.networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isFirstLoadRunning = true;
+        _isNoNetworkConnect = false;
+      });
 
-    await getData();
+      await getData();
 
     setState(() {
       _isFirstLoadRunning = false;
     });
+    } else {
+      setState(() {
+        _isNoNetworkConnect = true;
+      });
+    }
   }
 
   late ScrollController _controller;
@@ -98,7 +124,14 @@ class _NextBookingState extends State<NextBooking> {
 
   @override
   Widget build(BuildContext context) {
-    return _isFirstLoadRunning
+    return   _isNoNetworkConnect
+        ? InkWell(
+      onTap: () {
+        _firstLoad();
+      },
+      child: NewWidgetNetworkFirst(),
+    )
+        :_isFirstLoadRunning
         ? const Center(
             child: CircularProgressIndicator(),
           )
@@ -117,6 +150,13 @@ class _NextBookingState extends State<NextBooking> {
                       }),
                 ),
               ),
+              if (_isNoNetworkConnectInLoadMore)
+                InkWell(
+                  onTap: () {
+                    _loadMore();
+                  },
+                  child: const NewWidgetNetworkLoadMore(),
+                ),
               if (_isLoadMoreRunning == true)
                 const Padding(
                   padding: EdgeInsets.only(top: 10, bottom: 40),
@@ -126,7 +166,11 @@ class _NextBookingState extends State<NextBooking> {
                 ),
 
               if (_hasNextPage == false)
-                const Center(
+                Center(
+                  child: Image.asset(
+                    "assets/images/image1.png",
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
             ],
           );

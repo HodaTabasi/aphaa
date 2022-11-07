@@ -1,13 +1,9 @@
-import 'package:aphaa_app/model/lab_rad_result/ServiceTest.dart';
-import 'package:aphaa_app/screens/in_level_screen/test_results/test_result_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../api/controllers/hospital_controller.dart';
-import '../../../preferences/shared_pref_controller.dart';
+import '../../../helper/nerwork_connectivity.dart';
 import 'Rab_result.dart';
 import 'lab_result.dart';
 
@@ -20,7 +16,7 @@ class TestResults extends StatefulWidget {
 
 class _TestResultsState extends State<TestResults> {
 
-
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -41,9 +37,6 @@ class _TestResultsState extends State<TestResults> {
           leading: Container(
               margin: EdgeInsets.all(15.0.r),
               padding: EdgeInsets.all(5.0.r),
-              // alignment: Alignment.bottomLeft,
-              // width: 80,
-              // height: 500,
               decoration: BoxDecoration(
                   color: const Color(0xff006F2C),
                   borderRadius: BorderRadius.circular(5.r)),
@@ -108,9 +101,9 @@ class _TestResultsState extends State<TestResults> {
               child: TabBarView(
                 children: [
                   // first tab bar view widget
-                  LabResult(),
+                  LabResult(_networkConnectivity),
                   // // second tab bar viiew widget
-                  RabResult(),
+                  RabResult(_networkConnectivity),
                 ],
               ),
             ),

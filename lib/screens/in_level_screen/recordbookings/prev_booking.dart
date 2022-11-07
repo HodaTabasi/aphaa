@@ -1,14 +1,21 @@
+import 'package:aphaa_app/helper/nerwork_connectivity.dart';
 import 'package:aphaa_app/screens/in_level_screen/recordbookings/scedual_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../general/NewWidgetNetworkFirst.dart';
+import '../../../general/NewWidgetNetworkLoadMore.dart';
 import '../../../model/Appointment/AppointmentResponse.dart';
 import '../../../model/Appointment/Appointments.dart';
 import '../../../model/Pages.dart';
 import '../../../preferences/shared_pref_controller.dart';
 
 class PrevBooking extends StatefulWidget {
+  NetworkConnectivity networkConnectivity;
+
+  PrevBooking(this.networkConnectivity);
+
   @override
   State<PrevBooking> createState() => _PrevBookingState();
 }
@@ -26,53 +33,73 @@ class _PrevBookingState extends State<PrevBooking> {
   bool _hasNextPage = true;
 
   bool _isLoadMoreRunning = false;
+  bool _isNoNetworkConnect = false;
+  bool _isNoNetworkConnectInLoadMore = false;
 
   void _loadMore() async {
-    if (_hasNextPage == true &&
-        _isFirstLoadRunning == false &&
-        _isLoadMoreRunning == false &&
-        _controller.position.extentAfter < 300.h) {
-      print(_page);
-      print(pageList.length);
-      if (_page < pageList.length - 1) {
-        setState(() {
-          _isLoadMoreRunning =
-              true; // Display a progress indicator at the bottom
-        });
+    bool x = await widget.networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = false;
+      });
+      if (_hasNextPage == true &&
+          _isFirstLoadRunning == false &&
+          _isLoadMoreRunning == false &&
+          _controller.position.extentAfter < 300.h) {
+        print(_page);
+        print(pageList.length);
+        if (_page < pageList.length - 1) {
+          setState(() {
+            _isLoadMoreRunning =
+                true; // Display a progress indicator at the bottom
+          });
 
-        _page += 1;
-        selectedPageNumber = pageList[_page].page!; // Increase _page by 1
-        offSet = pageList[_page].offset!;
+          _page += 1;
+          selectedPageNumber = pageList[_page].page!; // Increase _page by 1
+          offSet = pageList[_page].offset!;
 
-        AppointmentResponse? v = await HospitalApiController().getPrevAppt(
-            patientCode: SharedPrefController().getValueFor(key: "p_code"),
-            offset: offSet,
-            page: selectedPageNumber);
+          AppointmentResponse? v = await HospitalApiController().getPrevAppt(
+              patientCode: SharedPrefController().getValueFor(key: "p_code"),
+              offset: offSet,
+              page: selectedPageNumber);
 
-        list.addAll(v!.myPrevAppointments ?? []);
+          list.addAll(v!.myPrevAppointments ?? []);
 
-        setState(() {
-          _isLoadMoreRunning = false;
-        });
-      } else {
-        setState(() {
-          _isLoadMoreRunning = false;
-          _hasNextPage = false;
-        });
+          setState(() {
+            _isLoadMoreRunning = false;
+          });
+        } else {
+          setState(() {
+            _isLoadMoreRunning = false;
+            _hasNextPage = false;
+          });
+        }
       }
+    } else {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = true;
+      });
     }
   }
 
   void _firstLoad() async {
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
+    bool x = await widget.networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isFirstLoadRunning = true;
+        _isNoNetworkConnect = false;
+      });
 
-    await getData();
+      await getData();
 
-    setState(() {
-      _isFirstLoadRunning = false;
-    });
+      setState(() {
+        _isFirstLoadRunning = false;
+      });
+    } else {
+      setState(() {
+        _isNoNetworkConnect = true;
+      });
+    }
   }
 
   late ScrollController _controller;
@@ -97,37 +124,54 @@ class _PrevBookingState extends State<PrevBooking> {
 
   @override
   Widget build(BuildContext context) {
-    return _isFirstLoadRunning
-        ? const Center(
-            child: CircularProgressIndicator(),
+    return _isNoNetworkConnect
+        ? InkWell(
+            onTap: () {
+              _firstLoad();
+            },
+            child: NewWidgetNetworkFirst(),
           )
-        : Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0.r),
-                  child: ListView.builder(
-                    controller: _controller,
-                      // shrinkWrap: true,
-                      // physics: NeverScrollableScrollPhysics(),
-                      itemCount: list.length,
-                      itemBuilder: (context, index) {
-                        return ScedualBookingItem(list[index]);
-                      }),
-                ),
-              ),
-              if (_isLoadMoreRunning == true)
-                const Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 40),
-                  child: Center(
-                    child: CircularProgressIndicator(),
+        : _isFirstLoadRunning
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0.r),
+                      child: ListView.builder(
+                          controller: _controller,
+                          // shrinkWrap: true,
+                          // physics: NeverScrollableScrollPhysics(),
+                          itemCount: list.length,
+                          itemBuilder: (context, index) {
+                            return ScedualBookingItem(list[index]);
+                          }),
+                    ),
                   ),
-                ),
-
-              if (_hasNextPage == false)
-                const Center(
-                ),
-            ],
-          );
+                  if (_isNoNetworkConnectInLoadMore)
+                    InkWell(
+                      onTap: () {
+                        _loadMore();
+                      },
+                      child: const NewWidgetNetworkLoadMore(),
+                    ),
+                  if (_isLoadMoreRunning == true)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 10, bottom: 40),
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  if (_hasNextPage == false)
+                    Center(
+                      child: Image.asset(
+                        "assets/images/image1.png",
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                ],
+              );
   }
 }

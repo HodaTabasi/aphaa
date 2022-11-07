@@ -5,6 +5,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../general/NewWidgetNetworkFirst.dart';
+import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../helper/nerwork_connectivity.dart';
 import '../../../model/Pages.dart';
 import '../../../model/patent_payment_record/PatientPaymentRecord.dart';
 import '../../../model/patent_payment_record/PaymentRecordResponse.dart';
@@ -30,8 +33,17 @@ class _PaymentRecordState extends State<PaymentRecord> {
   bool _hasNextPage = true;
 
   bool _isLoadMoreRunning = false;
+  bool _isNoNetworkConnect = false;
+  bool _isNoNetworkConnectInLoadMore = false;
+
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
 
   void _loadMore() async {
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = false;
+      });
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
         _isLoadMoreRunning == false &&
@@ -65,18 +77,32 @@ class _PaymentRecordState extends State<PaymentRecord> {
       }
 
     }
+    } else {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = true;
+      });
+    }
   }
 
   void _firstLoad() async {
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isFirstLoadRunning = true;
+        _isNoNetworkConnect = false;
+      });
 
-    await getData();
+
+      await getData();
 
     setState(() {
       _isFirstLoadRunning = false;
     });
+    } else {
+      setState(() {
+        _isNoNetworkConnect = true;
+      });
+    }
   }
 
   late ScrollController _controller;
@@ -95,8 +121,6 @@ class _PaymentRecordState extends State<PaymentRecord> {
         offset: offSet);
     list = v!.invoices ?? [];
     pageList = v.pages ?? [];
-
-    //print(v.pages!.length);
   }
 
   @override
@@ -104,7 +128,6 @@ class _PaymentRecordState extends State<PaymentRecord> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        // leadingWidth: 40,
         title: Text(AppLocalizations.of(context)!.pay_book,
             style: TextStyle(
               color: Colors.white,
@@ -116,9 +139,6 @@ class _PaymentRecordState extends State<PaymentRecord> {
         leading: Container(
             margin: EdgeInsets.all(15.0.r),
             padding: EdgeInsets.all(5.0.r),
-            // alignment: Alignment.bottomLeft,
-            // width: 80,
-            // height: 500,
             decoration: BoxDecoration(
                 color: const Color(0xff006F2C),
                 borderRadius: BorderRadius.circular(5.r)),
@@ -128,7 +148,14 @@ class _PaymentRecordState extends State<PaymentRecord> {
               size: 15.sp,
             )),
       ),
-      body:  _isFirstLoadRunning
+      body:  _isNoNetworkConnect
+          ? InkWell(
+        onTap: () {
+          _firstLoad();
+        },
+        child: NewWidgetNetworkFirst(),
+      )
+          :  _isFirstLoadRunning
           ? const Center(
         child: CircularProgressIndicator(),
       )
@@ -137,8 +164,6 @@ class _PaymentRecordState extends State<PaymentRecord> {
           Expanded(
             child: ListView.builder(
               controller: _controller,
-                // shrinkWrap: true,
-                // physics: NeverScrollableScrollPhysics(),
                 itemCount: list.length,
                 itemBuilder: (context, index) {
                   return PaymentScreenItem(
@@ -146,6 +171,13 @@ class _PaymentRecordState extends State<PaymentRecord> {
                   );
                 }),
           ),
+          if (_isNoNetworkConnectInLoadMore)
+            InkWell(
+              onTap: () {
+                _loadMore();
+              },
+              child: const NewWidgetNetworkLoadMore(),
+            ),
           if (_isLoadMoreRunning == true)
             const Padding(
               padding: EdgeInsets.only(top: 10, bottom: 40),
@@ -154,7 +186,12 @@ class _PaymentRecordState extends State<PaymentRecord> {
               ),
             ),
           if (_hasNextPage == false)
-            const Center(),
+            Center(
+              child: Image.asset(
+                "assets/images/image1.png",
+                fit: BoxFit.fitWidth,
+              ),
+            ),
         ],
       )
     );

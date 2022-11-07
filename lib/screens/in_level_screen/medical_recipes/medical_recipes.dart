@@ -1,12 +1,13 @@
 import 'package:aphaa_app/screens/in_level_screen/medical_recipes/medical_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:number_pagination/number_pagination.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../general/NewWidgetNetworkFirst.dart';
+import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../helper/nerwork_connectivity.dart';
 import '../../../model/Pages.dart';
 import '../../../model/prescriptionListResponse/PrescriptionListResponse.dart';
 import '../../../model/prescriptionListResponse/prescriptionList.dart';
@@ -32,8 +33,17 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
   bool _hasNextPage = true;
 
   bool _isLoadMoreRunning = false;
+  bool _isNoNetworkConnect = false;
+  bool _isNoNetworkConnectInLoadMore = false;
+
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
 
   void _loadMore() async {
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = false;
+      });
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
         _isLoadMoreRunning == false &&
@@ -65,20 +75,33 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
           _hasNextPage = false;
         });
       }
-
+    }
+    } else {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = true;
+      });
     }
   }
 
   void _firstLoad() async {
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isFirstLoadRunning = true;
+        _isNoNetworkConnect = false;
+      });
 
-    await getData();
+
+      await getData();
 
     setState(() {
       _isFirstLoadRunning = false;
     });
+    } else {
+      setState(() {
+        _isNoNetworkConnect = true;
+      });
+    }
   }
 
   late ScrollController _controller;
@@ -143,7 +166,14 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
           //   ),
           // ]
       ),
-      body: _isFirstLoadRunning
+      body: _isNoNetworkConnect
+          ? InkWell(
+        onTap: () {
+          _firstLoad();
+        },
+        child: NewWidgetNetworkFirst(),
+      )
+          : _isFirstLoadRunning
           ? const Center(
         child: CircularProgressIndicator(),
       )
@@ -163,6 +193,13 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
                   }),
             ),
           ),
+          if (_isNoNetworkConnectInLoadMore)
+            InkWell(
+              onTap: () {
+                _loadMore();
+              },
+              child: const NewWidgetNetworkLoadMore(),
+            ),
           if (_isLoadMoreRunning == true)
             const Padding(
               padding: EdgeInsets.only(top: 10, bottom: 40),
@@ -172,7 +209,11 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
             ),
 
           if (_hasNextPage == false)
-            const Center(
+            Center(
+              child: Image.asset(
+                "assets/images/image1.png",
+                fit: BoxFit.fitWidth,
+              ),
             ),
         ],
       ),

@@ -6,6 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../general/NewWidgetNetworkFirst.dart';
+import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../helper/nerwork_connectivity.dart';
 import '../../../model/Pages.dart';
 import '../../../model/VitalSign/VitalSignResponse.dart';
 import '../../../preferences/shared_pref_controller.dart';
@@ -30,56 +33,81 @@ class _VitalSignsState extends State<VitalSigns> {
   bool _hasNextPage = true;
 
   bool _isLoadMoreRunning = false;
+  bool _isNoNetworkConnect = false;
+  bool _isNoNetworkConnectInLoadMore = false;
+
+  late ScrollController _controller;
+
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
+  String string = '';
+
 
   void _loadMore() async {
-    if (_hasNextPage == true &&
-        _isFirstLoadRunning == false &&
-        _isLoadMoreRunning == false &&
-        _controller.position.extentAfter < 300.h) {
-      print(_page);
-      print(pageList.length);
-      if(_page < pageList.length-1){
-        setState(() {
-          _isLoadMoreRunning = true; // Display a progress indicator at the bottom
-        });
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = false;
+      });
+      if (_hasNextPage == true &&
+          _isFirstLoadRunning == false &&
+          _isLoadMoreRunning == false &&
+          _controller.position.extentAfter < 300.h) {
+        print(_page);
+        print(pageList.length);
+        if (_page < pageList.length - 1) {
+          setState(() {
+            _isLoadMoreRunning =
+                true; // Display a progress indicator at the bottom
+          });
 
-        _page += 1;
-        selectedPageNumber = pageList[_page].page!; // Increase _page by 1
-        offSet = pageList[_page].offset!;
+          _page += 1;
+          selectedPageNumber = pageList[_page].page!; // Increase _page by 1
+          offSet = pageList[_page].offset!;
 
-        VitalSignResponse? v = await HospitalApiController().getPtVS(
-            patientCode: SharedPrefController().getValueFor(key: "p_code"),
-            page: selectedPageNumber,
-            offset: offSet);
+          VitalSignResponse? v = await HospitalApiController().getPtVS(
+              patientCode: SharedPrefController().getValueFor(key: "p_code"),
+              page: selectedPageNumber,
+              offset: offSet);
 
-        list.addAll(v!.vitalSigns ?? []);
+          list.addAll(v!.vitalSigns ?? []);
 
-        setState(() {
-          _isLoadMoreRunning = false;
-        });
-      } else {
-        setState(() {
-          _isLoadMoreRunning = false;
-          _hasNextPage = false;
-        });
+          setState(() {
+            _isLoadMoreRunning = false;
+          });
+        } else {
+          setState(() {
+            _isLoadMoreRunning = false;
+            _hasNextPage = false;
+          });
+        }
       }
-
+    } else {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = true;
+      });
     }
   }
 
   void _firstLoad() async {
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isFirstLoadRunning = true;
+        _isNoNetworkConnect = false;
+      });
 
-    await getData();
+      await getData();
 
-    setState(() {
-      _isFirstLoadRunning = false;
-    });
+      setState(() {
+        _isFirstLoadRunning = false;
+      });
+    } else {
+      setState(() {
+        _isNoNetworkConnect = true;
+      });
+    }
   }
 
-  late ScrollController _controller;
 
   @override
   void initState() {
@@ -95,8 +123,6 @@ class _VitalSignsState extends State<VitalSigns> {
         offset: offSet);
     list = v!.vitalSigns ?? [];
     pageList = v.pages ?? [];
-
-    //print(v.pages!.length);
   }
 
   @override
@@ -105,7 +131,6 @@ class _VitalSignsState extends State<VitalSigns> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        // leadingWidth: 40,
         title: Text(AppLocalizations.of(context)!.vital_signs,
             style: TextStyle(
               color: Colors.white,
@@ -117,9 +142,6 @@ class _VitalSignsState extends State<VitalSigns> {
         leading: Container(
             margin: EdgeInsets.all(15.0.r),
             padding: EdgeInsets.all(5.0..r),
-            // alignment: Alignment.bottomLeft,
-            // width: 80,
-            // height: 500,
             decoration: BoxDecoration(
                 color: const Color(0xff006F2C),
                 borderRadius: BorderRadius.circular(5.r)),
@@ -129,42 +151,51 @@ class _VitalSignsState extends State<VitalSigns> {
               size: 15.sp,
             )),
       ),
-      body: _isFirstLoadRunning
-          ? const Center(
-              child: CircularProgressIndicator(),
+      body: _isNoNetworkConnect
+          ? InkWell(
+              onTap: () {
+                _firstLoad();
+              },
+              child: NewWidgetNetworkFirst(),
             )
-          : Column(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0.r),
-                    child: ListView.builder(
-                        //shrinkWrap: true,
-                        controller: _controller,
-                        //physics: NeverScrollableScrollPhysics(),
-                        itemCount: list.length,
-                        itemBuilder: (context, index) {
-                          return VitalItem(list[index]);
-                        }),
-                  ),
-                ),
-                if (_isLoadMoreRunning == true)
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 40),
-                    child: Center(
-                      child: CircularProgressIndicator(),
+          : _isFirstLoadRunning
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0.r),
+                        child: ListView.builder(
+                            controller: _controller,
+                            itemCount: list.length,
+                            itemBuilder: (context, index) {
+                              return VitalItem(list[index]);
+                            }),
+                      ),
                     ),
-                  ),
-
-                if (_hasNextPage == false)
-                  const Center(
-                  ),
-              ],
-            ),
-      // bottomSheet: Image.asset(
-      //   "assets/images/image1.png",
-      //   fit: BoxFit.fitWidth,
-      // ),
+                    if (_isNoNetworkConnectInLoadMore)
+                      InkWell(
+                        onTap: () {
+                          _loadMore();
+                        },
+                        child: NewWidgetNetworkLoadMore(),
+                      ),
+                    if (_isLoadMoreRunning == true)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10, bottom: 40),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    if (_hasNextPage == false)
+                      Image.asset(
+                        "assets/images/image1.png",
+                        fit: BoxFit.fitWidth,
+                      ),
+                  ],
+                ),
     );
   }
 }

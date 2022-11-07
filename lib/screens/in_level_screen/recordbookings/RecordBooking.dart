@@ -1,16 +1,12 @@
-import 'package:aphaa_app/model/Appointment/Appointments.dart';
 import 'package:aphaa_app/screens/in_level_screen/recordbookings/next_booking.dart';
 import 'package:aphaa_app/screens/in_level_screen/recordbookings/prev_booking.dart';
-import 'package:aphaa_app/screens/in_level_screen/recordbookings/scedual_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:number_pagination/number_pagination.dart';
 
-import '../../../api/controllers/hospital_controller.dart';
-import '../../../model/Appointment/AppointmentResponse.dart';
-import '../../../preferences/shared_pref_controller.dart';
+import '../../../helper/nerwork_connectivity.dart';
+
 
 class RexcordBooking extends StatefulWidget {
   static String routeName = "/RexcordBooking";
@@ -27,6 +23,8 @@ class _RexcordBookingState extends State<RexcordBooking> {
 
   String offSet = "1";
 
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -36,7 +34,6 @@ class _RexcordBookingState extends State<RexcordBooking> {
         appBar: widget.fromInLevel
             ? AppBar(
                 elevation: 0,
-                // leadingWidth: 40,
                 title: Text(AppLocalizations.of(context)!.reservations,
                     style: TextStyle(
                       color: Colors.white,
@@ -48,9 +45,6 @@ class _RexcordBookingState extends State<RexcordBooking> {
                 leading: Container(
                     margin: EdgeInsets.all(15.0.r),
                     padding: EdgeInsets.all(5.0.r),
-                    // alignment: Alignment.bottomLeft,
-                    // width: 80,
-                    // height: 500,
                     decoration: BoxDecoration(
                         color: const Color(0xff006F2C),
                         borderRadius: BorderRadius.circular(5.r)),
@@ -118,9 +112,9 @@ class _RexcordBookingState extends State<RexcordBooking> {
               child: TabBarView(
                 children: [
                   // first tab bar view widget
-                  NextBooking(),
+                  NextBooking(_networkConnectivity),
                   // // second tab bar viiew widget
-                  PrevBooking()
+                  PrevBooking(_networkConnectivity)
                 ],
               ),
             ),

@@ -2,20 +2,14 @@ import 'dart:io';
 
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/helper/helpers.dart';
-import 'package:aphaa_app/screens/in_level_screen/payment_screen/payment_screen.dart';
-import 'package:aphaa_app/screens/in_level_screen/reservation_data/payment_way_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paytabs_bridge/PaymentSdkConfigurationDetails.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../model/offer.dart';
 import 'package:flutter_paytabs_bridge/BaseBillingShippingInfo.dart';
 import 'package:flutter_paytabs_bridge/IOSThemeConfiguration.dart';
 import 'package:flutter_paytabs_bridge/PaymentSdkApms.dart';
-import 'package:flutter_paytabs_bridge/PaymentSdkConfigurationDetails.dart';
 import 'package:flutter_paytabs_bridge/PaymentSdkLocale.dart';
 import 'package:flutter_paytabs_bridge/PaymentSdkTransactionClass.dart';
 import 'package:flutter_paytabs_bridge/PaymentSdkTransactionType.dart';
@@ -31,8 +25,6 @@ class ReservationData extends StatefulWidget {
 }
 
 class _ReservationDataState extends State<ReservationData> with Helpers1{
-  var _value = 0;
-
   var instalation;
 
   PaymentSdkConfigurationDetails configuration =

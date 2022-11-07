@@ -7,6 +7,8 @@ import 'package:number_pagination/number_pagination.dart';
 
 import '../../../api/controllers/App_api_controller.dart';
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../helper/nerwork_connectivity.dart';
 import '../../../model/Pages.dart';
 import '../../../model/VisitedDrs/VisitedDrsResponse.dart';
 import '../../../model/doctor.dart';
@@ -34,7 +36,18 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
 
   bool _isLoadMoreRunning = false;
 
+  bool _isNoNetworkConnect = false;
+  bool _isNoNetworkConnectInLoadMore = false;
+
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
+
+
   void _loadMore() async {
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = false;
+      });
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
         _isLoadMoreRunning == false &&
@@ -66,18 +79,31 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
       }
 
     }
+    } else {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = true;
+      });
+    }
   }
 
   void _firstLoad() async {
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isFirstLoadRunning = true;
+        _isNoNetworkConnect = false;
+      });
 
     await getData();
 
     setState(() {
       _isFirstLoadRunning = false;
     });
+    } else {
+      setState(() {
+        _isNoNetworkConnect = true;
+      });
+    }
   }
 
   late ScrollController _controller;
@@ -118,9 +144,6 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
             child: Container(
                 margin: EdgeInsets.all(15.0.r),
                 padding: EdgeInsets.all(5.0.r),
-                // alignment: Alignment.bottomLeft,
-                // width: 80,
-                // height: 500,
                 decoration: BoxDecoration(
                     color: const Color(0xff006F2C),
                     borderRadius: BorderRadius.circular(5.r)),
@@ -176,6 +199,13 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
               ),
             ),
           ),
+          if (_isNoNetworkConnectInLoadMore)
+            InkWell(
+              onTap: () {
+                _loadMore();
+              },
+              child: const NewWidgetNetworkLoadMore(),
+            ),
           if (_isLoadMoreRunning == true)
             const Padding(
               padding: EdgeInsets.only(top: 10, bottom: 40),

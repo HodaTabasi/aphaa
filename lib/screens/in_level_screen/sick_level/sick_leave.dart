@@ -3,14 +3,14 @@ import 'package:aphaa_app/model/SickLeaves/SickLeavesResponse.dart';
 import 'package:aphaa_app/screens/in_level_screen/sick_level/sick_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:number_pagination/number_pagination.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
-import '../../../general/my_separator.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../general/NewWidgetNetworkFirst.dart';
+import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../helper/nerwork_connectivity.dart';
 import '../../../model/Pages.dart';
 import '../../../preferences/shared_pref_controller.dart';
 
@@ -34,53 +34,75 @@ class _SickLeaveState extends State<SickLeave> {
   bool _hasNextPage = true;
 
   bool _isLoadMoreRunning = false;
+  bool _isNoNetworkConnect = false;
+  bool _isNoNetworkConnectInLoadMore = false;
+
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
 
   void _loadMore() async {
-    if (_hasNextPage == true &&
-        _isFirstLoadRunning == false &&
-        _isLoadMoreRunning == false &&
-        _controller.position.extentAfter < 300.h) {
-      print(_page);
-      print(pageList.length);
-      if (_page < pageList.length - 1) {
-        setState(() {
-          _isLoadMoreRunning =
-              true; // Display a progress indicator at the bottom
-        });
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = false;
+      });
+      if (_hasNextPage == true &&
+          _isFirstLoadRunning == false &&
+          _isLoadMoreRunning == false &&
+          _controller.position.extentAfter < 300.h) {
+        print(_page);
+        print(pageList.length);
+        if (_page < pageList.length - 1) {
+          setState(() {
+            _isLoadMoreRunning =
+                true; // Display a progress indicator at the bottom
+          });
 
-        _page += 1;
-        selectedPageNumber = pageList[_page].page!; // Increase _page by 1
-        offSet = pageList[_page].offset!;
+          _page += 1;
+          selectedPageNumber = pageList[_page].page!; // Increase _page by 1
+          offSet = pageList[_page].offset!;
 
-        SickLeavesResponse? v = await HospitalApiController().getSickLeaves(
-            patientCode: SharedPrefController().getValueFor(key: "p_code"),
-            page: selectedPageNumber,
-            offset: offSet);
+          SickLeavesResponse? v = await HospitalApiController().getSickLeaves(
+              patientCode: SharedPrefController().getValueFor(key: "p_code"),
+              page: selectedPageNumber,
+              offset: offSet);
 
-        list.addAll(v!.leaves ?? []);
+          list.addAll(v!.leaves ?? []);
 
-        setState(() {
-          _isLoadMoreRunning = false;
-        });
-      } else {
-        setState(() {
-          _isLoadMoreRunning = false;
-          _hasNextPage = false;
-        });
+          setState(() {
+            _isLoadMoreRunning = false;
+          });
+        } else {
+          setState(() {
+            _isLoadMoreRunning = false;
+            _hasNextPage = false;
+          });
+        }
       }
+    } else {
+      setState(() {
+        _isNoNetworkConnectInLoadMore = true;
+      });
     }
   }
 
   void _firstLoad() async {
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+      setState(() {
+        _isFirstLoadRunning = true;
+        _isNoNetworkConnect = false;
+      });
 
-    await getData();
+      await getData();
 
-    setState(() {
-      _isFirstLoadRunning = false;
-    });
+      setState(() {
+        _isFirstLoadRunning = false;
+      });
+    } else {
+      setState(() {
+        _isNoNetworkConnect = true;
+      });
+    }
   }
 
   late ScrollController _controller;
@@ -145,39 +167,60 @@ class _SickLeaveState extends State<SickLeave> {
           //   ),
           // ]
         ),
-        body: _isFirstLoadRunning
-            ? const Center(
-                child: CircularProgressIndicator(),
+        body: _isNoNetworkConnect
+            ? InkWell(
+                onTap: () {
+                  _firstLoad();
+                },
+                child: NewWidgetNetworkFirst(),
               )
-            : Column(
-                children: [
-                  Expanded(
-                    child: Padding(
-                        padding: EdgeInsets.all(8.0.r),
-                        child: ListView.builder(
-                            // shrinkWrap: true,
-                            // physics: NeverScrollableScrollPhysics(),
-                            controller: _controller,
-                            itemCount: list.length,
-                            itemBuilder: (context, index) {
-                              return SickItem(
-                                leaveId: list[index].leaveId!,
-                                sickDate: list[index].repDate!,
-                                sickDocName: list[index].doctor!.doctorName!,
-                                sickName:
-                                    "${SharedPrefController().getValueFor(key: PrefKeysPatient.firstName.name)} ${SharedPrefController().getValueFor(key: PrefKeysPatient.lastName.name)}",
-                              );
-                            })),
-                  ),
-                  if (_isLoadMoreRunning == true)
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 40),
-                      child: Center(
-                        child: CircularProgressIndicator(),
+            : _isFirstLoadRunning
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                            padding: EdgeInsets.all(8.0.r),
+                            child: ListView.builder(
+                                // shrinkWrap: true,
+                                // physics: NeverScrollableScrollPhysics(),
+                                controller: _controller,
+                                itemCount: list.length,
+                                itemBuilder: (context, index) {
+                                  return SickItem(
+                                    leaveId: list[index].leaveId!,
+                                    sickDate: list[index].repDate!,
+                                    sickDocName:
+                                        list[index].doctor!.doctorName!,
+                                    sickName:
+                                        "${SharedPrefController().getValueFor(key: PrefKeysPatient.firstName.name)} ${SharedPrefController().getValueFor(key: PrefKeysPatient.lastName.name)}",
+                                  );
+                                })),
                       ),
-                    ),
-                  if (_hasNextPage == false) const Center(),
-                ],
-              ));
+                      if (_isNoNetworkConnectInLoadMore)
+                        InkWell(
+                          onTap: () {
+                            _loadMore();
+                          },
+                          child: const NewWidgetNetworkLoadMore(),
+                        ),
+                      if (_isLoadMoreRunning == true)
+                        const Padding(
+                          padding: EdgeInsets.only(top: 10, bottom: 40),
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      if (_hasNextPage == false)
+                        Center(
+                          child: Image.asset(
+                            "assets/images/image1.png",
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                    ],
+                  ));
   }
 }

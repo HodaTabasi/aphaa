@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../api/controllers/hospital_controller.dart';
+import '../helper/nerwork_connectivity.dart';
 import '../model/Pages.dart';
 import '../model/allDocResponse.dart';
 import '../model/doctor.dart';
@@ -28,13 +29,17 @@ class DoctorGetxController extends GetxController {
   RxBool isLoadMoreRunning = false.obs;
 
   late ScrollController controller;
+  RxBool isNoNetworkConnect = false.obs;
+  RxBool isNoNetworkConnectInLoadMore = false.obs;
 
-  // putData(){
-  //   DoctorGetxController.to.firstLoad();
-  //   DoctorGetxController.to.controller = ScrollController()..addListener(DoctorGetxController.to.loadMore);
-  // }
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
+
 
   void loadMore() async {
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+        isNoNetworkConnectInLoadMore.value = false;
+
     if (hasNextPage == true &&
         isFirstLoadRunning == false &&
         isLoadMoreRunning == false &&
@@ -64,20 +69,33 @@ class DoctorGetxController extends GetxController {
           hasNextPage.value = false;
 
       }
+    } else {
+        isNoNetworkConnectInLoadMore.value = true;
+
+    }
 
     }
   }
 
   void firstLoad({clinicCode = ""}) async {
-    //setState
+    bool x = await _networkConnectivity.initialise();
+    if (x) {
+
+
+      //setState
       isFirstLoadRunning.value = true;
+      isNoNetworkConnect.value = false;
 
 
     await getData(clinicCode: clinicCode);
 
       //setState
       isFirstLoadRunning.value = false;
+    } else {
 
+        isNoNetworkConnect.value = true;
+
+    }
   }
 
   getData({clinicCode = ""}) async {
