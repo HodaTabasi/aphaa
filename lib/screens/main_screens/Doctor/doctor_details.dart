@@ -5,11 +5,13 @@ import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/general/my_separator.dart';
 import 'package:aphaa_app/model/doctor.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
+import 'package:aphaa_app/screens/main_screens/Doctor/personal_resrvation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../get/new_account_getx_controller.dart';
 import '../../../get/quick_service_getx_controller.dart';
 import '../../drawer_screens/Booking/my_appointment_booking.dart';
 import '../../in_level_screen/medical_recipes/medical_recipes.dart';
@@ -215,7 +217,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             leading: Icon(
                               Icons.circle,
                               color: Color(0xff0E4C8F),
-                              size: 8,
+                              size: 8.r,
                             ),
                             title: Text(
                               snapshot.data!.sciMainInfo![index],
@@ -262,7 +264,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             leading: Icon(
                               Icons.circle,
                               color: Color(0xff0E4C8F),
-                              size: 8,
+                              size: 8.r,
                             ),
                             title: Text(
                               snapshot.data!.pastExpInfo![index],
@@ -313,7 +315,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             leading: Icon(
                               Icons.circle,
                               color: Color(0xff0E4C8F),
-                              size: 8,
+                              size: 8.r,
                             ),
                             title: Text(
                               snapshot.data!.medSrvInfo![index],
@@ -348,14 +350,14 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                 style: TextStyle(
                                     fontFamily: 'Tajawal',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 13)),
+                                    fontSize: 13.r)),
                           ),
                           DataColumn(
                             label: Text(AppLocalizations.of(context)!.skill_pec,
                                 style: TextStyle(
                                     fontFamily: 'Tajawal',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 13)),
+                                    fontSize: 13.r)),
                           ),
                         ],
                         rows: snapshot.data!.drSkillInfo!.map((e) {
@@ -364,12 +366,12 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                 style: TextStyle(
                                     fontFamily: 'Tajawal',
                                     fontWeight: FontWeight.normal,
-                                    fontSize: 13))),
+                                    fontSize: 13.r))),
                             DataCell(Text(e.skillPct!,
                                 style: TextStyle(
                                     fontFamily: 'Tajawal',
                                     fontWeight: FontWeight.normal,
-                                    fontSize: 13))),
+                                    fontSize: 13.r))),
                           ]);
                         }).toList()),
                   ),
@@ -377,40 +379,43 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 SizedBox(
                   height: 15.h,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-                  child: Row(
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.date_of_visit,
-                        style: TextStyle(
-                          color: Color(0xff2D2D2D),
-                          fontSize: 15.sp,
-                          fontFamily: 'Tajawal',
-                          fontWeight: FontWeight.bold,
+                Opacity(
+                  opacity: 0,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.r),
+                    child: Row(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.date_of_visit,
+                          style: TextStyle(
+                            color: Color(0xff2D2D2D),
+                            fontSize: 15.sp,
+                            fontFamily: 'Tajawal',
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: EdgeInsets.all(8.0.r),
-                        child: InkWell(
+                        Spacer(),
+                        Padding(
+                          padding: EdgeInsets.all(8.0.r),
+                          child: InkWell(
+                            onTap: () => Navigator.pushNamed(
+                                context, MedicalRecipes.routeName),
+                            child: SvgPicture.asset(
+                              'assets/images/image4.svg',
+                              semanticsLabel: 'Acme Logo',
+                            ),
+                          ),
+                        ),
+                        InkWell(
                           onTap: () => Navigator.pushNamed(
                               context, MedicalRecipes.routeName),
                           child: SvgPicture.asset(
-                            'assets/images/image4.svg',
+                            'assets/images/image3.svg',
                             semanticsLabel: 'Acme Logo',
                           ),
                         ),
-                      ),
-                      InkWell(
-                        onTap: () => Navigator.pushNamed(
-                            context, MedicalRecipes.routeName),
-                        child: SvgPicture.asset(
-                          'assets/images/image3.svg',
-                          semanticsLabel: 'Acme Logo',
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -426,11 +431,13 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               () {
                         if (SharedPrefController().token != null ||
                             SharedPrefController().token.isNotEmpty) {
+                          NewAccountGetxController.to.doctorCode = snapshot.data!.doctorCode!;
+                          NewAccountGetxController.to.clinicCode = "14";
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      MyAppointmentBooking(flag: false)));
+                                      MyPersonalAppointmentBooking(snapshot.data!)));
                         } else {
                           Navigator.pushNamed(
                               context, AppointmentBooking.routeName);
@@ -463,7 +470,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 'NO DATA',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
+                  fontSize: 16.r,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.bold,
                 ),

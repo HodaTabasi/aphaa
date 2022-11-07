@@ -152,9 +152,30 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                       AppLocalizations.of(context)!.clenice_choesse),
                   DoctorDropDownItem(value.doctorsList, 'assets/images/docgreen.svg',
                       AppLocalizations.of(context)!.dovtor_choesse),
-                  EditTextItem('assets/images/Calendar.svg',
-                      AppLocalizations.of(context)!.appoitment_date,b: false,controler: dateText),
-                  Visibility(visible:value.global != null,child: widget1(value.avilableDate,value)),
+                 Visibility(visible:value.global != null,
+                    child: EditTextItem('assets/images/Calendar.svg',
+                        AppLocalizations.of(context)!.appoitment_date,b: false,controler: dateText),
+                  ),
+                  Stack(
+                    children: [
+                      Visibility(
+                          visible: value.avilableDate.isEmpty,
+                          child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  Image.asset("assets/images/calendar.png"),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  Text("لا يوجد مواعيد متاحة"),
+                                ],
+                              ))),
+                      Visibility(visible:value.global != null || value.avilableDate.isNotEmpty,child: widget1(value.avilableDate,value)),
+                    ],
+                  ),
                   Visibility(
                     visible: value.avilableTime.isNotEmpty,
                     child: Padding(
@@ -182,46 +203,74 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0.r),
-                    child: SizedBox(
-                      height: 100.h,
-                      // width: 80,
-                      child: Visibility(
-                        visible: value.avilableTime.isNotEmpty,
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          itemCount: value.avilableTime.length,
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
-                          scrollDirection: Axis.horizontal,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 1,
-                              mainAxisSpacing: 10.h,
-                              crossAxisSpacing: 10.w,
-                              childAspectRatio: 280 / 200),
-                          itemBuilder: (context, index) {
-                            return TimeAppoitmentItem(
-                              data:value.avilableTime[index],
-                                title: "",
-                                value: index,
-                                groupValue: _value,
-                                onChanged: (value) => setState(() {
-                                      _value = value;
-                                    }));
-                          },
+                  Visibility(
+                    visible: value.avilableDate.isNotEmpty,
+                    child: Stack(
+                      children: [
+                        Visibility(
+                            visible: value.avilableTime.isEmpty,
+                            child: Center(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    Image.asset(
+                                        "assets/images/free_time.png"),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    Text("لا يوجد اوقات متاحة"),
+                                  ],
+                                ))),
+                        Padding(
+                          padding: EdgeInsets.all(8.0.r),
+                          child: SizedBox(
+                            height: 100.h,
+                            // width: 80,
+                            child: Visibility(
+                              visible: value.avilableTime.isNotEmpty,
+                              child: GridView.builder(
+                                shrinkWrap: true,
+                                itemCount: value.avilableTime.length,
+                                padding: EdgeInsets.symmetric(horizontal: 10.h),
+                                scrollDirection: Axis.horizontal,
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 1,
+                                    mainAxisSpacing: 10.h,
+                                    crossAxisSpacing: 10.w,
+                                    childAspectRatio: 280 / 200),
+                                itemBuilder: (context, index) {
+                                  return TimeAppoitmentItem(
+                                      data:value.avilableTime[index],
+                                      title: "",
+                                      value: index,
+                                      groupValue: _value,
+                                      onChanged: (value) => setState(() {
+                                        _value = value;
+                                      }));
+                                },
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
+
+
+
                 ],
               ),
             ),
             SizedBox(height: 10.h),
-            BtnLayout(AppLocalizations.of(context)!.appointment, () =>_performAction(value)),
-            Image.asset(
-              "assets/images/image1.png",
-              fit: BoxFit.fitWidth,
-            ),
+            Visibility(
+                visible: value.avilableTime.isNotEmpty && value.avilableTime.isNotEmpty,
+                child: BtnLayout(AppLocalizations.of(context)!.appointment, () =>_performAction(value))),
+            // Image.asset(
+            //   "assets/images/image1.png",
+            //   fit: BoxFit.fitWidth,
+            // ),
           ],
         ),
       ),
