@@ -46,7 +46,7 @@ class _OTPScreenState extends State<OTPScreen> {
           onTap: () => Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
               margin:  EdgeInsets.all(15.0.r),
-              padding:  EdgeInsets.all(5.0.r),
+              padding: EdgeInsets.symmetric(horizontal: 8.0.r,vertical: 5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,

@@ -2,18 +2,14 @@ import 'package:aphaa_app/screens/main_screens/Doctor/DoctorItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:number_pagination/number_pagination.dart';
-
-import '../../../api/controllers/App_api_controller.dart';
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../general/NewWidgetNetworkFirst.dart';
 import '../../../general/NewWidgetNetworkLoadMore.dart';
 import '../../../helper/nerwork_connectivity.dart';
 import '../../../model/Pages.dart';
 import '../../../model/VisitedDrs/VisitedDrsResponse.dart';
 import '../../../model/doctor.dart';
 import '../../../preferences/shared_pref_controller.dart';
-import '../Appointment Booking/doctor_filtter.dart';
 
 class MyDoctorsScreen extends StatefulWidget {
   static String routeName = "/my_doctor";
@@ -143,7 +139,7 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
             onTap: () => Navigator.of(context, rootNavigator: true).pop(),
             child: Container(
                 margin: EdgeInsets.all(15.0.r),
-                padding: EdgeInsets.all(5.0.r),
+                padding: EdgeInsets.symmetric(horizontal: 8.0.r,vertical: 5.0.r),
                 decoration: BoxDecoration(
                     color: const Color(0xff006F2C),
                     borderRadius: BorderRadius.circular(5.r)),
@@ -166,7 +162,14 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
           //   ),
           // ]
       ),
-      body: _isFirstLoadRunning
+      body: _isNoNetworkConnect
+          ? InkWell(
+        onTap: () {
+          _firstLoad();
+        },
+        child: NewWidgetNetworkFirst(),
+      )
+          :_isFirstLoadRunning
           ? const Center(
         child: CircularProgressIndicator(),
       )
@@ -185,7 +188,6 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
                 // shrinkWrap: true,
                 itemCount: list.length,
                 controller: _controller,
-                // physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 10.r),
                 scrollDirection: Axis.vertical,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -215,7 +217,11 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
             ),
 
           if (_hasNextPage == false)
-            const Center(
+            Center(
+              child: Image.asset(
+                "assets/images/image1.png",
+                fit: BoxFit.fitWidth,
+              ),
             ),
         ],
       )

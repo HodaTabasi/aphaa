@@ -35,14 +35,15 @@ class _DoctorItemState extends State<DoctorItem> {
     getFile();
   }
 
-  getFile() async {
+   getFile() async {
     // isLoading = true;
     final decodedBytes = base64Decode(widget.doctor.img!);
-    var file = Io.File("${widget.doctor.doctorName}.png");
+    var file = Io.File("${widget.doctor.doctorCode}.png");
     file.writeAsBytesSync(decodedBytes);
     img = file;
+
     // setState(() {
-    //   isLoading = false;
+    //   // isLoading = false;
     // });
   }
 

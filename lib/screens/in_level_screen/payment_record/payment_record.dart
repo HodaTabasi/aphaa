@@ -138,7 +138,7 @@ class _PaymentRecordState extends State<PaymentRecord> {
         titleSpacing: 2,
         leading: Container(
             margin: EdgeInsets.all(15.0.r),
-            padding: EdgeInsets.all(5.0.r),
+            padding: EdgeInsets.symmetric(horizontal: 8.0.r,vertical: 5.0.r),
             decoration: BoxDecoration(
                 color: const Color(0xff006F2C),
                 borderRadius: BorderRadius.circular(5.r)),

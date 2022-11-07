@@ -12,8 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:aphaa_app/helper/helpers.dart' as myHelper;
 import 'package:get/get.dart';
 
-import '../../../api/controllers/App_api_controller.dart';
-import '../../../api/controllers/auth_api_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
 import '../../../get/new_account_getx_controller.dart';
@@ -98,7 +96,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
           onTap: () => Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
               margin: EdgeInsets.all(15.0.r),
-              padding: EdgeInsets.all(5.0.r),
+              padding: EdgeInsets.symmetric(horizontal: 8.0.r,vertical: 5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
