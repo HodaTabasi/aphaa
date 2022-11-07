@@ -123,9 +123,10 @@ class AuthApiController with ApiHelper {
   }
 
 Future<ApiResponse> resetPassword(
-    {required String password, required String rePassword}) async {
+    {mobile,required String password, required String rePassword}) async {
   Uri uri = Uri.parse(ApiSettings.resetPassword);
   var response = await http.post(uri,body: {
+    'mobile':mobile,
     'password':password,
     'password_confirmation': rePassword,
   });

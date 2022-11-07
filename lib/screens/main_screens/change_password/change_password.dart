@@ -1,6 +1,4 @@
 import 'package:aphaa_app/api/controllers/auth_api_controller.dart';
-import 'package:aphaa_app/screens/auth/login/login_screen.dart';
-import 'package:aphaa_app/screens/drawer_screens/done/done_screen.dart';
 import 'package:aphaa_app/screens/main_screens/done_login/done_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +7,6 @@ import '../../../general/btn_layout.dart';
 import '../../../general/password_item.dart';
 import '../../../get/new_account_getx_controller.dart';
 import '../../../model/api_response.dart';
-import '../../drawer_screens/buttom_navication.dart';
 import 'package:aphaa_app/helper/helpers.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -32,7 +29,6 @@ class _ChangePasswordState extends State<ChangePassword> with Helpers1{
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        // leadingWidth: 40,
         title: Text(AppLocalizations.of(context)!.change_password,
             style:  TextStyle(
               color: Colors.white,
@@ -155,7 +151,7 @@ class _ChangePasswordState extends State<ChangePassword> with Helpers1{
   Future<void> _editProfileReset() async {
     showLoaderDialog(context);
 
-    ApiResponse apiResponse = await AuthApiController().resetPassword(password:_pPassword.text,rePassword: _prePassword.text );
+    ApiResponse apiResponse = await AuthApiController().resetPassword(mobile:NewAccountGetxController.to.mobile,password:_pPassword.text,rePassword: _prePassword.text );
     if (apiResponse.success) {
       NewAccountGetxController.to.isReset = false;
       Navigator.pop(context);

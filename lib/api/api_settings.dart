@@ -14,6 +14,7 @@ class ApiSettings {
   static const String getAllDoctors = '${_baseUrl}dashboard/doctors';
   static const String getOnDoctor = '${_baseUrl}doctor/{id}';
   static const String resetPassword = '${_baseUrl}reset_password';
+  static const String allContact = '${_baseUrl}contact';
 
   //////////////////////////////////////
 

@@ -56,5 +56,9 @@
      	<string>Allow app to access to this feature</string>
      	<key>NSPhotoLibraryUsageDescription</key>
      	<string>Allow app to access to this feature</string>
+     	<key>LSApplicationQueriesSchemes</key>
+        <array>
+          <string>url</string>
+        </array>
 </dict>
 </plist>

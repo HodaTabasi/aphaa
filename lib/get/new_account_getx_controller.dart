@@ -33,7 +33,7 @@ class NewAccountGetxController extends GetxController {
   Eligibility? eligibility;
   bool flag = false;
   TimeAvilableResponse? timeResponse ;
-
+  String? mobile;
   OpenFileResponse? fileData;
   bool fromOpenFile = false;
 
