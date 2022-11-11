@@ -6,6 +6,7 @@ import 'package:aphaa_app/model/doctor.dart';
 import 'package:aphaa_app/model/offer.dart';
 import 'package:http/http.dart' as http;
 
+import '../../get/change_name_getx_controller.dart';
 import '../../model/SocialContact.dart';
 import '../../model/api_response.dart';
 import '../../preferences/shared_pref_controller.dart';
@@ -97,6 +98,7 @@ class AppApiController with ApiHelper {
         var jsonObject = jsonResponse['items'];
         Patient student = Patient.fromJson(jsonObject);
         SharedPrefController().saveWithoutToken(student: student);
+        ChangeGetxController.to.changeName(student.firstName, student.lastName);
       }
       return ApiResponse(
           message: jsonResponse['message'], success: jsonResponse['status']);

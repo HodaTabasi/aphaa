@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'get/change_name_getx_controller.dart';
 import 'get/language_getx_controller.dart';
 import 'helper/SizeConfig.dart';
 import 'helper/constant.dart';
@@ -52,6 +53,8 @@ class MyApp extends StatelessWidget {
 
   final DoctorGetxController doctorGetxController =
   Get.put<DoctorGetxController>(DoctorGetxController());
+  final ChangeGetxController changeGetxController =
+  Get.put<ChangeGetxController>(ChangeGetxController());
 
   // This widget is the root of your application.
   @override

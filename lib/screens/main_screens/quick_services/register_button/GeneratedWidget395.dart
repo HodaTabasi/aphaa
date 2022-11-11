@@ -13,10 +13,10 @@ class GeneratedWidget395 extends StatelessWidget {
       overflow: TextOverflow.visible,
       textAlign: TextAlign.right,
       style: TextStyle(
-        height: 2.0.h,
-        fontSize: 15.0.sp,
+        height: 1.5.h,
+        fontSize: 12.0.sp,
         fontFamily: 'Tajawal',
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w600,
         color: Color.fromARGB(255, 44, 44, 44),
 
         /* letterSpacing: 0.0, */

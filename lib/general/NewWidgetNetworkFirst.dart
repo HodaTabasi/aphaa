@@ -11,10 +11,14 @@ class NewWidgetNetworkFirst extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            "assets/images/network_connect.svg",
-            semanticsLabel: 'Acme Logo',
-            color: Colors.green,
+          SizedBox(
+            height: 80,
+            width: 80,
+            child: SvgPicture.asset(
+              "assets/images/network_connect.svg",
+              semanticsLabel: 'Acme Logo',
+              color: Colors.green,
+            ),
           ),
           SizedBox(
             height: 20.h,
@@ -22,9 +26,9 @@ class NewWidgetNetworkFirst extends StatelessWidget {
           Text(" تحقق من اتصالك بالانترنت واضغط هنا لاعادة التحميل ",style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.black,
-              fontSize: 14.sp,
+              fontSize: 11.sp,
               fontFamily: 'Tajawal'
-          ),)
+          ),textAlign: TextAlign.center,)
         ],
       ),
     );

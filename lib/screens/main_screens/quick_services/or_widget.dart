@@ -9,8 +9,8 @@ class OrWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 50.w,
-      height: 50.h,
+      width: 45.w,
+      height: 45.h,
       decoration: BoxDecoration(
           color: Color(0xFF0D2784),
           shape: BoxShape.rectangle,
@@ -20,7 +20,7 @@ class OrWidget extends StatelessWidget {
         AppLocalizations.of(context)!.or,
         style:  TextStyle(
           color: Colors.white,
-          fontSize: 16.sp,
+          fontSize: 14.sp,
           fontFamily: 'Tajawal',
           fontWeight: FontWeight.bold,
         ),

@@ -27,8 +27,8 @@ class MyMedicalFileItem extends StatelessWidget {
           //   ),
           // ],
         ),
-        padding: EdgeInsets.all(16),
-        margin:  EdgeInsets.all(5),
+        padding: EdgeInsets.all(16.r),
+        margin:  EdgeInsets.all(5.r),
         child: Column(
           children: [
             // Spacer(),
@@ -39,13 +39,15 @@ class MyMedicalFileItem extends StatelessWidget {
              SizedBox(
               height: 15.h,
             ),
-            Text(name,
-              style:  TextStyle(
-                color: Color(0xff2B2B2B),
-                fontSize: 14.sp,
-                fontFamily: 'Tajawal',
-                fontWeight: FontWeight.w600,
-              ),),
+            FittedBox(
+              child: Text(name,
+                style:  TextStyle(
+                  color: Color(0xff2B2B2B),
+                  fontSize: 14.sp,
+                  fontFamily: 'Tajawal',
+                  fontWeight: FontWeight.w600,
+                ),),
+            ),
 
             // Spacer(),
           ],

@@ -23,90 +23,15 @@ class MedicalRecipesItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.medical_prescriptions,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '  ${prescriptionlist.invoiceNo}  ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black45,
-                            fontSize: 12.sp,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(16,16, 16,10),
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.date_of_visit,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '  ${prescriptionlist.invoiceDate}  ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black45,
-                            fontSize: 12.sp,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              FittedBox(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+          FittedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
                   child: Text.rich(
                     TextSpan(
-                      text: AppLocalizations.of(context)!.physician,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black,
-                          fontSize: 12.sp,
-                          fontFamily: 'Tajawal'),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '  ${prescriptionlist.doctor!.doctorName}  ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black45,
-                              fontSize: 12.sp,
-                              fontFamily: 'Tajawal'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              FittedBox(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                  child: Text.rich(
-                    TextSpan(
-                      text: AppLocalizations.of(context)!.the_clinic,
+                      text: AppLocalizations.of(context)!.medical_prescriptions,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -114,7 +39,7 @@ class MedicalRecipesItem extends StatelessWidget {
                           fontFamily: 'Tajawal'),
                       children: <TextSpan>[
                         TextSpan(
-                          text: ' ${prescriptionlist.clinic!.clinicName}  ',
+                          text: '  ${prescriptionlist.invoiceNo}  ',
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: Colors.black45,
@@ -125,8 +50,81 @@ class MedicalRecipesItem extends StatelessWidget {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16,16, 16,10),
+                  child: Text.rich(
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.date_of_visit,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 12.sp,
+                          fontFamily: 'Tajawal'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '  ${prescriptionlist.invoiceDate}  ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black45,
+                              fontSize: 12.sp,
+                              fontFamily: 'Tajawal'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FittedBox(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+              child: Text.rich(
+                TextSpan(
+                  text: AppLocalizations.of(context)!.physician,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontFamily: 'Tajawal'),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: '  ${prescriptionlist.doctor!.doctorName}  ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black45,
+                          fontSize: 12.sp,
+                          fontFamily: 'Tajawal'),
+                    ),
+                  ],
+                ),
               ),
-            ],
+            ),
+          ),
+          FittedBox(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+              child: Text.rich(
+                TextSpan(
+                  text: AppLocalizations.of(context)!.the_clinic,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 12.sp,
+                      fontFamily: 'Tajawal'),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: ' ${prescriptionlist.clinic!.clinicName}  ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black45,
+                          fontSize: 12.sp,
+                          fontFamily: 'Tajawal'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

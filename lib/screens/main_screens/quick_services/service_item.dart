@@ -43,13 +43,13 @@ class ServiceItem extends StatelessWidget {
               child: Text(name,
                 style:  TextStyle(
                 color: Colors.black,
-                fontSize: 15.sp,
+                fontSize: 14.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),textAlign: TextAlign.center),
             ),
              SizedBox(
-              height: 15.h,
+              height: 8.h,
             ),
             Text(decration,
               style:  TextStyle(

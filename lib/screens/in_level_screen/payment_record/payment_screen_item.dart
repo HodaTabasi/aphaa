@@ -13,175 +13,179 @@ class PaymentScreenItem extends StatelessWidget {
     return Stack(
         // fit: StackFit.expand,
         children: [
-          Container(
-            // width: MediaQuery.of(context).size.width - 50,
-            height: 160.h,
-            padding: EdgeInsets.only(left: 16.r, right: 16.r, top: 12.r, bottom: 10.r),
-            margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
-            // margin: EdgeInsets.all(8),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10.r)),
-              border: Border.all(color: Color(0xff0E4C8F), width: 0.5.w),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
-                      child: Text.rich(
-                        TextSpan(
-                          text: AppLocalizations.of(context)!.payment_data ,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 12.sp,
-                              fontFamily: 'Tajawal'),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '  ${patientPaymentRecord.invDate}  ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black45,
-                                  fontSize: 12.sp,
-                                  fontFamily: 'Tajawal'),
-                            ),
-                          ],
+          FittedBox(
+            child: Container(
+              // width: MediaQuery.of(context).size.width - 50,
+              height: 160.h,
+              padding: EdgeInsets.only(left: 16.r, right: 16.r, top: 12.r, bottom: 10.r),
+              margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
+              // margin: EdgeInsets.all(8),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                border: Border.all(color: Color(0xff0E4C8F), width: 0.5.w),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
+                        child: Text.rich(
+                          TextSpan(
+                            text: AppLocalizations.of(context)!.payment_data ,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 12.sp,
+                                fontFamily: 'Tajawal'),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '  ${patientPaymentRecord.invDate}  ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black45,
+                                    fontSize: 12.sp,
+                                    fontFamily: 'Tajawal'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
-                      child: Text.rich(
-                        TextSpan(
-                          text: AppLocalizations.of(context)!.payment_time,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 12.sp,
-                              fontFamily: 'Tajawal'),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '  ${patientPaymentRecord.invNo}  ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black45,
-                                  fontSize: 12.sp,
-                                  fontFamily: 'Tajawal'),
-                            ),
-                          ],
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
+                        child: Text.rich(
+                          TextSpan(
+                            text: AppLocalizations.of(context)!.payment_time,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 12.sp,
+                                fontFamily: 'Tajawal'),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '  ${patientPaymentRecord.invNo}  ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black45,
+                                    fontSize: 12.sp,
+                                    fontFamily: 'Tajawal'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                      child: Text.rich(
-                        TextSpan(
-                          text: AppLocalizations.of(context)!.the_clinic,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              color: Colors.black,
-                              fontSize: 12.sp,
-                              fontFamily: 'Tajawal'),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '  ${patientPaymentRecord.invType}  ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black45,
-                                  fontSize: 12.sp,
-                                  fontFamily: 'Tajawal'),
-                            ),
-                          ],
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                        child: Text.rich(
+                          TextSpan(
+                            text: AppLocalizations.of(context)!.the_clinic,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                color: Colors.black,
+                                fontSize: 12.sp,
+                                fontFamily: 'Tajawal'),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '  ${patientPaymentRecord.invType}  ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black45,
+                                    fontSize: 12.sp,
+                                    fontFamily: 'Tajawal'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    // Padding(
-                    //   padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                    //   child: Text.rich(
-                    //     TextSpan(
-                    //       text: AppLocalizations.of(context)!.the_doctor,
-                    //       style: TextStyle(
-                    //           fontWeight: FontWeight.bold,
-                    //           color: Colors.black,
-                    //           fontSize: 12.sp,
-                    //           fontFamily: 'Tajawal'),
-                    //       children: <TextSpan>[
-                    //         TextSpan(
-                    //           text: ' محمود أحمد  ',
-                    //           style: TextStyle(
-                    //               fontWeight: FontWeight.w700,
-                    //               color: Colors.black45,
-                    //               fontSize: 12.sp,
-                    //               fontFamily: 'Tajawal'),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Padding(
-                    //   padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                    //   child: Text.rich(
-                    //     TextSpan(
-                    //       text: AppLocalizations.of(context)!.descraptipn,
-                    //       style: TextStyle(
-                    //           fontWeight: FontWeight.bold,
-                    //           color: Colors.black,
-                    //           fontSize: 12.sp,
-                    //           fontFamily: 'Tajawal'),
-                    //       children: <TextSpan>[
-                    //         TextSpan(
-                    //           text: 'عرض زراعة أسنان',
-                    //           style: TextStyle(
-                    //               fontWeight: FontWeight.w500,
-                    //               color: Colors.black45,
-                    //               fontSize: 12.sp,
-                    //               fontFamily: 'Tajawal'),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                      //   child: Text.rich(
+                      //     TextSpan(
+                      //       text: AppLocalizations.of(context)!.the_doctor,
+                      //       style: TextStyle(
+                      //           fontWeight: FontWeight.bold,
+                      //           color: Colors.black,
+                      //           fontSize: 12.sp,
+                      //           fontFamily: 'Tajawal'),
+                      //       children: <TextSpan>[
+                      //         TextSpan(
+                      //           text: ' محمود أحمد  ',
+                      //           style: TextStyle(
+                      //               fontWeight: FontWeight.w700,
+                      //               color: Colors.black45,
+                      //               fontSize: 12.sp,
+                      //               fontFamily: 'Tajawal'),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                      //   child: Text.rich(
+                      //     TextSpan(
+                      //       text: AppLocalizations.of(context)!.descraptipn,
+                      //       style: TextStyle(
+                      //           fontWeight: FontWeight.bold,
+                      //           color: Colors.black,
+                      //           fontSize: 12.sp,
+                      //           fontFamily: 'Tajawal'),
+                      //       children: <TextSpan>[
+                      //         TextSpan(
+                      //           text: 'عرض زراعة أسنان',
+                      //           style: TextStyle(
+                      //               fontWeight: FontWeight.w500,
+                      //               color: Colors.black45,
+                      //               fontSize: 12.sp,
+                      //               fontFamily: 'Tajawal'),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
 
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                      child: Text.rich(
-                        TextSpan(
-                          text: AppLocalizations.of(context)!.price,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 12.sp,
-                              fontFamily: 'Tajawal'),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: ' ${patientPaymentRecord.totalAmt} ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black45,
-                                  fontSize: 12.sp,
-                                  fontFamily: 'Tajawal'),
-                            ),
-                          ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                        child: Text.rich(
+                          TextSpan(
+                            text: AppLocalizations.of(context)!.price,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 12.sp,
+                                fontFamily: 'Tajawal'),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: ' ${patientPaymentRecord.totalAmt} ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black45,
+                                    fontSize: 12.sp,
+                                    fontFamily: 'Tajawal'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           Positioned(

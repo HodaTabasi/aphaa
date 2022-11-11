@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:aphaa_app/model/Patient.dart';
 import 'package:http/http.dart' as http;
 
+import '../../get/change_name_getx_controller.dart';
 import '../../model/api_response.dart';
 import '../../preferences/shared_pref_controller.dart';
 import '../api_helper.dart';
@@ -11,6 +12,8 @@ import '../api_settings.dart';
 
 class AuthApiController with ApiHelper {
   Future<ApiResponse> register({Patient? student,flag = false}) async {
+    // print("dfs ${student!.p_code}");
+    // print(flag);
     // print(student);
     // print(student!.payingType);
     // print(student.identityNumber);
@@ -48,6 +51,7 @@ class AuthApiController with ApiHelper {
         Patient student = Patient.fromJson(jsonObject);
         SharedPrefController().save(student: student);
         SharedPrefController().setValuePCode(pCode: jsonObject["p_code"]);
+        ChangeGetxController.to.changeName(student.firstName, student.lastName);
       }
       return ApiResponse(
           message: jsonResponse['message'], success: jsonResponse['status']??false);
@@ -72,6 +76,7 @@ class AuthApiController with ApiHelper {
         SharedPrefController().setPassword(password);
         SharedPrefController().save(student: student);
         SharedPrefController().setValuePCode(pCode:student.p_code!);
+        ChangeGetxController.to.changeName(student.firstName, student.lastName);
       }
       return ApiResponse(
         message: jsonResponse['message'],

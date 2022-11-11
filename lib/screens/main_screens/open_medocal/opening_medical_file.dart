@@ -212,9 +212,9 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
       Navigator.pop(context);
       NewAccountGetxController.to.fileData = apiResponse.object;
       NewAccountGetxController.to.fromOpenFile = true;
-      Navigator.pushNamed(context, NewAccountFirst.routeName);
-      // showAlertDialog(context);
-    }else {
+      // Navigator.pushNamed(context, NewAccountFirst.routeName);
+      showAlertDialog(context);
+    } else {
       Navigator.pop(context);
     }
 

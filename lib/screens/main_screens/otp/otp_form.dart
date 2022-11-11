@@ -45,6 +45,7 @@ class _OtpFormState extends State<OtpForm> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Form(
       child: Column(
         children: [
