@@ -113,7 +113,10 @@ class DoctorGetxController extends GetxController {
   }
 
   void filtterByName(String val) {
-    list.value = list.where((p0) => p0.doctorName!.contains(val)).toList();
+    if(val.isNotEmpty)
+      list.value = list.where((p0) => p0.doctorName!.contains(val)).toList();
+    else
+      list.value = list;
   }
 
 

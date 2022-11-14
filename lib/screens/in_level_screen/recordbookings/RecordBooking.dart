@@ -42,17 +42,20 @@ class _RexcordBookingState extends State<RexcordBooking> {
                       fontWeight: FontWeight.bold,
                     )),
                 titleSpacing: 2,
-                leading: Container(
-                    margin: EdgeInsets.all(15.0.r),
-                    padding: EdgeInsets.symmetric(horizontal: 8.0.r,vertical: 5.0.r),
-                    decoration: BoxDecoration(
-                        color: const Color(0xff006F2C),
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.white,
-                      size: 15.sp,
-                    )),
+                leading: InkWell(
+                  onTap: () => Navigator.of(context, rootNavigator: true).pop(),
+                  child: Container(
+                      margin: EdgeInsets.all(15.0.r),
+                      padding: EdgeInsets.symmetric(horizontal: 8.0.r,vertical: 5.0.r),
+                      decoration: BoxDecoration(
+                          color: const Color(0xff006F2C),
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size: 15.sp,
+                      )),
+                ),
               )
             : null,
         body: Column(

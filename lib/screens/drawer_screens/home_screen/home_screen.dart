@@ -25,6 +25,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../in_level_screen/offer_ditails/offer_details.dart';
 import '../../in_level_screen/recordbookings/RecordBooking.dart';
 import '../../in_level_screen/sick_level/sick_leave.dart';
+import '../../main_screens/Doctor/doctors_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
@@ -52,8 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
           SickLeave.routeName),
       Service('assets/images/40697.svg', AppLocalizations.of(context)!.my_medical_recipes, '',
           MedicalRecipes.routeName),
-      // Service(
-      //     'assets/images/d40714.svg', AppLocalizations.of(context)!.vaccsien, '', Vaccinations.routeName),
+      Service(
+          'assets/images/d40714.svg', AppLocalizations.of(context)!.the_doctor, '', DoctorsScreen.routeName),
     ];
 
     return  ListView(
