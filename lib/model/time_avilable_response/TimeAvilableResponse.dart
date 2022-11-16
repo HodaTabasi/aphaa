@@ -1,7 +1,7 @@
 import 'AvailableTime.dart';
 
 class TimeAvilableResponse {
-  var reqAmt;
+  double? reqAmt;
   String? resType;
   String? paymentNotice;
   List<AvailableTime>? availableTimes;

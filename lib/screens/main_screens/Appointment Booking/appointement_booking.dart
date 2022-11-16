@@ -167,10 +167,12 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                       child: EditTextItem('assets/images/Calendar.svg',
                           AppLocalizations.of(context)!.appoitment_date,b: false,controler: dateText),
                     ),
+                    if (!value.isChangeLoading)
                     Stack(
                       children: [
                         Visibility(
-                            visible: value.avilableDate.isEmpty,
+                            visible: value.avilableDate.isEmpty&&
+                                !value.isChangeLoading,
                             child: Center(
                                 child: Column(
                                   children: [
@@ -184,9 +186,14 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                                     Text("لا يوجد مواعيد متاحة"),
                                   ],
                                 ))),
-                        Visibility(visible:value.global != null,child: widget1(value.avilableDate,value)),
+                        Visibility(visible:value.global != null||
+                            value.avilableDate.isNotEmpty,child: widget1(value.avilableDate,value)),
                       ],
                     ),
+                    Visibility(
+                        visible: value.isChangeLoading,
+                        child: const Center(
+                            child: CircularProgressIndicator())),
                      Visibility(
                       visible: value.avilableTime.isNotEmpty,
                       child: Padding(
@@ -214,6 +221,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                         ),
                       ),
                     ),
+                    if (!value.isChangeLoading)
                     Visibility(
                       visible: value.avilableDate.isNotEmpty,
                       child: Stack(
@@ -234,37 +242,53 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                                       Text("لا يوجد اوقات متاحة"),
                                     ],
                                   ))),
-                          Padding(
-                            padding: EdgeInsets.all(8.0.r),
-                            child: SizedBox(
-                              height: 100.h,
-                              // width: 80,
-                              child: Visibility(
-                                visible: value.avilableTime.isNotEmpty,
-                                child: GridView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: value.avilableTime.length,
-                                  padding: EdgeInsets.symmetric(horizontal: 10.h),
-                                  scrollDirection: Axis.horizontal,
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 1,
-                                      mainAxisSpacing: 10.h,
-                                      crossAxisSpacing: 10.w,
-                                      childAspectRatio: 280 / 200),
-                                  itemBuilder: (context, index) {
-                                    return TimeAppoitmentItem(
-                                        data:value.avilableTime[index],
-                                        title: "",
-                                        value: index,
-                                        groupValue: _value,
-                                        onChanged: (value) => setState(() {
-                                          _value = value;
-                                        }));
-                                  },
+                          Visibility(
+                              visible: value.isChangeTimeLoading,
+                              child: const Center(
+                                  child: CircularProgressIndicator())),
+                          if (!value.isChangeTimeLoading)
+                            Column(
+                              children: [
+                                RichText(
+                                    text: TextSpan(
+                                        style: TextStyle(color: Colors.red),
+                                        text: "  ${value.timeResponse?.reqAmt??''} ريال ",
+                                        children: [
+                                          TextSpan(text: value.timeResponse?.paymentNotice??''),
+                                        ])),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0.r),
+                                  child: SizedBox(
+                                    height: 100.h,
+                                    // width: 80,
+                                    child: Visibility(
+                                      visible: value.avilableTime.isNotEmpty,
+                                      child: GridView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: value.avilableTime.length,
+                                        padding: EdgeInsets.symmetric(horizontal: 10.h),
+                                        scrollDirection: Axis.horizontal,
+                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 1,
+                                            mainAxisSpacing: 10.h,
+                                            crossAxisSpacing: 10.w,
+                                            childAspectRatio: 280 / 200),
+                                        itemBuilder: (context, index) {
+                                          return TimeAppoitmentItem(
+                                              data:value.avilableTime[index],
+                                              title: "",
+                                              value: index,
+                                              groupValue: _value,
+                                              onChanged: (value) => setState(() {
+                                                _value = value;
+                                              }));
+                                        },
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
+                              ],
+                            )
                         ],
                       ),
                     )

@@ -737,12 +737,14 @@ class HospitalApiController with ApiHelper {
 
     final uri = Uri.http(ApiSettings.HospitalBase,
         '${ApiSettings.HospitalBase2}DoctorSchedDtl', queryParameters);
+    NewAccountGetxController.to.changeTimeLoading();
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      TimeAvilableResponse.fromJson(jsonResponse);
+      // TimeAvilableResponse.fromJson(jsonResponse);
       // var jsonResponse = jsonDecode(response.body);
       // var jsonArray = jsonResponse['availableTimes'] as List;
+      print("fsdfsd ${jsonResponse}");
       NewAccountGetxController.to.changeDoctorTimeList(TimeAvilableResponse.fromJson(jsonResponse));
     }
     return null;

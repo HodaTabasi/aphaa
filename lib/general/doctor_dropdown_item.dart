@@ -87,6 +87,7 @@ class _DropDownItenState extends State<DoctorDropDownItem> {
                           NewAccountGetxController.to.changeglobal(val!);
                           NewAccountGetxController.to.doctorCode = val;
                           NewAccountGetxController.to.getDoctorSchedules(val,DateTime.now().month,DateTime.now().year) ;
+                          NewAccountGetxController.to.changeLoading();
                         });
                       },
                       value: NewAccountGetxController.to.global,

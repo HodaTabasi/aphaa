@@ -36,6 +36,8 @@ class NewAccountGetxController extends GetxController {
   String? mobile;
   OpenFileResponse? fileData;
   bool fromOpenFile = false;
+  bool isChangeLoading = false;
+  bool isChangeTimeLoading = false;
 
   ///////////////
 
@@ -69,7 +71,8 @@ class NewAccountGetxController extends GetxController {
   void changeDoctorTimeList(TimeAvilableResponse response){
     avilableTime = response.availableTimes ?? [];
     timeResponse = response;
-    update();
+    changeTimeLoading();
+    // update();
   }
   void changeBoolisUpdateCliniceCode(value){
       isUpdateCliniceCode = value;
@@ -87,6 +90,17 @@ class NewAccountGetxController extends GetxController {
   getDoctorSchedules(value,month,year) async {
     var data = await HospitalApiController().getDoctorSched(doctorCode: value,clinicCode: clinicCode,month:month,year: year );
     avilableDate =  data;
+    avilableTime = [];
+    changeLoading();
+    // update();
+  }
+  changeLoading() {
+    isChangeLoading = !isChangeLoading;
+    update();
+  }
+
+  changeTimeLoading() {
+    isChangeTimeLoading = !isChangeTimeLoading;
     update();
   }
 
