@@ -517,7 +517,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
   void startPaymentWithCard(context) {
     //test card data todo 4111111111111111  || name = Visa || cvv = 123
     FlutterPaytabsBridge.startCardPayment(configuration, (event) {
-      setState(() async {
+      setState(() {
         print(event);
         if (event["status"] == "success") {
           // Handle transaction details here.
@@ -527,12 +527,12 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
           if (transactionDetails["isSuccess"]) {
             print("successful transaction");
             //todo : here show  successful transaction message
-            billResponse? response = await HospitalApiController().setConsInv();
-            if(response != null){
-              Navigator.pushNamed(context, DoneScreens.routeName);
-            } else {
-              showSnackBar(context, message: " حصل خطا ",error: true);
-            }
+            // billResponse? response = await HospitalApiController().setConsInv();
+            // if(response != null){
+            //   Navigator.pushNamed(context, DoneScreens.routeName);
+            // } else {
+            //   showSnackBar(context, message: " حصل خطا ",error: true);
+            // }
             
           } else {
             //todo : here show  invalid card message

@@ -1,3 +1,4 @@
+import 'package:aphaa_app/helper/FileProcess.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,6 +20,7 @@ class _TestResultsState extends State<TestResults> {
   final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
   @override
   Widget build(BuildContext context) {
+    FileProcess.checkDocumentFolder();
     return DefaultTabController(
       length: 2,
       child: Scaffold(

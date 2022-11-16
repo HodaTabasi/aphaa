@@ -11,12 +11,13 @@ class FileProcess {
   static checkDocumentFolder() async {
     try {
       if (!isFolderCreated) {
-        directory = await getApplicationDocumentsDirectory();
+        directory = await getExternalStorageDirectory();
         await directory!.exists().then((value) {
           if (value) directory!.create();
           isFolderCreated = true;
         });
       }
+      print(directory!.path);
     } catch (e) {
       print(e.toString());
     }

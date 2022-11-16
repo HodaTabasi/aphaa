@@ -10,13 +10,11 @@ import '../model/allDocResponse.dart';
 import '../model/doctor.dart';
 
 class DoctorGetxController extends GetxController {
-
-  static DoctorGetxController get to =>
-      Get.find<DoctorGetxController>();
-
+  static DoctorGetxController get to => Get.find<DoctorGetxController>();
 
   RxString selectedPageNumber = "1".obs;
   RxList<Doctor> list = <Doctor>[].obs;
+  RxList<Doctor> listBeforeFiltter = <Doctor>[].obs;
   RxList<Pages> pageList = <Pages>[].obs;
 
   RxString offSet = "1".obs;
@@ -34,67 +32,59 @@ class DoctorGetxController extends GetxController {
 
   final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
 
-
   void loadMore() async {
     bool x = await _networkConnectivity.initialise();
     if (x) {
-        isNoNetworkConnectInLoadMore.value = false;
+      isNoNetworkConnectInLoadMore.value = false;
 
-    if (hasNextPage == true &&
-        isFirstLoadRunning == false &&
-        isLoadMoreRunning == false &&
-        controller.position.extentAfter < 300.h) {
-      print(page);
-      print(pageList.length);
-      if(page < pageList.length-1){
+      if (hasNextPage == true &&
+          isFirstLoadRunning == false &&
+          isLoadMoreRunning == false &&
+          controller.position.extentAfter < 300.h) {
+        print(page);
+        print(pageList.length);
+        if (page < pageList.length - 1) {
+          //setState
+          isLoadMoreRunning.value =
+              true; // Display a progress indicator at the bottom
 
-        //setState
-          isLoadMoreRunning.value = true; // Display a progress indicator at the bottom
+          page += 1;
+          selectedPageNumber.value =
+              pageList[page].page!; // Increase _page by 1
+          offSet.value = pageList[page].offset!;
 
+          DoctorListResponse? v = await HospitalApiController()
+              .getClDrs(flag: true, page: selectedPageNumber, offset: offSet);
 
-        page += 1;
-        selectedPageNumber.value = pageList[page].page!; // Increase _page by 1
-        offSet.value = pageList[page].offset!;
-
-        DoctorListResponse? v = await  HospitalApiController().getClDrs(flag: true,page: selectedPageNumber,offset: offSet);
-
-        list.addAll(v!.doctors ?? []);
+          list.addAll(v!.doctors ?? []);
+          listBeforeFiltter.addAll(v.doctors ?? []);
 
           //setState
           isLoadMoreRunning.value = false;
-
-      } else {
-        //setState
+        } else {
+          //setState
           isLoadMoreRunning.value = false;
           hasNextPage.value = false;
-
+        }
       }
     } else {
-        isNoNetworkConnectInLoadMore.value = true;
-
-    }
-
+      isNoNetworkConnectInLoadMore.value = true;
     }
   }
 
   void firstLoad({clinicCode = ""}) async {
     bool x = await _networkConnectivity.initialise();
     if (x) {
-
-
       //setState
       isFirstLoadRunning.value = true;
       isNoNetworkConnect.value = false;
 
-
-    await getData(clinicCode: clinicCode);
+      await getData(clinicCode: clinicCode);
 
       //setState
       isFirstLoadRunning.value = false;
     } else {
-
-        isNoNetworkConnect.value = true;
-
+      isNoNetworkConnect.value = true;
     }
   }
 
@@ -105,19 +95,24 @@ class DoctorGetxController extends GetxController {
     page = 0;
     selectedPageNumber = "1".obs;
 
-    DoctorListResponse? v = await  HospitalApiController().getClDrs(clinicCode: clinicCode,flag: true,page: selectedPageNumber,offset: offSet);
+    DoctorListResponse? v = await HospitalApiController().getClDrs(
+        clinicCode: clinicCode,
+        flag: true,
+        page: selectedPageNumber,
+        offset: offSet);
     list.value = v?.doctors ?? [];
+    listBeforeFiltter.value = v?.doctors ?? [];
     pageList.value = v?.pages ?? [];
 
     print(v?.pages!.length);
   }
 
   void filtterByName(String val) {
-    if(val.isNotEmpty)
+    if(val.isEmpty) {
+      list.value =listBeforeFiltter;
+    } else {
       list.value = list.where((p0) => p0.doctorName!.contains(val)).toList();
-    else
-      list.value = list;
+    }
+
   }
-
-
 }

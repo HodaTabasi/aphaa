@@ -73,7 +73,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       appBar: AppBar(
           elevation: 0,
           // leadingWidth: 40,
-          title: Text(AppLocalizations.of(context)!.my_doctor,
+          title: Text(AppLocalizations.of(context)!.the_doctor,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.sp,
