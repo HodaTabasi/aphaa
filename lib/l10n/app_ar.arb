@@ -120,6 +120,7 @@
      "payment_date":"تاريخ الدفع : ",
      "payment_time":" رقم الفاتورة : ",
      "the_doctor":" الطبيب : ",
+     "the_doctor_s":" الطبيب  ",
      "descraptipn":" الوصف : ",
 
      "payment_data":"تاريخ الدفع ",
@@ -132,6 +133,8 @@
      "booking_date":"تاريخ الحجز :   ",
      "booking_time":"وقت الحجز :   ",
      "notes":"ملاحظات :  ",
+     "lab_test":"فحوصات مخبرية ",
+     "rab_test":"تقارير اشعة ",
 
      "continue_to_pay":"الاستمرار للدفع ",
      "order_cost":"تكلفة الطلب ",

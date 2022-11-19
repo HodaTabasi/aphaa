@@ -93,10 +93,10 @@ class _TestResultsState extends State<TestResults> {
                 // controller: controller,
                 tabs: [
                   Tab(
-                    text: "فحوصات مخبرية",
+                    text: AppLocalizations.of(context)!.lab_test,
                   ),
                   Tab(
-                    text: "صور اشعة",
+                    text: AppLocalizations.of(context)!.rab_test,
                   ),
                 ],
               ),

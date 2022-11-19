@@ -128,13 +128,16 @@
          "payment_date":"payment date : ",
          "payment_time":" invoices Number : ",
          "the_doctor":" the doctor : ",
+         "the_doctor_s":" the doctor  ",
          "descraptipn":" descraptipn : ",
 
          "payment_data":"payment date ",
           "the_name_on_the_card":"the name on the card ",
           "pay_now":"pay now ",
+           "lab_test":"Laboratory tests ",
+           "rab_test":"X-ray reports ",
 
-          "pay_now":"الحجوزات المجدولة ",
+          "pay_now":"pay now ",
            "scheduled_reservations":"scheduled reservations ",
            "previous_bookings":"previous bookings ",
           "booking_date":"booking date : ",

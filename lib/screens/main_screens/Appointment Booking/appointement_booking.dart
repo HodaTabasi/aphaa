@@ -464,5 +464,10 @@ class _AppointmentBookingState extends State<AppointmentBooking>
     }
   }
 
+  @override
+  void deactivate() {
+    NewAccountGetxController.to.clearData();
+    super.deactivate();
+  }
 
 }

@@ -13,6 +13,7 @@ class QuickServiceGetxController extends GetxController {
    String? doctorId;
    Doctor? doctor;
    bool fromHome = false;
+   var img;
    void changeClinicName(name){
      clinicName = name;
    }
@@ -21,8 +22,9 @@ class QuickServiceGetxController extends GetxController {
     doctorId = name;
     print(" dff ${doctorId}");
   }
-  void saveDoctor(doctor){
+  void saveDoctor(doctor,imag){
      this.doctor = doctor;
+     img = imag;
   }
 
 

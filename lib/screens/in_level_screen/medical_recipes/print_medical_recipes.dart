@@ -20,6 +20,11 @@ class PrintMedicalRecipesButtomSheet extends StatefulWidget {
 
 class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButtomSheet> {
   @override
+  void initState() {
+    // print("gdfg ${widget.prescriptionlist.invoiceNo}");
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(

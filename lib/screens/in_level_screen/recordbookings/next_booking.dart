@@ -63,7 +63,7 @@ class _NextBookingState extends State<NextBooking> {
             page: selectedPageNumber,
             offset: offSet);
 
-        list.addAll(v!.myPrevAppointments ?? []);
+        list.addAll(v!.myNextAppointments ?? []);
 
         setState(() {
           _isLoadMoreRunning = false;
@@ -116,7 +116,7 @@ class _NextBookingState extends State<NextBooking> {
         patientCode: SharedPrefController().getValueFor(key: "p_code"),
         page: selectedPageNumber,
         offset: offSet);
-    list = v!.myPrevAppointments ?? [];
+    list = v!.myNextAppointments ?? [];
     pageList = v.pages ?? [];
 
     //print(v.pages!.length);

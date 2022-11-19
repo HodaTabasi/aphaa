@@ -568,7 +568,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
         shippingDetails: shippingDetails,
         locale: PaymentSdkLocale.EN,
         //PaymentSdkLocale.AR or PaymentSdkLocale.DEFAULT
-        amount: NewAccountGetxController.to.timeResponse?.reqAmt??0.0,
+        amount: double.parse("${NewAccountGetxController.to.timeResponse?.reqAmt}"),
         //release her amount
         currencyCode: "SAR",
         merchantCountryCode: "SA",
@@ -627,4 +627,11 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
       showSnackBar(context, message: " حصل خطا ",error: true);
     }
   }
+
+  @override
+  void deactivate() {
+    NewAccountGetxController.to.clearData();
+    super.deactivate();
+  }
+
 }

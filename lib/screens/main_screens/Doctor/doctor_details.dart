@@ -19,9 +19,11 @@ import '../../in_level_screen/medical_recipes/medical_recipes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../Appointment Booking/appointement_booking.dart';
+import 'dart:io' as Io;
 
 class DoctorDetails extends StatefulWidget {
   static String routeName = "/doctor_details";
+
 
   @override
   State<DoctorDetails> createState() => _DoctorDetailsState();
@@ -29,16 +31,15 @@ class DoctorDetails extends StatefulWidget {
 
 class _DoctorDetailsState extends State<DoctorDetails> {
   // late VideoPlayerController _controller;
-  bool v = false;
+  // bool v = false;
 
-  var instalation;
+  // var instalation;
 
-  var img;
+
 
   @override
   void initState() {
-    print(QuickServiceGetxController.to.doctor?.doctorName);
-    print(QuickServiceGetxController.to.doctor?.doctorCode);
+    print("fger ${QuickServiceGetxController.to.img}");
     super.initState();
   }
 
@@ -73,7 +74,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       appBar: AppBar(
           elevation: 0,
           // leadingWidth: 40,
-          title: Text(AppLocalizations.of(context)!.the_doctor,
+          title: Text(AppLocalizations.of(context)!.the_doctor_s,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.sp,
@@ -142,8 +143,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         width: 144.w,
                         height: 114.h,
                       )
-                          : img != null
-                          ? Image.file(img!)
+                          : QuickServiceGetxController.to.img.isNotEmpty
+                          ? Image.memory(QuickServiceGetxController.to.img)
                           : Image.network(
                         "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__340.png",
                         // "https://jihadm33.sg-host.com/public/storage/${doctor.img}",

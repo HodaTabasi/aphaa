@@ -111,7 +111,7 @@ class FireBaseAuthController with Helpers1{
 
     await _fbAuth.verifyPhoneNumber(
       /// Make sure to prefix with your country code
-      phoneNumber: "+970$userPhone" ,
+      phoneNumber: "+966$userPhone" ,
       /// `seconds` didn't work. The underlying implementation code only reads in `millisenconds`
       // timeout: Duration(milliseconds: 10000),
       timeout: const Duration(seconds: 120),

@@ -135,4 +135,20 @@ class NewAccountGetxController extends GetxController {
     var num6 = num6Controller.text;
     return num1 + num2 + num3 + num4 + num5 + num6;
   }
+
+  clearData(){
+    doctorsList = [];
+    avilableDate = [];
+    avilableTime = [];
+    clinicCode = '';
+    doctorCode = '';
+    consultNo = '';
+    isUpdateCliniceCode = false;
+    global = null ;
+    timeResponse  = null;
+    fileData = null;
+    fromOpenFile = false;
+    isChangeLoading = false;
+    isChangeTimeLoading = false;
+  }
 }
