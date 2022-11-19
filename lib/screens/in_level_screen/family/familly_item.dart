@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../get/change_name_getx_controller.dart';
 import '../../drawer_screens/buttom_navication.dart';
 
 class FamillyItem extends StatelessWidget {
@@ -17,7 +18,7 @@ class FamillyItem extends StatelessWidget {
       onTap: (){
         print(famillyMember.medicFileNumber);
         SharedPrefController().setValuePCode(pCode: famillyMember.medicFileNumber!);
-        print("dfsd ${SharedPrefController().getValueFor(key: "medicalId")}");
+        ChangeGetxController.to.changeName(famillyMember.patientName, "");
         Navigator.of(context)
             .pushNamedAndRemoveUntil(ButtomNavigations.routeName, (Route<dynamic> route) => false);
       },

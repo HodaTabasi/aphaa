@@ -119,6 +119,40 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> w
                                   ), ),
                               ),
                             ),
+                            SizedBox(height: 20.h,),
+                            Text(
+                              AppLocalizations.of(context)!.the_doctor,
+                              style:  TextStyle(
+                                color: Color(0xff2D2D2D),
+                                fontSize: 15.sp,
+                                fontFamily: 'Tajawal',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Padding(
+                              padding:  EdgeInsets.all(16.0.r),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width/2.w,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffF7F8FB),
+                                    borderRadius: BorderRadius.circular(5.r),
+                                  ),
+                                  child: Padding(
+                                    padding:  EdgeInsets.all(16.0.w),
+                                    child: Text(
+                                      '${snapshot.data!.first.clinic!.clinicName}',
+                                      style:  TextStyle(
+                                        color: Color(0xff2D2D2D),
+                                        fontSize: 14.sp,
+                                        fontFamily: 'Tajawal',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ), ),
+                              ),
+                            ),
+
                           ],
                         ),
                       ),

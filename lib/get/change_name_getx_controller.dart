@@ -19,7 +19,7 @@ class ChangeGetxController extends GetxController {
 
   changeName(firstName,lastName){
     this.firstName.value = firstName;
-    // this.lastName.value = lastName;
+    this.lastName.value = lastName??" ";
   }
 
   get getName => "${firstName.value} ${lastName.value}";
