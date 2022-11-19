@@ -20,6 +20,34 @@ class ScedualBookingItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+                child: Text.rich(
+                  TextSpan(
+                    text: AppLocalizations.of(context)!.req_number,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 12.sp,
+                        fontFamily: 'Tajawal'),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '  ${appointments.resNo}  ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black45,
+                            fontSize: 12,
+                            fontFamily: 'Tajawal'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
           FittedBox(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,7 +64,7 @@ class ScedualBookingItem extends StatelessWidget {
                           fontFamily: 'Tajawal'),
                       children: <TextSpan>[
                         TextSpan(
-                          text: '  ${appointments.date}  ',
+                          text: '  ${appointments.resDate}  ',
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: Colors.black45,
@@ -143,7 +171,7 @@ class ScedualBookingItem extends StatelessWidget {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  ${appointments.reservationStatus}  ',
+                        text: '  ${appointments.resStatus}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black45,
@@ -156,34 +184,7 @@ class ScedualBookingItem extends StatelessWidget {
               ),
             ],
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Padding(
-          //       padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
-          //       child: Text.rich(
-          //         TextSpan(
-          //           text: AppLocalizations.of(context)!.notes,
-          //           style: TextStyle(
-          //               fontWeight: FontWeight.bold,
-          //               color: Colors.black,
-          //               fontSize: 12.sp,
-          //               fontFamily: 'Tajawal'),
-          //           children: <TextSpan>[
-          //             TextSpan(
-          //               text: '  ${appointments.notes}  ',
-          //               style: TextStyle(
-          //                   fontWeight: FontWeight.w500,
-          //                   color: Colors.black45,
-          //                   fontSize: 12,
-          //                   fontFamily: 'Tajawal'),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
+
         ],
       ),
     );

@@ -2,40 +2,46 @@ import 'package:aphaa_app/model/Clinic.dart';
 import 'package:aphaa_app/model/doctor.dart';
 
 class Appointments {
-  String? date;
+  String? resDate;
   String? time;
-  String? reservationStatus;
+  String? resStatus;
   Clinic? clinic;
   Doctor? doctor;
   String? notes;
   String? y;
+  String? patientCode;
+  String? resNo;
 
   Appointments(
-      {this.date,
+      {this.resDate,
         this.time,
-        this.reservationStatus,
+        this.resStatus,
         this.clinic,
         this.doctor,
         this.notes,
-        this.y});
+        this.y,
+        this.patientCode,
+        this.resNo});
 
   Appointments.fromJson(Map<String, dynamic> json) {
-    date = json['resDate'];
+    resDate = json['resDate'];
     time = json['time'];
-    reservationStatus = json['resStatus'];
+    resStatus = json['resStatus'];
     clinic =
     json['clinic'] != null ? new Clinic.fromJson(json['clinic']) : null;
     doctor =
     json['doctor'] != null ? new Doctor.fromJson(json['doctor']) : null;
     notes = json['notes'];
     y = json['Y'];
+    patientCode = json['patientCode'];
+    resNo = json['resNo'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['resDate'] = this.date;
+    data['resDate'] = this.resDate;
     data['time'] = this.time;
-    data['resStatus'] = this.reservationStatus;
+    data['resStatus'] = this.resStatus;
     if (this.clinic != null) {
       data['clinic'] = this.clinic!.toJson();
     }
@@ -44,6 +50,9 @@ class Appointments {
     }
     data['notes'] = this.notes;
     data['Y'] = this.y;
+    data['patientCode'] = this.patientCode;
+    data['resNo'] = this.resNo;
     return data;
   }
 }
+

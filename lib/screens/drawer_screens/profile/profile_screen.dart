@@ -140,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers1 {
               isVisable: true, () async {
             showLoaderDialog(context);
             await AuthApiController().logout().then((value) {
-              SharedPrefController().clear();
+              SharedPrefController().logout();
               Navigator.of(context).pushAndRemoveUntil(
                 CupertinoPageRoute(builder: (context) => LoginScreen()),
                 (_) => false,

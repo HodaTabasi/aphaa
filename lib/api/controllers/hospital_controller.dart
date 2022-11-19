@@ -170,6 +170,7 @@ class HospitalApiController with ApiHelper {
 
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
       return AppointmentResponse.fromJson(jsonResponse);
     }
     return null;
