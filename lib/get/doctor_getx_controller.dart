@@ -52,14 +52,15 @@ class DoctorGetxController extends GetxController {
           selectedPageNumber.value =
               pageList[page].page!; // Increase _page by 1
           offSet.value = pageList[page].offset!;
-
+          print("fgda ${list.length}");
           DoctorListResponse? v = await HospitalApiController()
               .getClDrs(flag: true, page: selectedPageNumber, offset: offSet);
-
+          print("fgds ${v?.doctors!.length}");
           list.addAll(v?.doctors ?? []);
-          listBeforeFiltter.addAll(v?.doctors ?? []);
+          // listBeforeFiltter.value = list;
+          // listBeforeFiltter.addAll(v?.doctors ?? []);
 
-          print(page);
+          print("fgd ${list.length}");
 
           //setState
           isLoadMoreRunning.value = false;
@@ -110,9 +111,8 @@ class DoctorGetxController extends GetxController {
   }
 
   void filtterByName(String val) {
-    print("fdgd");
     if(val.isEmpty) {
-      list.value =listBeforeFiltter;
+      list.value = listBeforeFiltter;
     } else {
       list.value = list.where((p0) => p0.doctorName!.contains(val)).toList();
     }
