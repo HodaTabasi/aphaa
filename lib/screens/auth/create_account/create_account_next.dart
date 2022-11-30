@@ -282,7 +282,7 @@ class _CreateAccountNextState extends State<CreateAccountNext>
       print(eligibility);
       await _login();
     }else {
-      showSnackBar2(context, message: 'رقم  التأمين الذي أدخلته خاطئ ، قم باستكمال التسجيل إلى كاش ، ومن تم تسجيل الدخول للتطبيق', error: true);
+      // showSnackBar2(context, message: 'رقم  التأمين الذي أدخلته خاطئ ، قم باستكمال التسجيل إلى كاش ، ومن تم تسجيل الدخول للتطبيق', error: true);
     }
   }
 

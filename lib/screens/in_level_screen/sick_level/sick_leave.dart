@@ -66,7 +66,7 @@ class _SickLeaveState extends State<SickLeave> {
               page: selectedPageNumber,
               offset: offSet);
 
-          list.addAll(v!.leaves ?? []);
+          list.addAll(v?.leaves ?? []);
 
           setState(() {
             _isLoadMoreRunning = false;
@@ -115,12 +115,13 @@ class _SickLeaveState extends State<SickLeave> {
   }
 
   getData() async {
+    print(SharedPrefController().getValueFor(key: "p_code"));
     SickLeavesResponse? v = await HospitalApiController().getSickLeaves(
         patientCode: SharedPrefController().getValueFor(key: "p_code"),
         page: selectedPageNumber,
         offset: offSet);
-    list = v!.leaves ?? [];
-    pageList = v.pages ?? [];
+    list = v?.leaves ?? [];
+    pageList = v?.pages ?? [];
 
     //print(v.pages!.length);
   }
@@ -198,7 +199,7 @@ class _SickLeaveState extends State<SickLeave> {
                                     sickDocName:
                                         list[index].doctor!.doctorName!,
                                     sickName:
-                                        "${SharedPrefController().getValueFor(key: PrefKeysPatient.firstName.name)} ${SharedPrefController().getValueFor(key: PrefKeysPatient.lastName.name)}",
+                                        "${SharedPrefController().getValueFor(key: PrefKeysPatient.firstName.name)}",
                                   );
                                 })),
                       ),

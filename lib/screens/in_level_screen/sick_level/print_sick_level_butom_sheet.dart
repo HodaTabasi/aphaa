@@ -293,10 +293,10 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> w
           } else {
             return Center(
               child: Text(
-                'NO DATA',
+                AppLocalizations.of(context)!.no_data,
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+                  color: Colors.black,
+                  fontSize: 16.r,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.bold,
                 ),

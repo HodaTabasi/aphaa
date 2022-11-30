@@ -1,9 +1,10 @@
+import 'package:aphaa_app/screens/drawer_screens/Booking/payment_methods.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 mixin Helpers {
-  showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context,{flag = false}) {
     Widget continueButton = Center(
       child: TextButton(
           child: Text('تـم الــإرســـال بـــنـــجــاح!',
@@ -25,6 +26,19 @@ mixin Helpers {
       ),
     );
 
+    Widget continueButton2 = Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(onPressed: (){
+          PaymentMethod paymentMethod = PaymentMethod(context);
+          paymentMethod.doPaymentConfiguration();
+          Navigator.pop(context);
+          paymentMethod.onBookClick(context);
+        }, child: Text("استمرار الي الدفع",style:TextStyle(
+            fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
+      ),
+    );
+
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       backgroundColor: Color(0xffF2F2F2),
@@ -42,6 +56,8 @@ mixin Helpers {
       actions: [
         continueButton,
         continueButton1,
+        Visibility(visible: flag,
+            child: continueButton2),
       ],
     );
 

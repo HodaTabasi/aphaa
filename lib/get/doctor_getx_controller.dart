@@ -19,7 +19,7 @@ class DoctorGetxController extends GetxController {
 
   RxString offSet = "1".obs;
 
-  int page = 0;
+  int page = 1;
 
   RxBool isFirstLoadRunning = false.obs;
   RxBool hasNextPage = true.obs;
@@ -56,8 +56,10 @@ class DoctorGetxController extends GetxController {
           DoctorListResponse? v = await HospitalApiController()
               .getClDrs(flag: true, page: selectedPageNumber, offset: offSet);
 
-          list.addAll(v!.doctors ?? []);
-          listBeforeFiltter.addAll(v.doctors ?? []);
+          list.addAll(v?.doctors ?? []);
+          listBeforeFiltter.addAll(v?.doctors ?? []);
+
+          print(page);
 
           //setState
           isLoadMoreRunning.value = false;
@@ -108,6 +110,7 @@ class DoctorGetxController extends GetxController {
   }
 
   void filtterByName(String val) {
+    print("fdgd");
     if(val.isEmpty) {
       list.value =listBeforeFiltter;
     } else {

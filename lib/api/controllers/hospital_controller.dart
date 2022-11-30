@@ -294,18 +294,25 @@ class HospitalApiController with ApiHelper {
 
   Future<SickLeavesResponse?> getSickLeaves(
       {patientCode, page = 1, offset = 1}) async {
+
+    /*
+     http://aiph.me:8000/api/patient/sickLeaves?patientCode=1%2F66600&pageNo=1&offset=1&rows=7&lang=ar
+     http://aiph.me:8000/api/patient/sickLeaves?patientCode=2/66600&pageNo=1&offset=1&rows=5&lang=AR
+    * */
     final queryParameters = {
       // 'patientCode': '0/37416',
-      'patientCode': '$patientCode',
+      'patientCode': patientCode,
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
-      'lang':
-          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name)??'ar',
+      'lang': SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name)??'ar',
     };
+    // final uri = Uri.parse("http://aiph.me:8000/api/patient/sickLeaves?patientCode=1/66600&pageNo=1&offset=1&rows=5&lang=AR");
     final uri = Uri.http(ApiSettings.HospitalBase,
         '${ApiSettings.HospitalBase1}sickLeaves', queryParameters);
-    final response = await http.get(uri);
+    print(uri);
+    final response = await http.get(uri, headers: {'Content-Type': 'application/json'});
+    print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       return SickLeavesResponse.fromJson(jsonResponse);
@@ -322,6 +329,7 @@ class HospitalApiController with ApiHelper {
     final uri = Uri.http(ApiSettings.HospitalBase,
         '${ApiSettings.HospitalBase1}sickLeaveDtl', queryParameters);
     final response = await http.get(uri);
+    print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['leaveDetail'] as List;

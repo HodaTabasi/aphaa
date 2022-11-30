@@ -3,6 +3,7 @@ import 'package:aphaa_app/general/slider_wedgit.dart';
 import 'package:aphaa_app/model/offer.dart';
 import 'package:aphaa_app/screens/in_level_screen/offer_ditails/offer_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../get/quick_service_getx_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -57,13 +58,13 @@ class _OfferScreenState extends State<OfferScreen> {
               } else {
                 return Center(
                   child: Text(
-                    'NO DATA',
+                    AppLocalizations.of(context)!.no_data,
                     style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Tajawal',
-                              fontWeight: FontWeight.bold,
-                            ),
+                      color: Colors.black,
+                      fontSize: 16.r,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 );
               }

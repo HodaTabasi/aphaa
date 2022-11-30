@@ -71,6 +71,11 @@ class SharedPrefController {
     //     PrefKeys.refreshToken.name, 'Bearer ${student.refreshToken}');
   }
 
+  saveName(firstName,lastName) async {
+    await _sharedPreferences.setString(PrefKeysPatient.firstName.name, firstName??"");
+    await _sharedPreferences.setString(PrefKeysPatient.lastName.name, lastName??"");
+  }
+
   bool get loggedIn =>
       _sharedPreferences.getBool(PrefKeys.loggedIn.name) ?? false;
 

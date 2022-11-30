@@ -360,10 +360,10 @@ class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButt
             } else {
               return Center(
                 child: Text(
-                  'NO DATA',
+                  AppLocalizations.of(context)!.no_data,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+                    color: Colors.black,
+                    fontSize: 16.r,
                     fontFamily: 'Tajawal',
                     fontWeight: FontWeight.bold,
                   ),

@@ -1,3 +1,4 @@
+import 'package:aphaa_app/general/readPdf.dart';
 import 'package:aphaa_app/screens/auth/create_account/create_account.dart';
 import 'package:aphaa_app/screens/auth/login/login_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
@@ -41,7 +42,7 @@ import '../screens/splach/splash_screen.dart';
 // We use name route
 // All our routes will be available here
 final Map<String, WidgetBuilder> routes = {
-  // SplashScreen.routeName: (context) => SplashScreen(),
+  ReadPdf.routeName: (context) => ReadPdf(),
   SelectLanguage.routeName: (context) => SelectLanguage(),
   Screen2Splash.routeName: (context) => Screen2Splash(),
   QuickServices.routeName: (context) => QuickServices(),

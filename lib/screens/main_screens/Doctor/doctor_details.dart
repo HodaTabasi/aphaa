@@ -9,11 +9,9 @@ import 'package:aphaa_app/screens/main_screens/Doctor/personal_resrvation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../../get/new_account_getx_controller.dart';
 import '../../../get/quick_service_getx_controller.dart';
-import '../../drawer_screens/Booking/my_appointment_booking.dart';
 import '../../in_level_screen/medical_recipes/medical_recipes.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -119,6 +117,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData) {
+
             return ListView(
               children: [
                 SizedBox(
@@ -468,9 +467,9 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           } else {
             return Center(
               child: Text(
-                'NO DATA',
+                AppLocalizations.of(context)!.no_data,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 16.r,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.bold,

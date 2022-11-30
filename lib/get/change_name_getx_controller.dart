@@ -16,10 +16,11 @@ class ChangeGetxController extends GetxController {
 
   RxString firstName = "".obs;
   RxString lastName ="".obs;
+  String filePath = "" ;
 
   changeName(firstName,lastName){
     this.firstName.value = firstName;
-    this.lastName.value = lastName??" ";
+    // this.lastName.value = lastName??" ";
   }
 
   get getName => "${firstName.value} ${lastName.value}";

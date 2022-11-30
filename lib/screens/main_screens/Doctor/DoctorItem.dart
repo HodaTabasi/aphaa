@@ -94,7 +94,8 @@ class _DoctorItemState extends State<DoctorItem> {
                             height: 114.h,
                           )
                         : img != null
-                            ? Image.memory(img!)
+                            ? Image.memory(img!,width: 144.w,
+                      height: 114.h,)
                             : Image.network(
                                 "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__340.png",
                                 // "https://jihadm33.sg-host.com/public/storage/${doctor.img}",
