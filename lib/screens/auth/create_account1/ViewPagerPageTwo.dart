@@ -101,7 +101,7 @@ class _ViewPagerPageTowState extends State<ViewPagerPageTow>
 
   bool _checkData() {
     if (_pName.text.isNotEmpty &&
-        _pEmail.text.isNotEmpty &&
+       /* _pEmail.text.isNotEmpty &&*/
         _pPhone.text.isNotEmpty &&
         _pPassword.text.isNotEmpty &&
         _pRepassword.text.isNotEmpty) {

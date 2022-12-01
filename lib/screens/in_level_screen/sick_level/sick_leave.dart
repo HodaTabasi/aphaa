@@ -194,10 +194,11 @@ class _SickLeaveState extends State<SickLeave> {
                                 itemCount: list.length,
                                 itemBuilder: (context, index) {
                                   return SickItem(
-                                    leaveId: list[index].leaveId!,
+                                    leaveId: list[index].repId!,
                                     sickDate: list[index].repDate!,
                                     sickDocName:
                                         list[index].doctor!.doctorName!,
+                                    repType:list[index].repType! ,
                                     sickName:
                                         "${SharedPrefController().getValueFor(key: PrefKeysPatient.firstName.name)}",
                                   );
@@ -217,7 +218,7 @@ class _SickLeaveState extends State<SickLeave> {
                             child: CircularProgressIndicator(),
                           ),
                         ),
-                      if (_hasNextPage == false)
+                      if (_hasNextPage == false || pageList.length ==1)
                         Center(
                           child: Image.asset(
                             "assets/images/image1.png",

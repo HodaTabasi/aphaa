@@ -189,7 +189,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                               child: CircularProgressIndicator(),
                             ),
                           ),
-                        if (controller.hasNextPage == false)
+                        if (controller.hasNextPage == false || controller.pageList.length ==1)
                           Center(
                             child: Image.asset(
                               "assets/images/image1.png",

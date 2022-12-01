@@ -192,7 +192,7 @@ class _VitalSignsState extends State<VitalSigns> {
                           child: CircularProgressIndicator(),
                         ),
                       ),
-                    if (_hasNextPage == false)
+                    if (_hasNextPage == false || pageList.length ==1)
                       Image.asset(
                         "assets/images/image1.png",
                         fit: BoxFit.fitWidth,

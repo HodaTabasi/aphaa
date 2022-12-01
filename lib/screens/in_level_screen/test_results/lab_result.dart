@@ -105,7 +105,9 @@ class _LabResultState extends State<LabResult> {
   @override
   void initState() {
     super.initState();
-    _firstLoad();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _firstLoad();
+    });
     _controller = ScrollController()..addListener(_loadMore);
   }
 
@@ -163,7 +165,7 @@ class _LabResultState extends State<LabResult> {
                         child: CircularProgressIndicator(),
                       ),
                     ),
-                  if (_hasNextPage == false)
+                  if (_hasNextPage == false || pageList.length ==1)
                     Center(
                       child: Image.asset(
                         "assets/images/image1.png",

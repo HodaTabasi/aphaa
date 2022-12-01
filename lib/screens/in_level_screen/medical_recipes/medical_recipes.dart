@@ -211,7 +211,7 @@ class _MedicalRecipesState extends State<MedicalRecipes> {
               ),
             ),
 
-          if (_hasNextPage == false)
+          if (_hasNextPage == false || pageList.length ==1)
             Center(
               child: Image.asset(
                 "assets/images/image1.png",

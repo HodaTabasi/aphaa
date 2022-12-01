@@ -174,7 +174,7 @@ class _FamillyScreenState extends State<FamillyScreen> {
               ),
             ),
 
-          if (_hasNextPage == false)
+          if (_hasNextPage == false || pageList.length ==1)
             const Center(
             ),
         ],

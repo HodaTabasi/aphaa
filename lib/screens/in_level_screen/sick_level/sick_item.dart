@@ -11,8 +11,9 @@ class SickItem extends StatelessWidget {
   String sickName;
   String sickDocName;
   String leaveId;
+  String repType;
 
-  SickItem({required this.sickDate,required this.sickName, required this.sickDocName,required this.leaveId});
+  SickItem({required this.sickDate,required this.sickName, required this.sickDocName,required this.leaveId,required this.repType});
 
   @override
   Widget build(BuildContext context) {
@@ -96,28 +97,41 @@ class SickItem extends StatelessWidget {
             Padding(
               padding:  EdgeInsets.all(14.0.r),
               child: Center(
-                child :Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.sick_leave_for,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                        fontSize: 14.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: ' $sickName  ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff2D2D2D),
-                            fontSize: 14.sp,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
-                  ),
+                child :Text(
+                  ' $repType ',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff2D2D2D),
+                      fontSize: 14.sp,
+                      fontFamily: 'Tajawal'),
                 ),
               ),
             ),
+            // Padding(
+            //   padding:  EdgeInsets.all(14.0.r),
+            //   child: Center(
+            //     child :Text.rich(
+            //       TextSpan(
+            //         text: AppLocalizations.of(context)!.sick_leave_for,
+            //         style: TextStyle(
+            //             fontWeight: FontWeight.w500,
+            //             color: Colors.black,
+            //             fontSize: 14.sp,
+            //             fontFamily: 'Tajawal'),
+            //         children: <TextSpan>[
+            //           TextSpan(
+            //             text: ' $sickName  ',
+            //             style: TextStyle(
+            //                 fontWeight: FontWeight.bold,
+            //                 color: Color(0xff2D2D2D),
+            //                 fontSize: 14.sp,
+            //                 fontFamily: 'Tajawal'),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

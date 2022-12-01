@@ -107,7 +107,9 @@ class _RabResultState extends State<RabResult> {
   @override
   void initState() {
     super.initState();
-    _firstLoad();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _firstLoad();
+    });
     _controller = ScrollController()..addListener(_loadMore);
   }
 
@@ -161,7 +163,12 @@ class _RabResultState extends State<RabResult> {
                     child: CircularProgressIndicator(),
                   ),
                 ),
-              if (_hasNextPage == false) const Center(),
+              if (_hasNextPage == false || pageList.length ==1)  Center(
+                child: Image.asset(
+                  "assets/images/image1.png",
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
             ],
           );
   }
