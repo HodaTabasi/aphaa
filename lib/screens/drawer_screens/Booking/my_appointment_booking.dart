@@ -391,8 +391,14 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
           // markedDatesMap: _markedDateMap,
           height: 340.0.h,
           width: 350.h,
-          todayButtonColor: Colors.green,
+          todayButtonColor: Colors.white,
           todayBorderColor: Colors.green,
+          todayTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 14.sp,
+            fontFamily: 'Tajawal',
+            fontWeight: FontWeight.normal,
+          ),
           daysTextStyle: TextStyle(
             color: Colors.black,
             fontSize: 14.sp,
@@ -488,7 +494,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
     print(response.success);
     if (response.success) {
       Navigator.pop(context);
-      showAlertDialog(context,flag: true);
+      showAlertDialog(context,flag: true,message: response.message);
       // onBookClick(context);
       // showAlertDialog(context);
     } else {

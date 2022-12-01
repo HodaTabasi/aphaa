@@ -161,12 +161,10 @@ class FireBaseAuthController with Helpers1{
       Navigator.pushReplacementNamed(context, ChangePassword.routeName);
     } else {
       showLoaderDialog(context);
-      ApiResponse apiResponse = await AuthApiController()
-          .register(student: NewAccountGetxController.to.patient, flag: flag);
+      ApiResponse apiResponse = await AuthApiController().register(student: NewAccountGetxController.to.patient, flag: flag);
 
       if (apiResponse.success) {
-        SharedPrefController()
-            .setValuePCode(pCode: NewAccountGetxController.to.patient.p_code!);
+        SharedPrefController().setValuePCode(pCode: NewAccountGetxController.to.patient.p_code!);
         Navigator.pop(context);
         Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
       } else {

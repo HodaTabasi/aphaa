@@ -111,9 +111,9 @@ class DoctorGetxController extends GetxController {
   }
 
   void filtterByName(String val) {
-    if(val.isEmpty) {
+    if(val.isEmpty || val.length< 3) {
       list.value = listBeforeFiltter;
-    } else {
+    } else if(val.length>=3) {
       list.value = list.where((p0) => p0.doctorName!.contains(val)).toList();
     }
 

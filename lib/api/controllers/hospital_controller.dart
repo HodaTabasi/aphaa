@@ -800,7 +800,6 @@ class HospitalApiController with ApiHelper {
           SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name)??"ar",
     });
 
-
     print(response.body);
     if (response.statusCode == 200 || response.statusCode == 400) {
       var jsonResponse = jsonDecode(response.body);

@@ -6,6 +6,7 @@ import 'package:aphaa_app/screens/in_level_screen/edit_insurance_data/edit_profi
 import 'package:aphaa_app/screens/in_level_screen/edit_profile/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
 import 'package:aphaa_app/screens/main_screens/change_password/change_password.dart';
+import 'package:aphaa_app/screens/main_screens/quick_services/quick_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -142,7 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers1 {
             await AuthApiController().logout().then((value) {
               SharedPrefController().logout();
               Navigator.of(context).pushAndRemoveUntil(
-                CupertinoPageRoute(builder: (context) => LoginScreen()),
+                CupertinoPageRoute(builder: (context) => QuickServices()),
                 (_) => false,
               );
             });

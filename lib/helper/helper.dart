@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 mixin Helpers {
-  showAlertDialog(BuildContext context,{flag = false}) {
+  showAlertDialog(BuildContext context, {flag = false,message=""}) {
     Widget continueButton = Center(
       child: TextButton(
-          child: Text('تـم الــإرســـال بـــنـــجــاح!',
+          child: Text(flag?message:'تـم الــإرســـال بـــنـــجــاح!',
               style: TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.green)),
           onPressed: () {
@@ -29,14 +29,27 @@ mixin Helpers {
     Widget continueButton2 = Center(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(onPressed: (){
-          PaymentMethod paymentMethod = PaymentMethod(context);
-          paymentMethod.doPaymentConfiguration();
-          Navigator.pop(context);
-          paymentMethod.onBookClick(context);
-        }, child: Text("استمرار الي الدفع",style:TextStyle(
-            fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
+        child: ElevatedButton(
+            onPressed: () {
+              PaymentMethod paymentMethod = PaymentMethod(context);
+              paymentMethod.doPaymentConfiguration();
+              Navigator.pop(context);
+              paymentMethod.onBookClick(context);
+            },
+            child: Text("استمرار الي الدفع",
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
       ),
+    );
+
+    Widget continueButton3 = Center(
+      child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("اغلاق",
+              style: TextStyle(
+                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
     );
 
     // set up the AlertDialog
@@ -55,9 +68,9 @@ mixin Helpers {
       ),
       actions: [
         continueButton,
-        continueButton1,
-        Visibility(visible: flag,
-            child: continueButton2),
+        Visibility(visible: !flag,child: continueButton1),
+        Visibility(visible: flag, child: continueButton2),
+        Visibility(visible: flag, child: continueButton3)
       ],
     );
 

@@ -149,6 +149,19 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
                   size: 15.sp,
                 )),
           ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(8.0.r),
+            child: CircleAvatar(
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 34.w,
+                height: 30.h,
+              ),
+              backgroundColor: Colors.white,
+            ),
+          ),
+        ],
           // actions: [
           //   Padding(
           //     padding: EdgeInsets.all(8.0.r),

@@ -59,8 +59,7 @@ class AuthApiController with ApiHelper {
     return failedResponse;
   }
 
-  Future<ApiResponse> login(
-      {required String mobile, required String password}) async {
+  Future<ApiResponse> login({required String mobile, required String password}) async {
     Uri uri = Uri.parse(ApiSettings.login);
     var response = await http.post(uri, body: {
       'mobile': mobile,
