@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/drawer_screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -122,6 +124,26 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                     backgroundColor: Colors.white,
                   ),
                 ),
+                    actions: [
+                      InkWell(
+                        onTap: (){
+                          Navigator.pushNamedAndRemoveUntil(context, ButtomNavigations.routeName, (route) => false);
+                        },
+                        child: Visibility(
+                          visible: pageName[pageIndex] == AppLocalizations.of(context)!.add_appointment,
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0.r),
+                            child: Text(AppLocalizations.of(context)!.exit1,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontFamily: 'Tajawal',
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ),
+                        ),
+                      )
+                    ],
 
                     // leading: Container(
                     //     margin: const EdgeInsets.all(15.0),
@@ -138,7 +160,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                     //       size: 15,
                     //     )),
                   ),
-            body: pages[pageIndex],
+            body: WillPopScope(child: pages[pageIndex], onWillPop: onWillPop),
             bottomNavigationBar: Theme(
               data: Theme.of(context).copyWith(
                   // sets the background color of the `BottomNavigationBar`
@@ -201,4 +223,49 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
       },
     );
   }
+  DateTime? currentBackPressTime;
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      _displayDialog(context);
+      // print("exit double click");
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
+  Future<void> _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content:  Text(AppLocalizations.of(context)!.dialog_m),
+            actions: <Widget>[
+              TextButton(
+                child:  Text(
+                  AppLocalizations.of(context)!.exit,
+                  style: TextStyle(color: Colors.red),
+                ),
+                onPressed: () async {
+                  exit(0);
+                },
+              ),
+              TextButton(
+                child:  Text(
+                  AppLocalizations.of(context)!.cancel,
+                  style: TextStyle(color: Colors.black),
+                ),
+                onPressed: () async {
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+            ],
+          );
+        });
+  }
+  // exit(0);
 }
