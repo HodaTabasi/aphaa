@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 
 import 'get/change_name_getx_controller.dart';
 import 'get/language_getx_controller.dart';
+import 'get/login_getx_controller.dart';
 import 'helper/SizeConfig.dart';
 import 'helper/constant.dart';
 import 'helper/routes.dart';
@@ -55,7 +56,8 @@ class MyApp extends StatelessWidget {
   Get.put<DoctorGetxController>(DoctorGetxController());
   final ChangeGetxController changeGetxController =
   Get.put<ChangeGetxController>(ChangeGetxController());
-
+  final LoginGetXController _getXController =
+  Get.put<LoginGetXController>(LoginGetXController());
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

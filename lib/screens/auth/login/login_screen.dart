@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../api/controllers/auth_api_controller.dart';
+import '../../../firebase/fb_auth_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
 import '../../../general/password_item.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../get/login_getx_controller.dart';
 import '../../../model/api_response.dart';
 import '../../drawer_screens/buttom_navication.dart';
 import 'package:aphaa_app/helper/helpers.dart';
@@ -207,6 +209,12 @@ class _LoginScreenState extends State<LoginScreen> with Helpers1{
 
   Future<void> _login() async {
     showLoaderDialog(context);
+    LoginGetXController.to.changeFelidText(_emailTextController.text, _passwordTextController.text);
+
+    // FireBaseAuthController().verifyPhoneNumber1(
+    //     context: context, userPhone: _emailTextController.text.substring(1));
+
+
     ApiResponse apiResponse = await AuthApiController().login(
         mobile: _emailTextController.text,
         password: _passwordTextController.text);
@@ -221,8 +229,6 @@ class _LoginScreenState extends State<LoginScreen> with Helpers1{
         error: !apiResponse.success,
       );
     }
-
-
   }
 
   @override

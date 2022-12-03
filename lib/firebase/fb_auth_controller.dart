@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../api/controllers/auth_api_controller.dart';
+import '../get/login_getx_controller.dart';
 import '../model/api_response.dart';
 import '../preferences/shared_pref_controller.dart';
 import '../screens/auth/create_account/create_account_next.dart';
@@ -161,20 +162,38 @@ class FireBaseAuthController with Helpers1{
       Navigator.pushReplacementNamed(context, ChangePassword.routeName);
     } else {
       showLoaderDialog(context);
-      ApiResponse apiResponse = await AuthApiController().register(student: NewAccountGetxController.to.patient, flag: flag);
-
-      if (apiResponse.success) {
-        SharedPrefController().setValuePCode(pCode: NewAccountGetxController.to.patient.p_code!);
-        Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
+      if(LoginGetXController.to.isLoginPage){
+        ApiResponse apiResponse = await AuthApiController().login(
+            mobile: LoginGetXController.to.mobileControllerText,
+            password: LoginGetXController.to.passwordControllerText);
+        if (apiResponse.success) {
+          Navigator.pop(context);
+          Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
+        } else {
+          Navigator.pop(context);
+          showSnackBar(
+            context,
+            message: apiResponse.message,
+            error: !apiResponse.success,
+          );
+        }
       } else {
-        Navigator.pop(context);
-        showSnackBar(
-          context,
-          message: apiResponse.message,
-          error: !apiResponse.success,
-        );
+        ApiResponse apiResponse = await AuthApiController().register(student: NewAccountGetxController.to.patient, flag: flag);
+
+        if (apiResponse.success) {
+          SharedPrefController().setValuePCode(pCode: NewAccountGetxController.to.patient.p_code!);
+          Navigator.pop(context);
+          Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
+        } else {
+          Navigator.pop(context);
+          showSnackBar(
+            context,
+            message: apiResponse.message,
+            error: !apiResponse.success,
+          );
+        }
       }
+
     }
   }
 }

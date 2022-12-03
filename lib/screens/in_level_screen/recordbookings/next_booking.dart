@@ -2,10 +2,12 @@ import 'package:aphaa_app/helper/nerwork_connectivity.dart';
 import 'package:aphaa_app/screens/in_level_screen/recordbookings/scedual_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/NewWidgetNetworkFirst.dart';
 import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../get/login_getx_controller.dart';
 import '../../../model/Appointment/AppointmentResponse.dart';
 import '../../../model/Appointment/Appointments.dart';
 import '../../../model/Pages.dart';
@@ -63,7 +65,9 @@ class _NextBookingState extends State<NextBooking> {
             page: selectedPageNumber,
             offset: offSet);
 
-        list.addAll(v!.myNextAppointments ?? []);
+        LoginGetXController.to.addToList(v!.myNextAppointments ?? []);
+
+        // list.addAll(v!.myNextAppointments ?? []);
 
         setState(() {
           _isLoadMoreRunning = false;
@@ -116,7 +120,9 @@ class _NextBookingState extends State<NextBooking> {
         patientCode: SharedPrefController().getValueFor(key: "p_code"),
         page: selectedPageNumber,
         offset: offSet);
-    list = v!.myNextAppointments ?? [];
+
+    LoginGetXController.to.addToFirstList(v!.myNextAppointments ?? []);
+    // list = v!.myNextAppointments ?? [];
     pageList = v.pages ?? [];
 
     //print(v.pages!.length);
@@ -135,18 +141,19 @@ class _NextBookingState extends State<NextBooking> {
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : Column(
+        : GetBuilder<LoginGetXController>(builder: (controller) {
+          return Column(
             children: [
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(8.0.r),
                   child: ListView.builder(
-                     controller: _controller,
+                      controller: _controller,
                       // shrinkWrap: true,
                       // physics: NeverScrollableScrollPhysics(),
-                      itemCount: list.length,
+                      itemCount: controller.list.length,
                       itemBuilder: (context, index) {
-                        return ScedualBookingItem(list[index]);
+                        return ScedualBookingItem(controller.list[index]);
                       }),
                 ),
               ),
@@ -174,5 +181,6 @@ class _NextBookingState extends State<NextBooking> {
                 ),
             ],
           );
+        },);
   }
 }

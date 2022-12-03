@@ -1,12 +1,19 @@
 import 'package:aphaa_app/model/Appointment/Appointments.dart';
+import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 
-class ScedualBookingItem extends StatelessWidget {
+import '../../../api/controllers/hospital_controller.dart';
+import '../../../get/login_getx_controller.dart';
+import '../../../helper/helpers.dart' ;
+import '../../../model/api_response.dart';
+
+
+class ScedualBookingItem extends StatelessWidget with Helpers1 {
   Appointments appointments;
   ScedualBookingItem(this.appointments);
-
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +191,44 @@ class ScedualBookingItem extends StatelessWidget {
               ),
             ],
           ),
-
+          Visibility(
+            visible: SharedPrefController().getValueFor(key: PrefKeys.lang.name) == 'en'?appointments.resStatus == "Not Confirmed" :appointments.resStatus == "غير مؤكد",
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: () async {
+                    print("Fdgdg");
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(8.r, 0, 16.r, 10.r),
+                    child: SvgPicture.asset(
+                      'assets/images/Group40855.svg',
+                      semanticsLabel: 'Acme Logo',
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () async {
+                    showLoaderDialog(context);
+                    ApiResponse response = await HospitalApiController().setCxlRes(resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode);
+                    if(response.success){
+                      LoginGetXController.to.delete(appointments);
+                    }
+                    Navigator.pop(context);
+                    showSnackBar(context, message: response.message, error: !response.success);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(8.r, 0, 0.r, 10.r),
+                    child: SvgPicture.asset(
+                      'assets/images/Group40855.svg',
+                      semanticsLabel: 'Acme Logo',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

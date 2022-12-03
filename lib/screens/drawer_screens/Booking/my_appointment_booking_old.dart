@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aphaa_app/general/doctor_dropdown_item.dart';
 import 'package:aphaa_app/helper/helper.dart';
 import 'package:aphaa_app/model/time_avilable_response/AvailableTime.dart';
@@ -9,6 +11,14 @@ import 'package:flutter_calendar_carousel/classes/multiple_marked_dates.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_paytabs_bridge/BaseBillingShippingInfo.dart';
+import 'package:flutter_paytabs_bridge/IOSThemeConfiguration.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkApms.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkConfigurationDetails.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkLocale.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkTransactionClass.dart';
+import 'package:flutter_paytabs_bridge/PaymentSdkTransactionType.dart';
+import 'package:flutter_paytabs_bridge/flutter_paytabs_bridge.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import '../../../api/controllers/hospital_controller.dart';
@@ -16,7 +26,9 @@ import '../../../general/btn_layout.dart';
 import '../../../general/dropdown_item.dart';
 import '../../../general/edittext_item.dart';
 import '../../../get/new_account_getx_controller.dart';
+import '../../../helper/constant.dart';
 import '../../../model/Clinic.dart';
+import '../../../model/billResponse.dart';
 import '../../../model/doctor.dart';
 import '../../../preferences/shared_pref_controller.dart';
 import '../../main_screens/Appointment Booking/time_appoiment_item.dart';
@@ -25,17 +37,17 @@ import 'package:aphaa_app/helper/helpers.dart' as myHelper;
 
 import '../done/done_screen.dart';
 
-class MyAppointmentBooking extends StatefulWidget {
+class MyAppointmentBookingOld extends StatefulWidget {
   bool? flag;
-  static String routeName = "/my_booking_screen";
+  static String routeName = "/my_booking_screen_old";
 
-  MyAppointmentBooking({this.flag});
+  MyAppointmentBookingOld({this.flag});
 
   @override
-  State<MyAppointmentBooking> createState() => _MyAppointmentBookingState();
+  State<MyAppointmentBookingOld> createState() => _MyAppointmentBookingOldState();
 }
 
-class _MyAppointmentBookingState extends State<MyAppointmentBooking>
+class _MyAppointmentBookingOldState extends State<MyAppointmentBookingOld>
     with Helpers, myHelper.Helpers1 {
   List<Clinic> myData = [];
   List<Doctor> myDataDoctor = [];
