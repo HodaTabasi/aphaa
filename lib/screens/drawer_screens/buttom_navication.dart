@@ -110,6 +110,19 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                         )),
                     titleSpacing: 2,
                     centerTitle: true,
+              leading:
+                Padding(
+                  padding: EdgeInsets.all(8.0.r),
+                  child: CircleAvatar(
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      width: 34.w,
+                      height: 30.h,
+                    ),
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+
                     // leading: Container(
                     //     margin: const EdgeInsets.all(15.0),
                     //     padding: const EdgeInsets.all(5.0),

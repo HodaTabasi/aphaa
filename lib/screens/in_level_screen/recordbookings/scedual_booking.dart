@@ -9,6 +9,7 @@ import '../../../api/controllers/hospital_controller.dart';
 import '../../../get/login_getx_controller.dart';
 import '../../../helper/helpers.dart' ;
 import '../../../model/api_response.dart';
+import '../../drawer_screens/Booking/payment_methods.dart';
 
 
 class ScedualBookingItem extends StatelessWidget with Helpers1 {
@@ -198,7 +199,9 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
               children: [
                 InkWell(
                   onTap: () async {
-                    print("Fdgdg");
+                    PaymentMethod paymentMethod = PaymentMethod(context);
+                    paymentMethod.doPaymentConfiguration(50);
+                    paymentMethod.onBookClick(context,50);
                   },
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8.r, 0, 16.r, 10.r),

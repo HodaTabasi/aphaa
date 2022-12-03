@@ -26,7 +26,7 @@ class PaymentMethod with Helpers1{
     PaymentSdkConfigurationDetails();
   }
 
-  void onBookClick(context) {
+  void onBookClick(context,price) {
     //TODO : validate form
     // if (cardNameController.text.isEmpty) {
     //   //TODO : show error message for card name
@@ -47,10 +47,10 @@ class PaymentMethod with Helpers1{
 
     //TODO : [if pass] Start payment by calling startCardPayment method and handle the transaction details
 
-    startPaymentWithCard(context);
+    startPaymentWithCard(context,price);
   }
 
-  void doPaymentConfiguration() {
+  void doPaymentConfiguration(price) {
     ///todo this data required to show payment page
     ///todo: here you need to add user data if exist at lest [*** user name and email]
     bool? isLogin = SharedPrefController()
@@ -95,7 +95,7 @@ class PaymentMethod with Helpers1{
         shippingDetails: shippingDetails,
         locale: PaymentSdkLocale.EN,
         //PaymentSdkLocale.AR or PaymentSdkLocale.DEFAULT
-        amount: double.parse("${NewAccountGetxController.to.timeResponse?.reqAmt}"),
+        amount: double.parse("${price}"),
         //release her amount
         currencyCode: "SAR",
         merchantCountryCode: "SA",
@@ -114,7 +114,7 @@ class PaymentMethod with Helpers1{
     }
   }
 
-  void startPaymentWithCard(context) {
+  void startPaymentWithCard(context,price) {
     //test card data todo 4111111111111111  || name = Visa || cvv = 123
     FlutterPaytabsBridge.startCardPayment(configuration, (event) {
         print(event);
@@ -135,7 +135,7 @@ class PaymentMethod with Helpers1{
           }
         } else if (event["status"] == "error") {
           print(event);
-          print("dsfsd ${NewAccountGetxController.to.timeResponse?.reqAmt}");
+          print("dsfsd ${price}");
           showSnackBar(context, message:event["message"], error: true);
           // Handle error here.
         } else if (event["status"] == "event") {

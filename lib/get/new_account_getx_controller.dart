@@ -38,6 +38,7 @@ class NewAccountGetxController extends GetxController {
   bool fromOpenFile = false;
   bool isChangeLoading = false;
   bool isChangeTimeLoading = false;
+  bool ClaenderVisabiltyFlag = false;
 
   ///////////////
 
@@ -124,6 +125,11 @@ class NewAccountGetxController extends GetxController {
    //     break;
    // }
    // Get.appUpdate();
+  }
+
+  changeClaenderVisabiltyFlag() {
+    avilableTime.clear();
+    update();
   }
 
   String makeCode() {

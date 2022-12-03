@@ -1,7 +1,10 @@
 import 'package:aphaa_app/screens/drawer_screens/Booking/payment_methods.dart';
+import 'package:aphaa_app/screens/drawer_screens/buttom_navication.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../get/new_account_getx_controller.dart';
 
 mixin Helpers {
   showAlertDialog(BuildContext context, {flag = false,message=""}) {
@@ -32,9 +35,9 @@ mixin Helpers {
         child: ElevatedButton(
             onPressed: () {
               PaymentMethod paymentMethod = PaymentMethod(context);
-              paymentMethod.doPaymentConfiguration();
+              paymentMethod.doPaymentConfiguration(NewAccountGetxController.to.timeResponse?.reqAmt);
               Navigator.pop(context);
-              paymentMethod.onBookClick(context);
+              paymentMethod.onBookClick(context,NewAccountGetxController.to.timeResponse?.reqAmt);
             },
             child: Text("استمرار الي الدفع",
                 style: TextStyle(
@@ -45,7 +48,7 @@ mixin Helpers {
     Widget continueButton3 = Center(
       child: ElevatedButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.popAndPushNamed(context, ButtomNavigations.routeName);
           },
           child: Text("اغلاق",
               style: TextStyle(

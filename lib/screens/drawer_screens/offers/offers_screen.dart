@@ -34,7 +34,20 @@ class _OfferScreenState extends State<OfferScreen> {
                 fontWeight: FontWeight.bold,
               )),
           titleSpacing: 2,
-          centerTitle: true, ):null,
+          centerTitle: true,
+        leading:
+        Padding(
+          padding: EdgeInsets.all(8.0.r),
+          child: CircleAvatar(
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: 34.w,
+              height: 30.h,
+            ),
+            backgroundColor: Colors.white,
+          ),
+        ),
+      ):null,
       body: ListView(
         children: [
           FutureBuilder<List<Offers>>(

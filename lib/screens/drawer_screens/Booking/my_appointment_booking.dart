@@ -10,6 +10,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/btn_layout.dart';
@@ -96,6 +97,19 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                   )),
               titleSpacing: 2,
               centerTitle: true,
+        leading:
+          Padding(
+            padding: EdgeInsets.all(8.0.r),
+            child: CircleAvatar(
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 34.w,
+                height: 30.h,
+              ),
+              backgroundColor: Colors.white,
+            ),
+          ),
+
               // leading: Container(
               //     margin: const EdgeInsets.all(15.0),
               //     padding: const EdgeInsets.all(5.0),
@@ -144,34 +158,34 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                             value.doctorsList,
                             'assets/images/docgreen.svg',
                             AppLocalizations.of(context)!.dovtor_choesse),
-                        Visibility(
-                          visible: value.global != null,
-                          child: EditTextItem('assets/images/Calendar.svg',
-                              AppLocalizations.of(context)!.appoitment_date,
-                              b: false, controler: dateText),
-                        ),
+                    Visibility(
+                      visible: value.global != null,
+                      child: EditTextItem('assets/images/Calendar.svg',
+                          AppLocalizations.of(context)!.appoitment_date,
+                          b: false, controler: dateText),),
+
                         if (!value.isChangeLoading)
                           Stack(
                             children: [
                               Visibility(
                                   visible: value.avilableDate.isEmpty &&
-                                      !value.isChangeLoading,
+                                      !value.isChangeLoading || value.global == null,
                                   child: Center(
                                       child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      Image.asset("assets/images/calendar.png"),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      Text("لا يوجد مواعيد متاحة"),
-                                    ],
-                                  ))),
+                                        children: [
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          Image.asset("assets/images/calendar.png"),
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          Text("لا يوجد مواعيد متاحة"),
+                                        ],
+                                      ))),
                               Visibility(
-                                  visible: value.global != null ||
-                                      value.avilableDate.isNotEmpty,
+                                  visible: value.global != null &&
+                                      value.avilableDate.isNotEmpty && value.avilableTime.isEmpty,
                                   child: widget1(value.avilableDate, value)),
                             ],
                           ),
@@ -192,7 +206,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
+                                  EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
                                   child: Text(
                                     AppLocalizations.of(context)!.time,
                                     style: TextStyle(
@@ -200,6 +214,20 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                                       fontSize: 14.sp,
                                       fontFamily: 'Tajawal',
                                       fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+                                Spacer(),
+                                InkWell(
+                                  onTap: (){
+                                    value.changeClaenderVisabiltyFlag();
+                                    _currentDate = null;
+                                  },
+                                  child: Padding(
+                                    padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
+                                    child:   SvgPicture.asset(
+                                        'assets/images/Calendar.svg',
+                                        semanticsLabel: 'Acme Logo'
                                     ),
                                   ),
                                 )
@@ -217,18 +245,17 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                                         !value.isChangeTimeLoading,
                                     child: Center(
                                         child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 20.h,
-                                        ),
-                                        Image.asset(
-                                            "assets/images/free_time.png"),
-                                        SizedBox(
-                                          height: 20.h,
-                                        ),
-                                        Text("لا يوجد اوقات متاحة"),
-                                      ],
-                                    ))),
+                                          children: [
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            Image.asset("assets/images/free_time.png"),
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            Text("لا يوجد اوقات متاحة"),
+                                          ],
+                                        ))),
                                 Visibility(
                                     visible: value.isChangeTimeLoading,
                                     child: const Center(
@@ -236,13 +263,17 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                                 if (!value.isChangeTimeLoading)
                                   Column(
                                     children: [
-                                      RichText(
-                                          text: TextSpan(
-                                            style: TextStyle(color: Colors.red),
-                                              text: "  ${value.timeResponse?.reqAmt??''} ريال ",
-                                              children: [
-                                                TextSpan(text: value.timeResponse?.paymentNotice??''),
-                                              ])),
+                                      Visibility(
+                                        visible:
+                                        value.avilableTime.isNotEmpty,
+                                        child: RichText(
+                                            text: TextSpan(
+                                                style: TextStyle(color: Colors.red),
+                                                text: "  ${value.timeResponse?.reqAmt??''} ريال ",
+                                                children: [
+                                                  TextSpan(text: value.timeResponse?.paymentNotice??''),
+                                                ])),
+                                      ),
                                       // Text(
                                       //   value.timeResponse!.paymentNotice ?? "",
                                       // ),
@@ -253,21 +284,21 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                                           // width: 80,
                                           child: Visibility(
                                             visible:
-                                                value.avilableTime.isNotEmpty,
+                                            value.avilableTime.isNotEmpty,
                                             child: GridView.builder(
                                               shrinkWrap: true,
                                               itemCount:
-                                                  value.avilableTime.length,
+                                              value.avilableTime.length,
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 10.h),
                                               scrollDirection: Axis.horizontal,
                                               gridDelegate:
-                                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                                      crossAxisCount: 1,
-                                                      mainAxisSpacing: 10.h,
-                                                      crossAxisSpacing: 10.w,
-                                                      childAspectRatio:
-                                                          280 / 200),
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 1,
+                                                  mainAxisSpacing: 10.h,
+                                                  crossAxisSpacing: 10.w,
+                                                  childAspectRatio:
+                                                  280 / 200),
                                               itemBuilder: (context, index) {
                                                 return TimeAppoitmentItem(
                                                     data: value
@@ -299,6 +330,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                       child: BtnLayout(
                           AppLocalizations.of(context)!.appointment,
                           () => _performAction(value))),
+
                   // Image.asset(
                   //   "assets/images/image1.png",
                   //   fit: BoxFit.fitWidth,

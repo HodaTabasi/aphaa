@@ -11,6 +11,7 @@ import 'package:flutter_calendar_carousel/classes/multiple_marked_dates.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:aphaa_app/helper/helpers.dart' as myHelper ;
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
@@ -162,39 +163,42 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                     //   child: DoctorDropDownItem(value.doctorsList, 'assets/images/docgreen.svg',
                     //       AppLocalizations.of(context)!.dovtor_choesse),
                     // ),
-                Visibility(
-                    visible: value.avilableDate.isNotEmpty,
+                    Visibility(
+                      visible: value.global != null,
                       child: EditTextItem('assets/images/Calendar.svg',
-                          AppLocalizations.of(context)!.appoitment_date,b: false,controler: dateText),
-                    ),
+                          AppLocalizations.of(context)!.appoitment_date,
+                          b: false, controler: dateText),),
+
                     if (!value.isChangeLoading)
-                    Stack(
-                      children: [
-                        Visibility(
-                            visible: value.avilableDate.isEmpty&&
-                                !value.isChangeLoading,
-                            child: Center(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Image.asset("assets/images/calendar.png"),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Text("لا يوجد مواعيد متاحة"),
-                                  ],
-                                ))),
-                        Visibility(visible:value.global != null||
-                            value.avilableDate.isNotEmpty,child: widget1(value.avilableDate,value)),
-                      ],
-                    ),
+                      Stack(
+                        children: [
+                          Visibility(
+                              visible: value.avilableDate.isEmpty &&
+                                  !value.isChangeLoading || value.global == null,
+                              child: Center(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Image.asset("assets/images/calendar.png"),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Text("لا يوجد مواعيد متاحة"),
+                                    ],
+                                  ))),
+                          Visibility(
+                              visible: value.global != null &&
+                                  value.avilableDate.isNotEmpty && value.avilableTime.isEmpty,
+                              child: widget1(value.avilableDate, value)),
+                        ],
+                      ),
                     Visibility(
                         visible: value.isChangeLoading,
                         child: const Center(
                             child: CircularProgressIndicator())),
-                     Visibility(
+                    Visibility(
                       visible: value.avilableTime.isNotEmpty,
                       child: Padding(
                         padding: EdgeInsets.all(16.0.r),
@@ -206,7 +210,8 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                               size: 23.sp,
                             ),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
+                              padding:
+                              EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
                               child: Text(
                                 AppLocalizations.of(context)!.time,
                                 style: TextStyle(
@@ -216,82 +221,110 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
+                            ),
+                            Spacer(),
+                            InkWell(
+                              onTap: (){
+                                value.changeClaenderVisabiltyFlag();
+                                _currentDate = null;
+                              },
+                              child: Padding(
+                                padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
+                                child:   SvgPicture.asset(
+                                    'assets/images/Calendar.svg',
+                                    semanticsLabel: 'Acme Logo'
+                                ),
+                              ),
                             )
                           ],
                         ),
                       ),
                     ),
                     if (!value.isChangeLoading)
-                    Visibility(
-                      visible: value.avilableDate.isNotEmpty,
-                      child: Stack(
-                        children: [
-                          Visibility(
-                              visible: value.avilableTime.isEmpty,
-                              child: Center(
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      Image.asset(
-                                          "assets/images/free_time.png"),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      Text("لا يوجد اوقات متاحة"),
-                                    ],
-                                  ))),
-                          Visibility(
-                              visible: value.isChangeTimeLoading,
-                              child: const Center(
-                                  child: CircularProgressIndicator())),
-                          if (!value.isChangeTimeLoading)
-                            Column(
-                              children: [
-                                RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(color: Colors.red),
-                                        text: "  ${value.timeResponse?.reqAmt??''} ريال ",
-                                        children: [
-                                          TextSpan(text: value.timeResponse?.paymentNotice??''),
-                                        ])),
-                                Padding(
-                                  padding: EdgeInsets.all(8.0.r),
-                                  child: SizedBox(
-                                    height: 100.h,
-                                    // width: 80,
-                                    child: Visibility(
-                                      visible: value.avilableTime.isNotEmpty,
-                                      child: GridView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: value.avilableTime.length,
-                                        padding: EdgeInsets.symmetric(horizontal: 10.h),
-                                        scrollDirection: Axis.horizontal,
-                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 1,
-                                            mainAxisSpacing: 10.h,
-                                            crossAxisSpacing: 10.w,
-                                            childAspectRatio: 280 / 200),
-                                        itemBuilder: (context, index) {
-                                          return TimeAppoitmentItem(
-                                              data:value.avilableTime[index],
-                                              title: "",
-                                              value: index,
-                                              groupValue: _value,
-                                              onChanged: (value) => setState(() {
-                                                _value = value;
-                                              }));
-                                        },
+                      Visibility(
+                        visible: value.avilableDate.isNotEmpty,
+                        child: Stack(
+                          children: [
+                            Visibility(
+                                visible: value.avilableTime.isEmpty &&
+                                    !value.isChangeTimeLoading,
+                                child: Center(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 20.h,
+                                        ),
+                                        Image.asset("assets/images/free_time.png"),
+                                        SizedBox(
+                                          height: 20.h,
+                                        ),
+                                        Text("لا يوجد اوقات متاحة"),
+                                      ],
+                                    ))),
+                            Visibility(
+                                visible: value.isChangeTimeLoading,
+                                child: const Center(
+                                    child: CircularProgressIndicator())),
+                            if (!value.isChangeTimeLoading)
+                              Column(
+                                children: [
+                                  Visibility(
+                                    visible:
+                                    value.avilableTime.isNotEmpty,
+                                    child: RichText(
+                                        text: TextSpan(
+                                            style: TextStyle(color: Colors.red),
+                                            text: "  ${value.timeResponse?.reqAmt??''} ريال ",
+                                            children: [
+                                              TextSpan(text: value.timeResponse?.paymentNotice??''),
+                                            ])),
+                                  ),
+                                  // Text(
+                                  //   value.timeResponse!.paymentNotice ?? "",
+                                  // ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0.r),
+                                    child: SizedBox(
+                                      height: 100.h,
+                                      // width: 80,
+                                      child: Visibility(
+                                        visible:
+                                        value.avilableTime.isNotEmpty,
+                                        child: GridView.builder(
+                                          shrinkWrap: true,
+                                          itemCount:
+                                          value.avilableTime.length,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10.h),
+                                          scrollDirection: Axis.horizontal,
+                                          gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 1,
+                                              mainAxisSpacing: 10.h,
+                                              crossAxisSpacing: 10.w,
+                                              childAspectRatio:
+                                              280 / 200),
+                                          itemBuilder: (context, index) {
+                                            return TimeAppoitmentItem(
+                                                data: value
+                                                    .avilableTime[index],
+                                                title: "",
+                                                value: index,
+                                                groupValue: _value,
+                                                onChanged: (value) =>
+                                                    setState(() {
+                                                      _value = value;
+                                                    }));
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
-                        ],
+                                ],
+                              )
+                          ],
+                        ),
                       ),
-                    )
                   ],
                 ),
               ),
