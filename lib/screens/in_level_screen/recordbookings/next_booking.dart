@@ -172,7 +172,10 @@ class _NextBookingState extends State<NextBooking> {
                   ),
                 ),
 
-              if (_hasNextPage == false || pageList.length ==1)
+              // if (_hasNextPage == false || pageList.length ==1)
+              //   SizedBox(
+              //     height: 200.h,
+              //   ),
                 Center(
                   child: Image.asset(
                     "assets/images/image1.png",

@@ -1,9 +1,9 @@
-// import 'package:another_flushbar/flushbar.dart';
 import 'package:aphaa_app/general/readPdf.dart';
-import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:flutter/material.dart';
 
 import '../get/change_name_getx_controller.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 mixin Helpers1 {
   void showSnackBar(BuildContext context,
@@ -25,7 +25,7 @@ mixin Helpers1 {
         backgroundColor: error ? Colors.red : Colors.green,
         dismissDirection: DismissDirection.horizontal,
         action: SnackBarAction(
-          label: SharedPrefController().getValueFor(key: PrefKeys.lang.name) == 'ar'?'افتح':'open',
+          label: AppLocalizations.of(context)!.open,
           textColor: Colors.white,
           onPressed: () {
             ChangeGetxController.to.filePath = path;

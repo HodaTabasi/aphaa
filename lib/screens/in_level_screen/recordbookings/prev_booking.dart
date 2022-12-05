@@ -164,7 +164,7 @@ class _PrevBookingState extends State<PrevBooking> {
                         child: CircularProgressIndicator(),
                       ),
                     ),
-                  if (_hasNextPage == false || pageList.length ==1)
+                  // if (_hasNextPage == false || pageList.length ==1)
                     Center(
                       child: Image.asset(
                         "assets/images/image1.png",

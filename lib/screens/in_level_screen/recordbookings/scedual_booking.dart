@@ -213,14 +213,8 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                 ),
                 InkWell(
                   onTap: () async {
-                    showLoaderDialog(context);
-                    ApiResponse response = await HospitalApiController().setCxlRes(resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode);
-                    if(response.success){
-                      LoginGetXController.to.delete(appointments);
-                    }
-                    Navigator.pop(context);
-                    showSnackBar(context, message: response.message, error: !response.success);
-                  },
+                    _displayDialog(context);
+                      },
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8.r, 0, 0.r, 10.r),
                     child: SvgPicture.asset(
@@ -235,5 +229,45 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
         ],
       ),
     );
+  }
+  Future<void> _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content:  Text(AppLocalizations.of(context)!.dialog_mm),
+            actions: <Widget>[
+              TextButton(
+                child:  Text(
+                  AppLocalizations.of(context)!.conferm,
+                  style: TextStyle(color: Colors.red),
+                ),
+                onPressed: () async {
+                  Navigator.pop(context);
+                  showLoaderDialog(context);
+                  ApiResponse response = await HospitalApiController().setCxlRes(resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode);
+                  if(response.success){
+                    LoginGetXController.to.delete(appointments);
+                    Navigator.pop(context);
+                  }
+
+                  showSnackBar(context, message: response.message, error: !response.success);
+
+                },
+              ),
+              TextButton(
+                child:  Text(
+                  AppLocalizations.of(context)!.cancel,
+                  style: TextStyle(color: Colors.black),
+                ),
+                onPressed: () async {
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+            ],
+          );
+        });
   }
 }

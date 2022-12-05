@@ -73,15 +73,15 @@ class QuickServices extends StatelessWidget {
         scrollDirection: Axis.vertical,
         children: [
            SizedBox(
-            height: 30.h,
+            height: 5.h,
           ),
           Image.asset(
             'assets/images/logo.png',
-            width: 203.w,
-            height: 161.h,
+            width: 185.w,
+            height: 150.h,
           ),
            SizedBox(
-            height: 15.h,
+            height: 8.h,
           ),
           Text(
             AppLocalizations.of(context)!.welcome,
@@ -94,7 +94,7 @@ class QuickServices extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
            SizedBox(
-            height: 20.h,
+            height: 5.h,
           ),
           Padding(
             padding:  EdgeInsets.all(16.0.r),
@@ -108,9 +108,6 @@ class QuickServices extends StatelessWidget {
               ),
             ),
           ),
-           SizedBox(
-            height: 5.h,
-          ),
           GridView.builder(
             shrinkWrap: true,
             itemCount: 4,
@@ -119,8 +116,8 @@ class QuickServices extends StatelessWidget {
             scrollDirection: Axis.vertical,
             gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisSpacing: 10.w,
-              crossAxisSpacing: 10.h,
+              mainAxisSpacing: 5.w,
+              crossAxisSpacing: 5.h,
             ),
             itemBuilder: (context, index) {
               return ServiceItem(
@@ -134,7 +131,7 @@ class QuickServices extends StatelessWidget {
             },
           ),
           const SizedBox(
-            height: 25,
+            height: 16,
           ),
           Text(
             AppLocalizations.of(context)!.welcome2,
@@ -147,7 +144,7 @@ class QuickServices extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 25.r),
+            padding:  EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 15.r),
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: Row(

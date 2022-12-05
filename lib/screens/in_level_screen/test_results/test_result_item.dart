@@ -122,7 +122,7 @@ class TestResultItem extends StatelessWidget with Helpers1 {
                   else {
                     File file =  await FileProcess.downloadFile(base64.pdfFile, serviceTest!.fileName);
                     Navigator.pop(context);
-                    showSnackBarAction(context, message: "${AppLocalizations.of(context)!.download_successfully} ${file.path} ",error: false,path:file.path );
+                    showSnackBarAction(context, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
                   }
 
                   // showModalBottomSheet(

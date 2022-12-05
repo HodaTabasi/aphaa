@@ -27,7 +27,7 @@ class ServiceItem extends StatelessWidget {
           //   ),
           // ],
         ),
-        padding: EdgeInsets.all(16.r),
+        padding: EdgeInsets.all(12.r),
         margin:  EdgeInsets.all(5.r),
         child: Column(
           children: [
@@ -37,7 +37,7 @@ class ServiceItem extends StatelessWidget {
             semanticsLabel: 'Acme Logo'
         ),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             FittedBox(
               child: Text(name,

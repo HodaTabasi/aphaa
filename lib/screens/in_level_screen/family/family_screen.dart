@@ -187,8 +187,12 @@ class _FamillyScreenState extends State<FamillyScreen> {
               ),
             ),
 
-          if (_hasNextPage == false || pageList.length ==1)
-            const Center(
+          // if (_hasNextPage == false || pageList.length ==1)
+             Center(
+              child: Image.asset(
+                "assets/images/image1.png",
+                fit: BoxFit.fitWidth,
+              ),
             ),
         ],
       ),
