@@ -28,6 +28,7 @@ mixin Helpers1 {
           label: AppLocalizations.of(context)!.open,
           textColor: Colors.white,
           onPressed: () {
+            print(path);
             ChangeGetxController.to.filePath = path;
             Navigator.pushNamed(context, ReadPdf.routeName);
           },

@@ -333,7 +333,7 @@ class HospitalApiController with ApiHelper {
 
   Future<List<LeaveDetail>> getSickLeaveDtl({leaveId}) async {
     final queryParameters = {
-      'leaveId': '$leaveId',
+      'repId': '$leaveId',
       'lang':
           SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) ??
               'ar',
