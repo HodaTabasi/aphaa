@@ -51,7 +51,7 @@ mixin Helpers {
             Navigator.pop(context);
             // Navigator.popAndPushNamed(context, ButtomNavigations.routeName);
           },
-          child: Text("اغلاق",
+          child: Text("عودة",
               style: TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
     );

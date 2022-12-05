@@ -208,8 +208,8 @@ class _MyDoctorsScreenState extends State<MyDoctorsScreen> {
                     mainAxisSpacing: 15.h,
                     crossAxisSpacing: 15.w,
                     childAspectRatio: 240 / 330),
-                itemBuilder: (context, index) {
-                  return DoctorItem(list[index]);
+                    itemBuilder: (context, index) {
+                  return DoctorItem(list[index],Key(list[index].doctorCode!));
                 },
               ),
             ),

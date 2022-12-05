@@ -23,7 +23,7 @@ class SickItem extends StatelessWidget {
           isScrollControlled: false,
           backgroundColor: Colors.transparent,
           context: context,
-          builder: (context) => PrintButtomSheetSickLevel(this.leaveId),
+          builder: (_) => PrintButtomSheetSickLevel(this.leaveId,context),
         );
       },
       child: Container(

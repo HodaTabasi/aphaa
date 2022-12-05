@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../general/NewWidgetNetworkFirst.dart';
 import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../preferences/shared_pref_controller.dart';
 import '../Appointment Booking/doctor_filtter.dart';
 import 'DoctorItem.dart';
 
@@ -101,8 +102,12 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                     EdgeInsets.symmetric(horizontal: 16.0.r),
                                 child: TextField(
                                   controller: searchController,
+                                  // textDirection: SharedPrefController().getValueFor(key: PrefKeys.lang.name) == 'ar'?TextDirection.rtl: TextDirection.ltr,
                                   onChanged: (val) {
                                     controller.filtterByName(val);
+                                  },
+                                  onTap: (){
+                                    searchController.selection = TextSelection.fromPosition(TextPosition(offset: searchController.text.length));
                                   },
                                   decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
@@ -183,7 +188,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                       crossAxisSpacing: 15.w,
                                       childAspectRatio: 240 / 330),
                               itemBuilder: (context, index) {
-                                return DoctorItem(controller.list[index]);
+                                return DoctorItem(controller.list[index], Key(controller.list[index].doctorCode!));
                               },
                             ),
                           ),

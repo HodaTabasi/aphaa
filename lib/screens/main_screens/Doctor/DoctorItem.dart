@@ -16,8 +16,8 @@ import 'dart:convert';
 
 class DoctorItem extends StatefulWidget {
   Doctor doctor;
-
-  DoctorItem(this.doctor);
+  Key? key;
+  DoctorItem(this.doctor, this.key): super(key: key);
 
   @override
   State<DoctorItem> createState() => _DoctorItemState();
@@ -53,6 +53,7 @@ class _DoctorItemState extends State<DoctorItem> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      key: widget.key,
       onTap: () {
         // print(widget.doctor.doctorName);
         var imag1 = widget.doctor.img?.replaceAll("\n", "");
@@ -95,7 +96,7 @@ class _DoctorItemState extends State<DoctorItem> {
                           )
                         : img != null
                             ? Image.memory(img!,width: 144.w,
-                      height: 114.h,)
+                      height: 114.h, key: widget.key,)
                             : Image.network(
                                 "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__340.png",
                                 // "https://jihadm33.sg-host.com/public/storage/${doctor.img}",

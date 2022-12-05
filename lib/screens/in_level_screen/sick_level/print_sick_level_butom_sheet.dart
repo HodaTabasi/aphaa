@@ -15,7 +15,8 @@ import '../../../preferences/shared_pref_controller.dart';
 
 class PrintButtomSheetSickLevel extends StatefulWidget {
   String leaveId;
-  PrintButtomSheetSickLevel(this.leaveId);
+  BuildContext bottomSheetContext;
+  PrintButtomSheetSickLevel(this.leaveId, this.bottomSheetContext);
 
 
   @override
@@ -260,7 +261,7 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> w
                             Navigator.pop(context);
                             File file =  await FileProcess.downloadFile(base64.pdfFile, snapshot.data!.first.fileName);
                             Navigator.pop(context);
-                            showSnackBarAction(context, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
+                            showSnackBarAction(widget.bottomSheetContext, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
                           }
                         },
                           child: downloadBtn())),

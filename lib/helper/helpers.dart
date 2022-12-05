@@ -1,5 +1,6 @@
 import 'package:aphaa_app/general/readPdf.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../get/change_name_getx_controller.dart';
 
@@ -18,7 +19,7 @@ mixin Helpers1 {
   }
 
   void showSnackBarAction(BuildContext context,
-      {required String message, bool error = false,path}) {
+      {required String message, bool error = false,path, VoidCallback? onPressed }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
@@ -27,10 +28,13 @@ mixin Helpers1 {
         action: SnackBarAction(
           label: AppLocalizations.of(context)!.open,
           textColor: Colors.white,
+          // onPressed: onPressed ?? (){},
           onPressed: () {
             print(path);
             ChangeGetxController.to.filePath = path;
+
             Navigator.pushNamed(context, ReadPdf.routeName);
+            // Get.to(ReadPdf());
           },
         ),
       ),
