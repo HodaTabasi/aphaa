@@ -40,6 +40,9 @@ class NewAccountGetxController extends GetxController {
   bool isChangeTimeLoading = false;
   bool ClaenderVisabiltyFlag = false;
 
+  DateTime? currentDate ;
+  var GroupValue = -1;
+
   ///////////////
 
   final num1Controller = TextEditingController();
@@ -132,6 +135,17 @@ class NewAccountGetxController extends GetxController {
     update();
   }
 
+  cleanSeation() {
+    avilableTime.clear();
+    avilableDate.clear();
+    doctorsList.clear();
+    clinicCode = '';
+    doctorCode = '';
+    consultNo = '';
+    global = null ;
+    update();
+  }
+
   String makeCode() {
     var num1 = num1Controller.text;
     var num2 = num2Controller.text;
@@ -156,5 +170,6 @@ class NewAccountGetxController extends GetxController {
     fromOpenFile = false;
     isChangeLoading = false;
     isChangeTimeLoading = false;
+    update();
   }
 }

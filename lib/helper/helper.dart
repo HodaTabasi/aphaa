@@ -48,7 +48,8 @@ mixin Helpers {
     Widget continueButton3 = Center(
       child: ElevatedButton(
           onPressed: () {
-            Navigator.popAndPushNamed(context, ButtomNavigations.routeName);
+            Navigator.pop(context);
+            // Navigator.popAndPushNamed(context, ButtomNavigations.routeName);
           },
           child: Text("اغلاق",
               style: TextStyle(

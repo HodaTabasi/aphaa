@@ -25,6 +25,7 @@ import '../../main_screens/Appointment Booking/time_appoiment_item.dart';
 import 'package:aphaa_app/helper/helpers.dart' as myHelper;
 
 import '../done/done_screen.dart';
+import 'edittext_item_calender.dart';
 
 class MyAppointmentBooking extends StatefulWidget {
   bool? flag;
@@ -43,9 +44,9 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
 
   late TextEditingController dateText;
 
-  DateTime? _currentDate;
+  // DateTime? _currentDate;
 
-  var _value = 0;
+  // var _value = -1;
   bool isLoading = false;
 
 
@@ -160,7 +161,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                             AppLocalizations.of(context)!.dovtor_choesse),
                     Visibility(
                       visible: value.global != null,
-                      child: EditTextItem('assets/images/Calendar.svg',
+                      child: EditTextItemCalender('assets/images/Calendar.svg',
                           AppLocalizations.of(context)!.appoitment_date,
                           b: false, controler: dateText),),
 
@@ -221,7 +222,8 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                                 InkWell(
                                   onTap: (){
                                     value.changeClaenderVisabiltyFlag();
-                                    _currentDate = null;
+                                    value.currentDate = null;
+                                    value.GroupValue = -1;
                                   },
                                   child: Padding(
                                     padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
@@ -305,10 +307,10 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                                                         .avilableTime[index],
                                                     title: "",
                                                     value: index,
-                                                    groupValue: _value,
-                                                    onChanged: (value) =>
+                                                    groupValue: value.GroupValue,
+                                                    onChanged: (value1) =>
                                                         setState(() {
-                                                          _value = value;
+                                                          value.GroupValue = value1;
                                                         }));
                                               },
                                             ),
@@ -362,15 +364,15 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
           },
           onDayPressed: (DateTime date, List<Event> events) async {
             this.setState(() {
-              _currentDate = date;
+              NewAccountGetxController.to.currentDate = date;
               dateText.text =
-                  "${_currentDate!.year}-${_currentDate!.month}-${_currentDate!.day}";
+                  "${NewAccountGetxController.to.currentDate!.year}-${NewAccountGetxController.to.currentDate!.month}-${NewAccountGetxController.to.currentDate!.day}";
             });
-            if (event.contains(_currentDate)) {
+            if (event.contains(NewAccountGetxController.to.currentDate)) {
               await HospitalApiController().getDoctorSchedDtl(
                   clinicCode: value.clinicCode,
                   doctorCode: value.doctorCode,
-                  availableDay: _currentDate);
+                  availableDay: NewAccountGetxController.to.currentDate);
             } else {
               showRigectAlertDialog(context);
             }
@@ -433,7 +435,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
             fontFamily: 'Tajawal',
             fontWeight: FontWeight.bold,
           ),
-          selectedDateTime: _currentDate,
+          selectedDateTime: NewAccountGetxController.to.currentDate,
           selectedDayTextStyle: TextStyle(
             color: Colors.white,
             fontSize: 14.sp,
@@ -477,7 +479,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
   Future<void> _performAction(value) async {
     if (_checkData(value)) {
       await _performRigestration(value.clinicCode, value.doctorCode,
-          dateText.text, value.avilableTime[_value]);
+          dateText.text, value.avilableTime[NewAccountGetxController.to.GroupValue]);
     }
   }
 
@@ -485,7 +487,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
     if (value.clinicCode.isNotEmpty &&
         value.doctorCode.isNotEmpty &&
         dateText.text.isNotEmpty &&
-        value.avilableTime[_value] != null) {
+        value.avilableTime[NewAccountGetxController.to.GroupValue] != null && NewAccountGetxController.to.GroupValue != -1) {
       return true;
     }
     showSnackBar(context,
@@ -515,19 +517,15 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
     if (response.success) {
       Navigator.pop(context);
       showAlertDialog(context,flag: true,message: response.message);
+      NewAccountGetxController.to.clearData();
+      NewAccountGetxController.to.GroupValue = -1;
+      this.dateText.text = "";
       // onBookClick(context);
       // showAlertDialog(context);
     } else {
       Navigator.pop(context);
       showSnackBar(context, message: response.message, error: true);
     }
-  }
-
-
-  @override
-  void deactivate() {
-    NewAccountGetxController.to.clearData();
-    super.deactivate();
   }
 
 }

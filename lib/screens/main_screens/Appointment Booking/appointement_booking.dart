@@ -26,6 +26,7 @@ import '../../../get/quick_service_getx_controller.dart';
 import '../../../model/Clinic.dart';
 import '../../../model/api_response.dart';
 import '../../../preferences/shared_pref_controller.dart';
+import '../../drawer_screens/Booking/edittext_item_calender.dart';
 
 class AppointmentBooking extends StatefulWidget {
   static String routeName = "/appointment_booking";
@@ -44,9 +45,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
   late TextEditingController phone;
   late TextEditingController dateText;
 
-  DateTime? _currentDate;
 
-  var _value = 0;
   bool isLoading = false;
 
 
@@ -165,7 +164,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                     // ),
                     Visibility(
                       visible: value.global != null,
-                      child: EditTextItem('assets/images/Calendar.svg',
+                      child: EditTextItemCalender('assets/images/Calendar.svg',
                           AppLocalizations.of(context)!.appoitment_date,
                           b: false, controler: dateText),),
 
@@ -226,7 +225,8 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                             InkWell(
                               onTap: (){
                                 value.changeClaenderVisabiltyFlag();
-                                _currentDate = null;
+                                value.currentDate = null;
+                                value.GroupValue = -1;
                               },
                               child: Padding(
                                 padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
@@ -310,10 +310,10 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                                                     .avilableTime[index],
                                                 title: "",
                                                 value: index,
-                                                groupValue: _value,
-                                                onChanged: (value) =>
+                                                groupValue: value.GroupValue,
+                                                onChanged: (value1) =>
                                                     setState(() {
-                                                      _value = value;
+                                                      value.GroupValue = value1;
                                                     }));
                                           },
                                         ),
@@ -331,7 +331,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
               SizedBox(height: 10.h),
               Visibility(
                   visible: value.avilableTime.isNotEmpty && value.avilableTime.isNotEmpty,
-                  child: BtnLayout(AppLocalizations.of(context)!.appointment, ()=>_performAction(value.avilableTime[_value]))),
+                  child: BtnLayout(AppLocalizations.of(context)!.appointment, ()=>_performAction(value.avilableTime[NewAccountGetxController.to.GroupValue]))),
               // Image.asset(
               //   "assets/images/image1.png",
               //   fit: BoxFit.fitWidth,
@@ -363,12 +363,12 @@ class _AppointmentBookingState extends State<AppointmentBooking>
           },
           onDayPressed: (DateTime date, List<Event> events) async {
             this.setState(()  {
-              _currentDate = date;
+              NewAccountGetxController.to.currentDate = date;
               dateText.text =
-              "${_currentDate!.year}-${_currentDate!.month}-${_currentDate!.day}";
+              "${NewAccountGetxController.to.currentDate!.year}-${NewAccountGetxController.to.currentDate!.month}-${NewAccountGetxController.to.currentDate!.day}";
             });
-            if(event.contains(_currentDate)){
-              await HospitalApiController().getDoctorSchedDtl(clinicCode: value.clinicCode,doctorCode: value.doctorCode,availableDay: _currentDate);
+            if(event.contains(NewAccountGetxController.to.currentDate)){
+              await HospitalApiController().getDoctorSchedDtl(clinicCode: value.clinicCode,doctorCode: value.doctorCode,availableDay: NewAccountGetxController.to.currentDate);
             } else {
               showRigectAlertDialog(context);
             }
@@ -426,7 +426,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
             fontFamily: 'Tajawal',
             fontWeight: FontWeight.bold,
           ),
-          selectedDateTime: _currentDate,
+          selectedDateTime: NewAccountGetxController.to.currentDate,
           selectedDayTextStyle: TextStyle(
             color: Colors.white,
             fontSize: 16.sp,
@@ -486,6 +486,9 @@ class _AppointmentBookingState extends State<AppointmentBooking>
     ApiResponse apiResponse = await QuickServiceApiController().appointment(email: email.text,mobile: phone.text,name: name.text,date: dateText.text,clinic: QuickServiceGetxController.to.clinicName,doctor: QuickServiceGetxController.to.doctorName,time: avilableTime.consultTime24,cost: "3.1");
     if (apiResponse.success) {
       Navigator.pop(context);
+      NewAccountGetxController.to.clearData();
+      NewAccountGetxController.to.GroupValue = -1;
+      this.dateText.text = "";
       showAlertDialog(context);
     }else {
       Navigator.pop(context);
@@ -497,10 +500,10 @@ class _AppointmentBookingState extends State<AppointmentBooking>
     }
   }
 
-  @override
-  void deactivate() {
-    NewAccountGetxController.to.clearData();
-    super.deactivate();
-  }
+  // @override
+  // void deactivate() {
+  //   NewAccountGetxController.to.clearData();
+  //   super.deactivate();
+  // }
 
 }
