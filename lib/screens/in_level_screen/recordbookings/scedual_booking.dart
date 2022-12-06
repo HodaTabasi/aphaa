@@ -205,11 +205,17 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                   },
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8.r, 0, 16.r, 10.r),
-                    child: SvgPicture.asset(
-                      'assets/images/Group40855.svg',
-                      semanticsLabel: 'Acme Logo',
-                    ),
+                    child: Row(children: [
+                      Icon(Icons.cancel,color: Colors.red,size: 20,),
+                      SizedBox(
+                        width: 3.w,
+                      ),
+                      Text(AppLocalizations.of(context)!.cancel_record,style: TextStyle(color: Colors.red,fontFamily: 'Tajawal',fontSize: 12.r,fontWeight: FontWeight.w200),)
+                    ],),
                   ),
+                ),
+                SizedBox(
+                  width: 10.w,
                 ),
                 InkWell(
                   onTap: () async {
@@ -217,10 +223,13 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                       },
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8.r, 0, 0.r, 10.r),
-                    child: SvgPicture.asset(
-                      'assets/images/Group40855.svg',
-                      semanticsLabel: 'Acme Logo',
-                    ),
+                    child: Row(children: [
+                  Icon(Icons.payment_rounded,color: Color(0xff0E4C8F),size: 20,),
+                      SizedBox(
+                        width: 3.w,
+                      ),
+                  Text(AppLocalizations.of(context)!.payment,style: TextStyle(color: Color(0xff0E4C8F),fontFamily: 'Tajawal',fontSize: 12.r,fontWeight: FontWeight.w200),)
+                  ],),
                   ),
                 ),
               ],

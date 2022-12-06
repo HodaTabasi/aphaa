@@ -172,4 +172,20 @@ class NewAccountGetxController extends GetxController {
     isChangeTimeLoading = false;
     update();
   }
+  clearDataBeforeSend(){
+    doctorsList = [];
+    avilableDate = [];
+    avilableTime = [];
+    clinicCode = '';
+    doctorCode = '';
+    consultNo = '';
+    isUpdateCliniceCode = false;
+    global = null ;
+    timeResponse  = null;
+    fileData = null;
+    fromOpenFile = false;
+    isChangeLoading = false;
+    isChangeTimeLoading = false;
+    // update();
+  }
 }

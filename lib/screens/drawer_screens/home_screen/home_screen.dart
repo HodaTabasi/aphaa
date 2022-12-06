@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Service('assets/images/40697.svg', AppLocalizations.of(context)!.my_medical_recipes, '',
           MedicalRecipes.routeName),
       Service(
-          'assets/images/d40714.svg', AppLocalizations.of(context)!.doctors, '', DoctorsScreen.routeName),
+          'assets/images/droup.svg', AppLocalizations.of(context)!.doctors, '', DoctorsScreen.routeName),
     ];
 
     return  ListView(

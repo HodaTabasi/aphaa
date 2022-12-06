@@ -161,7 +161,8 @@
 
              "sick_leave_for":"sick leave for",
               "sick_leaves":"  sick leaves",
-
+              "payment":"pay",
+              "cancel_record": "الغاء",
              "examination_date":"  examination date :",
              "examination_type":"  examination name :",
 
