@@ -55,8 +55,22 @@ class _HomeScreenState extends State<HomeScreen> {
           MedicalRecipes.routeName),
       Service(
           'assets/images/droup.svg', AppLocalizations.of(context)!.doctors, '', DoctorsScreen.routeName),
+      Service(
+          'assets/images/apphistory.svg', AppLocalizations.of(context)!.appointment_book, '', RexcordBooking.routeName),
+      Service(
+          'assets/images/family.svg', AppLocalizations.of(context)!.my_family, '', FamillyScreen.routeName),
+
+      Service(
+          'assets/images/offers.svg', AppLocalizations.of(context)!.medical_offers, 'offers', OfferScreen.routeName),
+
     ];
 
+    // image: 'assets/images/offers.svg',
+    // name: AppLocalizations.of(context)!.medical_offers,
+    // prsee: () {
+    // QuickServiceGetxController.to.fromHome = true;
+    // Navigator.pushNamed(context, OfferScreen.routeName);
+    //
     return  ListView(
           children: [
             SizedBox(
@@ -121,111 +135,116 @@ class _HomeScreenState extends State<HomeScreen> {
                 return MyMedicalFileItem(
                   image: service[index].image,
                   name: service[index].name,
-                  prsee: () =>
-                      Navigator.pushNamed(context, service[index].routsName),
-                );
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(AppLocalizations.of(context)!.family_file,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.sp,
-                    fontFamily: 'Tajawal',
-                    fontWeight: FontWeight.bold,
-                  )),
-            ),
-            GridView.builder(
-              shrinkWrap: true,
-              itemCount: 1,
-              physics: const NeverScrollableScrollPhysics(),
-              padding:  EdgeInsets.symmetric(horizontal: 10.r),
-              scrollDirection: Axis.vertical,
-              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10.r,
-                  crossAxisSpacing: 10.r,
-                  childAspectRatio: 300 / 200),
-              itemBuilder: (context, index) {
-                return MyMedicalFileItem(
-                  image: 'assets/images/family.svg',
-                  name: AppLocalizations.of(context)!.my_family,
-                  prsee: () =>
-                      Navigator.pushNamed(context, FamillyScreen.routeName),
-                );
-              },
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            Padding(
-              padding:  EdgeInsets.all(8.0.r),
-              child: Text(AppLocalizations.of(context)!.appointment_book,
-                  style:  TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.sp,
-                    fontFamily: 'Tajawal',
-                    fontWeight: FontWeight.bold,
-                  )),
-            ),
-            GridView.builder(
-              shrinkWrap: true,
-              itemCount: 1,
-              physics: const NeverScrollableScrollPhysics(),
-              padding:  EdgeInsets.symmetric(horizontal: 10.r),
-              scrollDirection: Axis.vertical,
-              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10.r,
-                  crossAxisSpacing: 10.r,
-                  childAspectRatio: 300 / 200),
-              itemBuilder: (context, index) {
-                return MyMedicalFileItem(
-                  image: 'assets/images/apphistory.svg',
-                  name: AppLocalizations.of(context)!.appointment_book,
-                  prsee: () =>
-                      Navigator.pushNamed(context, RexcordBooking.routeName),
-                );
-              },
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            Padding(
-              padding:  EdgeInsets.all(8.0.r),
-              child: Text(AppLocalizations.of(context)!.medical_offers,
-                  style:  TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.sp,
-                    fontFamily: 'Tajawal',
-                    fontWeight: FontWeight.bold,
-                  )),
-            ),
-            GridView.builder(
-              shrinkWrap: true,
-              itemCount: 1,
-              physics: const NeverScrollableScrollPhysics(),
-              padding:  EdgeInsets.symmetric(horizontal: 10.r),
-              scrollDirection: Axis.vertical,
-              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10.r,
-                  crossAxisSpacing: 10.r,
-                  childAspectRatio: 300 / 200),
-              itemBuilder: (context, index) {
-                return MyMedicalFileItem(
-                  image: 'assets/images/offers.svg',
-                  name: AppLocalizations.of(context)!.medical_offers,
                   prsee: () {
-                    QuickServiceGetxController.to.fromHome = true;
-                      Navigator.pushNamed(context, OfferScreen.routeName);},
+                    if(service[index].decration =="offers")
+                      QuickServiceGetxController.to.fromHome = true;
+
+                    Navigator.pushNamed(context, service[index].routsName);
+                  }
+                      ,
                 );
               },
             ),
+            SizedBox(
+              height: 20.h,
+            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text(AppLocalizations.of(context)!.family_file,
+            //       style: TextStyle(
+            //         color: Colors.black,
+            //         fontSize: 16.sp,
+            //         fontFamily: 'Tajawal',
+            //         fontWeight: FontWeight.bold,
+            //       )),
+            // ),
+            // GridView.builder(
+            //   shrinkWrap: true,
+            //   itemCount: 1,
+            //   physics: const NeverScrollableScrollPhysics(),
+            //   padding:  EdgeInsets.symmetric(horizontal: 10.r),
+            //   scrollDirection: Axis.vertical,
+            //   gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2,
+            //       mainAxisSpacing: 10.r,
+            //       crossAxisSpacing: 10.r,
+            //       childAspectRatio: 300 / 200),
+            //   itemBuilder: (context, index) {
+            //     return MyMedicalFileItem(
+            //       image: 'assets/images/family.svg',
+            //       name: AppLocalizations.of(context)!.my_family,
+            //       prsee: () =>
+            //           Navigator.pushNamed(context, FamillyScreen.routeName),
+            //     );
+            //   },
+            // ),
+            // SizedBox(
+            //   height: 20.h,
+            // ),
+            // Padding(
+            //   padding:  EdgeInsets.all(8.0.r),
+            //   child: Text(AppLocalizations.of(context)!.appointment_book,
+            //       style:  TextStyle(
+            //         color: Colors.black,
+            //         fontSize: 16.sp,
+            //         fontFamily: 'Tajawal',
+            //         fontWeight: FontWeight.bold,
+            //       )),
+            // ),
+            // GridView.builder(
+            //   shrinkWrap: true,
+            //   itemCount: 1,
+            //   physics: const NeverScrollableScrollPhysics(),
+            //   padding:  EdgeInsets.symmetric(horizontal: 10.r),
+            //   scrollDirection: Axis.vertical,
+            //   gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2,
+            //       mainAxisSpacing: 10.r,
+            //       crossAxisSpacing: 10.r,
+            //       childAspectRatio: 300 / 200),
+            //   itemBuilder: (context, index) {
+            //     return MyMedicalFileItem(
+            //       image: 'assets/images/apphistory.svg',
+            //       name: AppLocalizations.of(context)!.appointment_book,
+            //       prsee: () =>
+            //           Navigator.pushNamed(context, RexcordBooking.routeName),
+            //     );
+            //   },
+            // ),
+            // SizedBox(
+            //   height: 20.h,
+            // ),
+            // Padding(
+            //   padding:  EdgeInsets.all(8.0.r),
+            //   child: Text(AppLocalizations.of(context)!.medical_offers,
+            //       style:  TextStyle(
+            //         color: Colors.black,
+            //         fontSize: 16.sp,
+            //         fontFamily: 'Tajawal',
+            //         fontWeight: FontWeight.bold,
+            //       )),
+            // ),
+            // GridView.builder(
+            //   shrinkWrap: true,
+            //   itemCount: 1,
+            //   physics: const NeverScrollableScrollPhysics(),
+            //   padding:  EdgeInsets.symmetric(horizontal: 10.r),
+            //   scrollDirection: Axis.vertical,
+            //   gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2,
+            //       mainAxisSpacing: 10.r,
+            //       crossAxisSpacing: 10.r,
+            //       childAspectRatio: 300 / 200),
+            //   itemBuilder: (context, index) {
+            //     return MyMedicalFileItem(
+            //       image: 'assets/images/offers.svg',
+            //       name: AppLocalizations.of(context)!.medical_offers,
+            //       prsee: () {
+            //         QuickServiceGetxController.to.fromHome = true;
+            //           Navigator.pushNamed(context, OfferScreen.routeName);},
+            //     );
+            //   },
+            // ),
           ],
         );
   }
