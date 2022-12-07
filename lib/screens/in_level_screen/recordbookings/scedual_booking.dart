@@ -204,6 +204,24 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                     paymentMethod.onBookClick(context,50);
                   },
                   child: Padding(
+                    padding: EdgeInsets.fromLTRB(8.r, 0, 0.r, 10.r),
+                    child: Row(children: [
+                      Icon(Icons.payment_rounded,color: Color(0xff0E4C8F),size: 20,),
+                      SizedBox(
+                        width: 3.w,
+                      ),
+                      Text(AppLocalizations.of(context)!.payment,style: TextStyle(color: Color(0xff0E4C8F),fontFamily: 'Tajawal',fontSize: 12.r,fontWeight: FontWeight.w200),)
+                    ],),
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                InkWell(
+                  onTap: () async {
+                    _displayDialog(context);
+                  },
+                  child: Padding(
                     padding: EdgeInsets.fromLTRB(8.r, 0, 16.r, 10.r),
                     child: Row(children: [
                       Icon(Icons.cancel,color: Colors.red,size: 20,),
@@ -214,24 +232,6 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                     ],),
                   ),
                 ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                InkWell(
-                  onTap: () async {
-                    _displayDialog(context);
-                      },
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(8.r, 0, 0.r, 10.r),
-                    child: Row(children: [
-                  Icon(Icons.payment_rounded,color: Color(0xff0E4C8F),size: 20,),
-                      SizedBox(
-                        width: 3.w,
-                      ),
-                  Text(AppLocalizations.of(context)!.payment,style: TextStyle(color: Color(0xff0E4C8F),fontFamily: 'Tajawal',fontSize: 12.r,fontWeight: FontWeight.w200),)
-                  ],),
-                  ),
-                ),
               ],
             ),
           )
@@ -239,6 +239,7 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
       ),
     );
   }
+
   Future<void> _displayDialog(BuildContext context) async {
     return showDialog(
         context: context,
