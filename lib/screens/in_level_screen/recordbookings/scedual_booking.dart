@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../get/change_name_getx_controller.dart';
 import '../../../get/login_getx_controller.dart';
 import '../../../helper/helpers.dart' ;
 import '../../../model/api_response.dart';
@@ -31,26 +32,29 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.req_number,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '  ${appointments.resNo}  ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black45,
-                            fontSize: 12,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
+              Visibility(
+                visible: !ChangeGetxController.to.flagPrevAppt,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+                  child: Text.rich(
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.req_number,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 12.sp,
+                          fontFamily: 'Tajawal'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '  ${appointments.resNo}  ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black45,
+                              fontSize: 12,
+                              fontFamily: 'Tajawal'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -72,7 +76,7 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                           fontFamily: 'Tajawal'),
                       children: <TextSpan>[
                         TextSpan(
-                          text: '  ${appointments.resDate}  ',
+                          text: ChangeGetxController.to.flagPrevAppt ?'  ${appointments.date}  ':'  ${appointments.resDate}  ',
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: Colors.black45,
@@ -179,7 +183,7 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  ${appointments.resStatus}  ',
+                        text: ChangeGetxController.to.flagPrevAppt ?'  ${appointments.reservationStatus}  ':'  ${appointments.resStatus}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black45,

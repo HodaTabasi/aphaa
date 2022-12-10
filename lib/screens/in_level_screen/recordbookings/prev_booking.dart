@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/NewWidgetNetworkFirst.dart';
 import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../get/change_name_getx_controller.dart';
 import '../../../model/Appointment/AppointmentResponse.dart';
 import '../../../model/Appointment/Appointments.dart';
 import '../../../model/Pages.dart';
@@ -107,6 +108,7 @@ class _PrevBookingState extends State<PrevBooking> {
   @override
   void initState() {
     super.initState();
+    ChangeGetxController.to.flagPrevAppt = true;
     _firstLoad();
     _controller = ScrollController()..addListener(_loadMore);
   }

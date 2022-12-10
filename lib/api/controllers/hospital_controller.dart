@@ -197,6 +197,7 @@ class HospitalApiController with ApiHelper {
     final uri = Uri.http(ApiSettings.HospitalBase,
         '${ApiSettings.HospitalBase1}prevAppt', queryParameters);
     final response = await http.get(uri);
+    print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       return AppointmentResponse.fromJson(jsonResponse);

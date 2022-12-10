@@ -72,7 +72,7 @@ class InsuranceItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.req_number,
+                          AppLocalizations.of(context)!.notes,
                           style:  TextStyle(
                             color: Color(0xff2D2D2D),
                             fontSize: 12.sp,
@@ -107,9 +107,9 @@ class InsuranceItem extends StatelessWidget {
               left: 0,
               // bottom: 100,
               child: Container(
-                width: 80.w,
-                height: 35.h,
-                padding: EdgeInsets.all(10),
+                width: 100.w,
+                height: 33.h,
+                padding: EdgeInsets.all(8),
                 margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
                 decoration: BoxDecoration(
                     color: approvals.reqStatus == "لم يتخذ قرار بعد" ?Color(0xffEE1131):Colors.green,
@@ -119,7 +119,7 @@ class InsuranceItem extends StatelessWidget {
                 child: Text(
                   "${approvals.reqStatus}",
                   style: TextStyle(
-                      color: Colors.white, fontFamily: 'Tajawal', fontSize: 13.sp),
+                      color: Colors.white, fontFamily: 'Tajawal', fontSize: 12.5.sp),
                   textAlign: TextAlign.center,
                 ),
               ),

@@ -133,7 +133,7 @@ class _SickLeaveState extends State<SickLeave> {
         appBar: AppBar(
           elevation: 0,
           // leadingWidth: 40,AppLocalizations.of(context)!.date_of_visit
-          title: Text(AppLocalizations.of(context)!.sick_leaves,
+          title: Text(AppLocalizations.of(context)!.my_sick_leave,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.sp,

@@ -19,7 +19,7 @@ class AppointmentResponse {
     if (json['myPrevAppointments'] != null) {
       myPrevAppointments = <Appointments>[];
       json['myPrevAppointments'].forEach((v) {
-        myPrevAppointments!.add(new Appointments.fromJson(v));
+        myPrevAppointments!.add(new Appointments.fromJsonPrev(v));
       });
     }
     if (json['pages'] != null) {
@@ -39,7 +39,7 @@ class AppointmentResponse {
 
     if (this.myPrevAppointments != null) {
       data['myPrevAppointments'] =
-          this.myPrevAppointments!.map((v) => v.toJson()).toList();
+          this.myPrevAppointments!.map((v) => v.toJsonPrev()).toList();
     }
     if (this.pages != null) {
       data['pages'] = this.pages!.map((v) => v.toJson()).toList();

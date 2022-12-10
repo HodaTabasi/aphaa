@@ -18,6 +18,8 @@ class ChangeGetxController extends GetxController {
   RxString lastName ="".obs;
   String filePath = "" ;
 
+  bool flagPrevAppt = false;
+
   changeName(firstName,lastName){
     this.firstName.value = firstName;
     // this.lastName.value = lastName??" ";
