@@ -11,21 +11,21 @@ class PaymentScreenItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-        // fit: StackFit.expand,
+         fit: StackFit.loose,
         children: [
-          FittedBox(
-            child: Container(
-              // width: MediaQuery.of(context).size.width - 50,
-              height: 160.h,
-              padding: EdgeInsets.only(left: 16.r, right: 16.r, top: 12.r, bottom: 10.r),
-              margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
-              // margin: EdgeInsets.all(8),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                border: Border.all(color: Color(0xff0E4C8F), width: 0.5.w),
-              ),
+          Container(
+            // width: MediaQuery.of(context).size.width - 50,
+            height: 130.h,
+            padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 10.r, bottom: 10.r),
+            margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
+            // margin: EdgeInsets.all(8),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10.r)),
+              border: Border.all(color: Color(0xff0E4C8F), width: 0.5.w),
+            ),
+            child: FittedBox(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,24 +190,26 @@ class PaymentScreenItem extends StatelessWidget {
           ),
           Positioned(
             // right: 0,
-            bottom: 0,
-            left: 0,
+            bottom: 0.h,
+            left: 0.w,
             // bottom: 100,
-            child: Container(
-              width: 80.sp,
-              height: 35.sp,
-              padding: EdgeInsets.all(10.r),
-              margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
-              decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(8.r),
-                      topRight: Radius.circular(40.r))),
-              child: Text(
-                "مقيول",
-                style: TextStyle(
-                    color: Colors.white, fontFamily: 'Tajawal', fontSize: 13.sp),
-                textAlign: TextAlign.center,
+            child: FittedBox(
+              child: Container(
+                width: 80.sp,
+                height: 35.sp,
+                padding: EdgeInsets.all(10.r),
+                margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
+                decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(8.r),
+                        topRight: Radius.circular(40.r))),
+                child: Text(
+                  "مقبول",
+                  style: TextStyle(
+                      color: Colors.white, fontFamily: 'Tajawal', fontSize: 13.sp),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),

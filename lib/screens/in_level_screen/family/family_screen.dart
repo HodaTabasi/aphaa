@@ -3,9 +3,11 @@ import 'package:aphaa_app/model/familly/FamillyResponse.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../model/Pages.dart';
+import '../../main_screens/open_medocal/opening_medical_file.dart';
 import 'familly_item.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -196,6 +198,23 @@ class _FamillyScreenState extends State<FamillyScreen> {
             ),
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Add your onPressed code here!
+          Navigator.pushNamed(context, OpeningMedicalFile.routeName);
+        },
+        label:  Text(AppLocalizations.of(context)!.opening_medical_file),
+        icon:  SvgPicture.asset(
+            'assets/images/report.svg',
+            semanticsLabel: 'Acme Logo',
+          height: 23.h,
+          width: 20.w,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.green.shade700,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       // bottomSheet: Image.asset(
       //   "assets/images/image1.png",
       //   fit: BoxFit.fitWidth,
