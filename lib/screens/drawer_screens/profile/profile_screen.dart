@@ -118,22 +118,22 @@ class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers1 {
           SizedBox(
             height: 20.h,
           ),
-          TextItem(
-              'assets/images/EditSquare.svg',
-              AppLocalizations.of(context)!.edit_profile,
-              () => Navigator.pushNamed(context, EditProfile.routeName)),
+          // TextItem(
+          //     'assets/images/EditSquare.svg',
+          //     AppLocalizations.of(context)!.edit_profile,
+          //     () => Navigator.pushNamed(context, EditProfile.routeName)),
           TextItem(
               'assets/images/pagemetrecord.svg',
               AppLocalizations.of(context)!.pay_book,
               () => Navigator.pushNamed(context, PaymentRecord.routeName)),
-          TextItem(
-              'assets/images/editf.svg',
-              AppLocalizations.of(context)!.edit_insurance_data,
-              () => Navigator.pushNamed(context, EditInsuranceData.routeName)),
-          TextItem(
-              'assets/images/Lock.svg',
-              AppLocalizations.of(context)!.change_password,
-              () => Navigator.pushNamed(context, ChangePassword.routeName)),
+          // TextItem(
+          //     'assets/images/editf.svg',
+          //     AppLocalizations.of(context)!.edit_insurance_data,
+          //     () => Navigator.pushNamed(context, EditInsuranceData.routeName)),
+          // TextItem(
+          //     'assets/images/Lock.svg',
+          //     AppLocalizations.of(context)!.change_password,
+          //     () => Navigator.pushNamed(context, ChangePassword.routeName)),
           // NotificationItem('assets/images/Notification.svg',AppLocalizations.of(context)!.notifications),
           LangItem(),
           TextItem(

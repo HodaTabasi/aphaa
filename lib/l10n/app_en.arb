@@ -39,6 +39,8 @@
      "phone":"Phone Number",
      "clenice_choesse":"Choose the clinic",
      "dovtor_choesse":"Choose the doctor",
+     "nat_choesse":"Choose Nationality ",
+     "id_choesse":"Choose ID Type",
      "consult_note":"Consultation text",
      "consult_send":"Send Consultation",
 
@@ -60,6 +62,7 @@
         "insurance_number":"Insurance number",
         "cash":"Cash",
         "insurance_end_date":"Insurance end date",
+        "dob_end_date":"Date of birth",
         "insurance_companies":"Insurance companies",
         "medical_insurance_validity_check":"Medical insurance validity check",
         "employer":"Employer",

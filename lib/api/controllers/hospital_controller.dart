@@ -16,7 +16,9 @@ import '../../model/ApprovalsResponse/ApprovalItem.dart';
 import '../../model/ApprovalsResponse/ApprovalsResponse.dart';
 import '../../model/CancelResult.dart';
 import '../../model/Clinic.dart';
+import '../../model/IDTypes.dart';
 import '../../model/InsuranceCompany.dart';
+import '../../model/Nationalities.dart';
 import '../../model/billResponse.dart';
 import '../../model/lab_rad_result/LabReportsResponse.dart';
 import '../../model/VitalSign/VitalSignResponse.dart';
@@ -704,6 +706,58 @@ class HospitalApiController with ApiHelper {
       return [];
     }
   }
+
+  Future<List<Nationalities>?> getnatList() async {
+    final queryParameters = {
+      'nationalityName': 'S',
+      'lang':'EN'
+      // 'lang':
+      // SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) ??
+      //     'en',
+    };
+    // 'http://aiph.me:8000/api/clinic/clList?pageNo=1&offset=1&rows=5&lang=AR'
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase3}natList', queryParameters);
+    print(uri);
+    final response = await http.get(uri);
+    print(response.body);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        var jsonArray = jsonResponse['nationalities'] as List;
+        return jsonArray
+            .map((jsonObject) => Nationalities.fromJson(jsonObject))
+            .toList();
+      }
+      return [];
+    }
+  }
+
+  Future<List<IDTypes>?> getidTypesList() async {
+    final queryParameters = {
+      'lang':
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) ??
+          'ar',
+    };
+    // 'http://aiph.me:8000/api/clinic/clList?pageNo=1&offset=1&rows=5&lang=AR'
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase3}idTypesList', queryParameters);
+    print(uri);
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        var jsonArray = jsonResponse['idTypes'] as List;
+        return jsonArray
+            .map((jsonObject) => IDTypes.fromJson(jsonObject))
+            .toList();
+      }
+      return [];
+    }
+  }
+
+
+  /////////////
 
   Future<Doctor?> getDoctorDtl({doctorCode}) async {
     print(doctorCode);

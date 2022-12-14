@@ -101,16 +101,21 @@ insurance_number:2520
   //     success: false,
   //   );
   // }
-  Future<ApiResponse> openFile({name,identity_number,mobile,paying_type,insurance_number,image,email}) async {
+  Future<ApiResponse> openFile({fname,lname,gname,pname,identity_number,mobile,image,email,request_type,nationality,id_type,DOB}) async {
     Uri uri = Uri.parse(ApiSettings.openFile);
     var request = http.MultipartRequest('POST', uri);
     var file = await http.MultipartFile.fromPath('image', image);
-    request.fields["name"] = name;
+    request.fields["Fname"] = fname;
+    request.fields["Lname"] = lname;
+    request.fields["Gname"] = gname;
+    request.fields["Pname"] = pname;
     request.fields["identity_number"] = identity_number;
     request.fields["mobile"] = mobile;
-    request.fields["paying_type"] = paying_type;
-    request.fields["insurance_number"] = insurance_number;
     request.fields["email"] = email;
+    request.fields["request_type"] = request_type;
+    request.fields["nationality"] = nationality;
+    request.fields["id_type"] = id_type;
+    request.fields["DOB"] = DOB;
 
     request.files.add(file);
     // request.fields['KEY'] = 'VALUE';

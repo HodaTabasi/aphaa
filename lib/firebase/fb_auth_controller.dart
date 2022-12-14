@@ -1,10 +1,12 @@
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
+import 'package:aphaa_app/model/Eligibility.dart';
 import 'package:aphaa_app/screens/main_screens/change_password/change_password.dart';
 import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../api/controllers/auth_api_controller.dart';
+import '../get/change_name_getx_controller.dart';
 import '../get/login_getx_controller.dart';
 import '../model/api_response.dart';
 import '../preferences/shared_pref_controller.dart';
@@ -22,35 +24,36 @@ class FireBaseAuthController with Helpers1{
     return _inestance ??=FireBaseAuthController._();
   }
 
-  Future<void> verifyPhoneNumber({phoneNumber,context}) async {
-
-    await _fbAuth.verifyPhoneNumber(
-      phoneNumber: '+966$phoneNumber',
-      verificationCompleted: (PhoneAuthCredential credential) {
-        NewAccountGetxController.to.smsCode = credential.smsCode!;
-        Navigator.pushNamed(context, OTPScreen.routeName);
-        //save data code
-        print("success ${credential.smsCode}");
-
-      },
-      verificationFailed: (FirebaseAuthException e) {
-
-      },
-      codeSent: (String verificationId, int? resendToken) async {
-        String smsCode = 'xxxx';
-        // Create a PhoneAuthCredential with the code
-        PhoneAuthCredential credential = PhoneAuthProvider.credential(
-            verificationId: verificationId, smsCode: smsCode);
-        print("ggggggggtg $verificationId");
-        // Sign the user in (or link) with the credential
-        await _fbAuth.signInWithCredential(credential);
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-
-      },
-    );
-
-  }
+  // Future<void> verifyPhoneNumber({phoneNumber,context}) async {
+  //
+  //   await _fbAuth.verifyPhoneNumber(
+  //     // phoneNumber: '+966$phoneNumber',
+  //       phoneNumber: "+972$phoneNumber",
+  //     verificationCompleted: (PhoneAuthCredential credential) {
+  //       NewAccountGetxController.to.smsCode = credential.smsCode!;
+  //       Navigator.pushNamed(context, OTPScreen.routeName);
+  //       //save data code
+  //       print("success ${credential.smsCode}");
+  //
+  //     },
+  //     verificationFailed: (FirebaseAuthException e) {
+  //
+  //     },
+  //     codeSent: (String verificationId, int? resendToken) async {
+  //       String smsCode = 'xxxx';
+  //       // Create a PhoneAuthCredential with the code
+  //       PhoneAuthCredential credential = PhoneAuthProvider.credential(
+  //           verificationId: verificationId, smsCode: smsCode);
+  //       print("ggggggggtg $verificationId");
+  //       // Sign the user in (or link) with the credential
+  //       await _fbAuth.signInWithCredential(credential);
+  //     },
+  //     codeAutoRetrievalTimeout: (String verificationId) {
+  //
+  //     },
+  //   );
+  //
+  // }
 
   Future<void> verifyPhoneNumber1({userPhone, context,flag}) async {
     print("gggggggggggg ${userPhone}");
@@ -112,7 +115,8 @@ class FireBaseAuthController with Helpers1{
 
     await _fbAuth.verifyPhoneNumber(
       /// Make sure to prefix with your country code
-      phoneNumber: "+966$userPhone" ,
+      phoneNumber: "+972$userPhone" ,
+      // phoneNumber: "+966$userPhone" ,
       /// `seconds` didn't work. The underlying implementation code only reads in `millisenconds`
       // timeout: Duration(milliseconds: 10000),
       timeout: const Duration(seconds: 120),
@@ -157,43 +161,55 @@ class FireBaseAuthController with Helpers1{
   }
 
 
+
   Future<void> afterPhoneVerification(context,flag) async {
-    if(NewAccountGetxController.to.isReset) {
-      Navigator.pushReplacementNamed(context, ChangePassword.routeName);
-    } else {
-      showLoaderDialog(context);
-      if(LoginGetXController.to.isLoginPage){
-        ApiResponse apiResponse = await AuthApiController().login(
-            mobile: LoginGetXController.to.mobileControllerText,
-            password: LoginGetXController.to.passwordControllerText);
-        if (apiResponse.success) {
-          Navigator.pop(context);
-          Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
-        } else {
-          Navigator.pop(context);
-          showSnackBar(
-            context,
-            message: apiResponse.message,
-            error: !apiResponse.success,
-          );
-        }
-      } else {
-        ApiResponse apiResponse = await AuthApiController().register(student: NewAccountGetxController.to.patient, flag: flag);
-
-        if (apiResponse.success) {
-          SharedPrefController().setValuePCode(pCode: NewAccountGetxController.to.patient.p_code!);
-          Navigator.pop(context);
-          Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
-        } else {
-          Navigator.pop(context);
-          showSnackBar(
-            context,
-            message: apiResponse.message,
-            error: !apiResponse.success,
-          );
-        }
-      }
-
-    }
+    Eligibility? eg =  NewAccountGetxController.to.eligibility;
+    SharedPrefController().setValuePCode(pCode:eg!.patientCode!);
+    var name = eg.patientName!.split("");
+    ChangeGetxController.to.changeName(name[0], name[1]);
+    SharedPrefController().saveName(name[0], name[1]);
+    SharedPrefController().save1();
+    Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
   }
+
+
+  // Future<void> afterPhoneVerification(context,flag) async {
+  //   if(NewAccountGetxController.to.isReset) {
+  //     Navigator.pushReplacementNamed(context, ChangePassword.routeName);
+  //   } else {
+  //     showLoaderDialog(context);
+  //     if(LoginGetXController.to.isLoginPage){
+  //       ApiResponse apiResponse = await AuthApiController().login(
+  //           mobile: LoginGetXController.to.mobileControllerText,
+  //           password: LoginGetXController.to.passwordControllerText);
+  //       if (apiResponse.success) {
+  //         Navigator.pop(context);
+  //         Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
+  //       } else {
+  //         Navigator.pop(context);
+  //         showSnackBar(
+  //           context,
+  //           message: apiResponse.message,
+  //           error: !apiResponse.success,
+  //         );
+  //       }
+  //     } else {
+  //       ApiResponse apiResponse = await AuthApiController().register(student: NewAccountGetxController.to.patient, flag: flag);
+  //
+  //       if (apiResponse.success) {
+  //         SharedPrefController().setValuePCode(pCode: NewAccountGetxController.to.patient.p_code!);
+  //         Navigator.pop(context);
+  //         Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
+  //       } else {
+  //         Navigator.pop(context);
+  //         showSnackBar(
+  //           context,
+  //           message: apiResponse.message,
+  //           error: !apiResponse.success,
+  //         );
+  //       }
+  //     }
+  //
+  //   }
+  // }
 }

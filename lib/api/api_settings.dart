@@ -7,7 +7,7 @@ class ApiSettings {
   static const String changePassword = '${_baseUrl}change';
   static const String consultation = '${_baseUrl}consultation';
   static const String appointment = '${_baseUrl}appointment';
-  static const String openFile = '${_baseUrl}open-file';
+  static const String openFile = '${_baseUrl}add-new-file';
   static const String showOffers = '${_baseUrl}show/offers';
   static const String getProfile = '${_baseUrl}profile';
   static const String editProfile = '${_baseUrl}update-Profile';

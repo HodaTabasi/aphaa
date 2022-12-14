@@ -6,20 +6,21 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 import '../get/quick_service_getx_controller.dart';
 import '../model/Clinic.dart';
+import '../model/Nationalities.dart';
 
-class DropDownItem extends StatefulWidget {
-  List<Clinic> myData;
+class DropDownNationalitiesItem extends StatefulWidget {
+  List<Nationalities> myData;
   String iconName;
   String dropValue;
   int? dropIntValue;
 
-  DropDownItem(this.myData,this.iconName,this.dropValue, {this.dropIntValue});
+  DropDownNationalitiesItem(this.myData,this.iconName,this.dropValue, {this.dropIntValue});
 
   @override
-  State<DropDownItem> createState() => _DropDownItenState();
+  State<DropDownNationalitiesItem> createState() => _DropDownItenState();
 }
 
-class _DropDownItenState extends State<DropDownItem> {
+class _DropDownItenState extends State<DropDownNationalitiesItem> {
   String? global;
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,9 @@ class _DropDownItenState extends State<DropDownItem> {
               padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
               child:   SvgPicture.asset(
                   widget.iconName,
-                  semanticsLabel: 'Acme Logo'
+                  semanticsLabel: 'Acme Logo',
+                width: 24.w,
+                height: 24.h,
               ),
             ),
              VerticalDivider(
@@ -63,21 +66,17 @@ class _DropDownItenState extends State<DropDownItem> {
                   onChanged: (val) {
                     setState(() {
                       global = val!;
-                      QuickServiceGetxController.to.clinicName = widget.myData.where((element) => element.clinicCode == val).toList().first.clinicName!;
-                      NewAccountGetxController.to.clinicCode = val;
-                      NewAccountGetxController.to.changeBoolisUpdateCliniceCode(true);
-                      NewAccountGetxController.to.changeDropDownValue(val, widget.dropIntValue) ;
-                      // setState(() {
-                      // });
+                      QuickServiceGetxController.to.nationality = val;
+                      print(val);
                     });
                   },
                   value: global,
                   // value: dropdownValue,
-                  items: widget.myData.map((Clinic value) {
+                  items: widget.myData.map((Nationalities value) {
                     return new DropdownMenuItem<String>(
-                      value: value.clinicCode,
+                      value: value.natCode,
                       child: Text(
-                          value.clinicName!,
+                          value.natName!,
                           style:  TextStyle(
                             color: Colors.grey.shade700,
                             fontSize: 13.sp,

@@ -55,6 +55,12 @@ class SharedPrefController {
     //     PrefKeys.refreshToken.name, 'Bearer ${student.refreshToken}');
   }
 
+  Future<void> save1() async {
+    await _sharedPreferences.setBool(PrefKeysPatient.isLoggedIn.name, true);
+    // await _sharedPreferences.setString(
+    //     PrefKeys.refreshToken.name, 'Bearer ${student.refreshToken}');
+  }
+
   Future<void> saveWithoutToken({required Patient student}) async {
     await _sharedPreferences.setBool(PrefKeysPatient.isLoggedIn.name, true);
     await _sharedPreferences.setInt(PrefKeysPatient.id.name, student.id??0);
@@ -74,6 +80,7 @@ class SharedPrefController {
   saveName(firstName,lastName) async {
     await _sharedPreferences.setString(PrefKeysPatient.firstName.name, firstName??"");
     await _sharedPreferences.setString(PrefKeysPatient.lastName.name, lastName??"");
+
   }
 
   bool get loggedIn =>

@@ -1,3 +1,4 @@
+import 'package:aphaa_app/get/quick_service_getx_controller.dart';
 import 'package:aphaa_app/helper/constant.dart';
 import 'package:aphaa_app/screens/auth/create_account/create_account.dart';
 import 'package:aphaa_app/screens/auth/login/login_screen.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../helper/SizeConfig.dart';
 import '../../../model/service.dart';
 import '../../auth/create_account1/new_account_first.dart';
+import '../../auth/login1/login_screen.dart';
 import '../Appointment Booking/appointement_booking.dart';
 import '../Doctor/doctors_screen.dart';
 import '../open_medocal/opening_medical_file.dart';
@@ -120,11 +122,14 @@ class QuickServices extends StatelessWidget {
               crossAxisSpacing: 5.h,
             ),
             itemBuilder: (context, index) {
+
               return ServiceItem(
                 image: service[index].image,
                 name: service[index].name,
                 decration: service[index].decration,
                 prsee: () {
+                  if(service[index].routsName == OpeningMedicalFile.routeName)
+                    QuickServiceGetxController.to.requestType = '1';
                   Navigator.pushNamed(context, service[index].routsName);
                 },
               );
@@ -152,7 +157,7 @@ class QuickServices extends StatelessWidget {
                 children: [
                   InkWell(
                       onTap: () =>
-                          Navigator.pushNamed(context, LoginScreen.routeName),
+                          Navigator.pushNamed(context, LoginScreen1.routeName),
                       child: Directionality(textDirection: TextDirection.ltr,child: GeneratedGroup40943Widget())),
                   OrWidget(),
                   InkWell(

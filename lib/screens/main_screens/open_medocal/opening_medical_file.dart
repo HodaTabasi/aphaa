@@ -9,47 +9,132 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 
+import '../../../api/controllers/hospital_controller.dart';
 import '../../../api/controllers/quick_service_api_controller.dart';
 import '../../../general/btn_layout.dart';
+import '../../../general/dropdown_id_type_item.dart';
+import '../../../general/dropdown_nationalities_item.dart';
 import '../../../general/edittext_item.dart';
 
 import 'package:aphaa_app/helper/helpers.dart' as myHelper ;
 
+import '../../../get/quick_service_getx_controller.dart';
+import '../../../model/IDTypes.dart';
+import '../../../model/Nationalities.dart';
 import '../../../model/api_response.dart';
 
 class OpeningMedicalFile extends StatefulWidget {
   static String routeName = "/open_media_file";
+  final String? restorationId = "1";
 
   @override
   State<OpeningMedicalFile> createState() => _OpeningMedicalFileState();
 }
 
-class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, myHelper.Helpers1 {
+class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, myHelper.Helpers1,RestorationMixin {
 
   late TextEditingController firstName;
   late TextEditingController medileName;
   late TextEditingController lastName;
-  late TextEditingController userId;
+  late TextEditingController gName;
   late TextEditingController phone;
-  late TextEditingController inCompany;
   late TextEditingController inId;
   late TextEditingController _pEmail;
+  late TextEditingController _insurance_date ;
 
   XFile? _pickedImage;
-  late ImagePicker _imagePicker;
+  late ImagePicker _imagePicker ;
+  bool isLoading = false;
+
+  List<Nationalities> myNatData = [];
+  List<IDTypes> myIDData = [];
+  // In this example, the restoration ID for the mixin is passed in through
+  // the [StatefulWidget]'s constructor.
+  @override
+  String? get restorationId => widget.restorationId;
+
+  final RestorableDateTime _selectedDate =
+  RestorableDateTime(DateTime(2021, 7, 25));
+  late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
+  RestorableRouteFuture<DateTime?>(
+    onComplete: _selectDate,
+    onPresent: (NavigatorState navigator, Object? arguments) {
+      return navigator.restorablePush(
+        _datePickerRoute,
+        arguments: _selectedDate.value.millisecondsSinceEpoch,
+      );
+    },
+  );
+
+  static Route<DateTime> _datePickerRoute(
+      BuildContext context,
+      Object? arguments,
+      ) {
+    return DialogRoute<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        return DatePickerDialog(
+          restorationId: 'date_picker_dialog',
+          initialEntryMode: DatePickerEntryMode.calendarOnly,
+          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
+          firstDate: DateTime(2021),
+          lastDate: DateTime(2022),
+        );
+      },
+    );
+  }
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_selectedDate, 'selected_date');
+    registerForRestoration(
+        _restorableDatePickerRouteFuture, 'date_picker_route_future');
+  }
+
+  void _selectDate(DateTime? newSelectedDate) {
+    if (newSelectedDate != null) {
+      setState(() {
+        _selectedDate.value = newSelectedDate;
+        setState(() {
+          _insurance_date.text =
+          "${_selectedDate.value.year}-${_selectedDate.value.month}-${_selectedDate.value.day}";
+        });
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //   content: Text(
+        //       'Selected: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
+        // ));
+      });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+      getListsData();
+  }
+
+  getListsData() async {
+    isLoading = true;
+    myNatData = await HospitalApiController().getnatList() ?? [];
+    myIDData = await HospitalApiController().getidTypesList() ?? [];
+    setState(() {
+      isLoading = false;
+    });
+  }
 
 
 
   @override
   void initState() {
-    firstName = TextEditingController(text: "aisal yosef alsawaf");
-    medileName = TextEditingController(text: "aisal yosef alsawaf");
-    lastName = TextEditingController(text: "aisal yosef alsawaf");
-    userId = TextEditingController(text: "aisal@hotmail.com");
+    firstName = TextEditingController(text: "aisal");
+    medileName = TextEditingController(text: "yosef");
+    gName = TextEditingController(text: "ahmed");
+    lastName = TextEditingController(text: "alsawaf");
     _pEmail = TextEditingController(text: "hhh@gmail.com");
     phone = TextEditingController(text: "0154421157");
-    inCompany = TextEditingController(text: "cash");
     inId = TextEditingController(text: "2520");
+    _insurance_date = TextEditingController();
+    _imagePicker = ImagePicker();
 
     super.initState();
   }
@@ -85,7 +170,10 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
               )),
         ),
       ),
-      body: ListView(
+      body: isLoading
+          ? Center(
+        child: CircularProgressIndicator(),)
+          : ListView(
         children: [
           const SizedBox(
             height: 10,
@@ -112,21 +200,31 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
                   AppLocalizations.of(context)!.pasent_name,controler: medileName,),
                 EditTextItem('assets/images/Profile.svg',
                   AppLocalizations.of(context)!.pasent_name,controler: lastName,),
-                EditTextItem('assets/images/id.svg', AppLocalizations.of(context)!.identity_iqama,controler: userId,),
+                EditTextItem('assets/images/Profile.svg',
+                  AppLocalizations.of(context)!.pasent_name,controler: lastName,),
+                DropDownNationalitiesItem(myNatData,'assets/images/nasinality.svg',AppLocalizations.of(context)!.nat_choesse,dropIntValue: 1,),
+                DropDownIDTypeItem(myIDData,'assets/images/idtype.svg',AppLocalizations.of(context)!.id_choesse,dropIntValue: 2,),
+                EditTextItem('assets/images/id.svg',
+                    AppLocalizations.of(context)!.identity_iqama,
+                    controler: inId),
+                EditTextItem('assets/images/phone.svg',
+                    AppLocalizations.of(context)!.phone,
+                    controler: phone),
                 EditTextItem(
                   'assets/images/Message.svg',
                   AppLocalizations.of(context)!.email,
                   controler: _pEmail,
                 ),
-                EditTextItem('assets/images/phone.svg',
-                    AppLocalizations.of(context)!.phone,controler: phone,),
-                EditTextItem('assets/images/phone.svg',
-                  AppLocalizations.of(context)!.phone,controler: inId,),
 
-                // EditTextItem('assets/images/scure.svg', AppLocalizations.of(context)!.insurance_company_cash,controler: inCompany,),
-                // EditTextItem(
-                //     'assets/images/scureId.svg', AppLocalizations.of(context)!.insurance_policy_number,controler: inId),
                 InkWell(
+                  onTap: () {
+                    _restorableDatePickerRouteFuture.present();
+                  },
+                  child: EditTextItem('assets/images/Calendar.svg',
+                      AppLocalizations.of(context)!.dob_end_date,
+                      b: false, controler: _insurance_date),
+                ),
+                 InkWell(
                   onTap: () async {
                     await _pickImage();
                   },
@@ -203,23 +301,40 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
   }
 
   bool _checkData() {
-    if (userId.text.isNotEmpty &&
+    if (
         phone.text.isNotEmpty &&
         firstName.text.isNotEmpty  &&
         lastName.text.isNotEmpty  &&
         medileName.text.isNotEmpty  &&
         inId.text.isNotEmpty  &&
-        _pEmail.text.isNotEmpty  &&
-        inCompany.text.isNotEmpty && _pickedImage != null) {
+        _insurance_date.text.isNotEmpty &&
+        QuickServiceGetxController.to.nationality != null &&
+        QuickServiceGetxController.to.idType != null &&
+        _pickedImage != null) {
       return true;
     }
     showSnackBar(context, message: AppLocalizations.of(context)!.enter_required_data, error: true);
     return false;
   }
-
+/*
+* request.fields["Fname"] = fname;
+    request.fields["Lname"] = lname;
+    request.fields["Gname"] = gname;
+    request.fields["Pname"] = pname;
+    request.fields["identity_number"] = identity_number;
+    request.fields["mobile"] = mobile;
+    request.fields["email"] = email;
+    request.fields["request_type"] = request_type;
+    request.fields["nationality"] = nationality;
+    request.fields["id_type"] = id_type;
+    request.fields["DOB"] = DOB;
+    * */
   Future<void> _uploadImage() async {
     showLoaderDialog(context);
-    ApiResponse apiResponse = await QuickServiceApiController().openFile(mobile: phone.text,name: lastName.text,identity_number: userId.text,insurance_number: inId.text,paying_type: inCompany.text,image:  _pickedImage!.path,email:_pEmail.text );
+    ApiResponse apiResponse = await QuickServiceApiController()
+        .openFile(mobile: phone.text,fname: firstName.text,lname: lastName.text,gname: gName.text,pname: medileName.text,
+        identity_number: inId.text,image:  _pickedImage!.path,email:_pEmail.text ,
+        DOB: _insurance_date.text,request_type: QuickServiceGetxController.to.requestType,nationality: QuickServiceGetxController.to.nationality,id_type:QuickServiceGetxController.to.idType );
     if (apiResponse.success) {
       Navigator.pop(context);
       NewAccountGetxController.to.fileData = apiResponse.object;

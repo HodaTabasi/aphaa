@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../get/quick_service_getx_controller.dart';
 import '../../../model/Pages.dart';
 import '../../main_screens/open_medocal/opening_medical_file.dart';
 import 'familly_item.dart';
@@ -200,6 +201,7 @@ class _FamillyScreenState extends State<FamillyScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          QuickServiceGetxController.to.requestType = '2';
           // Add your onPressed code here!
           Navigator.pushNamed(context, OpeningMedicalFile.routeName);
         },
