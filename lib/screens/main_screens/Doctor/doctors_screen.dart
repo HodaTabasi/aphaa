@@ -6,9 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../general/NewWidgetNetworkFirst.dart';
 import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../general/dropdown_item.dart';
+import '../../../model/Clinic.dart';
 import '../../../preferences/shared_pref_controller.dart';
 import '../Appointment Booking/doctor_filtter.dart';
 import 'DoctorItem.dart';
+import 'filtter_dropdown_item.dart';
 
 class DoctorsScreen extends StatefulWidget {
   static String routeName = "/doctors";
@@ -19,6 +22,8 @@ class DoctorsScreen extends StatefulWidget {
 
 class _DoctorsScreenState extends State<DoctorsScreen> {
   TextEditingController searchController = TextEditingController();
+
+
 
   @override
   void initState() {
@@ -90,8 +95,12 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                     )
                   : Column(
                       children: [
+                        // SizedBox(
+                        //   height: 20.h,
+                        // ),
+                        FiltterDropDownItem(controller.myData,'assets/images/hospital.svg',AppLocalizations.of(context)!.clenice_choesse),
                         SizedBox(
-                          height: 20.h,
+                          height: 10.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -114,16 +123,18 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                         borderRadius:
                                             BorderRadius.circular(10.r),
                                         borderSide: BorderSide(
-                                            color: Color.fromRGBO(
-                                                140, 171, 205, 0.12),
+                                          color: Color(0xff0E4C8F),
+                                            // color: Color.fromRGBO(
+                                            //     140, 171, 205, 0.12),
                                             width: 0.5.w),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.r),
                                         borderSide: BorderSide(
-                                            color: Color.fromRGBO(
-                                                140, 171, 205, 0.12),
+                                          color: Color(0xff0E4C8F),
+                                            // color: Color.fromRGBO(
+                                            //     140, 171, 205, 0.12),
                                             width: 0.5.w),
                                       ),
                                       hintText: AppLocalizations.of(context)!
@@ -134,9 +145,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                         fontFamily: 'Tajawal',
                                         fontWeight: FontWeight.bold,
                                       ),
-                                      fillColor:
-                                          Color.fromRGBO(140, 171, 205, 0.12),
-                                      filled: true,
+                                      // fillColor:
+                                      //     Color.fromRGBO(140, 171, 205, 0.12),
+                                      // filled: true,
                                       prefixIcon: Icon(
                                         Icons.search_sharp,
                                         color: Color(0xff0E4C8F),
@@ -144,28 +155,28 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                 ),
                               ),
                             ),
-                            InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  isScrollControlled: false,
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (context) => DoctorFillter(),
-                                );
-                              },
-                              child: Container(
-                                padding: EdgeInsets.all(12.r),
-                                margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
-                                decoration: BoxDecoration(
-                                  color: Color(0xff0E4C8F),
-                                  borderRadius: BorderRadius.circular(10.r),
-                                ),
-                                child: Icon(
-                                  Icons.filter_list_alt,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
+                            // InkWell(
+                            //   onTap: () {
+                            //     showModalBottomSheet(
+                            //       isScrollControlled: false,
+                            //       backgroundColor: Colors.transparent,
+                            //       context: context,
+                            //       builder: (context) => DoctorFillter(),
+                            //     );
+                            //   },
+                            //   child: Container(
+                            //     padding: EdgeInsets.all(12.r),
+                            //     margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                            //     decoration: BoxDecoration(
+                            //       color: Color(0xff0E4C8F),
+                            //       borderRadius: BorderRadius.circular(10.r),
+                            //     ),
+                            //     child: Icon(
+                            //       Icons.filter_list_alt,
+                            //       color: Colors.white,
+                            //     ),
+                            //   ),
+                            // )
                           ],
                         ),
                         SizedBox(

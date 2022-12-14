@@ -2,20 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class EditTextItem extends StatelessWidget {
+class EditTextItem extends StatefulWidget {
   String icon;
   String hint;
   bool b = true;
+  bool first = true;
 
   TextEditingController? controler;
   EditTextItem(this.icon,this.hint, {this.controler ,this.b = true}) ;
 
   @override
+  State<EditTextItem> createState() => _EditTextItemState();
+}
+
+class _EditTextItemState extends State<EditTextItem> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin:  EdgeInsets.symmetric(horizontal: 16.r,vertical: 8.r),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xff0E4C8F),width: 0.5.w),
+        border: Border.all(color: widget.first?Color(0xff0E4C8F):widget.controler!.text.isNotEmpty?Color(0xff0E4C8F):Colors.red,width: 0.5.w),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: IntrinsicHeight(
@@ -25,23 +31,23 @@ class EditTextItem extends StatelessWidget {
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
               child:  SvgPicture.asset(
-                  icon,
+                  widget.icon,
                   semanticsLabel: 'Acme Logo'
               ),
             ),
              VerticalDivider(
                 width:2.w,
                 thickness:0.5.w,
-                color:Color(0xff0E4C8F)
+                color: widget.first?Color(0xff0E4C8F):widget.controler!.text.isNotEmpty?Color(0xff0E4C8F):Colors.red
             ),
             Expanded(child: Padding(
               padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
               child: TextFormField(
-                controller: controler,
-                enabled: b,
+                controller: widget.controler,
+                enabled: widget.b,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: hint,
+                  hintText: widget.hint,
                   hintStyle: TextStyle(
                     color: Colors.grey.shade700,
                     fontSize: 13.sp,
@@ -49,6 +55,11 @@ class EditTextItem extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   )
                 ),
+                onChanged: (value) {
+                  widget.first = false;
+                  setState(() {
+                  });
+                },
               ),
             ))
           ],

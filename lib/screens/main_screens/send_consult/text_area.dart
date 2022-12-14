@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class TextAreaWidget extends StatelessWidget {
+class TextAreaWidget extends StatefulWidget {
 
   TextEditingController controller;
-
-
+  bool first = true;
   TextAreaWidget(this.controller);
+
+  @override
+  State<TextAreaWidget> createState() => _TextAreaWidgetState();
+}
+
+class _TextAreaWidgetState extends State<TextAreaWidget> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +21,17 @@ class TextAreaWidget extends StatelessWidget {
         padding:  EdgeInsets.all(16.r),
         child: TextFormField(
           maxLines: 4,
-          controller: controller,
+          controller: widget.controller,
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
                 borderSide:  BorderSide(
-                    color: Color(0xff0E4C8F), width: 0.5.w),
+                    color: widget.first?Color(0xff0E4C8F):widget.controller.text.isNotEmpty?Color(0xff0E4C8F):Colors.red, width: 0.5.w),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.r),
                 borderSide:  BorderSide(
-                    color: Color(0xff0E4C8F), width: 0.5.w),
+                    color: widget.first?Color(0xff0E4C8F):widget.controller.text.isNotEmpty?Color(0xff0E4C8F):Colors.red, width: 0.5.w),
               ),
               hintText: AppLocalizations.of(context)!.consult_note,
               hintStyle: TextStyle(
@@ -34,6 +40,11 @@ class TextAreaWidget extends StatelessWidget {
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               )),
-        ));
+          onChanged: (value) {
+            widget.first = false;
+            setState(() {
+            });
+          }),
+        );
   }
 }

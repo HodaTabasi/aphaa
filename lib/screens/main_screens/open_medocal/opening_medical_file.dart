@@ -16,7 +16,6 @@ import '../../../general/edittext_item.dart';
 import 'package:aphaa_app/helper/helpers.dart' as myHelper ;
 
 import '../../../model/api_response.dart';
-import '../../auth/create_account1/new_account_first.dart';
 
 class OpeningMedicalFile extends StatefulWidget {
   static String routeName = "/open_media_file";
@@ -27,7 +26,9 @@ class OpeningMedicalFile extends StatefulWidget {
 
 class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, myHelper.Helpers1 {
 
-  late TextEditingController name;
+  late TextEditingController firstName;
+  late TextEditingController medileName;
+  late TextEditingController lastName;
   late TextEditingController userId;
   late TextEditingController phone;
   late TextEditingController inCompany;
@@ -41,13 +42,15 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
 
   @override
   void initState() {
-    name = TextEditingController(text: "aisal yosef alsawaf");
+    firstName = TextEditingController(text: "aisal yosef alsawaf");
+    medileName = TextEditingController(text: "aisal yosef alsawaf");
+    lastName = TextEditingController(text: "aisal yosef alsawaf");
     userId = TextEditingController(text: "aisal@hotmail.com");
     _pEmail = TextEditingController(text: "hhh@gmail.com");
     phone = TextEditingController(text: "0154421157");
     inCompany = TextEditingController(text: "cash");
     inId = TextEditingController(text: "2520");
-    _imagePicker = ImagePicker();
+
     super.initState();
   }
   @override
@@ -104,7 +107,11 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
             child: Column(
               children: [
                 EditTextItem('assets/images/Profile.svg',
-                    AppLocalizations.of(context)!.pasent_name,controler: name,),
+                    AppLocalizations.of(context)!.pasent_name,controler: firstName,),
+                EditTextItem('assets/images/Profile.svg',
+                  AppLocalizations.of(context)!.pasent_name,controler: medileName,),
+                EditTextItem('assets/images/Profile.svg',
+                  AppLocalizations.of(context)!.pasent_name,controler: lastName,),
                 EditTextItem('assets/images/id.svg', AppLocalizations.of(context)!.identity_iqama,controler: userId,),
                 EditTextItem(
                   'assets/images/Message.svg',
@@ -113,9 +120,12 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
                 ),
                 EditTextItem('assets/images/phone.svg',
                     AppLocalizations.of(context)!.phone,controler: phone,),
-                EditTextItem('assets/images/scure.svg', AppLocalizations.of(context)!.insurance_company_cash,controler: inCompany,),
-                EditTextItem(
-                    'assets/images/scureId.svg', AppLocalizations.of(context)!.insurance_policy_number,controler: inId),
+                EditTextItem('assets/images/phone.svg',
+                  AppLocalizations.of(context)!.phone,controler: inId,),
+
+                // EditTextItem('assets/images/scure.svg', AppLocalizations.of(context)!.insurance_company_cash,controler: inCompany,),
+                // EditTextItem(
+                //     'assets/images/scureId.svg', AppLocalizations.of(context)!.insurance_policy_number,controler: inId),
                 InkWell(
                   onTap: () async {
                     await _pickImage();
@@ -195,7 +205,9 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
   bool _checkData() {
     if (userId.text.isNotEmpty &&
         phone.text.isNotEmpty &&
-        name.text.isNotEmpty  &&
+        firstName.text.isNotEmpty  &&
+        lastName.text.isNotEmpty  &&
+        medileName.text.isNotEmpty  &&
         inId.text.isNotEmpty  &&
         _pEmail.text.isNotEmpty  &&
         inCompany.text.isNotEmpty && _pickedImage != null) {
@@ -207,7 +219,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
 
   Future<void> _uploadImage() async {
     showLoaderDialog(context);
-    ApiResponse apiResponse = await QuickServiceApiController().openFile(mobile: phone.text,name: name.text,identity_number: userId.text,insurance_number: inId.text,paying_type: inCompany.text,image:  _pickedImage!.path,email:_pEmail.text );
+    ApiResponse apiResponse = await QuickServiceApiController().openFile(mobile: phone.text,name: lastName.text,identity_number: userId.text,insurance_number: inId.text,paying_type: inCompany.text,image:  _pickedImage!.path,email:_pEmail.text );
     if (apiResponse.success) {
       Navigator.pop(context);
       NewAccountGetxController.to.fileData = apiResponse.object;

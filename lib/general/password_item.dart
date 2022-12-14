@@ -6,6 +6,7 @@ class PasswordItem extends StatefulWidget {
   String icon;
   String value;
   TextEditingController? controler;
+  bool first = true;
   PasswordItem(this.icon,this.value,{this.controler});
 
   @override
@@ -20,7 +21,7 @@ class _PasswordItemState extends State<PasswordItem> {
     return Container(
       margin:  EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xff0E4C8F), width: 0.5.w),
+        border: Border.all(color: widget.first?Color(0xff0E4C8F):widget.controler!.text.isNotEmpty?Color(0xff0E4C8F):Colors.red, width: 0.5.w),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: IntrinsicHeight(
@@ -33,7 +34,7 @@ class _PasswordItemState extends State<PasswordItem> {
                   semanticsLabel: 'Acme Logo'),
             ),
              VerticalDivider(
-                width: 2.w, thickness: 0.5.w, color: Color(0xff0E4C8F)),
+                width: 2.w, thickness: 0.5.w, color: widget.first?Color(0xff0E4C8F):widget.controler!.text.isNotEmpty?Color(0xff0E4C8F):Colors.red),
             Expanded(
                 child: Padding(
                   padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
@@ -69,6 +70,11 @@ class _PasswordItemState extends State<PasswordItem> {
                               color: Color(0xff058638)),
                         )),
                     obscureText: !isVisable,
+                    onChanged: (value) {
+                      widget.first = false;
+                      setState(() {
+                      });
+                    },
                   ),
                 ))
           ],

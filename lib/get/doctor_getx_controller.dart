@@ -17,6 +17,8 @@ class DoctorGetxController extends GetxController {
   RxList<Doctor> listBeforeFiltter = <Doctor>[].obs;
   RxList<Pages> pageList = <Pages>[].obs;
 
+  List<Clinic> myData = [];
+
   RxString offSet = "1".obs;
 
   int page = 1;
@@ -97,7 +99,7 @@ class DoctorGetxController extends GetxController {
     offSet = "1".obs;
     page = 0;
     selectedPageNumber = "1".obs;
-
+    await getListsData();
     DoctorListResponse? v = await HospitalApiController().getClDrs(
         clinicCode: clinicCode,
         flag: true,
@@ -117,5 +119,9 @@ class DoctorGetxController extends GetxController {
       list.value = list.where((p0) => p0.doctorName!.contains(val)).toList();
     }
 
+  }
+
+  getListsData() async {
+    myData = await HospitalApiController().getClList() ?? [];
   }
 }
