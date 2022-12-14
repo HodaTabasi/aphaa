@@ -181,7 +181,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile> with Helpers, m
           Padding(
             padding:  EdgeInsets.all(16.0.r),
             child: Text(
-              AppLocalizations.of(context)!.head_of_consult_screen,
+              AppLocalizations.of(context)!.to_open_medical_file_please_enter_data,
               style:  TextStyle(
                 color: Colors.black,
                 fontSize: 15.sp,

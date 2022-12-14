@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
-import '../../../general/download_btn.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -37,10 +36,11 @@ class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButt
         child:  FutureBuilder<PrescriptionListItems?>(
           future: HospitalApiController().getRxItems(invoiceDate: widget.prescriptionlist.invoiceDate,invoiceNo: widget.prescriptionlist.invoiceNo,invoiceType: widget.prescriptionlist.invoiceType,page: 1,offset: 1),
           builder: (context, snapshot) {
+
             if (snapshot.connectionState == ConnectionState.waiting) {
+
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
-              print("dgsd ${snapshot.data!.prescriptionItems}");
               return   Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -201,6 +201,45 @@ class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButt
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
+                                  AppLocalizations.of(context)!.quantity,
+                                  style:  TextStyle(
+                                    color: Color(0xff2D2D2D),
+                                    fontSize: 15.sp,
+                                    fontFamily: 'Tajawal',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width/2.r,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffF7F8FB),
+                                      borderRadius: BorderRadius.circular(5.r),
+                                    ),
+                                    child: Padding(
+                                      padding:  EdgeInsets.all(16.0.r),
+                                      child: Text(
+                                        '${snapshot.data!.prescriptionItems![index].qty}',
+                                        style:  TextStyle(
+                                          color: Color(0xff2D2D2D),
+                                          fontSize: 14.sp,
+                                          fontFamily: 'Tajawal',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ), ),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding:  EdgeInsets.all(8.0.r),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
                                   AppLocalizations.of(context)!.price,
                                   style:  TextStyle(
                                     color: Color(0xff2D2D2D),
@@ -273,7 +312,8 @@ class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButt
                         Padding(
                           padding:  EdgeInsets.all(8.0.r),
                           child: Text(
-                            ' ${snapshot.data!.total}ر.س ',
+                            // ' ر.س ',
+                            '  ${snapshot.data!.s1Val}ر.س  ',
                             style:  TextStyle(
                               color: Color(0xff2D2D2D),
                               fontSize: 14.sp,
@@ -282,7 +322,6 @@ class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButt
                             ),
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -304,7 +343,8 @@ class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButt
                         Padding(
                           padding:  EdgeInsets.all(8.0.sp),
                           child: Text(
-                            '${(snapshot.data!.total! * snapshot.data!.tax!.toInt())}ر.س ',
+                            // 'ر.س ',
+                            ' ${snapshot.data!.s8Val}ر.س  ',
                             style:  TextStyle(
                               color: Color(0xff2D2D2D),
                               fontSize: 14.sp,
@@ -335,7 +375,8 @@ class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButt
                         Padding(
                           padding:  EdgeInsets.all(8.0.r),
                           child: Text(
-                            '${(snapshot.data!.total! * snapshot.data!.tax!.toInt())}ر.س ',
+                            // 'ر.س ',
+                            ' ${snapshot.data!.s8Val!}ر.س  ',
                             style:  TextStyle(
                               color: Color(0xff2D2D2D),
                               fontSize: 14.sp,

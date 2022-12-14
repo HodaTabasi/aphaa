@@ -61,6 +61,8 @@
         "insurance":"insurance",
         "insurance_number":"Insurance number",
         "cash":"Cash",
+        "to_open_medical_file_please_enter_data":"To open a medical file, please enter all data:",
+        "otp":"Verification code",
         "insurance_end_date":"Insurance end date",
         "dob_end_date":"Date of birth",
         "insurance_companies":"Insurance companies",
@@ -70,6 +72,7 @@
 
     "net_cash":"net cash",
     "net_term":"net term",
+    "quantity":"Quantity",
         "enter_login_information_access_services":"Enter your login information to access our services:",
         "remember_me_later":"Remember me Later",
         "forget_pass_hl":"Forget Password ?",

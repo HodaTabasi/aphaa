@@ -102,6 +102,7 @@ insurance_number:2520
   //   );
   // }
   Future<ApiResponse> openFile({fname,lname,gname,pname,identity_number,mobile,image,email,request_type,nationality,id_type,DOB}) async {
+   print(image);
     Uri uri = Uri.parse(ApiSettings.openFile);
     var request = http.MultipartRequest('POST', uri);
     var file = await http.MultipartFile.fromPath('image', image);
@@ -119,7 +120,7 @@ insurance_number:2520
 
     request.files.add(file);
     // request.fields['KEY'] = 'VALUE';
-    request.headers[HttpHeaders.authorizationHeader] = SharedPrefController().token;
+    // request.headers[HttpHeaders.authorizationHeader] = SharedPrefController().token;
     request.headers[HttpHeaders.acceptHeader] = 'application/json';
     var response = await request.send();
     // print(jsonDecode(await response.stream.transform(utf8.decoder).first));

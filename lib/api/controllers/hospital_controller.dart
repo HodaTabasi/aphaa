@@ -274,7 +274,7 @@ class HospitalApiController with ApiHelper {
 
   Future<PrescriptionListItems?> getRxItems(
       {invoiceNo, invoiceDate, invoiceType, page, offset}) async {
-    print(" $invoiceDate $invoiceNo $invoiceType");
+    print(" fgd  $invoiceDate $invoiceNo $invoiceType");
     final queryParameters = {
       'invoiceNo': '$invoiceNo',
       // 'invoiceNo': '5995',
@@ -292,14 +292,14 @@ class HospitalApiController with ApiHelper {
     final uri = Uri.http(ApiSettings.HospitalBase,
         '${ApiSettings.HospitalBase1}rxItems', queryParameters);
     final response = await http.get(uri);
-    if (response.statusCode == 200 || response.statusCode == 400) {
+    // print(response.body);
+    if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      if (response.statusCode == 200) {
         var jsonObject = jsonResponse;
         PrescriptionListItems prescriptionListItems =
             PrescriptionListItems.fromJson(jsonObject);
+      print(prescriptionListItems);
         return prescriptionListItems;
-      }
     }
     return null;
   }

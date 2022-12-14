@@ -34,7 +34,7 @@ class _OTPScreenState extends State<OTPScreen> {
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
-        title: Text(AppLocalizations.of(context)!.change_password,
+        title: Text(AppLocalizations.of(context)!.otp,
             style:  TextStyle(
               color: Colors.white,
               fontSize: 16.sp,
