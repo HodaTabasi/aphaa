@@ -2,27 +2,36 @@ class PatientPaymentRecord {
   String? invType;
   String? invNo;
   String? invDate;
+  String? doctorName;
+  String? clinicName;
   String? cashAmt;
   String? creditAmt;
-  String? totalAmt;
+  String? serviceType;
+  String? pdfStatus;
   String? pdfName;
 
   PatientPaymentRecord(
       {this.invType,
         this.invNo,
         this.invDate,
+        this.doctorName,
+        this.clinicName,
         this.cashAmt,
         this.creditAmt,
-        this.totalAmt,
+        this.serviceType,
+        this.pdfStatus,
         this.pdfName});
 
   PatientPaymentRecord.fromJson(Map<String, dynamic> json) {
     invType = json['invType'];
     invNo = json['invNo'];
     invDate = json['invDate'];
+    doctorName = json['doctorName'];
+    clinicName = json['clinicName'];
     cashAmt = json['cashAmt'];
     creditAmt = json['creditAmt'];
-    totalAmt = json['totalAmt'];
+    serviceType = json['serviceType'];
+    pdfStatus = json['pdfStatus'];
     pdfName = json['pdfName'];
   }
 
@@ -31,9 +40,12 @@ class PatientPaymentRecord {
     data['invType'] = this.invType;
     data['invNo'] = this.invNo;
     data['invDate'] = this.invDate;
+    data['doctorName'] = this.doctorName;
+    data['clinicName'] = this.clinicName;
     data['cashAmt'] = this.cashAmt;
     data['creditAmt'] = this.creditAmt;
-    data['totalAmt'] = this.totalAmt;
+    data['serviceType'] = this.serviceType;
+    data['pdfStatus'] = this.pdfStatus;
     data['pdfName'] = this.pdfName;
     return data;
   }

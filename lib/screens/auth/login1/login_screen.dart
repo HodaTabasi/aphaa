@@ -218,11 +218,11 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
     if (eg != null) {
       NewAccountGetxController.to.eligibility = eg;
       if (eg.isEligible == "true") {
-        FireBaseAuthController().verifyPhoneNumber1(
-            context: context, userPhone:  eg.patientMOB?.substring(1));
-
         // FireBaseAuthController().verifyPhoneNumber1(
-        //     context: context, userPhone: eg.patientMOB?.substring(1));
+        //     context: context, userPhone:  597046766);
+
+        FireBaseAuthController().verifyPhoneNumber1(
+            context: context, userPhone: eg.patientMOB?.substring(1));
 
       } else {
         QuickServiceGetxController.to.requestType = '1';

@@ -68,6 +68,8 @@
         "employer":"Employer",
         "residency_number":"Residency number",
 
+    "net_cash":"net cash",
+    "net_term":"net term",
         "enter_login_information_access_services":"Enter your login information to access our services:",
         "remember_me_later":"Remember me Later",
         "forget_pass_hl":"Forget Password ?",

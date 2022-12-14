@@ -38,6 +38,8 @@
    "consult_note":"نص الاستشارة",
    "consult_send":"ارسل الاستشارة",
     "dob_end_date":"تاريخ ميلادك",
+    "net_cash":"صافي النقدي",
+    "net_term":"صافي الاجل",
    "this_date_is_not_available":"هذا الموعد غير متاح",
    "ok":"موافق",
 "enter_required_data":"الرجاء ادخال الحقول اللازمة",
