@@ -3,6 +3,7 @@ class Doctor {
   String? doctorName;
   String? clinicName;
   String? doctorGender;
+  String? clinicCode;
 
   String? img;
   List<String>? sciMainInfo;
@@ -19,12 +20,14 @@ class Doctor {
         this.pastExpInfo,
         this.medSrvInfo,
         this.doctorGender,
+        this.clinicCode,
         this.drSkillInfo});
 
   Doctor.fromJson(Map<String, dynamic> json) {
     doctorCode = json['doctorCode'];
     doctorName = json['doctorName'];
     clinicName = json['clinicName'];
+    clinicCode = json['clinicCode'];
     doctorGender = json['doctorGender'];
     if (json['img'] != null) {
       img = json['img'];
@@ -54,6 +57,7 @@ class Doctor {
     data['doctorCode'] = this.doctorCode;
     data['doctorName'] = this.doctorName;
     data['clinicName'] = this.clinicName;
+    data['clinicCode'] = this.clinicCode;
     data['doctorGender'] = this.doctorGender;
     if (this.img != null) {
       data['img'] = this.img;

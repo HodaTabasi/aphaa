@@ -55,8 +55,11 @@ class SharedPrefController {
     //     PrefKeys.refreshToken.name, 'Bearer ${student.refreshToken}');
   }
 
-  Future<void> save1() async {
+  Future<void> save1(identityNumber ,mobile ) async {
     await _sharedPreferences.setBool(PrefKeysPatient.isLoggedIn.name, true);
+     await _sharedPreferences.setString(PrefKeysPatient.identityNumber.name, identityNumber??"");
+     await _sharedPreferences.setString(PrefKeysPatient.mobile.name, mobile??"");
+
     // await _sharedPreferences.setString(
     //     PrefKeys.refreshToken.name, 'Bearer ${student.refreshToken}');
   }

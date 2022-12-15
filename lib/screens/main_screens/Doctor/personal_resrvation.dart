@@ -20,6 +20,7 @@ import 'package:flutter_paytabs_bridge/PaymentSdkTransactionClass.dart';
 import 'package:flutter_paytabs_bridge/PaymentSdkTransactionType.dart';
 import 'package:flutter_paytabs_bridge/flutter_paytabs_bridge.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/btn_layout.dart';
@@ -31,6 +32,7 @@ import '../../../model/Clinic.dart';
 import '../../../model/billResponse.dart';
 import '../../../model/doctor.dart';
 import '../../../preferences/shared_pref_controller.dart';
+import '../../drawer_screens/Booking/edittext_item_calender.dart';
 import '../../drawer_screens/done/done_screen.dart';
 import '../../main_screens/Appointment Booking/time_appoiment_item.dart';
 
@@ -69,7 +71,6 @@ class _MyPersonalAppointmentBookingState
     clinicName = TextEditingController(text: widget.doctor.clinicName);
     doctorName = TextEditingController(text: widget.doctor.doctorName);
     super.initState();
-    doPaymentConfiguration();
   }
 
   @override
@@ -146,33 +147,40 @@ class _MyPersonalAppointmentBookingState
                           controler: doctorName,
                         ),
                         Visibility(
-                          visible: value.avilableDate.isNotEmpty,
-                          child: EditTextItem('assets/images/Calendar.svg',
+                          visible: value.global != null,
+                          child: EditTextItemCalender('assets/images/Calendar.svg',
                               AppLocalizations.of(context)!.appoitment_date,
-                              b: false, controler: dateText),
-                        ),
-                        Stack(
-                          children: [
-                            Visibility(
-                                visible: value.avilableDate.isEmpty,
-                                child: Center(
-                                    child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Image.asset("assets/images/calendar.png"),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Text("لا يوجد مواعيد متاحة"),
-                                  ],
-                                ))),
-                            Visibility(
-                                visible: value.avilableDate.isNotEmpty,
-                                child: widget1(value.avilableDate, value)),
-                          ],
-                        ),
+                              b: false, controler: dateText),),
+
+                        if (!value.isChangeLoading)
+                          Stack(
+                            children: [
+                              Visibility(
+                                  visible: value.avilableDate.isEmpty &&
+                                      !value.isChangeLoading || value.global == null,
+                                  child: Center(
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          Image.asset("assets/images/calendar.png"),
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          Text("لا يوجد مواعيد متاحة"),
+                                        ],
+                                      ))),
+                              Visibility(
+                                  visible: value.global != null &&
+                                      value.avilableDate.isNotEmpty && value.avilableTime.isEmpty,
+                                  child: widget1(value.avilableDate, value)),
+                            ],
+                          ),
+                        Visibility(
+                            visible: value.isChangeLoading,
+                            child: const Center(
+                                child: CircularProgressIndicator())),
                         Visibility(
                           visible: value.avilableTime.isNotEmpty,
                           child: Padding(
@@ -186,7 +194,7 @@ class _MyPersonalAppointmentBookingState
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
+                                  EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
                                   child: Text(
                                     AppLocalizations.of(context)!.time,
                                     style: TextStyle(
@@ -196,76 +204,119 @@ class _MyPersonalAppointmentBookingState
                                       fontWeight: FontWeight.normal,
                                     ),
                                   ),
+                                ),
+                                Spacer(),
+                                InkWell(
+                                  onTap: (){
+                                    value.changeClaenderVisabiltyFlag();
+                                    value.currentDate = null;
+                                    value.GroupValue = -1;
+                                  },
+                                  child: Padding(
+                                    padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
+                                    child:   SvgPicture.asset(
+                                        'assets/images/Calendar.svg',
+                                        semanticsLabel: 'Acme Logo'
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
                           ),
                         ),
-                        Visibility(
-                          visible: value.avilableDate.isNotEmpty,
-                          child: Stack(
-                            children: [
-                              Visibility(
-                                  visible: value.avilableTime.isEmpty,
-                                  child: Center(
-                                      child: Column(
+                        if (!value.isChangeLoading)
+                          Visibility(
+                            visible: value.avilableDate.isNotEmpty,
+                            child: Stack(
+                              children: [
+                                Visibility(
+                                    visible: value.avilableTime.isEmpty &&
+                                        !value.isChangeTimeLoading,
+                                    child: Center(
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            Image.asset("assets/images/free_time.png"),
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            Text("لا يوجد اوقات متاحة"),
+                                          ],
+                                        ))),
+                                Visibility(
+                                    visible: value.isChangeTimeLoading,
+                                    child: const Center(
+                                        child: CircularProgressIndicator())),
+                                if (!value.isChangeTimeLoading)
+                                  Column(
                                     children: [
-                                      SizedBox(
-                                        height: 20.h,
+                                      Visibility(
+                                        visible:
+                                        value.avilableTime.isNotEmpty,
+                                        child: RichText(
+                                            text: TextSpan(
+                                                style: TextStyle(color: Colors.red),
+                                                text: "  ${value.timeResponse?.reqAmt??''} ريال ",
+                                                children: [
+                                                  TextSpan(text: value.timeResponse?.paymentNotice??''),
+                                                ])),
                                       ),
-                                      Image.asset(
-                                          "assets/images/free_time.png"),
-                                      SizedBox(
-                                        height: 20.h,
+                                      // Text(
+                                      //   value.timeResponse!.paymentNotice ?? "",
+                                      // ),
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0.r),
+                                        child: SizedBox(
+                                          height: 100.h,
+                                          // width: 80,
+                                          child: Visibility(
+                                            visible:
+                                            value.avilableTime.isNotEmpty,
+                                            child: GridView.builder(
+                                              shrinkWrap: true,
+                                              itemCount:
+                                              value.avilableTime.length,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.h),
+                                              scrollDirection: Axis.horizontal,
+                                              gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 1,
+                                                  mainAxisSpacing: 10.h,
+                                                  crossAxisSpacing: 10.w,
+                                                  childAspectRatio:
+                                                  280 / 200),
+                                              itemBuilder: (context, index) {
+                                                return TimeAppoitmentItem(
+                                                    data: value
+                                                        .avilableTime[index],
+                                                    title: "",
+                                                    value: index,
+                                                    groupValue: value.GroupValue,
+                                                    onChanged: (value1) =>
+                                                        setState(() {
+                                                          value.GroupValue = value1;
+                                                        }));
+                                              },
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      Text("لا يوجد اوقات متاحة"),
                                     ],
-                                  ))),
-                              Padding(
-                                padding: EdgeInsets.all(8.0.r),
-                                child: SizedBox(
-                                  height: 100.h,
-                                  // width: 80,
-                                  child: Visibility(
-                                    visible: value.avilableTime.isNotEmpty,
-                                    child: GridView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: value.avilableTime.length,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10.h),
-                                      scrollDirection: Axis.horizontal,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 1,
-                                              mainAxisSpacing: 10.h,
-                                              crossAxisSpacing: 10.w,
-                                              childAspectRatio: 280 / 200),
-                                      itemBuilder: (context, index) {
-                                        return TimeAppoitmentItem(
-                                            data: value.avilableTime[index],
-                                            title: "",
-                                            value: index,
-                                            groupValue: _value,
-                                            onChanged: (value) => setState(() {
-                                                  _value = value;
-                                                }));
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                                  )
+                              ],
+                            ),
                           ),
-                        )
                       ],
                     ),
                   ),
                   SizedBox(height: 10.h),
                   Visibility(
-                    visible: value.avilableTime.isNotEmpty && value.avilableTime.isNotEmpty,
-                    child: BtnLayout(AppLocalizations.of(context)!.appointment,
-                        () => _performAction(value)),
-                  ),
+                      visible: value.avilableTime.isNotEmpty && value.avilableTime.isNotEmpty,
+                      child: BtnLayout(AppLocalizations.of(context)!.appointment, ()=>_performAction(value.avilableTime[NewAccountGetxController.to.GroupValue]))),
+
                   // Image.asset(
                   //   "assets/images/image1.png",
                   //   fit: BoxFit.fitWidth,
@@ -405,16 +456,14 @@ class _MyPersonalAppointmentBookingState
 
   Future<void> _performAction(value) async {
     if (_checkData(value)) {
-      await _performRigestration(value.clinicCode, value.doctorCode,
-          dateText.text, value.avilableTime[_value]);
+      await _performRigestration(widget.doctor.clinicCode!, widget.doctor.doctorCode!,
+          dateText.text, value);
     }
   }
 
   bool _checkData(value) {
-    if (value.clinicCode.isNotEmpty &&
-        value.doctorCode.isNotEmpty &&
-        dateText.text.isNotEmpty &&
-        value.avilableTime[_value] != null) {
+    if (dateText.text.isNotEmpty &&
+        value != null) {
       return true;
     }
     showSnackBar(context,
@@ -443,133 +492,20 @@ class _MyPersonalAppointmentBookingState
     print(response.success);
     if (response.success) {
       Navigator.pop(context);
-      onBookClick(context);
-      // showAlertDialog(context);
+      NewAccountGetxController.to.clearDataBeforeSend();
+      NewAccountGetxController.to.GroupValue = -1;
+      this.dateText.text = "";
+      showAlertDialog(context);
     } else {
       Navigator.pop(context);
       showSnackBar(context, message: response.message, error: true);
     }
   }
 
-  void onBookClick(context) {
-    //TODO : validate form
-    // if (cardNameController.text.isEmpty) {
-    //   //TODO : show error message for card name
-    //   return;
-    // }
-    // if (cardNumberController.text.isEmpty) {
-    //   //TODO : show error message for card number
-    //   return;
-    // }
-    // if (cardDateController.text.isEmpty) {
-    //   //TODO : show error message for card date
-    //   return;
-    // }
-    // if (cardCVVController.text.isEmpty) {
-    //   //TODO : show error message for cvv
-    //   return;
-    // }
 
-    //TODO : [if pass] Start payment by calling startCardPayment method and handle the transaction details
-
-    startPaymentWithCard(context);
-  }
-
-  void doPaymentConfiguration() {
-    ///todo this data required to show payment page
-    ///todo: here you need to add user data if exist at lest [*** user name and email]
-    bool? isLogin = SharedPrefController()
-        .getValueFor<bool>(key: PrefKeysPatient.isLoggedIn.name);
-    if (isLogin != null && !isLogin) {
-      return;
-    }
-    var firstName =
-        "${SharedPrefController().getValueFor<String>(key: PrefKeysPatient.firstName.name)}  ${SharedPrefController().getValueFor<String>(key: PrefKeysPatient.lastName.name)}";
-    var email = SharedPrefController()
-            .getValueFor<String>(key: PrefKeysPatient.email.name) ??
-        "t@t.com";
-    var mobile = SharedPrefController()
-            .getValueFor<String>(key: PrefKeysPatient.mobile.name) ??
-        "+970111111111";
-    if (email.isEmpty) {
-      email = "t@t.com";
-    }
-    print("$firstName $email , $mobile");
-    var billingDetails = BillingDetails("$firstName", "$email", "$mobile",
-        "st. 12", "eg", "dubai", "dubai", "12345");
-    var shippingDetails = ShippingDetails("$firstName", "$email", "$mobile",
-        "st. 12", "eg", "dubai", "dubai", "12345");
-
-    //todo this data required to show alternativePaymentMethods
-    List<PaymentSdkAPms> apms = [];
-    apms.add(PaymentSdkAPms.AMAN);
-
-    configuration = PaymentSdkConfigurationDetails(
-        profileId: paymentProfileId,
-        serverKey: paymentServerKey,
-        clientKey: paymentClientKey,
-        cartId: /*paymentCartIdLive*/ "${DateTime.now().microsecondsSinceEpoch}",
-        showBillingInfo: false,
-        transactionType: PaymentSdkTransactionType.SALE,
-        transactionClass: PaymentSdkTransactionClass.ECOM,
-        forceShippingInfo: false,
-        cartDescription: "مستشفى أبها الخاص العالمي",
-        merchantName: paymentMerchantName,
-        screentTitle: "Pay with Card",
-        billingDetails: billingDetails,
-        shippingDetails: shippingDetails,
-        locale: PaymentSdkLocale.EN,
-        //PaymentSdkLocale.AR or PaymentSdkLocale.DEFAULT
-        amount: NewAccountGetxController.to.timeResponse?.reqAmt ?? 0,
-        //release her amount
-        currencyCode: "SAR",
-        merchantCountryCode: "SA",
-        alternativePaymentMethods: apms,
-        linkBillingNameWithCardHolderName: false);
-
-    //Options to show billing and shipping info
-    configuration.showBillingInfo = true;
-    configuration.showShippingInfo = false;
-
-    //Set merchant logo from the project assets:
-    if (Platform.isIOS) {
-      var theme = IOSThemeConfigurations();
-      theme.logoImage = "assets/images/logo.png";
-      configuration.iOSThemeConfigurations = theme;
-    }
-  }
-
-  void startPaymentWithCard(context) {
-    //test card data todo 4111111111111111  || name = Visa || cvv = 123
-    FlutterPaytabsBridge.startCardPayment(configuration, (event) {
-      setState(() async {
-        print(event);
-        if (event["status"] == "success") {
-          // Handle transaction details here.
-          var transactionDetails = event["data"];
-          print(transactionDetails);
-
-          if (transactionDetails["isSuccess"]) {
-            print("successful transaction");
-            //todo : here show  successful transaction message
-            billResponse? response = await HospitalApiController().setConsInv();
-            if (response != null) {
-              Navigator.pushNamed(context, DoneScreens.routeName);
-            } else {
-              showSnackBar(context, message: " حصل خطا ", error: true);
-            }
-          } else {
-            //todo : here show  invalid card message
-            showSnackBar(context, message: "failed transaction", error: true);
-            print("failed transaction");
-          }
-        } else if (event["status"] == "error") {
-          showSnackBar(context, message: " حصل خطا ", error: true);
-          // Handle error here.
-        } else if (event["status"] == "event") {
-          // Handle events here.
-        }
-      });
-    });
+  @override
+  void deactivate() {
+    NewAccountGetxController.to.clearDataBeforeSend();
+    super.deactivate();
   }
 }

@@ -43,6 +43,8 @@ class NewAccountGetxController extends GetxController {
   DateTime? currentDate ;
   var GroupValue = -1;
 
+  String? identityNumber;
+
   ///////////////
 
   final num1Controller = TextEditingController();

@@ -218,6 +218,7 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
     if (eg != null) {
       NewAccountGetxController.to.eligibility = eg;
       if (eg.isEligible == "true") {
+        NewAccountGetxController.to.identityNumber = _emailTextController.text;
         // FireBaseAuthController().verifyPhoneNumber1(
         //     context: context, userPhone:  597046766);
 
