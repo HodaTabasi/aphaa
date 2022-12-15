@@ -153,18 +153,18 @@ class QuickServices extends StatelessWidget {
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
                       onTap: () =>
                           Navigator.pushNamed(context, LoginScreen1.routeName),
-                      child: Directionality(textDirection: TextDirection.ltr,child: GeneratedGroup40943Widget())),
-                  OrWidget(),
-                  InkWell(
-                    onTap: () =>
-                        Navigator.pushNamed(context, NewAccountFirst.routeName),
-                    child: GeneratedGroup40944Widget(),
-                  )
+                      child: GeneratedGroup40943Widget()),
+                  // OrWidget(),
+                  // InkWell(
+                  //   onTap: () =>
+                  //       Navigator.pushNamed(context, NewAccountFirst.routeName),
+                  //   child: GeneratedGroup40944Widget(),
+                  // )
                 ],
               ),
             ),
