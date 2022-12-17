@@ -9,8 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../get/language_getx_controller.dart';
 import '../../../helper/SizeConfig.dart';
 import '../../../model/service.dart';
+import '../../../preferences/shared_pref_controller.dart';
 import '../../auth/create_account1/new_account_first.dart';
 import '../../auth/login1/login_screen.dart';
 import '../Appointment Booking/appointement_booking.dart';
@@ -50,31 +52,39 @@ class QuickServices extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         leadingWidth: 90.w,
-        leading: Container(
-          margin:  EdgeInsets.all(10.0.r),
-          // padding: EdgeInsets.all(10.0),
-          alignment: Alignment.center,
-          width: 80.w,
-          height: 80.h,
-          decoration: BoxDecoration(
-              color: const Color(0xff006F2C),
-              borderRadius: BorderRadius.circular(10.r)),
-          child:  Text(
-            "العربية",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14.sp,
-              fontFamily: 'Tajawal',
-              fontWeight: FontWeight.bold,
+        leading: InkWell(
+          onTap: (){
+            LanguageGetxController.to.changeLanguage();
+          },
+          child: Container(
+            margin: EdgeInsets.all(10.0.r),
+            // padding: EdgeInsets.all(10.0),
+            alignment: Alignment.center,
+            width: 80.w,
+            height: 80.h,
+            decoration: BoxDecoration(
+                color: const Color(0xff006F2C),
+                borderRadius: BorderRadius.circular(10.r)),
+            child: Text(SharedPrefController()
+                              .getValueFor<String>(key: PrefKeys.lang.name) ==
+                          'ar'
+                      ? "العربية"
+                      : "English",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14.sp,
+                fontFamily: 'Tajawal',
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
         ),
       ),
       body: ListView(
         scrollDirection: Axis.vertical,
         children: [
-           SizedBox(
+          SizedBox(
             height: 5.h,
           ),
           Image.asset(
@@ -82,12 +92,12 @@ class QuickServices extends StatelessWidget {
             width: 185.w,
             height: 150.h,
           ),
-           SizedBox(
+          SizedBox(
             height: 8.h,
           ),
           Text(
             AppLocalizations.of(context)!.welcome,
-            style:  TextStyle(
+            style: TextStyle(
               color: Colors.black,
               fontSize: 15.sp,
               fontFamily: 'Tajawal',
@@ -95,14 +105,14 @@ class QuickServices extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-           SizedBox(
+          SizedBox(
             height: 5.h,
           ),
           Padding(
-            padding:  EdgeInsets.all(16.0.r),
+            padding: EdgeInsets.all(16.0.r),
             child: Text(
               AppLocalizations.of(context)!.quick_service,
-              style:  TextStyle(
+              style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.sp,
                 fontFamily: 'Tajawal',
@@ -114,21 +124,20 @@ class QuickServices extends StatelessWidget {
             shrinkWrap: true,
             itemCount: 4,
             physics: const NeverScrollableScrollPhysics(),
-            padding:  EdgeInsets.symmetric(horizontal: 10.r),
+            padding: EdgeInsets.symmetric(horizontal: 10.r),
             scrollDirection: Axis.vertical,
-            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 5.w,
               crossAxisSpacing: 5.h,
             ),
             itemBuilder: (context, index) {
-
               return ServiceItem(
                 image: service[index].image,
                 name: service[index].name,
                 decration: service[index].decration,
                 prsee: () {
-                  if(service[index].routsName == OpeningMedicalFile.routeName)
+                  if (service[index].routsName == OpeningMedicalFile.routeName)
                     QuickServiceGetxController.to.requestType = '1';
                   Navigator.pushNamed(context, service[index].routsName);
                 },
@@ -140,7 +149,7 @@ class QuickServices extends StatelessWidget {
           ),
           Text(
             AppLocalizations.of(context)!.welcome2,
-            style:  TextStyle(
+            style: TextStyle(
               color: Colors.black,
               fontSize: 15.sp,
               fontFamily: 'Tajawal',
@@ -149,7 +158,7 @@ class QuickServices extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 15.r),
+            padding: EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 15.r),
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: Row(

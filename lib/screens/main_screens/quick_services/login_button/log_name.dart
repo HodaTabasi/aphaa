@@ -11,7 +11,7 @@ class GeneratedWidget394 extends StatelessWidget {
     return Text(
       AppLocalizations.of(context)!.login,
       overflow: TextOverflow.visible,
-      textAlign: TextAlign.right,
+      textAlign: TextAlign.center,
       style: TextStyle(
         height: 1.5.h,
         fontSize: 12.0.sp,

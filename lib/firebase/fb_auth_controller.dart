@@ -56,6 +56,7 @@ class FireBaseAuthController with Helpers1{
   // }
 
   Future<void> verifyPhoneNumber1({userPhone, context,flag}) async {
+
     print("gggggggggggg ${userPhone}");
     /// NOTE: Either append your phone number country code or add in the code itself
     /// Since I'm in India we use "+91 " as prefix `phoneNumber`
@@ -91,7 +92,6 @@ class FireBaseAuthController with Helpers1{
 
     }
 
-
     /// if Phone Didn't Handled OTP Received Message Automaticly
     // void codeSent(String verificationId, [int code]) {
     void codeSent(String _verificationId, int? _resendToken ) async {
@@ -103,23 +103,21 @@ class FireBaseAuthController with Helpers1{
      NewAccountGetxController.to.verificationId = _verificationId ;
 
 
-      Navigator.pushNamed(context, OTPScreen.routeName);
+      Navigator.pushReplacementNamed(context, OTPScreen.routeName);
     }
 
     void codeAutoRetrievalTimeout(String _verificationId ) {
       print('codeAutoRetrievalTimeout');
       // _authController.registerRefuseReason.value = errorOTPTimeOut ;
       print( _verificationId );
-
     }
-
     await _fbAuth.verifyPhoneNumber(
       /// Make sure to prefix with your country code
       phoneNumber: "+972$userPhone" ,
       // phoneNumber: "+966$userPhone" ,
       /// `seconds` didn't work. The underlying implementation code only reads in `millisenconds`
-      // timeout: Duration(milliseconds: 10000),
-      timeout: const Duration(seconds: 120),
+      timeout: const Duration(milliseconds: 10000),
+      // timeout: const Duration(seconds: 60),
       /// If the SIM (with phoneNumber) is in the current device this function is called.
       /// This function gives `AuthCredential`. Moreover `login` function can be called from this callback
       // verificationCompleted: verificationCompleted ,
@@ -129,10 +127,14 @@ class FireBaseAuthController with Helpers1{
       codeSent: codeSent ,
       /// After automatic code retrival `tmeout` this function is called
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      forceResendingToken: null,
       verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {  },
     ); // All the callbacks are above
+  }
 
-
+  Future<void> signOut() async {
+    print('signOut');
+    await _fbAuth.signOut();
   }
 
   Future<void> handleManualOTP (String _otpCode ,context,flag) async {

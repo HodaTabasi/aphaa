@@ -21,7 +21,7 @@ mixin Helpers {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
-          'شكرا لكم، تم استلام طلب الاستشارة وسوقف نقوم بالرد في اقرب وقت',
+          'شكرا لكم، تم استلام طلبكم  وسوف نقوم بالرد في اقرب وقت',
           style: TextStyle(
               fontSize: 16, fontFamily: 'Tajawal', color: Colors.black45),
           textAlign: TextAlign.center,

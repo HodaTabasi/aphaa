@@ -32,23 +32,29 @@ class _SelectLanguageState extends State<SelectLanguage> {
       appBar: AppBar(
         elevation: 0,
         leadingWidth: 90.w,
-        leading: Container(
-          margin: const EdgeInsets.all(10.0),
-          // padding: EdgeInsets.all(10.0),
-          alignment: Alignment.center,
-          width: 80.w,
-          height: 80.h,
-          decoration: BoxDecoration(
-              color: const Color(0xff006F2C),
-              borderRadius: BorderRadius.circular(10)),
-          child: Text(SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == null ?"العربية":SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'? "العربية" :"English",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14.sp,
-              fontFamily: 'Tajawal',
-              fontWeight: FontWeight.bold,
+        leading: InkWell(
+          onTap: (){
+            LanguageGetxController.to.changeLanguage();
+            _value = SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar' ?0 :1;
+          },
+          child: Container(
+            margin: const EdgeInsets.all(10.0),
+            // padding: EdgeInsets.all(10.0),
+            alignment: Alignment.center,
+            width: 80.w,
+            height: 80.h,
+            decoration: BoxDecoration(
+                color: const Color(0xff006F2C),
+                borderRadius: BorderRadius.circular(10)),
+            child: Text(SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == null ?"العربية":SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'? "العربية" :"English",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14.sp,
+                fontFamily: 'Tajawal',
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
         ),
       ),
