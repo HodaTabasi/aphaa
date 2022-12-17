@@ -609,7 +609,7 @@ class HospitalApiController with ApiHelper {
   }
 
   //تحميل ملفات
-  getPdfFile({patientCode, serviceType, clinicCode, fileName}) async {
+  getPdfFile({patientCode, serviceType, clinicCode = "", fileName}) async {
     final queryParameters = {
       'patientCode': '$patientCode',
       // 'patientCode': '0/372081',

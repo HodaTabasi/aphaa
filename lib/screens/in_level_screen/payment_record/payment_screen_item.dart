@@ -213,8 +213,9 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
                     if (base64 == null)
                       showSnackBar(context, message: AppLocalizations.of(context)!.no_file_find,error: true);
                     else {
-                      File file =  await FileProcess.downloadFile(base64.pdfFile, patientPaymentRecord.pdfName);
+                      print("dsfsdgs");
                       Navigator.pop(context);
+                      File file =  await FileProcess.downloadFile(base64.pdfFile, patientPaymentRecord.pdfName!.split("/").last);
                       showSnackBarAction(context, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
                     }
 

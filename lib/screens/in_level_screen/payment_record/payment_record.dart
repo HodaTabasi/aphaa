@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/NewWidgetNetworkFirst.dart';
 import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../helper/FileProcess.dart';
 import '../../../helper/nerwork_connectivity.dart';
 import '../../../model/Pages.dart';
 import '../../../model/patent_payment_record/PatientPaymentRecord.dart';
@@ -125,6 +126,7 @@ class _PaymentRecordState extends State<PaymentRecord> {
 
   @override
   Widget build(BuildContext context) {
+    FileProcess.checkDocumentFolder();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

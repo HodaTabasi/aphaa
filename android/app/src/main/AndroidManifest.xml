@@ -10,7 +10,7 @@
         android:label="aphaa_app"
         android:name="${applicationName}"
         android:requestLegacyExternalStorage="true"
-
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

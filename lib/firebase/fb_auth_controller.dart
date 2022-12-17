@@ -116,8 +116,8 @@ class FireBaseAuthController with Helpers1{
       phoneNumber: "+972$userPhone" ,
       // phoneNumber: "+966$userPhone" ,
       /// `seconds` didn't work. The underlying implementation code only reads in `millisenconds`
-      timeout: const Duration(milliseconds: 10000),
-      // timeout: const Duration(seconds: 60),
+      // timeout: const Duration(milliseconds: 20000),
+      timeout: const Duration(seconds: 120),
       /// If the SIM (with phoneNumber) is in the current device this function is called.
       /// This function gives `AuthCredential`. Moreover `login` function can be called from this callback
       // verificationCompleted: verificationCompleted ,
@@ -127,7 +127,7 @@ class FireBaseAuthController with Helpers1{
       codeSent: codeSent ,
       /// After automatic code retrival `tmeout` this function is called
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-      forceResendingToken: null,
+      // forceResendingToken: null,
       verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {  },
     ); // All the callbacks are above
   }

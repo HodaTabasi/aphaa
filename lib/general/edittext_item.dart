@@ -43,6 +43,9 @@ class _EditTextItemState extends State<EditTextItem> {
             Expanded(child: Padding(
               padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
               child: TextFormField(
+                onTap: (){
+                  widget.controler?.selection = TextSelection.fromPosition(TextPosition(offset: widget.controler!.text.length));
+                },
                 controller: widget.controler,
                 enabled: widget.b,
                 decoration: InputDecoration(

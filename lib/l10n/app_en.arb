@@ -35,7 +35,10 @@
 
    "head_of_consult_screen":"To request a consultation, please enter the following information:",
    "pasent_name":"Patient Name",
-     "email":"Email",
+        "first_pasent_name":"first name",
+        "second_pasent_name":"Father Name",
+        "last_pasent_name":"Family Name",
+        "email":"Email Optional ",
      "phone":"Phone Number",
      "clenice_choesse":"Choose the clinic",
      "dovtor_choesse":"Choose the doctor",

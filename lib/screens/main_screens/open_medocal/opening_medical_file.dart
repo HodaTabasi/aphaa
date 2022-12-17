@@ -22,6 +22,10 @@ import '../../../model/IDTypes.dart';
 import '../../../model/Nationalities.dart';
 import '../../../model/api_response.dart';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hijri/hijri_calendar.dart';
+import 'package:hijri_picker/hijri_picker.dart';
+
 class OpeningMedicalFile extends StatefulWidget {
   static String routeName = "/open_media_file";
   final String? restorationId = "1";
@@ -40,6 +44,8 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
   late TextEditingController inId;
   late TextEditingController _pEmail;
   late TextEditingController _insurance_date;
+  final jobRoleCtrl = TextEditingController();
+  final jobRoleCtrl1 = TextEditingController();
 
   XFile? _pickedImage;
   late ImagePicker _imagePicker;
@@ -66,6 +72,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
       );
     },
   );
+  var selectedDate = new HijriCalendar.now();
 
   static Route<DateTime> _datePickerRoute(
     BuildContext context,
@@ -80,6 +87,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
           initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
           firstDate: DateTime(1000),
           lastDate: DateTime(3000),
+
         );
       },
     );
@@ -114,6 +122,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
     getListsData();
   }
 
+
   getListsData() async {
     isLoading = true;
     myNatData = await HospitalApiController().getnatList() ?? [];
@@ -136,6 +145,8 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
 
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +180,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
               )),
         ),
       ),
+
       body: isLoading
           ? Center(
               child: CircularProgressIndicator(),
@@ -197,29 +209,31 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
                     children: [
                       EditTextItem(
                         'assets/images/Profile.svg',
-                        AppLocalizations.of(context)!.pasent_name,
+                        AppLocalizations.of(context)!.first_pasent_name,
                         controler: firstName,
                       ),
                       EditTextItem(
                         'assets/images/Profile.svg',
-                        AppLocalizations.of(context)!.pasent_name,
+                        AppLocalizations.of(context)!.second_pasent_name,
                         controler: medileName,
                       ),
                       EditTextItem(
                         'assets/images/Profile.svg',
-                        AppLocalizations.of(context)!.pasent_name,
+                        AppLocalizations.of(context)!.last_pasent_name,
                         controler: lastName,
                       ),
                       DropDownNationalitiesItem(
                         myNatData,
                         'assets/images/nasinality.svg',
                         AppLocalizations.of(context)!.nat_choesse,
+                        jobRoleCtrl,
                         dropIntValue: 1,
                       ),
                       DropDownIDTypeItem(
                         myIDData,
                         'assets/images/idtype.svg',
                         AppLocalizations.of(context)!.id_choesse,
+                        jobRoleCtrl1,
                         dropIntValue: 2,
                       ),
                       EditTextItem('assets/images/id.svg',
@@ -235,7 +249,8 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
                       ),
                       InkWell(
                         onTap: () {
-                          _restorableDatePickerRouteFuture.present();
+                          _selectedDate1(context);
+                          // _restorableDatePickerRouteFuture.present();
                         },
                         child: EditTextItem('assets/images/Calendar.svg',
                             AppLocalizations.of(context)!.dob_end_date,
@@ -323,6 +338,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
   }
 
   bool _checkData() {
+
     if (phone.text.isNotEmpty &&
         firstName.text.isNotEmpty &&
         lastName.text.isNotEmpty &&
@@ -340,19 +356,6 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
     return false;
   }
 
-/*
-* request.fields["Fname"] = fname;
-    request.fields["Lname"] = lname;
-    request.fields["Gname"] = gname;
-    request.fields["Pname"] = pname;
-    request.fields["identity_number"] = identity_number;
-    request.fields["mobile"] = mobile;
-    request.fields["email"] = email;
-    request.fields["request_type"] = request_type;
-    request.fields["nationality"] = nationality;
-    request.fields["id_type"] = id_type;
-    request.fields["DOB"] = DOB;
-    * */
   Future<void> _uploadImage() async {
     showLoaderDialog(context);
     ApiResponse apiResponse = await QuickServiceApiController().openFile(
@@ -383,5 +386,28 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
       message: apiResponse.message,
       error: !apiResponse.success,
     );
+  }
+
+  Future<void> _selectedDate1(BuildContext context) async {
+    final HijriCalendar? picked = await showHijriDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      lastDate: new HijriCalendar()
+        ..hYear = 1500
+        ..hMonth = 9
+        ..hDay = 25,
+      firstDate: new HijriCalendar()
+        ..hYear = 1356
+        ..hMonth = 12
+        ..hDay = 25,
+      initialDatePickerMode: DatePickerMode.day,
+    );
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        _selectedDate.value =  selectedDate.hijriToGregorian(selectedDate.hYear, selectedDate.hMonth, selectedDate.hDay);
+        _insurance_date.text =
+        "${selectedDate.hYear}-${selectedDate.hMonth}-${selectedDate.hDay}";
+      });
   }
 }

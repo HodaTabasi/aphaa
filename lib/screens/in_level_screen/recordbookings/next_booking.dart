@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/NewWidgetNetworkFirst.dart';
 import '../../../general/NewWidgetNetworkLoadMore.dart';
+import '../../../get/change_name_getx_controller.dart';
 import '../../../get/login_getx_controller.dart';
 import '../../../model/Appointment/AppointmentResponse.dart';
 import '../../../model/Appointment/Appointments.dart';
@@ -111,6 +112,7 @@ class _NextBookingState extends State<NextBooking> {
   @override
   void initState() {
     super.initState();
+    ChangeGetxController.to.flagPrevAppt = false;
     _firstLoad();
     _controller = ScrollController()..addListener(_loadMore);
   }

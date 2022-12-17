@@ -29,7 +29,10 @@
 
    "head_of_consult_screen":"لطلب الإستشارة يرجى إدخال البيانات التالية",
    "pasent_name":"اسم المريض",
-   "email":"البريد الإلكتروني",
+   "first_pasent_name":"اسم المريض الاول",
+   "second_pasent_name":"اسم الاب",
+   "last_pasent_name":"اسم العائلة",
+   "email":"اختياري البريد الإلكتروني",
    "phone":"رقم الجوال",
    "clenice_choesse":"اختر العيادة",
    "dovtor_choesse":"اختر الطبيب",
