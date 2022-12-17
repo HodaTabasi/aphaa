@@ -43,21 +43,32 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+
   final LanguageGetxController languageGetxController =
       Get.put<LanguageGetxController>(LanguageGetxController());
 
   final NewAccountGetxController newAccountGetxController =
       Get.put<NewAccountGetxController>(NewAccountGetxController());
+
   final QuickServiceGetxController quickServiceGetxController =
       Get.put<QuickServiceGetxController>(QuickServiceGetxController());
 
   final DoctorGetxController doctorGetxController =
   Get.put<DoctorGetxController>(DoctorGetxController());
+
   final ChangeGetxController changeGetxController =
   Get.put<ChangeGetxController>(ChangeGetxController());
+
   final LoginGetXController _getXController =
   Get.put<LoginGetXController>(LoginGetXController());
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

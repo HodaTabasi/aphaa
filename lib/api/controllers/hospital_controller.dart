@@ -709,11 +709,11 @@ class HospitalApiController with ApiHelper {
 
   Future<List<Nationalities>?> getnatList() async {
     final queryParameters = {
-      'nationalityName': 'S',
-      'lang':'EN'
-      // 'lang':
-      // SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) ??
-      //     'en',
+      // 'nationalityName': 'S',
+      // 'lang':'EN'
+      'lang':
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) ??
+          'en',
     };
     // 'http://aiph.me:8000/api/clinic/clList?pageNo=1&offset=1&rows=5&lang=AR'
     final uri = Uri.http(ApiSettings.HospitalBase,

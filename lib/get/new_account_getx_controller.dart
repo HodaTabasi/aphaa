@@ -30,6 +30,7 @@ class NewAccountGetxController extends GetxController {
   bool isReset = false;
   bool isUpdateCliniceCode = false;
   String? global ;
+  String? clinicGlobal ;
   Eligibility? eligibility;
   bool flag = false;
   TimeAvilableResponse? timeResponse ;
@@ -164,6 +165,7 @@ class NewAccountGetxController extends GetxController {
     avilableTime = [];
     clinicCode = '';
     doctorCode = '';
+    clinicGlobal = null;
     consultNo = '';
     isUpdateCliniceCode = false;
     global = null ;
@@ -183,6 +185,7 @@ class NewAccountGetxController extends GetxController {
     consultNo = '';
     isUpdateCliniceCode = false;
     global = null ;
+    clinicGlobal = null;
     timeResponse  = null;
     fileData = null;
     fromOpenFile = false;

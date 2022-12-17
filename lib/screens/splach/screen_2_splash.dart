@@ -1,3 +1,4 @@
+import 'package:aphaa_app/get/language_getx_controller.dart';
 import 'package:aphaa_app/screens/main_screens/select_lang/select_language.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../helper/SizeConfig.dart';
 
 import '../../helper/SizeConfig.dart';
+import '../../preferences/shared_pref_controller.dart';
 
 class Screen2Splash extends StatefulWidget {
   static String routeName = "/splash";
@@ -21,7 +23,15 @@ class _Screen2SplashState extends State<Screen2Splash> with TickerProviderStateM
 
   bool play = false;
 
-
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final Locale appLocale = Localizations.localeOf(context);
+      print(appLocale.languageCode);
+      LanguageGetxController.to.changeEditLanguage(appLocale.languageCode);
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

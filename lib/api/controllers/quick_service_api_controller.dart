@@ -102,14 +102,21 @@ insurance_number:2520
   //   );
   // }
   Future<ApiResponse> openFile({fname,lname,gname,pname,identity_number,mobile,image,email,request_type,nationality,id_type,DOB}) async {
-   print(image);
+   print("{$fname,$lname,$gname,$pname,$identity_number,$mobile,$image,$email,$request_type,$nationality,$id_type,$DOB}");
     Uri uri = Uri.parse(ApiSettings.openFile);
     var request = http.MultipartRequest('POST', uri);
     var file = await http.MultipartFile.fromPath('image', image);
-    request.fields["Fname"] = fname;
-    request.fields["Lname"] = lname;
-    request.fields["Gname"] = gname;
-    request.fields["Pname"] = pname;
+    if(SharedPrefController().getValueFor(key: PrefKeys.lang.name) == 'en'){
+      request.fields["Fname_en"] = fname;
+      request.fields["Lname_en"] = lname;
+      request.fields["Gname_en"] = gname;
+      request.fields["Pname_en"] = pname;
+    }else {
+      request.fields["Fname_ar"] = fname;
+      request.fields["Lname_ar"] = lname;
+      request.fields["Gname_ar"] = gname;
+      request.fields["Pname_ar"] = pname;
+    }
     request.fields["identity_number"] = identity_number;
     request.fields["mobile"] = mobile;
     request.fields["email"] = email;
@@ -131,10 +138,9 @@ insurance_number:2520
         message: jsonResponse['message'],
         success: jsonResponse['status'],
       );
-      if (response.statusCode == 200) {
-        print("dfsdf");
-        apiResponse.object = OpenFileResponse.fromJson(jsonResponse['items']);
-      }
+      // if (response.statusCode == 200) {
+      //   apiResponse.object = OpenFileResponse.fromJson(jsonResponse['items']);
+      // }
       return apiResponse;
     }
     return ApiResponse(

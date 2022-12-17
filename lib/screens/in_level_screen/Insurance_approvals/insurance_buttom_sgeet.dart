@@ -231,8 +231,8 @@ class _InsuranceButtomSheetState extends State<InsuranceButtomSheet> {
                             left: 0,
                             // bottom: 100,
                             child: Container(
-                              width: 80.w,
-                              height: 35.h,
+                              width: 120.w,
+                              height: 33.h,
                               padding: EdgeInsets.all(10),
                               margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
                               decoration: BoxDecoration(

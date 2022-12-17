@@ -165,7 +165,7 @@ class FireBaseAuthController with Helpers1{
   Future<void> afterPhoneVerification(context,flag) async {
     Eligibility? eg =  NewAccountGetxController.to.eligibility;
     SharedPrefController().setValuePCode(pCode:eg!.patientCode!);
-    var name = eg.patientName!.split("");
+    var name = eg.patientName!.split(" ");
     ChangeGetxController.to.changeName(name[0], name[1]);
     SharedPrefController().saveName(name[0], name[1]);
     SharedPrefController().save1(NewAccountGetxController.to.identityNumber,eg.patientMOB);

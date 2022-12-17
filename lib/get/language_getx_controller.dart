@@ -4,10 +4,8 @@ import 'package:get/get.dart';
 import '../preferences/shared_pref_controller.dart';
 
 class LanguageGetxController extends GetxController {
-  static LanguageGetxController get to => Get.find<LanguageGetxController>();
-
-  String? lang =
-      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name);
+  static LanguageGetxController get to => Get.find<LanguageGetxController>();// String? lang =
+  //     SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name);
 
   Rx<String> language = SharedPrefController()
               .getValueFor<String>(key: PrefKeys.lang.name) ==

@@ -18,7 +18,13 @@ class SelectLanguage extends StatefulWidget {
 class _SelectLanguageState extends State<SelectLanguage> {
   var _value =  SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) != null? SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar' ?0 :1 : 0;
   String s =SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == null ?"العربية":SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'? "العربية" :"English" ;
-
+/*
+* جربي خليها هنا وحطيها في widgetBinding.instanse.addPostFromCallBack
+*/
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
