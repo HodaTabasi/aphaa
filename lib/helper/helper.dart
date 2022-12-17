@@ -74,7 +74,7 @@ mixin Helpers {
         continueButton,
         Visibility(visible: !flag,child: continueButton1),
         Visibility(visible: flag, child: continueButton2),
-        Visibility(visible: flag, child: continueButton3)
+        continueButton3
       ],
     );
 
