@@ -38,6 +38,7 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset:false ,
       appBar: AppBar(
         elevation: 0,
         title: Text(AppLocalizations.of(context)!.login,

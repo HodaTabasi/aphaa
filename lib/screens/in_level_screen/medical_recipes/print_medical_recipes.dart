@@ -1,5 +1,6 @@
 import 'package:aphaa_app/general/my_separator.dart';
 import 'package:aphaa_app/model/prescriptionListResponse/prescriptionList.dart';
+import 'package:aphaa_app/screens/in_level_screen/medical_recipes/s_val_ditails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -281,121 +282,16 @@ class _PrintMedicalRecipesButtomSheetState extends State<PrintMedicalRecipesButt
                     padding: EdgeInsets.symmetric(horizontal: 80.0.r,),
                     child: MySeparator(color: Color(0xff0E4C8F)),
                   ),
-                  Padding(
-                    padding:  EdgeInsets.all(16.0.r),
-                    child: Text(
-                      AppLocalizations.of(context)!.total_bill,
-                      style:  TextStyle(
-                        color: Color(0xff2D2D2D),
-                        fontSize: 16.sp,
-                        fontFamily: 'Tajawal',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20.h,),
-                  Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.the_total,
-                          style:  TextStyle(
-                            color: Color(0xff2D2D2D),
-                            fontSize: 14.sp,
-                            fontFamily: 'Tajawal',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Padding(
-                          padding:  EdgeInsets.all(8.0.r),
-                          child: Text(
-                            // ' ر.س ',
-                            '  ${snapshot.data!.s1Val}ر.س  ',
-                            style:  TextStyle(
-                              color: Color(0xff2D2D2D),
-                              fontSize: 14.sp,
-                              fontFamily: 'Tajawal',
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 16.0.sp),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.tax,
-                          style:  TextStyle(
-                            color: Color(0xff2D2D2D),
-                            fontSize: 14.sp,
-                            fontFamily: 'Tajawal',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Padding(
-                          padding:  EdgeInsets.all(8.0.sp),
-                          child: Text(
-                            // 'ر.س ',
-                            ' ${snapshot.data!.s8Val}ر.س  ',
-                            style:  TextStyle(
-                              color: Color(0xff2D2D2D),
-                              fontSize: 14.sp,
-                              fontFamily: 'Tajawal',
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                  ////////
+                  SVDitails(snapshot.data!.s1Desc,val: snapshot.data!.s1Val,),
+                  SVDitails(snapshot.data!.s2Desc,val: snapshot.data!.s2Val,),
+                  SVDitails(snapshot.data!.s3Desc,val: snapshot.data!.s3Val,),
+                  SVDitails(snapshot.data!.s4Desc,val: snapshot.data!.s4Val,),
+                  SVDitails(snapshot.data!.s5Desc,val: snapshot.data!.s5Val,),
+                  SVDitails(snapshot.data!.s6Desc,val: snapshot.data!.s6Val,),
+                  SVDitails(snapshot.data!.s7Desc,val: snapshot.data!.s7Val,),
+                  SVDitails(snapshot.data!.s8Desc,val: snapshot.data!.s8Val,),
 
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.r),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.aggregate,
-                          style:  TextStyle(
-                            color: Color(0xff2D2D2D),
-                            fontSize: 14.sp,
-                            fontFamily: 'Tajawal',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Padding(
-                          padding:  EdgeInsets.all(8.0.r),
-                          child: Text(
-                            // 'ر.س ',
-                            ' ${snapshot.data!.s8Val!}ر.س  ',
-                            style:  TextStyle(
-                              color: Color(0xff2D2D2D),
-                              fontSize: 14.sp,
-                              fontFamily: 'Tajawal',
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20.h,),
-                  //downloadBtn(),
-                  SizedBox(height: 10.h,),
-                  // Image.asset(
-                  //   "assets/images/image1.png",
-                  //   fit: BoxFit.fitWidth,
-                  // ),
                 ],
               );
             } else {
