@@ -40,6 +40,7 @@
         "second_pasent_name":"Middle Name",
         "last_pasent_name":"Family Name",
         "email":"Email  ",
+        "identity_number":"identity number",
      "phone":"Phone Number",
      "clenice_choesse":"Choose the clinic",
      "dovtor_choesse":"Choose the doctor",

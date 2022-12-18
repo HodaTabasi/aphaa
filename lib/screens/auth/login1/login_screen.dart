@@ -31,7 +31,8 @@ class LoginScreen1 extends StatefulWidget {
 
 class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
   var value = false;
-  var _emailTextController = TextEditingController(text: "2320128214");
+  var _emailTextController = TextEditingController();
+  // var _emailTextController = TextEditingController(text: "2320128214");
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +96,7 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
             height: 20.h,
           ),
           EditTextItem(
-              'assets/images/id.svg', AppLocalizations.of(context)!.email,controler: _emailTextController),
+              'assets/images/id.svg', AppLocalizations.of(context)!.identity_number,controler: _emailTextController),
           // Padding(
           //   padding:  EdgeInsets.only(left: 16.0.w,right: 0,top: 8.h),
           //   child: Row(

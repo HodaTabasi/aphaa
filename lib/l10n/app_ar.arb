@@ -45,6 +45,7 @@
     "net_cash":"صافي النقدي",
     "net_term":"صافي الاجل",
    "this_date_is_not_available":"هذا الموعد غير متاح",
+   "identity_number":"رقم الهوية",
    "ok":"موافق",
 "enter_required_data":"الرجاء ادخال الحقول اللازمة",
    "time":"الوقت",
