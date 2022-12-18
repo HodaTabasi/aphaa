@@ -9,6 +9,7 @@ import 'package:aphaa_app/screens/drawer_screens/profile/profile_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/Insurance_approvals/Insurance_approvals.dart';
 import 'package:aphaa_app/screens/in_level_screen/family/family_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/medical_recipes/medical_recipes.dart';
+import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
 import 'package:aphaa_app/screens/in_level_screen/test_results/test_results.dart';
 import 'package:aphaa_app/screens/in_level_screen/vaccinations/vaccinations.dart';
 import 'package:aphaa_app/screens/in_level_screen/vital_signs/vital_signs.dart';
@@ -63,6 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
       Service(
           'assets/images/offers.svg', AppLocalizations.of(context)!.medical_offers, 'offers', OfferScreen.routeName),
 
+      Service(
+          'assets/images/paybook.svg', AppLocalizations.of(context)!.pay_book, '', PaymentRecord.routeName),
+
     ];
 
     // image: 'assets/images/offers.svg',
@@ -110,15 +114,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(AppLocalizations.of(context)!.medical_file,
-                  style:  TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.sp,
-                    fontFamily: 'Tajawal',
-                    fontWeight: FontWeight.bold,
-                  )),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text(AppLocalizations.of(context)!.medical_file,
+            //       style:  TextStyle(
+            //         color: Colors.black,
+            //         fontSize: 16.sp,
+            //         fontFamily: 'Tajawal',
+            //         fontWeight: FontWeight.bold,
+            //       )),
+            // ),
+            SizedBox(
+              height: 8.h,
             ),
             GridView.builder(
               shrinkWrap: true,

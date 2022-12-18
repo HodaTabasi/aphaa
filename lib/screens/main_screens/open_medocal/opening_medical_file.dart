@@ -134,12 +134,12 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
 
   @override
   void initState() {
-    firstName = TextEditingController(text: "aisal");
-    medileName = TextEditingController(text: "yosef");
-    lastName = TextEditingController(text: "alsawaf");
-    _pEmail = TextEditingController(text: "hhh@gmail.com");
-    phone = TextEditingController(text: "0154421157");
-    inId = TextEditingController(text: "2520");
+    firstName = TextEditingController();
+    medileName = TextEditingController();
+    lastName = TextEditingController();
+    _pEmail = TextEditingController();
+    phone = TextEditingController();
+    inId = TextEditingController();
     _insurance_date = TextEditingController();
     _imagePicker = ImagePicker();
 

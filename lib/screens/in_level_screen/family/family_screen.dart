@@ -94,11 +94,11 @@ class _FamillyScreenState extends State<FamillyScreen> {
 
   getData() async {
     FamillyResponse? v = await HospitalApiController().getFamilyMembers(
-          patientCode: SharedPrefController().getValueFor(key: "p_code"),
-          page: selectedPageNumber,
-          offset: offSet,
-        );
-        list = v!.familyMembers ?? [];
+      patientCode: SharedPrefController().getValueFor(key: "p_code"),
+      page: selectedPageNumber,
+      offset: offSet,
+    );
+    list = v!.familyMembers ?? [];
     pageList = v.pages ?? [];
 
     //print(v.pages!.length);
@@ -107,7 +107,7 @@ class _FamillyScreenState extends State<FamillyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,
@@ -123,7 +123,7 @@ class _FamillyScreenState extends State<FamillyScreen> {
           onTap: () => Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
               margin: EdgeInsets.all(15.0.r),
-              padding: EdgeInsets.symmetric(horizontal: 8.0.r,vertical: 5.0.r),
+              padding: EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 5.0.r),
               // alignment: Alignment.bottomLeft,
               // width: 80,
               // height: 500,
@@ -164,63 +164,94 @@ class _FamillyScreenState extends State<FamillyScreen> {
       ),
       body: _isFirstLoadRunning
           ? const Center(
-        child: CircularProgressIndicator(),
-      )
+              child: CircularProgressIndicator(),
+            )
           : Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding:  EdgeInsets.all(8.0.r),
-              child: ListView.builder(
-                  // shrinkWrap: true,
-                  // physics: NeverScrollableScrollPhysics(),
-                  controller: _controller,
-                  itemCount: list.length,
-                  itemBuilder: (context, index) {
-                    return FamillyItem(
-                        list[index]);
-                  }),
-            ),
-          ),
-          if (_isLoadMoreRunning == true)
-            const Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 40),
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
+              children: [
+                SizedBox(height: 10.h,),
+                // InkWell(
+                //   onTap: () {
+                //     QuickServiceGetxController.to.requestType = '2';
+                //     // Add your onPressed code here!
+                //     Navigator.pushNamed(
+                //         context, OpeningMedicalFile.routeName);
+                //   },
+                //   child: DecoratedBox(
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(20),
+                //       color: Colors.green.shade700
+                //     ),
+                //     child: Padding(
+                //       padding:  EdgeInsets.symmetric(horizontal: 16.0.h,vertical: 8.w),
+                //       child: Text(
+                //           AppLocalizations.of(context)!.opening_medical_file1,style: TextStyle(color: Colors.white,fontSize: 14.sp)),
+                //     ),
+                //   ),
+                // ),
+                Padding(
+                  padding: EdgeInsets.all(8.0.r),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      // physics: NeverScrollableScrollPhysics(),
+                      controller: _controller,
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        return FamillyItem(list[index]);
+                      }),
+                ),
+                if (_isLoadMoreRunning == true)
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 40),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
 
-          // if (_hasNextPage == false || pageList.length ==1)
-             Center(
-              child: Image.asset(
-                "assets/images/image1.png",
-                fit: BoxFit.fitWidth,
-              ),
+                InkWell(
+                onTap: () {
+                  QuickServiceGetxController.to.requestType = '2';
+                  // Add your onPressed code here!
+                  Navigator.pushNamed(
+                      context, OpeningMedicalFile.routeName);
+                },
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.green.shade700
+                  ),
+                  child: Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 16.0.h,vertical: 10.w),
+                    child: Text(
+                        AppLocalizations.of(context)!.opening_medical_file1,style: TextStyle(color: Colors.white,fontSize: 14.sp,fontFamily: 'Tajawal')),
+                  ),
+                ),
+                )
+                // if (_hasNextPage == false || pageList.length ==1)
+
+              ],
             ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          QuickServiceGetxController.to.requestType = '2';
-          // Add your onPressed code here!
-          Navigator.pushNamed(context, OpeningMedicalFile.routeName);
-        },
-        label:  Text(AppLocalizations.of(context)!.opening_medical_file),
-        icon:  SvgPicture.asset(
-            'assets/images/report.svg',
-            semanticsLabel: 'Acme Logo',
-          height: 23.h,
-          width: 20.w,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.green.shade700,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      // bottomSheet: Image.asset(
-      //   "assets/images/image1.png",
-      //   fit: BoxFit.fitWidth,
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {
+      //     QuickServiceGetxController.to.requestType = '2';
+      //     // Add your onPressed code here!
+      //     Navigator.pushNamed(context, OpeningMedicalFile.routeName);
+      //   },
+      //   label:  Text(AppLocalizations.of(context)!.opening_medical_file1),
+      //   icon:  SvgPicture.asset(
+      //       'assets/images/report.svg',
+      //       semanticsLabel: 'Acme Logo',
+      //     height: 23.h,
+      //     width: 20.w,
+      //     color: Colors.white,
+      //   ),
+      //   backgroundColor: Colors.green.shade700,
       // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      bottomSheet: Image.asset(
+        "assets/images/image1.png",
+        fit: BoxFit.fitWidth,
+      ),
     );
   }
 }

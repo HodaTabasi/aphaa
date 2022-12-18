@@ -31,7 +31,7 @@ class MedicalRecipesItem extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
                   child: Text.rich(
                     TextSpan(
-                      text: AppLocalizations.of(context)!.medical_prescriptions,
+                      text: AppLocalizations.of(context)!.payment_time,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -54,7 +54,7 @@ class MedicalRecipesItem extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(16,16, 16,10),
                   child: Text.rich(
                     TextSpan(
-                      text: AppLocalizations.of(context)!.date_of_visit,
+                      text: AppLocalizations.of(context)!.payment_time,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -81,7 +81,7 @@ class MedicalRecipesItem extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
               child: Text.rich(
                 TextSpan(
-                  text: AppLocalizations.of(context)!.physician,
+                  text: AppLocalizations.of(context)!.the_doctor,
                   style: TextStyle(
                       fontWeight: FontWeight.w800,
                       color: Colors.black,

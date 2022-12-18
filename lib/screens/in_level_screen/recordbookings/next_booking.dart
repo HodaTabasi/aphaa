@@ -16,6 +16,7 @@ import '../../../preferences/shared_pref_controller.dart';
 
 class NextBooking extends StatefulWidget {
   NetworkConnectivity networkConnectivity;
+
   NextBooking(this.networkConnectivity);
 
   @override
@@ -44,42 +45,41 @@ class _NextBookingState extends State<NextBooking> {
       setState(() {
         _isNoNetworkConnectInLoadMore = false;
       });
-    if (_hasNextPage == true &&
-        _isFirstLoadRunning == false &&
-        _isLoadMoreRunning == false &&
-        _controller.position.extentAfter < 300.h) {
-      print(_page);
-      print(pageList.length);
-      if (_page < pageList.length - 1) {
-        setState(() {
-          _isLoadMoreRunning =
-              true; // Display a progress indicator at the bottom
-        });
+      if (_hasNextPage == true &&
+          _isFirstLoadRunning == false &&
+          _isLoadMoreRunning == false &&
+          _controller.position.extentAfter < 300.h) {
+        print(_page);
+        print(pageList.length);
+        if (_page < pageList.length - 1) {
+          setState(() {
+            _isLoadMoreRunning =
+                true; // Display a progress indicator at the bottom
+          });
 
-        _page += 1;
-        selectedPageNumber = pageList[_page].page!; // Increase _page by 1
-        offSet = pageList[_page].offset!;
+          _page += 1;
+          selectedPageNumber = pageList[_page].page!; // Increase _page by 1
+          offSet = pageList[_page].offset!;
 
-        AppointmentResponse? v = await HospitalApiController().getNextAppt(
-            patientCode:
-            SharedPrefController().getValueFor(key: "p_code"),
-            page: selectedPageNumber,
-            offset: offSet);
+          AppointmentResponse? v = await HospitalApiController().getNextAppt(
+              patientCode: SharedPrefController().getValueFor(key: "p_code"),
+              page: selectedPageNumber,
+              offset: offSet);
 
-        LoginGetXController.to.addToList(v!.myNextAppointments ?? []);
+          LoginGetXController.to.addToList(v!.myNextAppointments ?? []);
 
-        // list.addAll(v!.myNextAppointments ?? []);
+          // list.addAll(v!.myNextAppointments ?? []);
 
-        setState(() {
-          _isLoadMoreRunning = false;
-        });
-      } else {
-        setState(() {
-          _isLoadMoreRunning = false;
-          _hasNextPage = false;
-        });
+          setState(() {
+            _isLoadMoreRunning = false;
+          });
+        } else {
+          setState(() {
+            _isLoadMoreRunning = false;
+            _hasNextPage = false;
+          });
+        }
       }
-    }
     } else {
       setState(() {
         _isNoNetworkConnectInLoadMore = true;
@@ -97,9 +97,9 @@ class _NextBookingState extends State<NextBooking> {
 
       await getData();
 
-    setState(() {
-      _isFirstLoadRunning = false;
-    });
+      setState(() {
+        _isFirstLoadRunning = false;
+      });
     } else {
       setState(() {
         _isNoNetworkConnect = true;
@@ -132,60 +132,63 @@ class _NextBookingState extends State<NextBooking> {
 
   @override
   Widget build(BuildContext context) {
-    return   _isNoNetworkConnect
+    return _isNoNetworkConnect
         ? InkWell(
-      onTap: () {
-        _firstLoad();
-      },
-      child: NewWidgetNetworkFirst(),
-    )
-        :_isFirstLoadRunning
-        ? const Center(
-            child: CircularProgressIndicator(),
+            onTap: () {
+              _firstLoad();
+            },
+            child: NewWidgetNetworkFirst(),
           )
-        : GetBuilder<LoginGetXController>(builder: (controller) {
-          return Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0.r),
-                  child: ListView.builder(
-                      controller: _controller,
-                      // shrinkWrap: true,
-                      // physics: NeverScrollableScrollPhysics(),
-                      itemCount: controller.list.length,
-                      itemBuilder: (context, index) {
-                        return ScedualBookingItem(controller.list[index]);
-                      }),
-                ),
-              ),
-              if (_isNoNetworkConnectInLoadMore)
-                InkWell(
-                  onTap: () {
-                    _loadMore();
-                  },
-                  child: const NewWidgetNetworkLoadMore(),
-                ),
-              if (_isLoadMoreRunning == true)
-                const Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 40),
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
+        : _isFirstLoadRunning
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : GetBuilder<LoginGetXController>(
+                builder: (controller) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0.r),
+                          child: ListView.builder(
+                              controller: _controller,
+                              // shrinkWrap: true,
+                              // physics: NeverScrollableScrollPhysics(),
+                              itemCount: controller.list.length,
+                              itemBuilder: (context, index) {
+                                return ScedualBookingItem(
+                                    controller.list[index]);
+                              }),
+                        ),
+                      ),
+                      if (_isNoNetworkConnectInLoadMore)
+                        InkWell(
+                          onTap: () {
+                            _loadMore();
+                          },
+                          child: const NewWidgetNetworkLoadMore(),
+                        ),
+                      if (_isLoadMoreRunning == true)
+                        const Padding(
+                          padding: EdgeInsets.only(top: 10, bottom: 40),
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
 
-              // if (_hasNextPage == false || pageList.length ==1)
-              //   SizedBox(
-              //     height: 200.h,
-              //   ),
-                Center(
-                  child: Image.asset(
-                    "assets/images/image1.png",
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-            ],
-          );
-        },);
+                      // if (_hasNextPage == false || pageList.length ==1)
+                      //   SizedBox(
+                      //     height: 200.h,
+                      //   ),
+                      Center(
+                        child: Image.asset(
+                          "assets/images/image1.png",
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
   }
 }

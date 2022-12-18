@@ -3,6 +3,7 @@ import 'package:aphaa_app/helper/FileProcess.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../general/NewWidgetNetworkFirst.dart';
 import '../../../general/NewWidgetNetworkLoadMore.dart';
@@ -100,87 +101,41 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                         // ),
                         FiltterDropDownItem(controller.myData,'assets/images/hospital.svg',AppLocalizations.of(context)!.clenice_choesse),
                         SizedBox(
-                          height: 10.h,
+                          height: 5.h,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 16.0.r),
-                                child: TextField(
-                                  controller: searchController,
-                                  // textDirection: SharedPrefController().getValueFor(key: PrefKeys.lang.name) == 'ar'?TextDirection.rtl: TextDirection.ltr,
-                                  onChanged: (val) {
-                                    controller.filtterByName(val);
-                                  },
-                                  onTap: (){
-                                    searchController.selection = TextSelection.fromPosition(TextPosition(offset: searchController.text.length));
-                                  },
-                                  decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                        borderSide: BorderSide(
-                                          color: Color(0xff0E4C8F),
-                                            // color: Color.fromRGBO(
-                                            //     140, 171, 205, 0.12),
-                                            width: 0.5.w),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                        borderSide: BorderSide(
-                                          color: Color(0xff0E4C8F),
-                                            // color: Color.fromRGBO(
-                                            //     140, 171, 205, 0.12),
-                                            width: 0.5.w),
-                                      ),
-                                      hintText: AppLocalizations.of(context)!
-                                          .find_a_doctor,
-                                      hintStyle: TextStyle(
-                                        color: Color(0xff739ECC),
-                                        fontSize: 13.sp,
-                                        fontFamily: 'Tajawal',
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      // fillColor:
-                                      //     Color.fromRGBO(140, 171, 205, 0.12),
-                                      // filled: true,
-                                      prefixIcon: Icon(
-                                        Icons.search_sharp,
-                                        color: Color(0xff0E4C8F),
-                                      )),
-                                ),
-                              ),
+                        Container(
+                          margin:  EdgeInsets.symmetric(horizontal: 16.r,vertical: 0.r),
+                          decoration: BoxDecoration(
+                            border: Border.all(color:Color(0xff0E4C8F),width: 0.5.w),
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                          child:Expanded(child: Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
+                            child: TextFormField(
+                              onTap: (){
+                                searchController.selection = TextSelection.fromPosition(TextPosition(offset: searchController.text.length));
+                              },
+                              controller: searchController,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: AppLocalizations.of(context)!
+                                      .find_a_doctor,
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey.shade700,
+                                    fontSize: 13.sp,
+                                    fontFamily: 'Tajawal',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  prefixIcon: const Icon(
+                                    Icons.search_sharp,
+                                    color: Color(0xff058638),
+                                  ),
                             ),
-                            // InkWell(
-                            //   onTap: () {
-                            //     showModalBottomSheet(
-                            //       isScrollControlled: false,
-                            //       backgroundColor: Colors.transparent,
-                            //       context: context,
-                            //       builder: (context) => DoctorFillter(),
-                            //     );
-                            //   },
-                            //   child: Container(
-                            //     padding: EdgeInsets.all(12.r),
-                            //     margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
-                            //     decoration: BoxDecoration(
-                            //       color: Color(0xff0E4C8F),
-                            //       borderRadius: BorderRadius.circular(10.r),
-                            //     ),
-                            //     child: Icon(
-                            //       Icons.filter_list_alt,
-                            //       color: Colors.white,
-                            //     ),
-                            //   ),
-                            // )
-                          ],
-                        ),
+                            ),
+                          ),
+                        )),
                         SizedBox(
-                          height: 10.h,
+                          height: 5.h,
                         ),
                         Expanded(
                           child: Padding(
@@ -195,9 +150,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
-                                      mainAxisSpacing: 15.h,
-                                      crossAxisSpacing: 15.w,
-                                      childAspectRatio: 240 / 330),
+                                      mainAxisSpacing: 10.h,
+                                      crossAxisSpacing: 10.w,
+                                      childAspectRatio: 250 / 330),
                               itemBuilder: (context, index) {
                                 return DoctorItem(controller.list[index], Key(controller.list[index].doctorCode!));
                               },

@@ -94,8 +94,8 @@ class NewAccountGetxController extends GetxController {
     return doctorsList;
   }
 
-  getDoctorSchedules(value,month,year) async {
-    var data = await HospitalApiController().getDoctorSched(doctorCode: value,clinicCode: clinicCode,month:month,year: year );
+  getDoctorSchedules(value,month,year,{clinicCode1}) async {
+    var data = await HospitalApiController().getDoctorSched(doctorCode: value,clinicCode: clinicCode1??clinicCode,month:month,year: year );
     avilableDate =  data;
     avilableTime = [];
     changeLoading();

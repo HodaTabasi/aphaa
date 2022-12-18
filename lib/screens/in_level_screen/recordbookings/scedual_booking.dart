@@ -257,9 +257,10 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                   style: TextStyle(color: Colors.red),
                 ),
                 onPressed: () async {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                   showLoaderDialog(context);
                   ApiResponse response = await HospitalApiController().setCxlRes(resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode);
+                  Navigator.pop(context);
                   if(response.success){
                     LoginGetXController.to.delete(appointments);
                     Navigator.pop(context);

@@ -92,29 +92,29 @@ class QuickServices extends StatelessWidget {
             width: 185.w,
             height: 150.h,
           ),
-          SizedBox(
-            height: 8.h,
-          ),
-          Text(
-            AppLocalizations.of(context)!.welcome,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 15.sp,
-              fontFamily: 'Tajawal',
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
+          // SizedBox(
+          //   height: 8.h,
+          // ),
+          // Text(
+          //   AppLocalizations.of(context)!.welcome,
+          //   style: TextStyle(
+          //     color: Colors.black,
+          //     fontSize: 15.sp,
+          //     fontFamily: 'Tajawal',
+          //     fontWeight: FontWeight.bold,
+          //   ),
+          //   textAlign: TextAlign.center,
+          // ),
+          // SizedBox(
+          //   height: 8.h,
+          // ),
           Padding(
-            padding: EdgeInsets.all(16.0.r),
+            padding: EdgeInsets.all(10.0.r),
             child: Text(
               AppLocalizations.of(context)!.quick_service,
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 16.sp,
+                fontSize: 13.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
@@ -144,19 +144,19 @@ class QuickServices extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text(
-            AppLocalizations.of(context)!.welcome2,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 15.sp,
-              fontFamily: 'Tajawal',
-              // fontWeight: FontWeight.normal,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          // const SizedBox(
+          //   height: 16,
+          // ),
+          // Text(
+          //   AppLocalizations.of(context)!.welcome2,
+          //   style: TextStyle(
+          //     color: Colors.black,
+          //     fontSize: 15.sp,
+          //     fontFamily: 'Tajawal',
+          //     // fontWeight: FontWeight.normal,
+          //   ),
+          //   textAlign: TextAlign.center,
+          // ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 15.r),
             child: Directionality(

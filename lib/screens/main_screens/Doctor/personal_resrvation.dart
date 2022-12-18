@@ -83,8 +83,9 @@ class _MyPersonalAppointmentBookingState
     setState(() {
       isLoading = true;
     });
+    NewAccountGetxController.to.isChangeLoading = true;
     NewAccountGetxController.to.getDoctorSchedules(
-        widget.doctor.doctorCode, DateTime.now().month, DateTime.now().year);
+        widget.doctor.doctorCode, DateTime.now().month, DateTime.now().year,clinicCode1: widget.doctor.clinicCode);
     setState(() {
       isLoading = false;
     });
@@ -147,7 +148,7 @@ class _MyPersonalAppointmentBookingState
                           controler: doctorName,
                         ),
                         Visibility(
-                          visible: value.global != null,
+                          visible: value.avilableDate.isNotEmpty,
                           child: EditTextItemCalender('assets/images/Calendar.svg',
                               AppLocalizations.of(context)!.appoitment_date,
                               b: false, controler: dateText),),
@@ -157,7 +158,7 @@ class _MyPersonalAppointmentBookingState
                             children: [
                               Visibility(
                                   visible: value.avilableDate.isEmpty &&
-                                      !value.isChangeLoading || value.global == null,
+                                      !value.isChangeLoading,
                                   child: Center(
                                       child: Column(
                                         children: [
@@ -172,7 +173,7 @@ class _MyPersonalAppointmentBookingState
                                         ],
                                       ))),
                               Visibility(
-                                  visible: value.global != null &&
+                                  visible:
                                       value.avilableDate.isNotEmpty && value.avilableTime.isEmpty,
                                   child: widget1(value.avilableDate, value)),
                             ],
@@ -338,25 +339,25 @@ class _MyPersonalAppointmentBookingState
         // margin: EdgeInsets.symmetric(horizontal: 16.0),
         child: CalendarCarousel<Event>(
           locale: SharedPrefController()
-                  .getValueFor<String>(key: PrefKeys.lang.name) ??
+              .getValueFor<String>(key: PrefKeys.lang.name) ??
               'ar',
           pageScrollPhysics: const NeverScrollableScrollPhysics(),
           onCalendarChanged: (DateTime date) {
             print(" ${date.year} ${date.month}");
             NewAccountGetxController.to.getDoctorSchedules(
-                NewAccountGetxController.to.doctorCode, date.month, date.year);
+                widget.doctor.doctorCode, date.month, date.year,clinicCode1:widget.doctor.clinicCode );
           },
           onDayPressed: (DateTime date, List<Event> events) async {
             this.setState(() {
-              _currentDate = date;
+              NewAccountGetxController.to.currentDate = date;
               dateText.text =
-                  "${_currentDate!.year}-${_currentDate!.month}-${_currentDate!.day}";
+              "${NewAccountGetxController.to.currentDate!.year}-${NewAccountGetxController.to.currentDate!.month}-${NewAccountGetxController.to.currentDate!.day}";
             });
-            if (event.contains(_currentDate)) {
+            if (event.contains(NewAccountGetxController.to.currentDate)) {
               await HospitalApiController().getDoctorSchedDtl(
-                  clinicCode: value.clinicCode,
-                  doctorCode: value.doctorCode,
-                  availableDay: _currentDate);
+                  clinicCode: widget.doctor.clinicCode,
+                  doctorCode: widget.doctor.doctorCode,
+                  availableDay: NewAccountGetxController.to.currentDate);
             } else {
               showRigectAlertDialog(context);
             }
@@ -370,17 +371,17 @@ class _MyPersonalAppointmentBookingState
 //        child: Text('Custom Header'),
 //      ),
           customDayBuilder: (
-            /// you can provide your own build function to make custom day containers
-            bool isSelectable,
-            int index,
-            bool isSelectedDay,
-            bool isToday,
-            bool isPrevMonthDay,
-            TextStyle textStyle,
-            bool isNextMonthDay,
-            bool isThisMonthDay,
-            DateTime day,
-          ) {
+              /// you can provide your own build function to make custom day containers
+              bool isSelectable,
+              int index,
+              bool isSelectedDay,
+              bool isToday,
+              bool isPrevMonthDay,
+              TextStyle textStyle,
+              bool isNextMonthDay,
+              bool isThisMonthDay,
+              DateTime day,
+              ) {
             /// If you return null, [CalendarCarousel] will build container for current [day] with default function.
             /// This way you can build custom containers for specific days only, leaving rest as default.
 
@@ -397,8 +398,14 @@ class _MyPersonalAppointmentBookingState
           // markedDatesMap: _markedDateMap,
           height: 340.0.h,
           width: 350.h,
-          todayButtonColor: Colors.green,
+          todayButtonColor: Colors.white,
           todayBorderColor: Colors.green,
+          todayTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 14.sp,
+            fontFamily: 'Tajawal',
+            fontWeight: FontWeight.normal,
+          ),
           daysTextStyle: TextStyle(
             color: Colors.black,
             fontSize: 14.sp,
@@ -413,7 +420,7 @@ class _MyPersonalAppointmentBookingState
             fontFamily: 'Tajawal',
             fontWeight: FontWeight.bold,
           ),
-          selectedDateTime: _currentDate,
+          selectedDateTime: NewAccountGetxController.to.currentDate,
           selectedDayTextStyle: TextStyle(
             color: Colors.white,
             fontSize: 14.sp,
@@ -437,16 +444,16 @@ class _MyPersonalAppointmentBookingState
           isScrollable: true,
           multipleMarkedDates: MultipleMarkedDates(
               markedDates: event.map((e) {
-            return MarkedDate(
-                color: Color(0xffedeef5),
-                date: e,
-                textStyle: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14.sp,
-                  fontFamily: 'Tajawal',
-                  fontWeight: FontWeight.normal,
-                ));
-          }).toList()),
+                return MarkedDate(
+                    color: Color(0xffedeef5),
+                    date: e,
+                    textStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14.sp,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.normal,
+                    ));
+              }).toList()),
 
           /// null for not rendering any border, true for circular border, false for rectangular border
         ),
@@ -495,7 +502,8 @@ class _MyPersonalAppointmentBookingState
       NewAccountGetxController.to.clearDataBeforeSend();
       NewAccountGetxController.to.GroupValue = -1;
       this.dateText.text = "";
-      showAlertDialog(context);
+      showAlertDialog(context,flag: true,message: response.message);
+      // showAlertDialog(context);
     } else {
       Navigator.pop(context);
       showSnackBar(context, message: response.message, error: true);
