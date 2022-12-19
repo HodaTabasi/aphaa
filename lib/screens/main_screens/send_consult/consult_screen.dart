@@ -39,10 +39,10 @@ class _SendConsultScreenState extends State<SendConsultScreen>
 
   @override
   void initState() {
-    name = TextEditingController(text: "aisal yosef alsawaf");
-    email = TextEditingController(text: "aisal@hotmail.com");
-    phone = TextEditingController(text: "0154421157");
-    consultText = TextEditingController(text: "any thing");
+    name = TextEditingController();
+    email = TextEditingController();
+    phone = TextEditingController();
+    consultText = TextEditingController();
     super.initState();
   }
 
@@ -223,6 +223,11 @@ class _SendConsultScreenState extends State<SendConsultScreen>
     if (apiResponse.success) {
       QuickServiceGetxController.to.clinicName = "";
      QuickServiceGetxController.to.doctorName = "";
+     name.text = "";
+     email.text = "";
+     phone.text = "";
+     setState(() {
+     });
       // Navigator.pop(context);
       // showAlertDialog(context);
     }

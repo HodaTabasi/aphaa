@@ -47,7 +47,8 @@ class MyMedicalFileItem extends StatelessWidget {
                   fontSize: 14.sp,
                   fontFamily: 'Tajawal',
                   fontWeight: FontWeight.w600,
-                ),),
+                ),
+              textAlign: TextAlign.center,),
             ),
 
             // Spacer(),

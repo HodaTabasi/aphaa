@@ -62,11 +62,11 @@ class _DropDownItenState extends State<FiltterDropDownItem> {
                   ),
                   onChanged: (val) {
                     setState(() {
-                      global = val!;
+                      DoctorGetxController.to.global = val!;
                       DoctorGetxController.to.firstLoad(clinicCode: val);
                     });
                   },
-                  value: global,
+                  value: DoctorGetxController.to.global,
                   // value: dropdownValue,
                   items: widget.myData.map((Clinic value) {
                     return new DropdownMenuItem<String>(

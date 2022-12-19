@@ -101,7 +101,7 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
                         fontFamily: 'Tajawal'),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '  ${patientPaymentRecord.invType}  ',
+                        text: '  ${patientPaymentRecord.clinicName}  ',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black45,

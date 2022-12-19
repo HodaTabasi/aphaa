@@ -31,6 +31,7 @@ class DoctorGetxController extends GetxController {
   late ScrollController controller;
   RxBool isNoNetworkConnect = false.obs;
   RxBool isNoNetworkConnectInLoadMore = false.obs;
+  String? global;
 
   final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
 

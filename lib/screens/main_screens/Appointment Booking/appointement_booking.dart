@@ -51,9 +51,9 @@ class _AppointmentBookingState extends State<AppointmentBooking>
 
   @override
   void initState() {
-    name = TextEditingController(text: "aisal yosef alsawaf");
-    email = TextEditingController(text: "aisal@hotmail.com");
-    phone = TextEditingController(text: "0154421157");
+    name = TextEditingController();
+    email = TextEditingController();
+    phone = TextEditingController();
     dateText = TextEditingController();
     super.initState();
   }
@@ -343,13 +343,12 @@ class _AppointmentBookingState extends State<AppointmentBooking>
   }
 
   Widget widget1(List<String> markedDateMap, NewAccountGetxController value) {
-
-    List<DateTime> event = markedDateMap.map((e){
+    List<DateTime> event = markedDateMap.map((e) {
       return DateTime.parse(e);
     }).toList();
     print(event);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0.h),
       child: Container(
         // margin: EdgeInsets.symmetric(horizontal: 16.0),
         child: CalendarCarousel<Event>(
@@ -357,18 +356,22 @@ class _AppointmentBookingState extends State<AppointmentBooking>
               .getValueFor<String>(key: PrefKeys.lang.name) ??
               'ar',
           pageScrollPhysics: const NeverScrollableScrollPhysics(),
-          onCalendarChanged: (DateTime date){
+          onCalendarChanged: (DateTime date) {
             print(" ${date.year} ${date.month}");
-            NewAccountGetxController.to.getDoctorSchedules(NewAccountGetxController.to.doctorCode,date.month,date.year);
+            NewAccountGetxController.to.getDoctorSchedules(
+                NewAccountGetxController.to.doctorCode, date.month, date.year);
           },
           onDayPressed: (DateTime date, List<Event> events) async {
-            this.setState(()  {
+            this.setState(() {
               NewAccountGetxController.to.currentDate = date;
               dateText.text =
               "${NewAccountGetxController.to.currentDate!.year}-${NewAccountGetxController.to.currentDate!.month}-${NewAccountGetxController.to.currentDate!.day}";
             });
-            if(event.contains(NewAccountGetxController.to.currentDate)){
-              await HospitalApiController().getDoctorSchedDtl(clinicCode: value.clinicCode,doctorCode: value.doctorCode,availableDay: NewAccountGetxController.to.currentDate);
+            if (event.contains(NewAccountGetxController.to.currentDate)) {
+              await HospitalApiController().getDoctorSchedDtl(
+                  clinicCode: value.clinicCode,
+                  doctorCode: value.doctorCode,
+                  availableDay: NewAccountGetxController.to.currentDate);
             } else {
               showRigectAlertDialog(context);
             }
@@ -404,17 +407,22 @@ class _AppointmentBookingState extends State<AppointmentBooking>
             // } else {
             //   return null;
             // }
-
           },
           weekFormat: false,
           // markedDatesMap: _markedDateMap,
           height: 340.0.h,
           width: 350.h,
-          todayButtonColor: Colors.green,
+          todayButtonColor: Colors.white,
           todayBorderColor: Colors.green,
+          todayTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 14.sp,
+            fontFamily: 'Tajawal',
+            fontWeight: FontWeight.normal,
+          ),
           daysTextStyle: TextStyle(
             color: Colors.black,
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontFamily: 'Tajawal',
             fontWeight: FontWeight.normal,
           ),
@@ -422,14 +430,14 @@ class _AppointmentBookingState extends State<AppointmentBooking>
           // selectedDateTime: _currentDate,
           headerTextStyle: TextStyle(
             color: Colors.black,
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontFamily: 'Tajawal',
             fontWeight: FontWeight.bold,
           ),
           selectedDateTime: NewAccountGetxController.to.currentDate,
           selectedDayTextStyle: TextStyle(
             color: Colors.white,
-            fontSize: 16.sp,
+            fontSize: 14.sp,
             fontFamily: 'Tajawal',
             fontWeight: FontWeight.w700,
           ),
@@ -442,20 +450,25 @@ class _AppointmentBookingState extends State<AppointmentBooking>
           weekDayBackgroundColor: Color(0xffEBF6EF),
           weekDayPadding: EdgeInsets.all(5.5),
           weekDayFormat: WeekdayFormat.standaloneShort,
-          dayPadding: 8,
+          dayPadding: 8.w,
           customGridViewPhysics: NeverScrollableScrollPhysics(),
           daysHaveCircularBorder: true,
           showHeaderButton: true,
           headerMargin: EdgeInsets.all(16),
           isScrollable: true,
-          multipleMarkedDates: MultipleMarkedDates(markedDates:event.map((e) {
-            return MarkedDate(color: Color(0xffedeef5), date: e,textStyle: TextStyle(
-              color: Colors.black,
-              fontSize: 16.sp,
-              fontFamily: 'Tajawal',
-              fontWeight: FontWeight.normal,
-            ));
-          }).toList() ),
+          multipleMarkedDates: MultipleMarkedDates(
+              markedDates: event.map((e) {
+                return MarkedDate(
+                    color: Color(0xffedeef5),
+                    date: e,
+                    textStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14.sp,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.normal,
+                    ));
+              }).toList()),
+
           /// null for not rendering any border, true for circular border, false for rectangular border
         ),
       ),
@@ -486,10 +499,13 @@ class _AppointmentBookingState extends State<AppointmentBooking>
     ApiResponse apiResponse = await QuickServiceApiController().appointment(email: email.text,mobile: phone.text,name: name.text,date: dateText.text,clinic: QuickServiceGetxController.to.clinicName,doctor: QuickServiceGetxController.to.doctorName,time: avilableTime.consultTime24,cost: "3.1");
     if (apiResponse.success) {
       Navigator.pop(context);
-      NewAccountGetxController.to.clearData();
       NewAccountGetxController.to.GroupValue = -1;
       this.dateText.text = "";
-      showAlertDialog(context);
+      name.text = "";
+      email.text = "";
+      phone.text = "";
+      NewAccountGetxController.to.clearData();
+      showAlertDialog(context,message: "تم حجز الموعد بنجاح",message2: "في حال تم لم يتم تاكيد الحجز خلال ساعتين سيتم الغاء الحجز",flag: true);
     }else {
       Navigator.pop(context);
       showSnackBar(

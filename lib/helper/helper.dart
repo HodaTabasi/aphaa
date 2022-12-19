@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../get/new_account_getx_controller.dart';
 
 mixin Helpers {
-  showAlertDialog(BuildContext context, {flag = false,message=""}) {
+  showAlertDialog(BuildContext context, {flag = false,message="",message2="شكرا لكم، تم استلام طلبكم  وسوف نقوم بالرد في اقرب وقت"}) {
     Widget continueButton = Center(
       child: TextButton(
           child: Text(flag?message:'تـم الــإرســـال بـــنـــجــاح!',
@@ -21,7 +21,7 @@ mixin Helpers {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
-          'شكرا لكم، تم استلام طلبكم  وسوف نقوم بالرد في اقرب وقت',
+          message2,
           style: TextStyle(
               fontSize: 16, fontFamily: 'Tajawal', color: Colors.black45),
           textAlign: TextAlign.center,

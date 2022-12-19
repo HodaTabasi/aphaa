@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         'NO DATA',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 16,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.bold,
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 10.r,
                   crossAxisSpacing: 10.r,
-                  childAspectRatio: 300 / 200),
+                  childAspectRatio: 300.w / 210.h),
               itemBuilder: (context, index) {
                 return MyMedicalFileItem(
                   image: service[index].image,

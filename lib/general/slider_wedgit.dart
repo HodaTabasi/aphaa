@@ -15,12 +15,12 @@ class SliderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.all(8.0.r),
+      padding:  EdgeInsets.symmetric(horizontal: 16.0.r),
       child: Stack(
         // fit: StackFit.expand,
           children: [
             Container(
-              width: MediaQuery.of(context).size.width - 50.w,
+              width: MediaQuery.of(context).size.width - 30.w,
               height: 180.h,
               padding:
               EdgeInsets.only(left: 26.r, right: 26.r, top: 16.r, bottom: 10.r),

@@ -3,14 +3,9 @@ import 'package:aphaa_app/helper/FileProcess.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../general/NewWidgetNetworkFirst.dart';
 import '../../../general/NewWidgetNetworkLoadMore.dart';
-import '../../../general/dropdown_item.dart';
-import '../../../model/Clinic.dart';
-import '../../../preferences/shared_pref_controller.dart';
-import '../Appointment Booking/doctor_filtter.dart';
 import 'DoctorItem.dart';
 import 'filtter_dropdown_item.dart';
 
@@ -109,7 +104,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                             border: Border.all(color:Color(0xff0E4C8F),width: 0.5.w),
                             borderRadius: BorderRadius.circular(8.r),
                           ),
-                          child:Expanded(child: Padding(
+                          child:Padding(
                             padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
                             child: TextFormField(
                               onTap: (){
@@ -132,8 +127,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                   ),
                             ),
                             ),
-                          ),
-                        )),
+                          )),
                         SizedBox(
                           height: 5.h,
                         ),
@@ -141,7 +135,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                           child: Padding(
                             padding: EdgeInsets.all(8.0.r),
                             child: GridView.builder(
-                              // shrinkWrap: true,
+                              shrinkWrap: true,
                               itemCount: controller.list.length,
                               controller: controller.controller,
                               // physics: const NeverScrollableScrollPhysics(),
@@ -189,5 +183,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     //   "assets/images/image1.png",
     //   fit: BoxFit.fitWidth,
     // ),
+  }
+  @override
+  void deactivate() {
+    DoctorGetxController.to.global = null;
+    super.deactivate();
   }
 }
