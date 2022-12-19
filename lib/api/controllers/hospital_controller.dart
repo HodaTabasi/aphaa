@@ -19,6 +19,7 @@ import '../../model/Clinic.dart';
 import '../../model/IDTypes.dart';
 import '../../model/InsuranceCompany.dart';
 import '../../model/Nationalities.dart';
+import '../../model/PaymentPermssion.dart';
 import '../../model/billResponse.dart';
 import '../../model/lab_rad_result/LabReportsResponse.dart';
 import '../../model/VitalSign/VitalSignResponse.dart';
@@ -306,10 +307,6 @@ class HospitalApiController with ApiHelper {
 
   Future<SickLeavesResponse?> getSickLeaves(
       {patientCode, page = 1, offset = 1}) async {
-    /*
-     http://aiph.me:8000/api/patient/sickLeaves?patientCode=1%2F66600&pageNo=1&offset=1&rows=7&lang=ar
-     http://aiph.me:8000/api/patient/sickLeaves?patientCode=2/66600&pageNo=1&offset=1&rows=5&lang=AR
-    * */
     final queryParameters = {
       // 'patientCode': '0/37416',
       'patientCode': patientCode,
@@ -330,6 +327,32 @@ class HospitalApiController with ApiHelper {
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       return SickLeavesResponse.fromJson(jsonResponse);
+    }
+    return null;
+  }
+
+  Future<PaymentPermssion?> getPymtPerms(
+      {patientCode, resNo, resDate ,doctorCode}) async {
+
+    final queryParameters = {
+      'patientCode': patientCode,
+      'resNo': '$resNo',
+      'resDate': '$resDate',
+      'doctorCode': '$doctorCode',
+      'lang':
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) ??
+          'ar',
+    };
+    // final uri = Uri.parse("http://aiph.me:8000/api/patient/sickLeaves?patientCode=1/66600&pageNo=1&offset=1&rows=5&lang=AR");
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase4}pymtPerms', queryParameters);
+    print(uri);
+    final response =
+    await http.get(uri, headers: {'Content-Type': 'application/json'});
+    print(response.body);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      return PaymentPermssion.fromJson(jsonResponse);
     }
     return null;
   }

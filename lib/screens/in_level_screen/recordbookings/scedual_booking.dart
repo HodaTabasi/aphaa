@@ -9,6 +9,7 @@ import '../../../api/controllers/hospital_controller.dart';
 import '../../../get/change_name_getx_controller.dart';
 import '../../../get/login_getx_controller.dart';
 import '../../../helper/helpers.dart' ;
+import '../../../model/PaymentPermssion.dart';
 import '../../../model/api_response.dart';
 import '../../drawer_screens/Booking/payment_methods.dart';
 
@@ -203,9 +204,16 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
               children: [
                 InkWell(
                   onTap: () async {
-                    PaymentMethod paymentMethod = PaymentMethod(context);
-                    paymentMethod.doPaymentConfiguration(50);
-                    paymentMethod.onBookClick(context,50);
+                    showLoaderDialog(context); /*resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode*/
+                    PaymentPermssion? response = await HospitalApiController().getPymtPerms(doctorCode: appointments.doctor?.doctorCode,resDate: appointments.resDate,resNo: appointments.resNo,patientCode: SharedPrefController().getValueFor(key: "p_code"));
+                    Navigator.pop(context);
+                    if(response?.permsStatus =="true"){
+                      PaymentMethod paymentMethod = PaymentMethod(context);
+                      paymentMethod.doPaymentConfiguration(response?.reqAmt);
+                      paymentMethod.onBookClick(context,response?.reqAmt);
+                    }else {
+                      showSnackBar(context, message: response?.paymentNotice??"", error: true);
+                    }
                   },
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8.r, 0, 0.r, 10.r),
