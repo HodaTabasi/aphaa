@@ -1,9 +1,4 @@
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
-import 'package:aphaa_app/helper/constant.dart';
-import 'package:aphaa_app/screens/auth/create_account/create_account.dart';
-import 'package:aphaa_app/screens/auth/login/login_screen.dart';
-import 'package:aphaa_app/screens/main_screens/quick_services/or_widget.dart';
-import 'package:aphaa_app/screens/main_screens/quick_services/register_button/both_togther.dart';
 import 'package:aphaa_app/screens/main_screens/quick_services/service_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,13 +8,11 @@ import '../../../get/language_getx_controller.dart';
 import '../../../helper/SizeConfig.dart';
 import '../../../model/service.dart';
 import '../../../preferences/shared_pref_controller.dart';
-import '../../auth/create_account1/new_account_first.dart';
 import '../../auth/login1/login_screen.dart';
 import '../Appointment Booking/appointement_booking.dart';
 import '../Doctor/doctors_screen.dart';
 import '../open_medocal/opening_medical_file.dart';
 import '../send_consult/consult_screen.dart';
-import 'login_button/togther.dart';
 
 class QuickServices extends StatelessWidget {
   static String routeName = "/quick_services";

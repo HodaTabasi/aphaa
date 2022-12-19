@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../general/NewWidgetNetworkFirst.dart';
+import '../../../general/NewWidgetNetworkLoadMore.dart';
 import '../../../get/quick_service_getx_controller.dart';
 import '../../../model/Pages.dart';
 import '../../main_screens/open_medocal/opening_medical_file.dart';
@@ -33,6 +35,8 @@ class _FamillyScreenState extends State<FamillyScreen> {
   bool _hasNextPage = true;
 
   bool _isLoadMoreRunning = false;
+  bool _isNoNetworkConnect = false;
+  bool _isNoNetworkConnectInLoadMore = false;
 
   void _loadMore() async {
     if (_hasNextPage == true &&
@@ -162,43 +166,40 @@ class _FamillyScreenState extends State<FamillyScreen> {
         //   ),
         // ]
       ),
-      body: _isFirstLoadRunning
+      body:  _isNoNetworkConnect
+          ? InkWell(
+        onTap: () {
+          _firstLoad();
+        },
+        child: NewWidgetNetworkFirst(),
+      )
+          :_isFirstLoadRunning
           ? const Center(
               child: CircularProgressIndicator(),
             )
           : Column(
               children: [
-                SizedBox(height: 10.h,),
-                // InkWell(
-                //   onTap: () {
-                //     QuickServiceGetxController.to.requestType = '2';
-                //     // Add your onPressed code here!
-                //     Navigator.pushNamed(
-                //         context, OpeningMedicalFile.routeName);
-                //   },
-                //   child: DecoratedBox(
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(20),
-                //       color: Colors.green.shade700
-                //     ),
-                //     child: Padding(
-                //       padding:  EdgeInsets.symmetric(horizontal: 16.0.h,vertical: 8.w),
-                //       child: Text(
-                //           AppLocalizations.of(context)!.opening_medical_file1,style: TextStyle(color: Colors.white,fontSize: 14.sp)),
-                //     ),
-                //   ),
-                // ),
-                Padding(
-                  padding: EdgeInsets.all(8.0.r),
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      // physics: NeverScrollableScrollPhysics(),
-                      controller: _controller,
-                      itemCount: list.length,
-                      itemBuilder: (context, index) {
-                        return FamillyItem(list[index]);
-                      }),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0.r),
+                    child: ListView.builder(
+                        // shrinkWrap: true,
+                        // physics: NeverScrollableScrollPhysics(),
+                        controller: _controller,
+                        itemCount: list.length,
+                        itemBuilder: (context, index) {
+                          return FamillyItem(list[index]);
+                        },
+                    ),
+                  ),
                 ),
+                if (_isNoNetworkConnectInLoadMore)
+                  InkWell(
+                    onTap: () {
+                      _loadMore();
+                    },
+                    child: NewWidgetNetworkLoadMore(),
+                  ),
                 if (_isLoadMoreRunning == true)
                   const Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 40),
@@ -206,28 +207,32 @@ class _FamillyScreenState extends State<FamillyScreen> {
                       child: CircularProgressIndicator(),
                     ),
                   ),
-
-                InkWell(
-                onTap: () {
-                  QuickServiceGetxController.to.requestType = '2';
-                  // Add your onPressed code here!
-                  Navigator.pushNamed(
-                      context, OpeningMedicalFile.routeName);
-                },
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.green.shade700
+                if (_hasNextPage == false || pageList.length ==1)
+                  InkWell(
+                    onTap: () {
+                      QuickServiceGetxController.to.requestType = '2';
+                      // Add your onPressed code here!
+                      Navigator.pushNamed(
+                          context, OpeningMedicalFile.routeName);
+                    },
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.green.shade700
+                      ),
+                      child: Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 20.0.h,vertical: 12.w),
+                        child: Text(
+                            AppLocalizations.of(context)!.opening_medical_file1,style: TextStyle(color: Colors.white,fontSize: 14.sp,fontFamily: 'Tajawal')),
+                      ),
+                    ),
                   ),
-                  child: Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 16.0.h,vertical: 10.w),
-                    child: Text(
-                        AppLocalizations.of(context)!.opening_medical_file1,style: TextStyle(color: Colors.white,fontSize: 14.sp,fontFamily: 'Tajawal')),
+                Center(
+                  child: Image.asset(
+                    "assets/images/image1.png",
+                    fit: BoxFit.fitWidth,
                   ),
                 ),
-                )
-                // if (_hasNextPage == false || pageList.length ==1)
-
               ],
             ),
       // floatingActionButton: FloatingActionButton.extended(
@@ -248,10 +253,10 @@ class _FamillyScreenState extends State<FamillyScreen> {
       // ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      bottomSheet: Image.asset(
-        "assets/images/image1.png",
-        fit: BoxFit.fitWidth,
-      ),
+      // bottomSheet: Image.asset(
+      //   "assets/images/image1.png",
+      //   fit: BoxFit.fitWidth,
+      // ),
     );
   }
 }

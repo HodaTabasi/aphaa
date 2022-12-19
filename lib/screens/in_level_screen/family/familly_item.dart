@@ -92,7 +92,6 @@ class FamillyItem extends StatelessWidget {
                             fontFamily: 'Tajawal',
                             fontWeight: FontWeight.bold,
                           ),
-                          maxLines: 2,
                         ),
                       ),
                     ),
@@ -133,20 +132,19 @@ class FamillyItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
+                  Container(
+                    width: 180.w,
                     padding:  EdgeInsets.symmetric(horizontal: 2.0.r),
-                    child: Padding(
-                      padding:  EdgeInsets.all(8.0.r),
-                      child: Text(
-                        famillyMember.patientName!,
-                        style:  TextStyle(
-                          color: Color(0xff2D2D2D),
-                          fontSize: 11.sp,
-                          fontFamily: 'Tajawal',
-                          fontWeight: FontWeight.normal,
-                        ),
-                        maxLines: 2,
+                    child: Text(
+                      famillyMember.patientName!,
+                      style:  TextStyle(
+                        color: Color(0xff2D2D2D),
+                        fontSize: 11.sp,
+                        fontFamily: 'Tajawal',
+                        fontWeight: FontWeight.normal,
                       ),
+                      maxLines: 2,
+                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
