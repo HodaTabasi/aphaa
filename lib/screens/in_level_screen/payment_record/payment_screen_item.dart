@@ -39,33 +39,10 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
+                padding: EdgeInsets.fromLTRB(10.r,10.r, 10.r,10.r),
                 child: Text.rich(
                   TextSpan(
-                    text: AppLocalizations.of(context)!.payment_data ,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 12.sp,
-                        fontFamily: 'Tajawal'),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '  ${patientPaymentRecord.invDate}  ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black45,
-                            fontSize: 12.sp,
-                            fontFamily: 'Tajawal'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(16.r,16.r, 16.r,10.r),
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.payment_time,
+                    text: AppLocalizations.of(context)!.payment_time ,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -84,13 +61,36 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
                   ),
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10.r,10.r, 10.r,10.r),
+                child: Text.rich(
+                  TextSpan(
+                    text: AppLocalizations.of(context)!.payment_date,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 12.sp,
+                        fontFamily: 'Tajawal'),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '  ${patientPaymentRecord.invDate}  ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black45,
+                            fontSize: 12.sp,
+                            fontFamily: 'Tajawal'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                padding: EdgeInsets.fromLTRB(10.r,10.r, 10.r,10.r),
                 child: Text.rich(
                   TextSpan(
                     text: AppLocalizations.of(context)!.the_clinic,
@@ -112,16 +112,39 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
                   ),
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10.r,10.r, 10.r,10.r),
+                child: Text.rich(
+                  TextSpan(
+                    text: AppLocalizations.of(context)!.invoices_type,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 12.sp,
+                        fontFamily: 'Tajawal'),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '  ${patientPaymentRecord.invType}  ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black45,
+                            fontSize: 12.sp,
+                            fontFamily: 'Tajawal'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                padding: EdgeInsets.fromLTRB(10.r,10.r, 10.r,10.r),
                 child: Text.rich(
                   TextSpan(
-                    text: AppLocalizations.of(context)!.the_doctor,
+                    text: AppLocalizations.of(context)!.physician,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -146,7 +169,7 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                padding: EdgeInsets.fromLTRB(10.r,10.r, 10.r,10.r),
                 child: Text.rich(
                   TextSpan(
                     text: AppLocalizations.of(context)!.net_cash,

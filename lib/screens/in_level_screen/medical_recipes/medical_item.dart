@@ -54,7 +54,7 @@ class MedicalRecipesItem extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(16,16, 16,10),
                   child: Text.rich(
                     TextSpan(
-                      text: AppLocalizations.of(context)!.payment_time,
+                      text: AppLocalizations.of(context)!.payment_date,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -81,17 +81,17 @@ class MedicalRecipesItem extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
               child: Text.rich(
                 TextSpan(
-                  text: AppLocalizations.of(context)!.the_doctor,
+                  text: AppLocalizations.of(context)!.the_clinic,
                   style: TextStyle(
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                       fontSize: 12.sp,
                       fontFamily: 'Tajawal'),
                   children: <TextSpan>[
                     TextSpan(
-                      text: '  ${prescriptionlist.doctor!.doctorName}  ',
+                      text: ' ${prescriptionlist.clinic!.clinicName}  ',
                       style: TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                           color: Colors.black45,
                           fontSize: 12.sp,
                           fontFamily: 'Tajawal'),
@@ -106,17 +106,17 @@ class MedicalRecipesItem extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
               child: Text.rich(
                 TextSpan(
-                  text: AppLocalizations.of(context)!.the_clinic,
+                  text: AppLocalizations.of(context)!.physician,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w800,
                       color: Colors.black,
                       fontSize: 12.sp,
                       fontFamily: 'Tajawal'),
                   children: <TextSpan>[
                     TextSpan(
-                      text: ' ${prescriptionlist.clinic!.clinicName}  ',
+                      text: '  ${prescriptionlist.doctor!.doctorName}  ',
                       style: TextStyle(
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                           color: Colors.black45,
                           fontSize: 12.sp,
                           fontFamily: 'Tajawal'),

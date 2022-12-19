@@ -23,9 +23,9 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
   List<String> images = [
     'assets/images/prasher.svg',
     'assets/images/suger.svg',
+    'assets/images/heartw.svg',
     'assets/images/higth.svg',
     'assets/images/wihtj.svg',
-    'assets/images/prasher.svg',
   ];
 
   @override

@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Service(
           'assets/images/droup.svg', AppLocalizations.of(context)!.doctors, '', DoctorsScreen.routeName),
       Service(
-          'assets/images/apphistory.svg', AppLocalizations.of(context)!.appointment_book, '', RexcordBooking.routeName),
+          'assets/images/app_hestory.svg', AppLocalizations.of(context)!.appointment_book, '', RexcordBooking.routeName),
       Service(
           'assets/images/family.svg', AppLocalizations.of(context)!.my_family, '', FamillyScreen.routeName),
 
