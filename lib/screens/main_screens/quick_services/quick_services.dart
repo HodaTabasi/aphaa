@@ -68,8 +68,8 @@ class QuickServices extends StatelessWidget {
             child: Text(SharedPrefController()
                               .getValueFor<String>(key: PrefKeys.lang.name) ==
                           'ar'
-                      ? "العربية"
-                      : "English",
+                      ? " English"
+                      : "العربية",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 14.sp,
@@ -114,10 +114,11 @@ class QuickServices extends StatelessWidget {
               AppLocalizations.of(context)!.quick_service,
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 13.sp,
+                fontSize: 14.sp,
                 fontFamily: 'Tajawal',
                 fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
           GridView.builder(
@@ -157,27 +158,62 @@ class QuickServices extends StatelessWidget {
           //   ),
           //   textAlign: TextAlign.center,
           // ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 15.r),
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                      onTap: () =>
-                          Navigator.pushNamed(context, LoginScreen1.routeName),
-                      child: GeneratedGroup40943Widget()),
-                  // OrWidget(),
-                  // InkWell(
-                  //   onTap: () =>
-                  //       Navigator.pushNamed(context, NewAccountFirst.routeName),
-                  //   child: GeneratedGroup40944Widget(),
-                  // )
-                ],
-              ),
-            ),
+          SizedBox(height: 20.h,),
+          Row(
+            children: [
+              Spacer(),
+              ElevatedButton(onPressed: (){
+                Navigator.pushNamed(context, LoginScreen1.routeName);
+              },
+                  child: Text(
+                    AppLocalizations.of(context)!.login,
+                    overflow: TextOverflow.visible,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      height: 1.5.h,
+                      fontSize: 14.0.sp,
+                      fontFamily: 'Tajawal',
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                      /* letterSpacing: 0.0, */
+                    ),
+                  ),style: ElevatedButton.styleFrom(
+                    shape:RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(
+                        color: Color(0xff0E4C8F)
+                      )
+                    ) ,
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      // padding: EdgeInsets.all(14.r),
+                      fixedSize: Size(140.w, 44.h),
+                  )),
+              Spacer()
+            ],
           ),
+
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 16.0.r, vertical: 15.r),
+          //   child: Directionality(
+          //     textDirection: TextDirection.rtl,
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         InkWell(
+          //             onTap: () =>
+          //                 Navigator.pushNamed(context, LoginScreen1.routeName),
+          //             child: GeneratedGroup40943Widget()),
+          //         // OrWidget(),
+          //         // InkWell(
+          //         //   onTap: () =>
+          //         //       Navigator.pushNamed(context, NewAccountFirst.routeName),
+          //         //   child: GeneratedGroup40944Widget(),
+          //         // )
+          //       ],
+          //     ),
+          //   ),
+          // ),
           Image.asset(
             "assets/images/image1.png",
             fit: BoxFit.fitWidth,
