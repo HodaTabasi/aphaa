@@ -5,6 +5,7 @@ import 'package:aphaa_app/general/dropdown_item.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
 import 'package:aphaa_app/helper/helper.dart';
 import 'package:aphaa_app/model/doctor.dart';
+import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/main_screens/send_consult/text_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -39,9 +40,14 @@ class _SendConsultScreenState extends State<SendConsultScreen>
 
   @override
   void initState() {
-    name = TextEditingController();
+    if(QuickServiceGetxController.to.fromHome){
+      name = TextEditingController(text: SharedPrefController().getValueFor(key: PrefKeysPatient.firstName.name));
+      phone = TextEditingController(text:SharedPrefController().getValueFor(key: PrefKeysPatient.mobile.name));
+    }else {
+      name = TextEditingController();
+      phone = TextEditingController();
+    }
     email = TextEditingController();
-    phone = TextEditingController();
     consultText = TextEditingController();
     super.initState();
   }
@@ -237,5 +243,10 @@ class _SendConsultScreenState extends State<SendConsultScreen>
       message: apiResponse.message,
       error: !apiResponse.success,
     );
+  }
+  @override
+  void deactivate() {
+    QuickServiceGetxController.to.fromHome = false;
+    super.deactivate();
   }
 }

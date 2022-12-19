@@ -483,8 +483,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
 
   bool _checkData() {
 
-    if (email.text.isNotEmpty &&
-        phone.text.isNotEmpty &&
+    if (phone.text.isNotEmpty &&
         name.text.isNotEmpty  &&
         name.text.isNotEmpty  &&
         dateText.text.isNotEmpty) {

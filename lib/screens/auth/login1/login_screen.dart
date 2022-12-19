@@ -98,58 +98,58 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
           ),
           EditTextItem(
               'assets/images/id.svg', AppLocalizations.of(context)!.identity_number,controler: _emailTextController),
-          // Padding(
-          //   padding:  EdgeInsets.only(left: 16.0.w,right: 0,top: 8.h),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       Row(
-          //         children: [
-          //           Checkbox(
-          //             side: MaterialStateBorderSide.resolveWith(
-          //               (states) => BorderSide(color: Colors.green.shade900),
-          //             ),
-          //             shape: RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.circular(5)),
-          //             focusColor: Colors.green.shade800,
-          //             // hoverColor: white,
-          //             checkColor: Colors.white,
-          //             activeColor: Colors.green.shade800,
-          //             value: value,
-          //             onChanged: (value) {
-          //               setState(() {
-          //                 this.value = value!;
-          //               });
-          //             },
-          //           ),
-          //           Text(
-          //             AppLocalizations.of(context)!.remember_me_later,
-          //             style:  TextStyle(
-          //               color: Colors.black,
-          //               fontSize: 13.sp,
-          //               fontFamily: 'Tajawal',
-          //               fontWeight: FontWeight.normal,
-          //             ),
-          //             textAlign: TextAlign.start,
-          //           ),
-          //         ],
-          //       ),
-          //       InkWell(
-          //         onTap: () => Navigator.pushNamed(context, ForgetPassword.routeName),
-          //         child: Text(
-          //           AppLocalizations.of(context)!.forget_pass_hl,
-          //           style:  TextStyle(
-          //             color: Colors.black,
-          //             fontSize: 13.sp,
-          //             fontFamily: 'Tajawal',
-          //             fontWeight: FontWeight.w700,
-          //           ),
-          //           textAlign: TextAlign.start,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
+          Padding(
+            padding:  EdgeInsets.only(left: 16.0.w,right: 0,top: 8.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Checkbox(
+                      side: MaterialStateBorderSide.resolveWith(
+                        (states) => BorderSide(color: Colors.green.shade900),
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      focusColor: Colors.green.shade800,
+                      // hoverColor: white,
+                      checkColor: Colors.white,
+                      activeColor: Colors.green.shade800,
+                      value: value,
+                      onChanged: (value) {
+                        setState(() {
+                          this.value = value!;
+                        });
+                      },
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!.remember_me_later,
+                      style:  TextStyle(
+                        color: Colors.black,
+                        fontSize: 13.sp,
+                        fontFamily: 'Tajawal',
+                        fontWeight: FontWeight.normal,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                  ],
+                ),
+                // InkWell(
+                //   onTap: () => Navigator.pushNamed(context, ForgetPassword.routeName),
+                //   child: Text(
+                //     AppLocalizations.of(context)!.forget_pass_hl,
+                //     style:  TextStyle(
+                //       color: Colors.black,
+                //       fontSize: 13.sp,
+                //       fontFamily: 'Tajawal',
+                //       fontWeight: FontWeight.w700,
+                //     ),
+                //     textAlign: TextAlign.start,
+                //   ),
+                // ),
+              ],
+            ),
+          ),
            SizedBox(
             height: 60.h,
           ),

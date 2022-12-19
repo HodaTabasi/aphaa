@@ -1,3 +1,4 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +13,9 @@ class FiltterDropDownItem extends StatefulWidget {
   String iconName;
   String dropValue;
   int? dropIntValue;
+  TextEditingController jobRoleCtrl;
 
-  FiltterDropDownItem(this.myData,this.iconName,this.dropValue, {this.dropIntValue});
+  FiltterDropDownItem(this.myData,this.iconName,this.dropValue,this.jobRoleCtrl, {this.dropIntValue});
 
   @override
   State<FiltterDropDownItem> createState() => _DropDownItenState();
@@ -21,6 +23,13 @@ class FiltterDropDownItem extends StatefulWidget {
 
 class _DropDownItenState extends State<FiltterDropDownItem> {
   String? global;
+
+  List<String> getString() {
+    return widget.myData.map((e) {
+      return e.clinicName!;
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,6 +54,32 @@ class _DropDownItenState extends State<FiltterDropDownItem> {
                 thickness:0.5.w,
                 color:Color(0xff0E4C8F)
             ),
+            // Expanded(
+            //   child: CustomDropdown.search(
+            //     fillColor: Colors.transparent,
+            //     // borderRadius: BorderRadius.circular(20.r),
+            //     hintText: widget.dropValue,
+            //     items: getString(),
+            //     controller: widget.jobRoleCtrl,
+            //     hintStyle: TextStyle(
+            //       color: Colors.grey.shade700,
+            //       fontSize: 13.sp,
+            //       fontFamily: 'Tajawal',
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //     listItemStyle: TextStyle(
+            //         fontSize: 13.sp, color: Colors.black54, fontFamily: 'Tajawal',fontWeight: FontWeight.bold),
+            //     selectedStyle: TextStyle(
+            //         fontSize: 13.sp, color: Colors.black, fontFamily: 'Tajawal',fontWeight: FontWeight.bold),
+            //     onChanged: (s) async {
+            //       setState(() {
+            //         int index = widget.myData.indexWhere((element) => element.clinicName == s);
+            //         DoctorGetxController.to.firstLoad(clinicCode: widget.myData[index].clinicCode);
+            //         DoctorGetxController.to.global = widget.myData[index].clinicCode;
+            //       });
+            //      },
+            //   ),
+            // ),
             Expanded(
               child: Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 8.0.r),

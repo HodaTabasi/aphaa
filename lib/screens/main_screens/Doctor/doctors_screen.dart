@@ -18,6 +18,7 @@ class DoctorsScreen extends StatefulWidget {
 
 class _DoctorsScreenState extends State<DoctorsScreen> {
   TextEditingController searchController = TextEditingController();
+  TextEditingController lController = TextEditingController();
 
 
 
@@ -94,7 +95,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                         // SizedBox(
                         //   height: 20.h,
                         // ),
-                        FiltterDropDownItem(controller.myData,'assets/images/hospital.svg',AppLocalizations.of(context)!.clenice_choesse),
+                        FiltterDropDownItem(controller.myData,'assets/images/hospital.svg',AppLocalizations.of(context)!.clenice_choesse,lController),
                         SizedBox(
                           height: 5.h,
                         ),

@@ -27,6 +27,7 @@ import '../../in_level_screen/offer_ditails/offer_details.dart';
 import '../../in_level_screen/recordbookings/RecordBooking.dart';
 import '../../in_level_screen/sick_level/sick_leave.dart';
 import '../../main_screens/Doctor/doctors_screen.dart';
+import '../../main_screens/send_consult/consult_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
@@ -66,7 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
       Service(
           'assets/images/paybook.svg', AppLocalizations.of(context)!.pay_book, '', PaymentRecord.routeName),
-
+      Service(
+          'assets/images/consult1.svg',
+          AppLocalizations.of(context)!.consultation_request,
+          'consult',
+          SendConsultScreen.routeName),
     ];
 
     // image: 'assets/images/offers.svg',
@@ -143,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   image: service[index].image,
                   name: service[index].name,
                   prsee: () {
-                    if(service[index].decration =="offers")
+                    if(service[index].decration =="offers" || service[index].decration == "consult")
                       QuickServiceGetxController.to.fromHome = true;
 
                     Navigator.pushNamed(context, service[index].routsName);
