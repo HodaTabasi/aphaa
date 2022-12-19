@@ -54,7 +54,13 @@ class _OfferScreenState extends State<OfferScreen> {
             future: AppApiController().getOffers(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return  SizedBox(
+                  height: MediaQuery.of(context).size.height-100.h,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [CircularProgressIndicator()],),
+                );
               } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return ListView.builder(
                   itemCount: snapshot.data!.length,

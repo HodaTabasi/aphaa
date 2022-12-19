@@ -83,7 +83,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                     ),
                     // leadingWidth: 70.w,
                     title: Text.rich(TextSpan(
-                        text: 'اهلا، ',
+                        text: '${AppLocalizations.of(context)!.hello}، ',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.white,
@@ -161,6 +161,8 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                     //     )),
                   ),
             body: WillPopScope(child: pages[pageIndex], onWillPop: onWillPop),
+            // resizeToAvoidBottomInset: false,
+
             bottomNavigationBar: Theme(
               data: Theme.of(context).copyWith(
                   // sets the background color of the `BottomNavigationBar`
@@ -180,12 +182,16 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                     });
 
                 },
+
                 elevation: 10,
+                // selectedItemColor: Colors.blue,
+                // unselectedItemColor: Colors.grey,
+                currentIndex: pageIndex,
                 items: [
                   BottomNavigationBarItem(
                       icon: SvgPicture.asset('assets/images/apphome.svg',
                           color:
-                              pageIndex == 0 ? Color(0xff0E4C8F) : Colors.grey,
+                          pageIndex == 0 ? Color(0xff0E4C8F) : Colors.grey,
                           semanticsLabel: 'Acme Logo'),
                       label: ''),
                   BottomNavigationBarItem(
@@ -217,6 +223,8 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                         color: pageIndex == 4 ? Color(0xff0E4C8F) : Colors.grey,
                       ),
                       label: ''),
+
+
                 ],
               ),
             ));

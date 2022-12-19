@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               itemCount: service.length,
               physics: const NeverScrollableScrollPhysics(),
-              padding:  EdgeInsets.symmetric(horizontal: 10.r),
+              padding:  EdgeInsets.symmetric(horizontal: 10.r,vertical: 8.r),
               scrollDirection: Axis.vertical,
               gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
