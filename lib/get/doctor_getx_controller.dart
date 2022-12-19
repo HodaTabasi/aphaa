@@ -25,6 +25,7 @@ class DoctorGetxController extends GetxController {
 
   RxBool isFirstLoadRunning = false.obs;
   RxBool hasNextPage = true.obs;
+  RxBool isSearchLoadRunning = false.obs;
 
   RxBool isLoadMoreRunning = false.obs;
 
@@ -92,6 +93,12 @@ class DoctorGetxController extends GetxController {
     } else {
       isNoNetworkConnect.value = true;
     }
+  }
+
+  void searchLoad({clinicCode = ""}) async {
+    isSearchLoadRunning.value = true;
+      await getData(clinicCode: clinicCode);
+    isSearchLoadRunning.value = false;
   }
 
   getData({clinicCode = ""}) async {

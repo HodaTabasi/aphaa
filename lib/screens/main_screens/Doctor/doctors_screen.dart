@@ -136,25 +136,35 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                           height: 5.h,
                         ),
                         Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0.r),
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              itemCount: controller.list.length,
-                              controller: controller.controller,
-                              // physics: const NeverScrollableScrollPhysics(),
-                              padding: EdgeInsets.symmetric(horizontal: 10.r),
-                              scrollDirection: Axis.vertical,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 10.h,
-                                      crossAxisSpacing: 10.w,
-                                      childAspectRatio: 250 / 330),
-                              itemBuilder: (context, index) {
-                                return DoctorItem(controller.list[index], Key(controller.list[index].doctorCode!));
-                              },
-                            ),
+                          child: Stack(
+                            children: [
+                              Visibility(
+                                visible: !controller.isSearchLoadRunning.value,
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0.r),
+                                  child: GridView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: controller.list.length,
+                                    controller: controller.controller,
+                                    // physics: const NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.symmetric(horizontal: 10.r),
+                                    scrollDirection: Axis.vertical,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            mainAxisSpacing: 10.h,
+                                            crossAxisSpacing: 10.w,
+                                            childAspectRatio: 250 / 330),
+                                    itemBuilder: (context, index) {
+                                      return DoctorItem(controller.list[index], Key(controller.list[index].doctorCode!));
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                  visible: controller.isSearchLoadRunning.value,
+                                  child: Center(child: CircularProgressIndicator())),
+                            ],
                           ),
                         ),
                         if (controller.isNoNetworkConnectInLoadMore == true)
