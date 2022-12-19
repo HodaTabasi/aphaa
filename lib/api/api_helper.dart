@@ -7,6 +7,8 @@ mixin ApiHelper {
   ApiResponse get failedResponse =>
       ApiResponse(message: SharedPrefController().getValueFor(key: PrefKeys.lang.name) == 'ar'?'حصل خطا ما':'Something went wrong', success: false);
 
+  ApiResponse get successResponce => ApiResponse(message:SharedPrefController().getValueFor(key: PrefKeys.lang.name) == 'ar'?'تمت العملية بنجاح':'accomplished Successfully',success: true);
+
   Map<String, String> get headers {
     return {
       HttpHeaders.authorizationHeader: SharedPrefController().token,

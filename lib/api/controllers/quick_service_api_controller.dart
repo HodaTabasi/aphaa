@@ -31,8 +31,7 @@ class QuickServiceApiController with ApiHelper {
       if(response.statusCode == 200){
         var jsonObject = jsonResponse['items'];
       }
-      return ApiResponse(
-          message: jsonResponse['message'], success: jsonResponse['status']);
+      return successResponce;
     }
     return failedResponse;
   }
@@ -141,11 +140,8 @@ insurance_number:2520
       // if (response.statusCode == 200) {
       //   apiResponse.object = OpenFileResponse.fromJson(jsonResponse['items']);
       // }
-      return apiResponse;
+      return successResponce;
     }
-    return ApiResponse(
-      message: jsonResponse['message'],
-      success: jsonResponse['status']??false,
-    );
+    return failedResponse;
   }
 }

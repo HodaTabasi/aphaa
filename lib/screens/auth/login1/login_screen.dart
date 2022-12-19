@@ -31,8 +31,8 @@ class LoginScreen1 extends StatefulWidget {
 
 class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
   var value = false;
-  // var _emailTextController = TextEditingController();
-  var _emailTextController = TextEditingController(text: "2320128214");
+  var _emailTextController = TextEditingController();
+  // var _emailTextController = TextEditingController(text: "2320128214");
 
   @override
   Widget build(BuildContext context) {

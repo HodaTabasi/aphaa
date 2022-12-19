@@ -226,6 +226,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
         description: consultText.text,
         clinic: QuickServiceGetxController.to.clinicName,
         doctors_id: QuickServiceGetxController.to.doctorName);
+    Navigator.pop(context);
     if (apiResponse.success) {
       QuickServiceGetxController.to.clinicName = "";
      QuickServiceGetxController.to.doctorName = "";
@@ -234,10 +235,10 @@ class _SendConsultScreenState extends State<SendConsultScreen>
      phone.text = "";
      setState(() {
      });
-      // Navigator.pop(context);
-      // showAlertDialog(context);
+     Navigator.pop(context);
+      // showAlertDialog1(context);
     }
-    Navigator.pop(context);
+
     showSnackBar(
       context,
       message: apiResponse.message,

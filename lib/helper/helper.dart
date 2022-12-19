@@ -87,6 +87,70 @@ mixin Helpers {
     );
   }
 
+  showAlertDialog1(BuildContext context, {flag = false,message="",message2="شكرا لكم، تم استلام طلبكم  وسوف نقوم بالرد في اقرب وقت"}) {
+    Widget continueButton = Center(
+      child: TextButton(
+          child: Text(flag?message:'تـم الــإرســـال بـــنـــجــاح!',
+              style: TextStyle(
+                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.green)),
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+          }),
+    );
+    Widget continueButton1 = Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          message2,
+          style: TextStyle(
+              fontSize: 16, fontFamily: 'Tajawal', color: Colors.black45),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+
+
+    Widget continueButton3 = Center(
+      child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+            // Navigator.popAndPushNamed(context, ButtomNavigations.routeName);
+          },
+          child: Text("عودة",
+              style: TextStyle(
+                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Color(0xffF2F2F2),
+      content: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        padding: EdgeInsets.all(16),
+        child: Icon(
+          Icons.check_circle,
+          size: 60,
+          color: Colors.green,
+        ),
+      ),
+      actions: [
+        continueButton,
+        Visibility(visible: !flag,child: continueButton1),
+        continueButton3
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   showRigectAlertDialog(BuildContext context) {
     Widget continueButton = Center(
       child: TextButton(

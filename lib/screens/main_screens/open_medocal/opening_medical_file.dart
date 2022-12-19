@@ -22,7 +22,6 @@ import '../../../model/IDTypes.dart';
 import '../../../model/Nationalities.dart';
 import '../../../model/api_response.dart';
 
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:hijri_picker/hijri_picker.dart';
 
@@ -371,16 +370,15 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
         request_type: QuickServiceGetxController.to.requestType,
         nationality: QuickServiceGetxController.to.nationality,
         id_type: QuickServiceGetxController.to.idType);
+    Navigator.pop(context);
     if (apiResponse.success) {
       Navigator.pop(context);
       NewAccountGetxController.to.fileData = apiResponse.object;
       NewAccountGetxController.to.fromOpenFile = true;
       // Navigator.pushNamed(context, NewAccountFirst.routeName);
-      showAlertDialog(context);
-    } else {
+      // showAlertDialog(context);
       Navigator.pop(context);
     }
-
     showSnackBar(
       context,
       message: apiResponse.message,
