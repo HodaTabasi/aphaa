@@ -127,6 +127,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                     color: Color(0xff058638),
                                   ),
                             ),
+                              onChanged: (value) {
+                                controller.filtterByName(value);
+                              },
                             ),
                           )),
                         SizedBox(

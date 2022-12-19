@@ -117,7 +117,7 @@ class DoctorGetxController extends GetxController {
     if(val.isEmpty || val.length< 3) {
       list.value = listBeforeFiltter;
     } else if(val.length>=3) {
-      list.value = list.where((p0) => p0.doctorName!.contains(val)).toList();
+      list.value = list.where((p0) => p0.doctorName!.toLowerCase().contains(val.toLowerCase())).toList();
     }
 
   }
