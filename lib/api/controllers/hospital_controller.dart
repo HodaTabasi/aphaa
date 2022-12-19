@@ -920,32 +920,10 @@ class HospitalApiController with ApiHelper {
     return failedResponse;
   }
 
-  Future<billResponse?> setConsInv(
-      {permsNo,
-      pymtDate,
-      pymtRef,
-      pymtStatus,
-      respCode,
-      cartId,
-      custName,
-      custPhone,
-      paidAmt}) async {
+  Future<billResponse?> setConsInv(map) async {
     Uri uri = Uri.parse('http://aiph.me:8000/api/invoice/setConsInv/');
 
-    var response = await http.post(uri, body: {
-      "permsNo": '$permsNo',
-      "pymtDate": '$pymtDate',
-      "pymtRef": '$pymtRef',
-      "pymtStatus": '$pymtStatus',
-      "respCode": '$respCode',
-      "cartId": '$cartId',
-      "custName": '$custName',
-      "custPhone": '$custPhone',
-      "paidAmt": '$paidAmt',
-      "lang":
-          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) ??
-              "ar",
-    });
+    var response = await http.post(uri, body: map);
 
     print(response.body);
     if (response.statusCode == 200 || response.statusCode == 400) {

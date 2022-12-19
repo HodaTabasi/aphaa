@@ -7,10 +7,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../get/new_account_getx_controller.dart';
 
 mixin Helpers {
-  showAlertDialog(BuildContext context, {flag = false,message="",message2="شكرا لكم، تم استلام طلبكم  وسوف نقوم بالرد في اقرب وقت"}) {
+  showAlertDialog(BuildContext context, {f1=false,flag = false,message="",message2=""}) {
     Widget continueButton = Center(
       child: TextButton(
-          child: Text(flag?message:'تـم الــإرســـال بـــنـــجــاح!',
+          child: Text(flag?message:AppLocalizations.of(context)!.thanks,
               style: TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.green)),
           onPressed: () {
@@ -39,7 +39,7 @@ mixin Helpers {
               Navigator.pop(context);
               paymentMethod.onBookClick(context,NewAccountGetxController.to.timeResponse?.reqAmt);
             },
-            child: Text("استمرار الي الدفع",
+            child: Text(AppLocalizations.of(context)!.continue_to_pay,
                 style: TextStyle(
                     fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
       ),
@@ -48,10 +48,16 @@ mixin Helpers {
     Widget continueButton3 = Center(
       child: ElevatedButton(
           onPressed: () {
-            Navigator.pop(context);
+            if(f1){
+              Navigator.pop(context);
+              Navigator.pop(context);
+            }else{
+              Navigator.pop(context);
+            }
+
             // Navigator.popAndPushNamed(context, ButtomNavigations.routeName);
           },
-          child: Text("عودة",
+          child: Text(AppLocalizations.of(context)!.back,
               style: TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
     );

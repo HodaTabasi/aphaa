@@ -516,7 +516,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
     print(response.success);
     if (response.success) {
       Navigator.pop(context);
-      showAlertDialog(context,flag: true,message: response.message);
+      showAlertDialog(context,flag: true,message: response.message,message2: AppLocalizations.of(context)!.hint_resirvation);
       NewAccountGetxController.to.clearData();
       NewAccountGetxController.to.GroupValue = -1;
       this.dateText.text = "";

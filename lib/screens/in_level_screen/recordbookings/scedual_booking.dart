@@ -209,8 +209,8 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                     Navigator.pop(context);
                     if(response?.permsStatus =="true"){
                       PaymentMethod paymentMethod = PaymentMethod(context);
-                      paymentMethod.doPaymentConfiguration(response?.reqAmt);
-                      paymentMethod.onBookClick(context,response?.reqAmt);
+                      paymentMethod.doPaymentConfiguration(response?.reqAmt,permsNo: response?.permsNo);
+                      paymentMethod.onBookClick(context,response?.reqAmt,permsNo: response?.permsNo);
                     }else {
                       showSnackBar(context, message: response?.paymentNotice??"", error: true);
                     }

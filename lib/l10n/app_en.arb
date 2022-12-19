@@ -68,6 +68,7 @@
         "insurance_number":"Insurance number",
         "cash":"Cash",
         "to_open_medical_file_please_enter_data":"To open a medical file, please enter all data:",
+           "hint_resirvation":"If the reservation is not confirmed within two hours, the reservation will be cancelled",
         "otp":"Verification code",
         "insurance_end_date":"Insurance end date",
         "dob_end_date":"Date of birth",
@@ -75,6 +76,9 @@
         "medical_insurance_validity_check":"Medical insurance validity check",
         "employer":"Employer",
         "residency_number":"Residency number",
+        "back":"Back",
+        "thanks":"Successfully sent!",
+        "thanks1":"Thank you, your request has been received and we will respond as soon as possible",
 
     "net_cash":"net cash",
     "net_term":"net term",

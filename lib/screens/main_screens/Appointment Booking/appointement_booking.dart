@@ -504,7 +504,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
       email.text = "";
       phone.text = "";
       NewAccountGetxController.to.clearData();
-      showAlertDialog1(context,message: "تم حجز الموعد بنجاح",message2: "في حال تم لم يتم تاكيد الحجز خلال ساعتين سيتم الغاء الحجز",flag: true);
+      showAlertDialog1(context,message: "تم حجز الموعد بنجاح",message2: AppLocalizations.of(context)!.hint_resirvation,flag: true);
     }else {
       Navigator.pop(context);
       showSnackBar(

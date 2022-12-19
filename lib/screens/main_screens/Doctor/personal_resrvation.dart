@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:aphaa_app/general/doctor_dropdown_item.dart';
 import 'package:aphaa_app/helper/helper.dart';
 import 'package:aphaa_app/model/time_avilable_response/AvailableTime.dart';
 import 'package:aphaa_app/model/api_response.dart';
@@ -11,29 +8,17 @@ import 'package:flutter_calendar_carousel/classes/multiple_marked_dates.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_paytabs_bridge/BaseBillingShippingInfo.dart';
-import 'package:flutter_paytabs_bridge/IOSThemeConfiguration.dart';
-import 'package:flutter_paytabs_bridge/PaymentSdkApms.dart';
 import 'package:flutter_paytabs_bridge/PaymentSdkConfigurationDetails.dart';
-import 'package:flutter_paytabs_bridge/PaymentSdkLocale.dart';
-import 'package:flutter_paytabs_bridge/PaymentSdkTransactionClass.dart';
-import 'package:flutter_paytabs_bridge/PaymentSdkTransactionType.dart';
-import 'package:flutter_paytabs_bridge/flutter_paytabs_bridge.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/btn_layout.dart';
-import '../../../general/dropdown_item.dart';
 import '../../../general/edittext_item.dart';
 import '../../../get/new_account_getx_controller.dart';
-import '../../../helper/constant.dart';
-import '../../../model/Clinic.dart';
-import '../../../model/billResponse.dart';
 import '../../../model/doctor.dart';
 import '../../../preferences/shared_pref_controller.dart';
 import '../../drawer_screens/Booking/edittext_item_calender.dart';
-import '../../drawer_screens/done/done_screen.dart';
 import '../../main_screens/Appointment Booking/time_appoiment_item.dart';
 
 import 'package:aphaa_app/helper/helpers.dart' as myHelper;
@@ -496,16 +481,15 @@ class _MyPersonalAppointmentBookingState
         resDate: dateText,
         consultSNo: avilableTime.consultSNo,
         resRemarks: "lap-lap");
-    print(response.success);
+       Navigator.pop(context);
     if (response.success) {
-      Navigator.pop(context);
       NewAccountGetxController.to.clearDataBeforeSend();
       NewAccountGetxController.to.GroupValue = -1;
       this.dateText.text = "";
-      showAlertDialog(context,flag: true,message: response.message);
+      showAlertDialog(context,flag: true,message: response.message,message2: AppLocalizations.of(context)!.hint_resirvation,f1:true);
+      // Navigator.pop(context);
       // showAlertDialog(context);
     } else {
-      Navigator.pop(context);
       showSnackBar(context, message: response.message, error: true);
     }
   }

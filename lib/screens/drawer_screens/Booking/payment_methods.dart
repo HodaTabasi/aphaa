@@ -18,15 +18,15 @@ import '../../../model/billResponse.dart';
 import '../../../preferences/shared_pref_controller.dart';
 import '../done/done_screen.dart';
 
-class PaymentMethod with Helpers1{
+class PaymentMethod with Helpers1 {
   var context;
   late PaymentSdkConfigurationDetails configuration;
-  PaymentMethod(this.context){
-    configuration =
-    PaymentSdkConfigurationDetails();
+
+  PaymentMethod(this.context) {
+    configuration = PaymentSdkConfigurationDetails();
   }
 
-  void onBookClick(context,price) {
+  void onBookClick(context, price, {permsNo}) {
     //TODO : validate form
     // if (cardNameController.text.isEmpty) {
     //   //TODO : show error message for card name
@@ -47,10 +47,10 @@ class PaymentMethod with Helpers1{
 
     //TODO : [if pass] Start payment by calling startCardPayment method and handle the transaction details
 
-    startPaymentWithCard(context,price);
+    startPaymentWithCard(context, price, permsNo);
   }
 
-  void doPaymentConfiguration(price) {
+  void doPaymentConfiguration(price, {permsNo}) {
     ///todo this data required to show payment page
     ///todo: here you need to add user data if exist at lest [*** user name and email]
     bool? isLogin = SharedPrefController()
@@ -61,10 +61,10 @@ class PaymentMethod with Helpers1{
     var firstName =
         "${SharedPrefController().getValueFor<String>(key: PrefKeysPatient.firstName.name)}  ${SharedPrefController().getValueFor<String>(key: PrefKeysPatient.lastName.name)}";
     var email = SharedPrefController()
-        .getValueFor<String>(key: PrefKeysPatient.email.name) ??
+            .getValueFor<String>(key: PrefKeysPatient.email.name) ??
         "t@t.com";
     var mobile = SharedPrefController()
-        .getValueFor<String>(key: PrefKeysPatient.mobile.name) ??
+            .getValueFor<String>(key: PrefKeysPatient.mobile.name) ??
         "+970111111111";
     if (email.isEmpty) {
       email = "t@t.com";
@@ -83,7 +83,8 @@ class PaymentMethod with Helpers1{
         profileId: paymentProfileId,
         serverKey: paymentServerKey,
         clientKey: paymentClientKey,
-        cartId: /*paymentCartIdLive*/ "${DateTime.now().microsecondsSinceEpoch}",
+        cartId: paymentCartIdTest,
+        // cartId: /*paymentCartIdLive*/ "${DateTime.now().microsecondsSinceEpoch}",
         showBillingInfo: false,
         transactionType: PaymentSdkTransactionType.SALE,
         transactionClass: PaymentSdkTransactionClass.ECOM,
@@ -114,44 +115,73 @@ class PaymentMethod with Helpers1{
     }
   }
 
-  void startPaymentWithCard(context,price) {
+  void startPaymentWithCard(context, price, permsNo) {
     //test card data todo 4111111111111111  || name = Visa || cvv = 123
     FlutterPaytabsBridge.startCardPayment(configuration, (event) {
-        print(event);
-        if (event["status"] == "success") {
-          // Handle transaction details here.
-          var transactionDetails = event["data"];
-          print(transactionDetails);
+      // print(event);
+      if (event["status"] == "success") {
+        // Handle transaction details here.
+        var transactionDetails = event["data"];
+        print(transactionDetails.toString());
 
-          if (transactionDetails["isSuccess"]) {
-            print("successful transaction");
-            //todo : here show  successful transaction message
-            doIt();
+        if (transactionDetails["isSuccess"]) {
+          print("successful transaction");
+          // String permNoq = permsNo;
+          // String transactionTime = transactionDetails['paymentResult']["transactionTime"].split['T'].first;
+          // String transactionReference = transactionDetails["transactionReference"];
+          // String responseStatus = transactionDetails['paymentResult']["responseStatus"];
+          // String responseCode = transactionDetails['paymentResult']["responseCode"];
+          // String paymentDescription = transactionDetails['paymentInfo']["paymentDescription"];
+          // String phone = transactionDetails['billingDetails']["phone"];
+          // String name = transactionDetails['billingDetails']["name"];
+          // String cartAmount = transactionDetails["cartAmount"];
 
-          } else {
-            //todo : here show  invalid card message
-            showSnackBar(context, message: "failed transaction", error: true);
-            print("failed transaction");
-          }
-        } else if (event["status"] == "error") {
-          print(event);
-          print("dsfsd ${price}");
-          showSnackBar(context, message:event["message"], error: true);
-          // Handle error here.
-        } else if (event["status"] == "event") {
-          // Handle events here.
+          var map = {
+            'permsNo': '$permsNo',
+            'pymtDate': transactionDetails['paymentResult']["transactionTime"]
+                .toString()
+                .split("T")
+                .first,
+            'pymtRef': transactionDetails["transactionReference"],
+            'pymtStatus': transactionDetails['paymentResult']["responseStatus"],
+            'respCode': transactionDetails['paymentResult']["responseCode"],
+            'cartId': transactionDetails['paymentInfo']["paymentDescription"],
+            'custName': transactionDetails['billingDetails']["name"],
+            'custPhone': transactionDetails['billingDetails']["name"],
+            'paidAmt': transactionDetails["cartAmount"],
+            'lang': SharedPrefController()
+                    .getValueFor<String>(key: PrefKeys.lang.name) ??
+                "ar",
+          };
+          print(map);
+          doIt(map);
+        } else {
+          //todo : here show  invalid card message
+          showSnackBar(context, message: "failed transaction", error: true);
+          print("failed transaction");
         }
-
+      } else if (event["status"] == "error") {
+        print(event);
+        print("dsfsd ${price}");
+        showSnackBar(context, message: event["message"], error: true);
+        // Handle error here.
+      } else if (event["status"] == "event") {
+        // Handle events here.
+      }
     });
   }
 
-  Future<void> doIt() async {
-    billResponse? response = await HospitalApiController().setConsInv();
-    if(response != null){
-      Navigator.pushNamed(context, DoneScreens.routeName);
+  Future<void> doIt(map) async {
+    showLoaderDialog(context);
+    billResponse? response = await HospitalApiController().setConsInv(map);
+    Navigator.pop(context);
+    if (response != null) {
+      if (response.invNo!.isNotEmpty)
+        Navigator.pushNamed(context, DoneScreens.routeName);
+      else
+        showSnackBar(context, message: response.paymentNotice!, error: true);
     } else {
-      showSnackBar(context, message: " حصل خطا ",error: true);
+      showSnackBar(context, message: "حصل خطا", error: true);
     }
   }
-
 }
