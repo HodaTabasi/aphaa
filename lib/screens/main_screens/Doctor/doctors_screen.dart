@@ -106,7 +106,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                             borderRadius: BorderRadius.circular(8.r),
                           ),
                           child:Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 8.0.r),
+                            padding:  EdgeInsets.symmetric(horizontal: 0.0.r),
                             child: TextFormField(
                               onTap: (){
                                 searchController.selection = TextSelection.fromPosition(TextPosition(offset: searchController.text.length));
@@ -126,6 +126,13 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                     Icons.search_sharp,
                                     color: Color(0xff058638),
                                   ),
+                                // suffixIcon: IconButton(
+                                //   onPressed: (){
+                                //     controller.firstLoad();
+                                //   },
+                                //   icon:Icon(Icons.clear,
+                                //   color: Color(0xffe50707)),
+                                // ),
                             ),
                               onChanged: (value) {
                                 controller.filtterByName(value);

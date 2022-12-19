@@ -1,4 +1,5 @@
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
+import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,11 +25,16 @@ class FiltterDropDownItem extends StatefulWidget {
 
 class _DropDownItenState extends State<FiltterDropDownItem> {
   String? global;
+  List<String> data =[];
+  String s = '';
 
   List<String> getString() {
-    return widget.myData.map((e) {
+    s = SharedPrefController().getValueFor(key: PrefKeys.lang.name)== 'ar'?"عرض كل الاطباء":"Show All Doctors";
+    data.add(s);
+    data.addAll(widget.myData.map((e) {
       return e.clinicName!;
-    }).toList();
+    }));
+    return data;
   }
 
   @override
@@ -96,14 +102,19 @@ class _DropDownItenState extends State<FiltterDropDownItem> {
               ),
 
               onChanged: (val) {
-                setState(() {
-                  print(val);
-                  int index = widget.myData
-                      .indexWhere((element) => element.clinicName == val);
+                // setState(() {
+                  print(s);
+                  if(val == s){
+                    DoctorGetxController.to.firstLoad();
+                  }else {
+                    int index = widget.myData
+                        .indexWhere((element) => element.clinicName == val);
 
-                  DoctorGetxController.to
-                      .searchLoad(clinicCode: widget.myData[index].clinicCode);
-                });
+                    DoctorGetxController.to
+                        .searchLoad(clinicCode: widget.myData[index].clinicCode);
+                  }
+
+                // });
               },
               // selectedItem: "Brazil",
             )),
