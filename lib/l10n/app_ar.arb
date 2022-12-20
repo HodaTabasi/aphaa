@@ -144,7 +144,7 @@
 
      "about_me":"نبذة عني : ",
 
-     "payment_date":"تاريخ الدفع : ",
+     "payment_date":"تاريخ الفاتورة : ",
      "payment_time":" رقم الفاتورة : ",
      "the_doctor":" الطبيب : ",
      "the_doctor_s":" الطبيب  ",
@@ -218,7 +218,11 @@
      "service_price":"سعر الخدمة",
      "validity_period":"فترة الصلاحية",
      "req_number":"رقم الطلب",
-     "skill_pec":"العلامة المئوية"
+     "req_time":"وقت  الطلب",
+     "req_date":"تاريخ  الطلب",
+     "skill_pec":"العلامة المئوية",
+     "expier":" ينتهي العرض في",
+     "my_medical_consultation":"استشاراتي الطبية"
 
 
 

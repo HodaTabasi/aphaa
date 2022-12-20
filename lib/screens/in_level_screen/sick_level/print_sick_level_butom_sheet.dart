@@ -50,7 +50,7 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> w
                     endIndent: 100.w,
                   ),
                   Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 8.0.r,vertical: 36.r),
+                    padding:  EdgeInsets.fromLTRB(8.0.r,20.r,8.r,10.r),
                     child: Column(
                       children: [
                         Row(
@@ -91,7 +91,7 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> w
                                         ), ),
                                     ),
                                   ),
-                                  SizedBox(height: 20.h,),
+                                  SizedBox(height: 10.h,),
                                   Text(
                                     AppLocalizations.of(context)!.the_clinic,
                                     style:  TextStyle(
@@ -164,7 +164,7 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> w
                                         ), ),
                                     ),
                                   ),
-                                  SizedBox(height: 20.h,),
+                                  SizedBox(height: 10.h,),
                                   Text(
                                     AppLocalizations.of(context)!.duration,
                                     style:  TextStyle(

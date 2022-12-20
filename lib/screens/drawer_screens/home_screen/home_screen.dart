@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/paybook.svg', AppLocalizations.of(context)!.pay_book, '', PaymentRecord.routeName),
       Service(
           'assets/images/consult1.svg',
-          AppLocalizations.of(context)!.consultation_request,
+          AppLocalizations.of(context)!.my_medical_consultation,
           'consult',
           SendConsultScreen.routeName),
     ];

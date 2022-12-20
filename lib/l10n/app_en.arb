@@ -224,9 +224,13 @@
                  "insurance_approval_number":"insurance approval number",
                  "service_type":"service type",
                  "service_price":"service price",
-                 "req_number":"request nubmer",
+                 "req_number":"Request Nubmer",
+                 "req_time":"Request Time",
+                      "req_date":"Request Date",
                  "validity_period":"validity period",
-                 "skill_pec":"Percentage"
+                 "skill_pec":"Percentage",
+                 "expier":"Offer end in ",
+                  "my_medical_consultation":"My Medical Consultation"
 
 
 

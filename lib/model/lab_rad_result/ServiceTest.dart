@@ -4,6 +4,7 @@ class ServiceTest {
   String? serviceDate;
   String? clinicCode;
   String? clinicName;
+  String? doctorName;
   String? fileName;
 
   ServiceTest(
@@ -12,6 +13,7 @@ class ServiceTest {
         this.serviceDate,
         this.clinicCode,
         this.clinicName,
+        this.doctorName,
         this.fileName});
 
   ServiceTest.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class ServiceTest {
     serviceDate = json['serviceDate'];
     clinicCode = json['clinicCode'];
     clinicName = json['clinicName'];
+    doctorName = json['doctorName'];
     fileName = json['fileName'];
   }
 
@@ -30,6 +33,7 @@ class ServiceTest {
     data['serviceDate'] = this.serviceDate;
     data['clinicCode'] = this.clinicCode;
     data['clinicName'] = this.clinicName;
+    data['doctorName'] = this.doctorName;
     data['fileName'] = this.fileName;
     return data;
   }

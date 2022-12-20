@@ -62,7 +62,7 @@ class SliderWidget extends StatelessWidget {
                       child: BtnLayout(AppLocalizations.of(context)!.book_now, () {
                         Navigator.pushNamed(context, OfferDetails.routeName,arguments:{"data":offers} );
                       })),
-                  Text('ينتهي العرض في 22.8.2022',
+                  Text(' ${AppLocalizations.of(context)!.expier} ${ offers?.expier}',
                       style:  TextStyle(
                         color: Colors.white,
                         fontSize: 14.sp,

@@ -197,7 +197,7 @@ class _OfferDetailsState extends State<OfferDetails> {
                   child: Padding(
                     padding: EdgeInsets.all(16.0.r),
                     child: Text(
-                      'ينتهي العرض في 22.8.2022',
+                      ' ${AppLocalizations.of(context)!.expier} ${ instalation?.expier}',
                       style:  TextStyle(
                         color: Color(0xff2D2D2D),
                         fontSize: 14.sp,

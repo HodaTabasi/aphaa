@@ -309,8 +309,8 @@ class HospitalApiController with ApiHelper {
   Future<SickLeavesResponse?> getSickLeaves(
       {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
-      // 'patientCode': '0/37416',
-      'patientCode': patientCode,
+      'patientCode': '0/37416',
+      // 'patientCode': '$patientCode',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',

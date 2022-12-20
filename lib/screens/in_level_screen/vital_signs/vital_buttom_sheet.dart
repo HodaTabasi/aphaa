@@ -24,8 +24,8 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
     'assets/images/prasher.svg',
     'assets/images/suger.svg',
     'assets/images/heartw.svg',
-    'assets/images/higth.svg',
     'assets/images/wihtj.svg',
+    'assets/images/higth.svg',
   ];
 
   @override
@@ -36,7 +36,7 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
           borderRadius: BorderRadius.circular(15.r),
           color: Colors.white,
         ),
-        padding: EdgeInsets.all(8.r),
+        // padding: EdgeInsets.all(8.r),
 
         child:  FutureBuilder<List<VitalSignDtils>>(
           future: HospitalApiController().getPtVSDtl(vitalSignId: widget.vitalSignId),
@@ -59,7 +59,7 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                   itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                     return  Padding(
-                      padding:  EdgeInsets.all(8.0.r),
+                      padding:  EdgeInsets.all(16.0.r),
                       child: Visibility(
                         visible: snapshot.data![index].signValue!.isNotEmpty,
                         child: Row(

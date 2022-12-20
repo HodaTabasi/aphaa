@@ -29,7 +29,7 @@ class _DropDownItenState extends State<FiltterDropDownItem> {
   String s = '';
 
   List<String> getString() {
-    s = SharedPrefController().getValueFor(key: PrefKeys.lang.name)== 'ar'?"عرض كل الاطباء":"Show All Doctors";
+    s = SharedPrefController().getValueFor(key: PrefKeys.lang.name)== 'ar'?"عرض جميع الاطباء":"Show All Doctors";
     data.add(s);
     data.addAll(widget.myData.map((e) {
       return e.clinicName!;

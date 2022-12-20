@@ -106,6 +106,34 @@ class TestResultItem extends StatelessWidget with Helpers1 {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 10.r),
+                child: Text.rich(
+                  TextSpan(
+                    text: AppLocalizations.of(context)!.physician,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                        fontSize: 12.sp,
+                        fontFamily: 'Tajawal'),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '   ${serviceTest?.doctorName}   ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black45,
+                            fontSize: 12.sp,
+                            fontFamily: 'Tajawal'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               InkWell(
