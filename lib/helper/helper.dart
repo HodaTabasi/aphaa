@@ -1,12 +1,16 @@
+import 'package:aphaa_app/helper/helpers.dart';
 import 'package:aphaa_app/screens/drawer_screens/Booking/payment_methods.dart';
 import 'package:aphaa_app/screens/drawer_screens/buttom_navication.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../api/controllers/hospital_controller.dart';
 import '../get/new_account_getx_controller.dart';
+import '../model/PaymentPermssion.dart';
+import '../preferences/shared_pref_controller.dart';
 
-mixin Helpers {
+mixin Helpers implements Helpers1{
   showAlertDialog(BuildContext context, {f1=false,flag = false,message="",message2=""}) {
     Widget continueButton = Center(
       child: TextButton(
@@ -33,12 +37,20 @@ mixin Helpers {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
-            onPressed: () {
-              PaymentMethod paymentMethod = PaymentMethod(context);
-              paymentMethod.doPaymentConfiguration(NewAccountGetxController.to.timeResponse?.reqAmt);
-              Navigator.pop(context);
-              paymentMethod.onBookClick(context,NewAccountGetxController.to.timeResponse?.reqAmt);
-            },
+            onPressed: () async {
+         showLoaderDialog(context);
+    /*resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode*/
+       PaymentPermssion? response = await HospitalApiController().getPymtPerms(doctorCode: NewAccountGetxController.to.doctorCode,resDate: NewAccountGetxController.to.resDate,resNo: NewAccountGetxController.to.resNo,patientCode: SharedPrefController().getValueFor(key: "p_code"));
+      Navigator.pop(context);
+    if(response?.permsStatus =="true"){
+      PaymentMethod paymentMethod = PaymentMethod(context);
+      paymentMethod.doPaymentConfiguration(response?.reqAmt,permsNo: response?.permsNo);
+      // paymentMethod.doPaymentConfiguration(NewAccountGetxController.to.timeResponse?.reqAmt,permsNo: response?.permsNo);
+      Navigator.pop(context);
+      paymentMethod.onBookClick(context,response?.reqAmt,permsNo: response?.permsNo);
+      // paymentMethod.onBookClick(context,NewAccountGetxController.to.timeResponse?.reqAmt,permsNo: response?.permsNo);
+    }
+               },
             child: Text(AppLocalizations.of(context)!.continue_to_pay,
                 style: TextStyle(
                     fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),

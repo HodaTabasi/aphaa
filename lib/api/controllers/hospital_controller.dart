@@ -11,6 +11,7 @@ import 'package:aphaa_app/model/allDocResponse.dart';
 import 'package:aphaa_app/model/prescriptionListResponse/PrescriptionListItems.dart';
 import 'package:aphaa_app/model/doctor.dart';
 import 'package:aphaa_app/model/familly/FamillyResponse.dart';
+import '../../model/AddAppoimentResult.dart';
 import '../../model/Appointment/AppointmentResponse.dart';
 import '../../model/ApprovalsResponse/ApprovalItem.dart';
 import '../../model/ApprovalsResponse/ApprovalsResponse.dart';
@@ -866,7 +867,7 @@ class HospitalApiController with ApiHelper {
     return null;
   }
 
-  Future<ApiResponse> addAppoitment(
+  Future<AddAppoimentResult?> addAppoitment(
       {patientCode,
       patientName,
       patientId,
@@ -911,13 +912,15 @@ class HospitalApiController with ApiHelper {
     print(response.body);
     if (response.statusCode == 200 || response.statusCode == 400) {
       var jsonResponse = jsonDecode(response.body);
+      AddAppoimentResult responses = AddAppoimentResult.fromJson(jsonResponse);
 
-      return ApiResponse(
-        message: jsonResponse['resStatusDesc'] ?? 'add Success',
-        success: jsonResponse['resStatusCode'] == "1" ? true : false,
-      );
+      return responses;
+      // return ApiResponse(
+      //   message: jsonResponse['resStatusDesc'] ?? 'add Success',
+      //   success: jsonResponse['resStatusCode'] == "1" ? true : false,
+      // );
     }
-    return failedResponse;
+    return null;
   }
 
   Future<billResponse?> setConsInv(map) async {

@@ -505,7 +505,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
       phone.text = "";
       NewAccountGetxController.to.clearData();
       showAlertDialog1(context,message: "تم حجز الموعد بنجاح",message2: AppLocalizations.of(context)!.hint_resirvation,flag: true);
-    }else {
+    } else {
       Navigator.pop(context);
       showSnackBar(
         context,

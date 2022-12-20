@@ -17,6 +17,7 @@ import '../../../general/btn_layout.dart';
 import '../../../general/dropdown_item.dart';
 import '../../../general/edittext_item.dart';
 import '../../../get/new_account_getx_controller.dart';
+import '../../../model/AddAppoimentResult.dart';
 import '../../../model/Clinic.dart';
 import '../../../model/doctor.dart';
 import '../../../preferences/shared_pref_controller.dart';
@@ -498,8 +499,9 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
 
   _performRigestration(String clinicCode, String doctorCode, String dateText,
       AvailableTime avilableTime) async {
+    /*resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode*/
     showLoaderDialog(context);
-    ApiResponse response = await HospitalApiController().addAppoitment(
+    AddAppoimentResult? response = await HospitalApiController().addAppoitment(
         patientCode: SharedPrefController().getValueFor(key: "p_code"),
         clinicCode: clinicCode,
         doctorCode: doctorCode,
@@ -513,18 +515,22 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
         resDate: dateText,
         consultSNo: avilableTime.consultSNo,
         resRemarks: "lap-lap");
-    print(response.success);
-    if (response.success) {
       Navigator.pop(context);
-      showAlertDialog(context,flag: true,message: response.message,message2: AppLocalizations.of(context)!.hint_resirvation);
+    if (response?.resStatusCode == "1") {
+      NewAccountGetxController.to.resNo = response?.resNo;
+      NewAccountGetxController.to.resDate = response?.resDate;
+
       NewAccountGetxController.to.clearData();
       NewAccountGetxController.to.GroupValue = -1;
       this.dateText.text = "";
+
+      NewAccountGetxController.to.doctorCode = doctorCode;
+      showAlertDialog(context,flag: true,message: AppLocalizations.of(context)!.thanks,message2: response?.resStatusDesc);
+
       // onBookClick(context);
       // showAlertDialog(context);
     } else {
-      Navigator.pop(context);
-      showSnackBar(context, message: response.message, error: true);
+      showSnackBar(context, message: response!.resStatusDesc!, error: true);
     }
   }
 

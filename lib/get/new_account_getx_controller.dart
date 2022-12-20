@@ -46,6 +46,10 @@ class NewAccountGetxController extends GetxController {
 
   String? identityNumber;
 
+  String? resNo;
+  String? resDate;
+
+
   ///////////////
 
   final num1Controller = TextEditingController();

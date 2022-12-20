@@ -204,14 +204,15 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
               children: [
                 InkWell(
                   onTap: () async {
-                    showLoaderDialog(context); /*resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode*/
+                    showLoaderDialog(context);
+                    /*resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode*/
                     PaymentPermssion? response = await HospitalApiController().getPymtPerms(doctorCode: appointments.doctor?.doctorCode,resDate: appointments.resDate,resNo: appointments.resNo,patientCode: SharedPrefController().getValueFor(key: "p_code"));
                     Navigator.pop(context);
                     if(response?.permsStatus =="true"){
                       PaymentMethod paymentMethod = PaymentMethod(context);
                       paymentMethod.doPaymentConfiguration(response?.reqAmt,permsNo: response?.permsNo);
                       paymentMethod.onBookClick(context,response?.reqAmt,permsNo: response?.permsNo);
-                    }else {
+                    } else {
                       showSnackBar(context, message: response?.paymentNotice??"", error: true);
                     }
                   },

@@ -477,30 +477,30 @@ class _MyAppointmentBookingOldState extends State<MyAppointmentBookingOld>
   _performRigestration(String clinicCode, String doctorCode, String dateText,
       AvailableTime avilableTime) async {
     showLoaderDialog(context);
-    ApiResponse response = await HospitalApiController().addAppoitment(
-        patientCode: SharedPrefController().getValueFor(key: "p_code"),
-        clinicCode: clinicCode,
-        doctorCode: doctorCode,
-        patientName: SharedPrefController()
-            .getValueFor(key: PrefKeysPatient.firstName.name),
-        consultTime24: avilableTime.consultTime24,
-        patientId: SharedPrefController()
-            .getValueFor(key: PrefKeysPatient.identityNumber.name),
-        patientMOB: SharedPrefController()
-            .getValueFor(key: PrefKeysPatient.mobile.name),
-        resDate: dateText,
-        consultSNo: avilableTime.consultSNo,
-        resRemarks: "lap-lap");
-    print(response.success);
-    if (response.success) {
-      Navigator.pop(context);
-      showAlertDialog(context,flag: true,message: response.message);
-      // onBookClick(context);
-      // showAlertDialog(context);
-    } else {
-      Navigator.pop(context);
-      showSnackBar(context, message: response.message, error: true);
-    }
+    // ApiResponse response = await HospitalApiController().addAppoitment(
+    //     patientCode: SharedPrefController().getValueFor(key: "p_code"),
+    //     clinicCode: clinicCode,
+    //     doctorCode: doctorCode,
+    //     patientName: SharedPrefController()
+    //         .getValueFor(key: PrefKeysPatient.firstName.name),
+    //     consultTime24: avilableTime.consultTime24,
+    //     patientId: SharedPrefController()
+    //         .getValueFor(key: PrefKeysPatient.identityNumber.name),
+    //     patientMOB: SharedPrefController()
+    //         .getValueFor(key: PrefKeysPatient.mobile.name),
+    //     resDate: dateText,
+    //     consultSNo: avilableTime.consultSNo,
+    //     resRemarks: "lap-lap");
+    // print(response.success);
+    // if (response.success) {
+    //   Navigator.pop(context);
+    //   showAlertDialog(context,flag: true,message: response.message);
+    //   // onBookClick(context);
+    //   // showAlertDialog(context);
+    // } else {
+    //   Navigator.pop(context);
+    //   showSnackBar(context, message: response.message, error: true);
+    // }
   }
 
 
