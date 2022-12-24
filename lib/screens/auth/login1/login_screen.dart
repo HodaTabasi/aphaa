@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../api/controllers/auth_api_controller.dart';
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../api/sms_api.dart';
 import '../../../firebase/fb_auth_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
@@ -221,6 +222,8 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
       NewAccountGetxController.to.eligibility = eg;
       if (eg.isEligible == "true") {
         NewAccountGetxController.to.identityNumber = _emailTextController.text;
+        // SMSAPI().sendSMS(Recipient: "966536344583",Body: "1234");
+
         FireBaseAuthController().afterPhoneVerification(context,1);
         // await FireBaseAuthController().signOut();
         // await FireBaseAuthController().verifyPhoneNumber1(

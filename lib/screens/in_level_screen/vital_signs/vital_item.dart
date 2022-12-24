@@ -77,89 +77,132 @@ class VitalItem extends StatelessWidget {
                 // ),
               ],
             ),
-            FittedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14.r,vertical: 8.r),
-                    child: Text.rich(
-                      TextSpan(
-                        text: AppLocalizations.of(context)!.the_clinic,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            color: Colors.black,
-                            fontSize: 11.sp,
-                            fontFamily: 'Tajawal'),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '  ${vitalSign.clinic!.clinicName}  ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black45,
-                                fontSize: 12.sp,
-                                fontFamily: 'Tajawal'),
-                          ),
-                        ],
-                      ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14.r,vertical: 8.r),
+                  child: Text.rich(
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.the_clinic,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: Colors.black,
+                          fontSize: 11.sp,
+                          fontFamily: 'Tajawal'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '  ${vitalSign.clinic!.clinicName}  ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black45,
+                              fontSize: 12.sp,
+                              fontFamily: 'Tajawal'),
+                        ),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                    child: Text.rich(
-                      TextSpan(
-                        text: AppLocalizations.of(context)!.the_doctor,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 11.sp,
-                            fontFamily: 'Tajawal'),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: ' ${vitalSign.doctor!.doctorName}  ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black45,
-                                fontSize: 12.sp,
-                                fontFamily: 'Tajawal'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            FittedBox(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                  child: Text.rich(
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.physician,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 11.sp,
+                          fontFamily: 'Tajawal'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: ' ${vitalSign.doctor!.doctorName}  ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black45,
+                              fontSize: 12.sp,
+                              fontFamily: 'Tajawal'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
               child: Row(
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    width: 80.w,
+                    height: 40.r,
+                    child: Text(
+                      AppLocalizations.of(context)!.notes,
+                      style: TextStyle(
+                        color: Color(0xff2D2D2D),
+                        fontSize: 12.sp,
+                        fontFamily: 'Tajawal',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
-                    child: Text.rich(
-                      TextSpan(
-                        text: AppLocalizations.of(context)!.notes,
+                    padding: EdgeInsets.symmetric(vertical: 8.0.r),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width-150.w,
+                      height: 40.r,
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        '${vitalSign.notes}',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 10.sp,
-                            fontFamily: 'Tajawal'),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '  ${vitalSign.notes}  ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black45,
-                                fontSize: 12.sp,
-                                fontFamily: 'Tajawal'),
-                          ),
-                        ],
+                          color: Color(0xff2D2D2D),
+                          fontSize: 12.sp,
+                          fontFamily: 'Tajawal',
+                          fontWeight: FontWeight.normal,
+                        ),
+                        maxLines: 3,
                       ),
                     ),
                   ),
                 ],
               ),
             ),
+            // FittedBox(
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [
+            //       Padding(
+            //         padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+            //         child: Text.rich(
+            //           TextSpan(
+            //             text: AppLocalizations.of(context)!.notes,
+            //             style: TextStyle(
+            //                 fontWeight: FontWeight.bold,
+            //                 color: Colors.black,
+            //                 fontSize: 10.sp,
+            //                 fontFamily: 'Tajawal'),
+            //             children: <TextSpan>[
+            //               TextSpan(
+            //                 text: '  ${vitalSign.notes}  ',
+            //                 style: TextStyle(
+            //                     fontWeight: FontWeight.w500,
+            //                     color: Colors.black45,
+            //                     fontSize: 12.sp,
+            //                     fontFamily: 'Tajawal'),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Row(
               children: [
                 SizedBox(
