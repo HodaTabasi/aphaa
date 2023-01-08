@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   } else {
                     return Center(
                       child: Text(
-                        'NO DATA',
+                        AppLocalizations.of(context)!.no_data,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
