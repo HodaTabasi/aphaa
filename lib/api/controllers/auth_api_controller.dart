@@ -85,6 +85,49 @@ class AuthApiController with ApiHelper {
     return failedResponse;
   }
 
+  Future<ApiResponse> sendSMSCode({required String mobile, required String id}) async {
+    Uri uri = Uri.parse(ApiSettings.sendSMS);
+    var response = await http.post(uri, body: {
+      'mobile': mobile,
+      'identity_number': id,
+    });
+    print(response);
+
+    if (response.statusCode == 200 || response.statusCode == 404) {
+      var jsonResponse = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print(jsonResponse);
+         }
+      return ApiResponse(
+        message: jsonResponse['message'],
+        success: jsonResponse['status'],
+      );
+    }
+    return failedResponse;
+  }
+
+  Future<ApiResponse> checkSMSCode({required String mobile, required String id,required String code}) async {
+    Uri uri = Uri.parse(ApiSettings.cheakSMS);
+    var response = await http.post(uri, body: {
+      'mobile': mobile,
+      'identity_number': id,
+      'otp': code,
+    });
+    print(response);
+
+    if (response.statusCode == 200 || response.statusCode == 404) {
+      var jsonResponse = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        var jsonObject = jsonResponse['items'];
+      }
+      return ApiResponse(
+        message: jsonResponse['message'],
+        success: jsonResponse['status'],
+      );
+    }
+    return failedResponse;
+  }
+
   Future<ApiResponse> logout() async {
     Uri uri = Uri.parse(ApiSettings.logout);
     var response = await http.get(uri, headers: headers);

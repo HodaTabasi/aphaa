@@ -20,6 +20,7 @@ import '../../model/Clinic.dart';
 import '../../model/IDTypes.dart';
 import '../../model/InsuranceCompany.dart';
 import '../../model/Nationalities.dart';
+import '../../model/PaymentDitails.dart';
 import '../../model/PaymentPermssion.dart';
 import '../../model/billResponse.dart';
 import '../../model/lab_rad_result/LabReportsResponse.dart';
@@ -596,9 +597,9 @@ class HospitalApiController with ApiHelper {
     final uri = Uri.http(ApiSettings.HospitalBase,
         '${ApiSettings.HospitalBase4}ptPymt', queryParameters);
     final response = await http.get(uri);
-    print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
+      print(response.body);
       return PaymentRecordResponse.fromJson(jsonResponse);
       // var jsonResponse = jsonDecode(response.body);
       // var jsonArray = jsonResponse['invoices'] as List;
@@ -609,6 +610,31 @@ class HospitalApiController with ApiHelper {
     }
     return null;
   }
+
+  Future<PaymentDitails?> getPatientpaymentDitails(
+      {refNo}) async {
+    final queryParameters = {
+      // 'patientCode': '0/595907',
+      'refNo': '$refNo',
+      'lang':
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) ??
+          'ar',
+    };
+
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase4}ptPymtDtl', queryParameters);
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var jsonObject = jsonResponse;
+      PaymentDitails prescriptionListItems =
+      PaymentDitails.fromJson(jsonObject);
+      return prescriptionListItems;
+    }
+    return null;
+  }
+
 
   Future<Eligibility?> getPtElg({patientId}) async {
     final queryParameters = {

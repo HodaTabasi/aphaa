@@ -230,6 +230,8 @@
                  "validity_period":"validity period",
                  "skill_pec":"Percentage",
                  "expier":"Offer end in ",
+                 "service_name":"Service Name ",
+                 "service_desc":"Service Description ",
                   "my_medical_consultation":"My Medical Consultation"
 
 

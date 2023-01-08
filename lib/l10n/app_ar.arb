@@ -129,6 +129,8 @@
      "the_clinic":"العيادة:  ",
      "the_hospital_been_discharged":"هل تم الصرف من المشفى ؟ ",
      "medical_prescriptions":"الوصفات الطبية ",
+     "service_name":"اسم الخدمة ",
+     "service_desc":"وصف الخدمة ",
 
      "medicament_name":"اسم الدواء ",
      "times_of_use":"مرات الاستخدام ",

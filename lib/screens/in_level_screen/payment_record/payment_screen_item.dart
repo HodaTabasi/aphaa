@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:aphaa_app/helper/helpers.dart';
 import 'package:aphaa_app/model/patent_payment_record/PatientPaymentRecord.dart';
+import 'package:aphaa_app/screens/in_level_screen/payment_record/print_payment_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -259,13 +260,13 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
               ),
               InkWell(
                 onTap: (){
-                  // showModalBottomSheet(
-                  //   isScrollControlled: true,
-                  //
-                  //   backgroundColor: Colors.transparent,
-                  //   context: context,
-                  //   builder: (context) => PrintMedicalRecipesButtomSheet(prescriptionlist),
-                  // );
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) => PrintPaymentDitailsButtomSheet(patientPaymentRecord.refNo!),
+                  );
                 },
                 child: SvgPicture.asset(
                   'assets/images/show.svg',

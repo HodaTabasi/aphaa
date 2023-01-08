@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../api/controllers/auth_api_controller.dart';
+import '../../../api/sms_api.dart';
 import '../../../firebase/fb_auth_controller.dart';
+import '../../../model/SmsResponse.dart';
+import '../../../model/api_response.dart';
 import '../change_password/change_password.dart';
 
 
@@ -24,8 +28,11 @@ class _OTPScreenState extends State<OTPScreen> {
 
   onPress() async {
     myCode = NewAccountGetxController.to.makeCode();
-    // String  id = NewAccountGetxController.to.smsCode;
-    await FireBaseAuthController().handleManualOTP(myCode, context,NewAccountGetxController.to.flag);
+
+    ApiResponse response = await AuthApiController().checkSMSCode(mobile:NewAccountGetxController.to.eligibility?.patientMOB??'', id: NewAccountGetxController.to.identityNumber!,code: myCode);
+    if(response.success){
+      await FireBaseAuthController().afterPhoneVerification(context,1);
+    }
   }
   @override
   Widget build(BuildContext context) {

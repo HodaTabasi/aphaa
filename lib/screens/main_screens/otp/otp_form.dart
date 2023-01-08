@@ -54,12 +54,12 @@ class _OtpFormState extends State<OtpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: getProportionateScreenWidth(45.w),
+                width: getProportionateScreenWidth(45),
                 child: TextFormField(
-                  controller: NewAccountGetxController.to.num1Controller,
+                  controller:NewAccountGetxController.to.num1Controller,
                   autofocus: true,
                   obscureText: false,
-                  style: TextStyle(fontSize: 16.sp),
+                  style: TextStyle(fontSize: 16),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
@@ -69,12 +69,12 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(46.w),
+                width: getProportionateScreenWidth(46),
                 child: TextFormField(
                   controller: NewAccountGetxController.to.num2Controller,
                   focusNode: pin2FocusNode,
                   obscureText: false,
-                  style: TextStyle(fontSize: 16.sp),
+                  style: TextStyle(fontSize: 16),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
@@ -82,57 +82,57 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(45.w),
+                width: getProportionateScreenWidth(45),
                 child: TextFormField(
                   controller: NewAccountGetxController.to.num3Controller,
                   focusNode: pin3FocusNode,
                   obscureText: false,
-                  style: TextStyle(fontSize: 16.sp),
+                  style: TextStyle(fontSize: 16),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
                   onChanged: (value) => nextField(value, pin5FocusNode!),
                 ),
               ),
+              // SizedBox(
+              //   width: getProportionateScreenWidth(45),
+              //   child: TextFormField(
+              //     controller: Provider.of<OTPProvider>(context).num4Controller,
+              //     focusNode: pin5FocusNode,
+              //     obscureText: false,
+              //     style: TextStyle(fontSize: 16),
+              //     keyboardType: TextInputType.number,
+              //     textAlign: TextAlign.center,
+              //     decoration: otpInputDecoration,
+              //     onChanged: (value) => nextField(value, pin4FocusNode!),
+              //   ),
+              // ),
+              // SizedBox(
+              //   width: getProportionateScreenWidth(45),
+              //   child: TextFormField(
+              //     controller: Provider.of<OTPProvider>(context).num5Controller,
+              //     focusNode: pin6FocusNode,
+              //     obscureText: false,
+              //     style: TextStyle(fontSize: 16),
+              //     keyboardType: TextInputType.number,
+              //     textAlign: TextAlign.center,
+              //     decoration: otpInputDecoration,
+              //     onChanged: (value) => nextField(value, pin4FocusNode!),
+              //   ),
+              // ),
               SizedBox(
-                width: getProportionateScreenWidth(45.w),
-                child: TextFormField(
-                  controller: NewAccountGetxController.to.num4Controller,
-                  focusNode: pin5FocusNode,
-                  obscureText: false,
-                  style: TextStyle(fontSize: 16.sp),
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  decoration: otpInputDecoration,
-                  onChanged: (value) => nextField(value, pin6FocusNode!),
-                ),
-              ),
-              SizedBox(
-                width: getProportionateScreenWidth(45.w),
-                child: TextFormField(
-                  controller: NewAccountGetxController.to.num5Controller,
-                  focusNode: pin6FocusNode,
-                  obscureText: false,
-                  style: TextStyle(fontSize: 16.sp),
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  decoration: otpInputDecoration,
-                  onChanged: (value) => nextField(value, pin4FocusNode!),
-                ),
-              ),
-              SizedBox(
-                width: getProportionateScreenWidth(45.w),
+                width: getProportionateScreenWidth(45),
                 child: TextFormField(
                   controller: NewAccountGetxController.to.num6Controller,
-                  focusNode: pin4FocusNode,
+                  focusNode: pin5FocusNode,
                   obscureText: false,
-                  style: TextStyle(fontSize: 16.sp),
+                  style: TextStyle(fontSize: 16),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
                   onChanged: (value) {
                     if (value.length == 1) {
-                      pin4FocusNode!.unfocus();
+                      pin5FocusNode!.unfocus();
                       // Then you need to check is the code is correct or not
                     }
                   },
@@ -140,6 +140,96 @@ class _OtpFormState extends State<OtpForm> {
               ),
             ],
           ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     SizedBox(
+          //       width: getProportionateScreenWidth(45.w),
+          //       child: TextFormField(
+          //         controller: NewAccountGetxController.to.num1Controller,
+          //         autofocus: true,
+          //         obscureText: false,
+          //         style: TextStyle(fontSize: 16.sp),
+          //         keyboardType: TextInputType.number,
+          //         textAlign: TextAlign.center,
+          //         decoration: otpInputDecoration,
+          //         onChanged: (value) {
+          //           nextField(value, pin2FocusNode!);
+          //         },
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: getProportionateScreenWidth(46.w),
+          //       child: TextFormField(
+          //         controller: NewAccountGetxController.to.num2Controller,
+          //         focusNode: pin2FocusNode,
+          //         obscureText: false,
+          //         style: TextStyle(fontSize: 16.sp),
+          //         keyboardType: TextInputType.number,
+          //         textAlign: TextAlign.center,
+          //         decoration: otpInputDecoration,
+          //         onChanged: (value) => nextField(value, pin3FocusNode!),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: getProportionateScreenWidth(45.w),
+          //       child: TextFormField(
+          //         controller: NewAccountGetxController.to.num3Controller,
+          //         focusNode: pin3FocusNode,
+          //         obscureText: false,
+          //         style: TextStyle(fontSize: 16.sp),
+          //         keyboardType: TextInputType.number,
+          //         textAlign: TextAlign.center,
+          //         decoration: otpInputDecoration,
+          //         onChanged: (value) => nextField(value, pin5FocusNode!),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: getProportionateScreenWidth(45.w),
+          //       child: TextFormField(
+          //         controller: NewAccountGetxController.to.num4Controller,
+          //         focusNode: pin5FocusNode,
+          //         obscureText: false,
+          //         style: TextStyle(fontSize: 16.sp),
+          //         keyboardType: TextInputType.number,
+          //         textAlign: TextAlign.center,
+          //         decoration: otpInputDecoration,
+          //         onChanged: (value) => nextField(value, pin6FocusNode!),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: getProportionateScreenWidth(45.w),
+          //       child: TextFormField(
+          //         controller: NewAccountGetxController.to.num5Controller,
+          //         focusNode: pin6FocusNode,
+          //         obscureText: false,
+          //         style: TextStyle(fontSize: 16.sp),
+          //         keyboardType: TextInputType.number,
+          //         textAlign: TextAlign.center,
+          //         decoration: otpInputDecoration,
+          //         onChanged: (value) => nextField(value, pin4FocusNode!),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: getProportionateScreenWidth(45.w),
+          //       child: TextFormField(
+          //         controller: NewAccountGetxController.to.num6Controller,
+          //         focusNode: pin4FocusNode,
+          //         obscureText: false,
+          //         style: TextStyle(fontSize: 16.sp),
+          //         keyboardType: TextInputType.number,
+          //         textAlign: TextAlign.center,
+          //         decoration: otpInputDecoration,
+          //         onChanged: (value) {
+          //           if (value.length == 1) {
+          //             pin4FocusNode!.unfocus();
+          //             // Then you need to check is the code is correct or not
+          //           }
+          //         },
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

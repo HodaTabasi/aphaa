@@ -15,6 +15,8 @@ class ApiSettings {
   static const String getOnDoctor = '${_baseUrl}doctor/{id}';
   static const String resetPassword = '${_baseUrl}reset_password';
   static const String allContact = '${_baseUrl}contact';
+  static const String sendSMS = '${_baseUrl}otp/generate';
+  static const String cheakSMS = '${_baseUrl}otp/check';
 
   //////////////////////////////////////
 

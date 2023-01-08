@@ -1,6 +1,6 @@
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
-import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart';
+import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,18 +10,15 @@ import '../../../api/sms_api.dart';
 import '../../../firebase/fb_auth_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
-import '../../../general/password_item.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../get/login_getx_controller.dart';
 import '../../../model/Eligibility.dart';
-import '../../../model/api_response.dart';
-import '../../drawer_screens/buttom_navication.dart';
 import 'package:aphaa_app/helper/helpers.dart';
 
+import '../../../model/SmsResponse.dart';
+import '../../../model/api_response.dart';
 import '../../main_screens/open_medocal/opening_medical_file.dart';
-import '../create_account1/new_account_first.dart';
 
 class LoginScreen1 extends StatefulWidget {
 
@@ -32,8 +29,8 @@ class LoginScreen1 extends StatefulWidget {
 
 class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
   var value = false;
-  var _emailTextController = TextEditingController();
-  // var _emailTextController = TextEditingController(text: "2320128214");
+  // var _emailTextController = TextEditingController();
+  var _emailTextController = TextEditingController(text: "2320128214");
 
   @override
   Widget build(BuildContext context) {
@@ -222,15 +219,11 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
       NewAccountGetxController.to.eligibility = eg;
       if (eg.isEligible == "true") {
         NewAccountGetxController.to.identityNumber = _emailTextController.text;
-        // SMSAPI().sendSMS(Recipient: "966536344583",Body: "1234");
-
-        FireBaseAuthController().afterPhoneVerification(context,1);
-        // await FireBaseAuthController().signOut();
-        // await FireBaseAuthController().verifyPhoneNumber1(
-        //     context: context, userPhone:  597046766);
-
-        // FireBaseAuthController().verifyPhoneNumber1(
-        //     context: context, userPhone: eg.patientMOB?.substring(1));
+        ApiResponse response = await AuthApiController().sendSMSCode(mobile: eg.patientMOB!, id: _emailTextController.text);
+        if(response.success){
+          Navigator.pushNamed(context, OTPScreen.routeName);
+        }
+        // FireBaseAuthController().afterPhoneVerification(context,1);
 
       } else {
         QuickServiceGetxController.to.requestType = '1';

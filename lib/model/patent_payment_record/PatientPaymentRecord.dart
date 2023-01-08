@@ -8,6 +8,7 @@ class PatientPaymentRecord {
   String? creditAmt;
   String? serviceType;
   String? pdfStatus;
+  String? refNo;
   String? pdfName;
 
   PatientPaymentRecord(
@@ -20,6 +21,7 @@ class PatientPaymentRecord {
         this.creditAmt,
         this.serviceType,
         this.pdfStatus,
+        this.refNo,
         this.pdfName});
 
   PatientPaymentRecord.fromJson(Map<String, dynamic> json) {
@@ -33,6 +35,7 @@ class PatientPaymentRecord {
     serviceType = json['serviceType'];
     pdfStatus = json['pdfStatus'];
     pdfName = json['pdfName'];
+    refNo = json['refNo'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +50,7 @@ class PatientPaymentRecord {
     data['serviceType'] = this.serviceType;
     data['pdfStatus'] = this.pdfStatus;
     data['pdfName'] = this.pdfName;
+    data['refNo'] = this.refNo;
     return data;
   }
 }
