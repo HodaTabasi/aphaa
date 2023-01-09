@@ -151,8 +151,7 @@ class AuthApiController with ApiHelper {
   }
 
   //Forget Password - Reset Password
-  Future<ApiResponse> changePassword(
-      {required String password, required String rePassword}) async {
+  Future<ApiResponse> changePassword({required String password, required String rePassword}) async {
     var myData = {
       'current_password': SharedPrefController().password,
       'password': password,
@@ -169,8 +168,7 @@ class AuthApiController with ApiHelper {
     return failedResponse;
   }
 
-Future<ApiResponse> resetPassword(
-    {mobile,required String password, required String rePassword}) async {
+Future<ApiResponse> resetPassword({mobile,required String password, required String rePassword}) async {
   Uri uri = Uri.parse(ApiSettings.resetPassword);
   var response = await http.post(uri,body: {
     'mobile':mobile,

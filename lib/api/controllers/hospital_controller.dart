@@ -29,6 +29,7 @@ import '../../model/VitalSign/vitalSignsDils.dart';
 import '../../model/api_response.dart';
 import '../../model/patent_payment_record/PaymentRecordResponse.dart';
 import '../../model/prescriptionListResponse/PrescriptionListResponse.dart';
+import '../../model/sms/send_model.dart';
 import '../../model/time_avilable_response/TimeAvilableResponse.dart';
 import '../../preferences/shared_pref_controller.dart';
 import '../api_helper.dart';
@@ -987,5 +988,50 @@ class HospitalApiController with ApiHelper {
       // return CancelResult.fromJson(jsonResponse);
     }
     return failedResponse;
+  }
+
+  Future<SMSSndModel?> sendSMSCode({required String patientId}) async {
+    final queryParameters =  {
+      'patientId': patientId,
+    };
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase3}getOtp', queryParameters);
+    print(uri);
+    final response = await http.get(uri);
+
+    print(response);
+
+
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        return SMSSndModel.fromJson(jsonResponse);
+
+      }
+      return null;
+  }
+
+  Future<SMSSndModel?> checkSMSCode({required String patientId,required String otpCode}) async {
+    final queryParameters =  {
+      'patientId': patientId,
+      'otpCode': otpCode,
+      'lang':
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) ??
+          'ar',
+    };
+
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase3}validateOtp', queryParameters);
+    print(uri);
+    final response = await http.get(uri);
+
+    print(response);
+
+
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      return SMSSndModel.fromJson(jsonResponse);
+
+    }
+    return null;
   }
 }

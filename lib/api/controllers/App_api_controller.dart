@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:aphaa_app/model/Patient.dart';
 import 'package:aphaa_app/model/doctor.dart';

@@ -18,6 +18,7 @@ import 'package:aphaa_app/helper/helpers.dart';
 
 import '../../../model/SmsResponse.dart';
 import '../../../model/api_response.dart';
+import '../../../model/sms/send_model.dart';
 import '../../main_screens/open_medocal/opening_medical_file.dart';
 
 class LoginScreen1 extends StatefulWidget {
@@ -29,8 +30,8 @@ class LoginScreen1 extends StatefulWidget {
 
 class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
   var value = false;
-  // var _emailTextController = TextEditingController();
-  var _emailTextController = TextEditingController(text: "2320128214");
+  var _emailTextController = TextEditingController();
+  // var _emailTextController = TextEditingController(text: "2320128214");
 
   @override
   Widget build(BuildContext context) {
@@ -219,10 +220,16 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
       NewAccountGetxController.to.eligibility = eg;
       if (eg.isEligible == "true") {
         NewAccountGetxController.to.identityNumber = _emailTextController.text;
-        ApiResponse response = await AuthApiController().sendSMSCode(mobile: eg.patientMOB!, id: _emailTextController.text);
-        if(response.success){
+        SMSSndModel? response = await HospitalApiController().sendSMSCode(patientId: _emailTextController.text);
+        if(response?.otpFlag == "true"){
+          NewAccountGetxController.to.smsCode = response?.otpMsg??'';
           Navigator.pushNamed(context, OTPScreen.routeName);
+        }else {
+          showSnackBar(
+              context, message: response?.rejReason??'',
+              error: true);
         }
+
         // FireBaseAuthController().afterPhoneVerification(context,1);
 
       } else {

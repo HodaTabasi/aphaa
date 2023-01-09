@@ -6,10 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../api/controllers/auth_api_controller.dart';
+import '../../../api/controllers/hospital_controller.dart';
 import '../../../api/sms_api.dart';
 import '../../../firebase/fb_auth_controller.dart';
+import '../../../helper/helpers.dart';
 import '../../../model/SmsResponse.dart';
 import '../../../model/api_response.dart';
+import '../../../model/sms/send_model.dart';
 import '../change_password/change_password.dart';
 
 
@@ -22,16 +25,38 @@ class OTPScreen extends StatefulWidget {
   State<OTPScreen> createState() => _OTPScreenState();
 }
 
-class _OTPScreenState extends State<OTPScreen> {
+class _OTPScreenState extends State<OTPScreen>  with Helpers1{
   late String myCode;
   late String smsCode;
+  late List<String> numbers;
 
   onPress() async {
     myCode = NewAccountGetxController.to.makeCode();
-
-    ApiResponse response = await AuthApiController().checkSMSCode(mobile:NewAccountGetxController.to.eligibility?.patientMOB??'', id: NewAccountGetxController.to.identityNumber!,code: myCode);
-    if(response.success){
+    showLoaderDialog(context);
+    SMSSndModel? response = await HospitalApiController().checkSMSCode(otpCode: myCode,patientId: NewAccountGetxController.to.identityNumber!);
+    if(response?.otpFlag == 'true'){
       await FireBaseAuthController().afterPhoneVerification(context,1);
+    }else {
+      Navigator.pop(context);
+      showSnackBar(
+          context, message: response?.rejReason??'',
+          error: true);
+    }
+  }
+  @override
+  void initState() {
+_getClipboardText();
+    super.initState();
+  }
+
+  void _getClipboardText() async {
+    numbers = NewAccountGetxController.to.smsCode.split("");
+    if (numbers.length == 4) {
+      NewAccountGetxController.to.num1Controller.text = numbers[0];
+      NewAccountGetxController.to.num2Controller.text = numbers[1];
+      NewAccountGetxController.to.num3Controller.text = numbers[2];
+      NewAccountGetxController.to.num6Controller.text = numbers[3];
+      setState(() {});
     }
   }
   @override
