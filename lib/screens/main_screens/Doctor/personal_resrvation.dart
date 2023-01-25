@@ -124,12 +124,14 @@ class _MyPersonalAppointmentBookingState
                         EditTextItem(
                           'assets/images/hospital.svg',
                           AppLocalizations.of(context)!.clenice_choesse,
+                          TextInputType.name,
                           b: false,
                           controler: clinicName,
                         ),
                         EditTextItem(
                           'assets/images/docgreen.svg',
                           AppLocalizations.of(context)!.dovtor_choesse,
+                          TextInputType.name,
                           b: false,
                           controler: doctorName,
                         ),
@@ -343,7 +345,9 @@ class _MyPersonalAppointmentBookingState
               await HospitalApiController().getDoctorSchedDtl(
                   clinicCode: widget.doctor.clinicCode,
                   doctorCode: widget.doctor.doctorCode,
-                  availableDay: NewAccountGetxController.to.currentDate);
+                  availableDay: NewAccountGetxController.to.currentDate,
+                  pId:SharedPrefController().getValueFor<String>(key: PrefKeysPatient.identityNumber.name)
+            );
             } else {
               showRigectAlertDialog(context);
             }

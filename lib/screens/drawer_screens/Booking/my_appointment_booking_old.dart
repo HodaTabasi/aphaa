@@ -160,6 +160,7 @@ class _MyAppointmentBookingOldState extends State<MyAppointmentBookingOld>
                           visible: value.global != null,
                           child: EditTextItem('assets/images/Calendar.svg',
                               AppLocalizations.of(context)!.appoitment_date,
+                              TextInputType.datetime,
                               b: false, controler: dateText),
                         ),
                         if (!value.isChangeLoading)

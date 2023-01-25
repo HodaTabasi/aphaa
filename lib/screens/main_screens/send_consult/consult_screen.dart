@@ -145,16 +145,19 @@ class _SendConsultScreenState extends State<SendConsultScreen>
                         EditTextItem(
                           'assets/images/Profile.svg',
                           AppLocalizations.of(context)!.pasent_name,
+                          TextInputType.name,
                           controler: name,
                         ),
                         EditTextItem(
                           'assets/images/Message.svg',
                           AppLocalizations.of(context)!.email,
+                          TextInputType.emailAddress,
                           controler: email,
                         ),
                         EditTextItem(
                           'assets/images/phone.svg',
                           AppLocalizations.of(context)!.phone,
+                          TextInputType.phone,
                           controler: phone,
                         ),
                         DropDownItem(

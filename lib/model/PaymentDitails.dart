@@ -1,4 +1,5 @@
 class PaymentDitails {
+  String? invoiceNo;
   String? s1Desc;
   num? s1Val;
   String? s2Desc;
@@ -18,7 +19,8 @@ class PaymentDitails {
   List<PrescriptionItems>? prescriptionItems;
 
   PaymentDitails(
-      {this.s1Desc,
+      {this.invoiceNo,
+        this.s1Desc,
         this.s1Val,
         this.s2Desc,
         this.s2Val,
@@ -37,7 +39,7 @@ class PaymentDitails {
         this.prescriptionItems});
 
   PaymentDitails.fromJson(Map<String, dynamic> json) {
-    print(json);
+    invoiceNo = json['invoiceNo'];
     s1Desc = json['s1Desc'];
     s1Val = json['s1Val'];
     s2Desc = json['s2Desc'];
@@ -64,6 +66,7 @@ class PaymentDitails {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['invoiceNo'] = this.invoiceNo;
     data['s1Desc'] = this.s1Desc;
     data['s1Val'] = this.s1Val;
     data['s2Desc'] = this.s2Desc;

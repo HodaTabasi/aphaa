@@ -1,7 +1,6 @@
 import 'package:aphaa_app/general/doctor_dropdown_item.dart';
 import 'package:aphaa_app/helper/helper.dart';
 import 'package:aphaa_app/model/time_avilable_response/AvailableTime.dart';
-import 'package:aphaa_app/model/api_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/marked_date.dart';
@@ -15,7 +14,6 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/dropdown_item.dart';
-import '../../../general/edittext_item.dart';
 import '../../../get/new_account_getx_controller.dart';
 import '../../../model/AddAppoimentResult.dart';
 import '../../../model/Clinic.dart';
@@ -373,7 +371,9 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
               await HospitalApiController().getDoctorSchedDtl(
                   clinicCode: value.clinicCode,
                   doctorCode: value.doctorCode,
-                  availableDay: NewAccountGetxController.to.currentDate);
+                  availableDay: NewAccountGetxController.to.currentDate,
+                  pId:SharedPrefController().getValueFor<String>(key: PrefKeysPatient.identityNumber.name)
+              );
             } else {
               showRigectAlertDialog(context);
             }

@@ -134,6 +134,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 EditTextItem(
                   'assets/images/Profile.svg',
                   AppLocalizations.of(context)!.the_name_on_the_card,
+                  TextInputType.name,
                   controler: cardNameController,
                 ),
                 Padding(

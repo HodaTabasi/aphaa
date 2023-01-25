@@ -152,6 +152,7 @@ class _EditInsuranceDataState extends State<EditInsuranceData>
                       EditTextItem(
                         'assets/images/snum.svg',
                         AppLocalizations.of(context)!.insurance_number,
+                        TextInputType.number,
                         controler: _insurance_number,
                       ),
                       InkWell(
@@ -160,6 +161,7 @@ class _EditInsuranceDataState extends State<EditInsuranceData>
                         },
                         child: EditTextItem('assets/images/Calendar.svg',
                             AppLocalizations.of(context)!.insurance_end_date,
+                            TextInputType.datetime,
                             b: false, controler: _insurance_date),
                       ),
                       DropDownInsuranceItem(

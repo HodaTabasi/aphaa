@@ -158,6 +158,7 @@ class _CreateAccountNext1State extends State<CreateAccountNext1>
                   children: [
                     EditTextItem('assets/images/snum.svg',
                         AppLocalizations.of(context)!.insurance_number,
+                        TextInputType.number,
                         controler: insurance_number),
                     InkWell(
                       onTap: () {
@@ -165,6 +166,7 @@ class _CreateAccountNext1State extends State<CreateAccountNext1>
                       },
                       child: EditTextItem('assets/images/Calendarg.svg',
                           AppLocalizations.of(context)!.insurance_end_date,
+                          TextInputType.datetime,
                           controler: insurance_date, b: false),
                     ),
                     DropDownInsuranceItem(
@@ -196,6 +198,7 @@ class _CreateAccountNext1State extends State<CreateAccountNext1>
                     EditTextItem(
                       'assets/images/company.svg',
                       AppLocalizations.of(context)!.employer,
+                      TextInputType.name,
                       controler: employer,
                     ),
                     SizedBox(

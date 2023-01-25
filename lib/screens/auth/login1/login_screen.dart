@@ -4,9 +4,7 @@ import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../api/controllers/auth_api_controller.dart';
 import '../../../api/controllers/hospital_controller.dart';
-import '../../../api/sms_api.dart';
 import '../../../firebase/fb_auth_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
@@ -16,32 +14,31 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../model/Eligibility.dart';
 import 'package:aphaa_app/helper/helpers.dart';
 
-import '../../../model/SmsResponse.dart';
-import '../../../model/api_response.dart';
 import '../../../model/sms/send_model.dart';
 import '../../main_screens/open_medocal/opening_medical_file.dart';
 
 class LoginScreen1 extends StatefulWidget {
-
   static String routeName = "/login1";
+
   @override
   State<LoginScreen1> createState() => _LoginScreen1State();
 }
 
-class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
+class _LoginScreen1State extends State<LoginScreen1> with Helpers1 {
   var value = false;
   var _emailTextController = TextEditingController();
+
   // var _emailTextController = TextEditingController(text: "2320128214");
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomInset:false ,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         title: Text(AppLocalizations.of(context)!.login,
-            style:  TextStyle(
+            style: TextStyle(
               color: Colors.white,
               fontSize: 16.sp,
               fontFamily: 'Tajawal',
@@ -80,9 +77,10 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
             height: 15.h,
           ),
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 16.0.h,vertical: 8.w),
+            padding: EdgeInsets.symmetric(horizontal: 16.0.h, vertical: 8.w),
             child: Text(
-              AppLocalizations.of(context)!.enter_login_information_access_services,
+              AppLocalizations.of(context)!
+                  .enter_login_information_access_services,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 15.sp,
@@ -92,13 +90,16 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
               textAlign: TextAlign.start,
             ),
           ),
-           SizedBox(
+          SizedBox(
             height: 20.h,
           ),
           EditTextItem(
-              'assets/images/id.svg', AppLocalizations.of(context)!.identity_number,controler: _emailTextController),
+              'assets/images/id.svg',
+              AppLocalizations.of(context)!.identity_number,
+              TextInputType.number,
+              controler: _emailTextController),
           Padding(
-            padding:  EdgeInsets.only(left: 16.0.w,right: 0,top: 8.h),
+            padding: EdgeInsets.only(left: 16.0.w, right: 0, top: 8.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -123,7 +124,7 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
                     ),
                     Text(
                       AppLocalizations.of(context)!.remember_me_later,
-                      style:  TextStyle(
+                      style: TextStyle(
                         color: Colors.black,
                         fontSize: 13.sp,
                         fontFamily: 'Tajawal',
@@ -149,10 +150,13 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
               ],
             ),
           ),
-           SizedBox(
+          SizedBox(
             height: 60.h,
           ),
-          BtnLayout(AppLocalizations.of(context)!.login, () =>_performLogin(),),
+          BtnLayout(
+            AppLocalizations.of(context)!.login,
+            () => _performLogin(),
+          ),
           SizedBox(
             height: 10.h,
           ),
@@ -184,17 +188,18 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
           //     ),
           //   ),
           // ),
-           SizedBox(
+          SizedBox(
             height: 20.h,
           ),
         ],
       ),
-      bottomSheet:  Image.asset(
+      bottomSheet: Image.asset(
         "assets/images/image1.png",
         fit: BoxFit.fitWidth,
       ),
     );
   }
+
   Future<void> _performLogin() async {
     if (_checkData()) {
       await checkEligibility();
@@ -202,32 +207,33 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
   }
 
   bool _checkData() {
-
-    if (_emailTextController.text.isNotEmpty ) {
+    if (_emailTextController.text.isNotEmpty) {
       return true;
     }
-    showSnackBar(context, message: AppLocalizations.of(context)!.enter_required_data, error: true);
+    showSnackBar(context,
+        message: AppLocalizations.of(context)!.enter_required_data,
+        error: true);
     return false;
   }
 
   Future<void> checkEligibility() async {
     showLoaderDialog(context);
 
-    Eligibility? eg = await HospitalApiController().getPtElg(
-        patientId: _emailTextController.text);
+    Eligibility? eg = await HospitalApiController()
+        .getPtElg(patientId: _emailTextController.text);
     Navigator.pop(context);
     if (eg != null) {
       NewAccountGetxController.to.eligibility = eg;
       if (eg.isEligible == "true") {
         NewAccountGetxController.to.identityNumber = _emailTextController.text;
-        SMSSndModel? response = await HospitalApiController().sendSMSCode(patientId: _emailTextController.text);
-        if(response?.otpFlag == "true"){
-          NewAccountGetxController.to.smsCode = response?.otpMsg??'';
+        SMSSndModel? response = await HospitalApiController()
+            .sendSMSCode(patientId: _emailTextController.text);
+        if (response?.otpFlag == "true") {
+          NewAccountGetxController.to.smsCode = response?.otpMsg ?? '';
           Navigator.pushNamed(context, OTPScreen.routeName);
-        }else {
-          showSnackBar(
-              context, message: response?.rejReason??'',
-              error: true);
+        } else {
+          showSnackBar(context,
+              message: response?.rejReason ?? '', error: true);
         }
 
         // FireBaseAuthController().afterPhoneVerification(context,1);
@@ -236,11 +242,10 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
         QuickServiceGetxController.to.requestType = '1';
         Navigator.pushReplacementNamed(context, OpeningMedicalFile.routeName);
       }
-    }else {
-        showSnackBar(
-            context, message: AppLocalizations.of(context)!.something_wrong,
-            error: true);
-      }
+    } else {
+      showSnackBar(context,
+          message: AppLocalizations.of(context)!.something_wrong, error: true);
+    }
   }
 
   Future<void> _login() async {
@@ -249,7 +254,6 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1{
 
     // FireBaseAuthController().verifyPhoneNumber1(
     //     context: context, userPhone: _emailTextController.text.substring(1));
-
 
     // ApiResponse apiResponse = await AuthApiController().login(
     //     mobile: _emailTextController.text,

@@ -60,15 +60,18 @@ class _ViewPagerPageTowState extends State<ViewPagerPageTow>
         ),
         EditTextItem('assets/images/Profile.svg',
             AppLocalizations.of(context)!.pasent_name,
+            TextInputType.name,
             controler: _pName),
         EditTextItem(
           'assets/images/Message.svg',
           AppLocalizations.of(context)!.email,
+          TextInputType.emailAddress,
           controler: _pEmail,
         ),
         EditTextItem(
           'assets/images/phone.svg',
           AppLocalizations.of(context)!.phone,
+          TextInputType.phone,
           controler: _pPhone,
         ),
         PasswordItem(

@@ -209,16 +209,20 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
                       EditTextItem(
                         'assets/images/Profile.svg',
                         AppLocalizations.of(context)!.first_pasent_name,
+                        TextInputType.name,
                         controler: firstName,
+
                       ),
                       EditTextItem(
                         'assets/images/Profile.svg',
                         AppLocalizations.of(context)!.second_pasent_name,
+                        TextInputType.name,
                         controler: medileName,
                       ),
                       EditTextItem(
                         'assets/images/Profile.svg',
                         AppLocalizations.of(context)!.last_pasent_name,
+                        TextInputType.name,
                         controler: lastName,
                       ),
                       DropDownNationalitiesItem(
@@ -237,13 +241,16 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
                       ),
                       EditTextItem('assets/images/id.svg',
                           AppLocalizations.of(context)!.identity_iqama,
+                          TextInputType.number,
                           controler: inId),
                       EditTextItem('assets/images/phone.svg',
                           AppLocalizations.of(context)!.phone,
+                          TextInputType.phone,
                           controler: phone),
                       EditTextItem(
                         'assets/images/Message.svg',
                         AppLocalizations.of(context)!.email,
+                        TextInputType.emailAddress,
                         controler: _pEmail,
                       ),
                       InkWell(
@@ -253,6 +260,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
                         },
                         child: EditTextItem('assets/images/Calendar.svg',
                             AppLocalizations.of(context)!.dob_end_date,
+                            TextInputType.name,
                             b: false, controler: _insurance_date),
                       ),
                       InkWell(

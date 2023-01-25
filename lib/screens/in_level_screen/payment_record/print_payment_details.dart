@@ -59,6 +59,18 @@ class _PrintPaymentDitailsButtomSheetState
                   SizedBox(
                     height: 20.h,
                   ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0.r),
+                    child: Text(
+                      '${AppLocalizations.of(context)!.invoice_number} ${snapshot.data!.invoiceNo}',
+                      style: TextStyle(
+                        color: Color(0xff2D2D2D),
+                        fontSize: 16.sp,
+                        fontFamily: 'Tajawal',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -85,8 +97,7 @@ class _PrintPaymentDitailsButtomSheetState
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      AppLocalizations.of(context)!
-                                          .service_name,
+                                      '${snapshot.data!.prescriptionItems![index].itemDesc}',
                                       style: TextStyle(
                                         color: Color(0xff2D2D2D),
                                         fontSize: 15.sp,
@@ -128,50 +139,7 @@ class _PrintPaymentDitailsButtomSheetState
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      AppLocalizations.of(context)!
-                                          .service_desc,
-                                      style: TextStyle(
-                                        color: Color(0xff2D2D2D),
-                                        fontSize: 15.sp,
-                                        fontFamily: 'Tajawal',
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.r,
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffF7F8FB),
-                                          borderRadius:
-                                              BorderRadius.circular(5.r),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(16.0.r),
-                                          child: Text(
-                                            '${snapshot.data!.prescriptionItems![index].itemDesc}',
-                                            style: TextStyle(
-                                              color: Color(0xff2D2D2D),
-                                              fontSize: 14.sp,
-                                              fontFamily: 'Tajawal',
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0.r),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.how_to_use,
+                                      '${snapshot.data!.prescriptionItems![index].qtyDesc}',
                                       style: TextStyle(
                                         color: Color(0xff2D2D2D),
                                         fontSize: 15.sp,
@@ -213,49 +181,7 @@ class _PrintPaymentDitailsButtomSheetState
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      AppLocalizations.of(context)!.quantity,
-                                      style: TextStyle(
-                                        color: Color(0xff2D2D2D),
-                                        fontSize: 15.sp,
-                                        fontFamily: 'Tajawal',
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.r,
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffF7F8FB),
-                                          borderRadius:
-                                              BorderRadius.circular(5.r),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(16.0.r),
-                                          child: Text(
-                                            '${snapshot.data!.prescriptionItems![index].qty}',
-                                            style: TextStyle(
-                                              color: Color(0xff2D2D2D),
-                                              fontSize: 14.sp,
-                                              fontFamily: 'Tajawal',
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0.r),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.price,
+                                      '${snapshot.data!.prescriptionItems![index].priceDesc}',
                                       style: TextStyle(
                                         color: Color(0xff2D2D2D),
                                         fontSize: 15.sp,
@@ -289,6 +215,7 @@ class _PrintPaymentDitailsButtomSheetState
                                   ],
                                 ),
                               ),
+
                             ],
                           ),
                         );

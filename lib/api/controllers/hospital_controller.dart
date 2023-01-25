@@ -614,6 +614,7 @@ class HospitalApiController with ApiHelper {
 
   Future<PaymentDitails?> getPatientpaymentDitails(
       {refNo}) async {
+    print("sra $refNo");
     final queryParameters = {
       // 'patientCode': '0/595907',
       'refNo': '$refNo',
@@ -625,7 +626,7 @@ class HospitalApiController with ApiHelper {
     final uri = Uri.http(ApiSettings.HospitalBase,
         '${ApiSettings.HospitalBase4}ptPymtDtl', queryParameters);
     final response = await http.get(uri);
-
+    print("dddd ${response.body}");
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonObject = jsonResponse;
@@ -865,11 +866,12 @@ class HospitalApiController with ApiHelper {
   }
 
   Future<TimeAvilableResponse?> getDoctorSchedDtl(
-      {clinicCode, doctorCode, availableDay}) async {
+      {clinicCode, doctorCode, availableDay,pId = ''}) async {
     final queryParameters = {
       'clinicCode': '$clinicCode',
       'doctorCode': '$doctorCode',
       'availableDay': '${availableDay.toString().split(" ").first}',
+      'patientId':pId,
       'pageNo': '1',
       'offset': '1',
       'rows': '100',

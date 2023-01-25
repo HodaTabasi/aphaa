@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers1{
             height: 20.h,
           ),
           EditTextItem(
-              'assets/images/Message.svg', AppLocalizations.of(context)!.email,controler: _emailTextController),
+              'assets/images/Message.svg', AppLocalizations.of(context)!.email,TextInputType.emailAddress,controler: _emailTextController),
           PasswordItem('assets/images/Lock.svg', AppLocalizations.of(context)!.password,controler: _passwordTextController),
           Padding(
             padding:  EdgeInsets.only(left: 16.0.w,right: 0,top: 8.h),

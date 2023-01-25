@@ -7,9 +7,10 @@ class EditTextItem extends StatefulWidget {
   String hint;
   bool b = true;
   bool first = true;
+  TextInputType type;
 
   TextEditingController? controler;
-  EditTextItem(this.icon,this.hint, {this.controler ,this.b = true}) ;
+  EditTextItem(this.icon,this.hint, this.type,{this.controler ,this.b = true,}) ;
 
   @override
   State<EditTextItem> createState() => _EditTextItemState();
@@ -48,6 +49,7 @@ class _EditTextItemState extends State<EditTextItem> {
                 },
                 controller: widget.controler,
                 enabled: widget.b,
+                keyboardType: widget.type,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: widget.hint,

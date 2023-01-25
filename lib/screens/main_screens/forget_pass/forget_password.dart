@@ -83,7 +83,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   height: 20.h,
                 ),
                 EditTextItem(
-                    'assets/images/phone.svg', AppLocalizations.of(context)!.phone,controler: _pPhone),
+                    'assets/images/phone.svg', AppLocalizations.of(context)!.phone,TextInputType.name,controler: _pPhone),
 
                  SizedBox(
                   height: 30.h,
