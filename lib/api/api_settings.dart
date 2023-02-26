@@ -1,5 +1,6 @@
 class ApiSettings {
-  static const String _baseUrl =  "https://jihadm33.sg-host.com/public/api/";
+  static const String _baseUrl =  "https://myasem.online/api/";
+  // static const String _baseUrl =  "https://jihadm33.sg-host.com/public/api/";
   // static const String users = '${_baseUrl}users';
   static const String register = '${_baseUrl}patient-register';
   static const String login = '${_baseUrl}patient-login';
