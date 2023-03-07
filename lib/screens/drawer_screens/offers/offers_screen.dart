@@ -53,6 +53,7 @@ class _OfferScreenState extends State<OfferScreen> {
           FutureBuilder<List<Offers>>(
             future: AppApiController().getOffers(),
             builder: (context, snapshot) {
+              print(snapshot.data);
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return  SizedBox(
                   height: MediaQuery.of(context).size.height-100.h,
@@ -61,7 +62,7 @@ class _OfferScreenState extends State<OfferScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [CircularProgressIndicator()],),
                 );
-              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+              } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData && snapshot.data!.isNotEmpty) {
                 return ListView.builder(
                   itemCount: snapshot.data!.length,
                   shrinkWrap: true,
@@ -75,16 +76,20 @@ class _OfferScreenState extends State<OfferScreen> {
                   },
                 );
               } else {
-                return Center(
-                  child: Text(
-                    AppLocalizations.of(context)!.no_data,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.r,
-                      fontFamily: 'Tajawal',
-                      fontWeight: FontWeight.bold,
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.no_data,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16.r,
+                        fontFamily: 'Tajawal',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
+                  ],
                 );
               }
             },

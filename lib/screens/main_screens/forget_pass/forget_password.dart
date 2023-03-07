@@ -92,7 +92,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       () {
                         NewAccountGetxController.to.mobile = _pPhone.text;
                         NewAccountGetxController.to.isReset = true;
-                        FireBaseAuthController().verifyPhoneNumber1(context: context,userPhone: _pPhone);
+                        // FireBaseAuthController().verifyPhoneNumber1(context: context,userPhone: _pPhone);
                         // Navigator.pushNamed(context, OTPScreen.routeName);
                       }
                 ),

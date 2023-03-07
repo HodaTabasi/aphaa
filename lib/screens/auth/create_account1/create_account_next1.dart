@@ -274,8 +274,8 @@ class _CreateAccountNext1State extends State<CreateAccountNext1>
     }
 
     print(NewAccountGetxController.to.eligibility?.patientMOB!.substring(1));
-    FireBaseAuthController().verifyPhoneNumber1(
-        context: context, userPhone: NewAccountGetxController.to.eligibility?.patientMOB!.substring(1),flag :NewAccountGetxController.to.flag);
+    // FireBaseAuthController().verifyPhoneNumber1(
+    //     context: context, userPhone: NewAccountGetxController.to.eligibility?.patientMOB!.substring(1),flag :NewAccountGetxController.to.flag);
 
     // FireBaseAuthController().verifyPhoneNumber1(
     //     context: context, userPhone: 568828102,flag :NewAccountGetxController.to.flag);

@@ -36,13 +36,17 @@ class AppApiController with ApiHelper {
     var response = await http.get(uri, headers: headers);
 
     print(response.body);
-
+    List<Offers> l =[];
     if (response.statusCode == 200 || response.statusCode == 400) {
       var jsonResponse = jsonDecode(response.body);
       if (response.statusCode == 200) {
         var jsonArray = jsonResponse['items'] as List;
-        return jsonArray.map((jsonObject) => Offers.fromJson(jsonObject))
-            .toList();
+
+        jsonArray.forEach((jsonObject) {
+          print(Offers.fromJson(jsonObject));
+          l.add(Offers.fromJson(jsonObject));
+        });
+        return l;
       }
     }
     return [];

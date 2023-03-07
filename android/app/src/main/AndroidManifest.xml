@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.aphaa_app">
+    package="com.aph.med.aphaa_app">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -41,7 +41,7 @@
 
        <provider
            android:name="androidx.core.content.FileProvider"
-           android:authorities="com.example.aphaa_app.fileProvider"
+           android:authorities="com.aph.aphaa_app.fileProvider"
            android:exported="false"
            android:grantUriPermissions="true"
            tools:replace="android:authorities">

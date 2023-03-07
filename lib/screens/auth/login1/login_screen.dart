@@ -210,9 +210,7 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1 {
     if (_emailTextController.text.isNotEmpty) {
       return true;
     }
-    showSnackBar(context,
-        message: AppLocalizations.of(context)!.enter_required_data,
-        error: true);
+    showSnackBar(context, message: AppLocalizations.of(context)!.enter_required_data, error: true);
     return false;
   }
 
@@ -232,8 +230,7 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1 {
           NewAccountGetxController.to.smsCode = response?.otpMsg ?? '';
           Navigator.pushNamed(context, OTPScreen.routeName);
         } else {
-          showSnackBar(context,
-              message: response?.rejReason ?? '', error: true);
+          showSnackBar(context, message: response?.rejReason ?? '', error: true);
         }
 
         // FireBaseAuthController().afterPhoneVerification(context,1);
@@ -243,8 +240,7 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1 {
         Navigator.pushReplacementNamed(context, OpeningMedicalFile.routeName);
       }
     } else {
-      showSnackBar(context,
-          message: AppLocalizations.of(context)!.something_wrong, error: true);
+      showSnackBar(context, message: AppLocalizations.of(context)!.something_wrong, error: true);
     }
   }
 

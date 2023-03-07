@@ -157,7 +157,7 @@ class _CreateAccountState extends State<CreateAccount> with Helpers1 {
     NewAccountGetxController.to.isCitizen.value ?isCitizen = "citizen" :isCitizen = "resident";
     Patient p = Patient.BaseData(firstName: name[0],secondName: name[1],thirdName: name[2],lastName: name[3],email: _pEmail.text,password: _pPassword.text,patientType: isCitizen,identityNumber: _pID.text,mobile: _pPhone.text);
     NewAccountGetxController.to.addPatient(p);
-    FireBaseAuthController().verifyPhoneNumber1(context: context,userPhone: 0597046766);
+    // FireBaseAuthController().verifyPhoneNumber1(context: context,userPhone: 0597046766);
     // Navigator.pushNamed(context, CreateAccountNext.routeName);
   }
 
