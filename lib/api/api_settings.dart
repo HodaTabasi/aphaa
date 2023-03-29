@@ -21,7 +21,8 @@ class ApiSettings {
 
   //////////////////////////////////////
 
-  static const String HospitalBase = 'aiph.me:8000';
+  static const String HospitalBase = 'aiph.me:8082';
+  // static const String HospitalBase = 'aiph.me:8000';
   static const String HospitalBase1 = '/api/patient/';
   // static const String images = '${HospitalBase}radReports/';
 

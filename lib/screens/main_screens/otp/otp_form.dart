@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import '../../../firebase/fb_auth_controller.dart';
 import '../../../helper/SizeConfig.dart';
 import '../../../helper/constant.dart';
 import '../../../helper/helpers.dart';
+import '../../../helper/keyboardoverlay.dart';
 import '../../../model/sms/send_model.dart';
 
 class OtpForm extends StatefulWidget {
@@ -65,6 +68,40 @@ class _OtpFormState extends State<OtpForm> with Helpers1{
     pin5FocusNode = FocusNode();
     pin6FocusNode = FocusNode();
     pin4FocusNode = FocusNode();
+    if(Platform.isIOS){
+      pin1FocusNode?.addListener(() {
+        bool hasFocus = pin1FocusNode!.hasFocus;
+        if (hasFocus) {
+          KeyboardOverlay.showOverlay(context);
+        } else {
+          KeyboardOverlay.removeOverlay();
+        }
+      });
+      pin2FocusNode?.addListener(() {
+        bool hasFocus = pin2FocusNode!.hasFocus;
+        if (hasFocus) {
+          KeyboardOverlay.showOverlay(context);
+        } else {
+          KeyboardOverlay.removeOverlay();
+        }
+      });
+      pin3FocusNode?.addListener(() {
+        bool hasFocus = pin3FocusNode!.hasFocus;
+        if (hasFocus) {
+          KeyboardOverlay.showOverlay(context);
+        } else {
+          KeyboardOverlay.removeOverlay();
+        }
+      });
+      pin5FocusNode?.addListener(() {
+        bool hasFocus = pin5FocusNode!.hasFocus;
+        if (hasFocus) {
+          KeyboardOverlay.showOverlay(context);
+        } else {
+          KeyboardOverlay.removeOverlay();
+        }
+      });
+    }
   }
 
   @override
@@ -114,6 +151,7 @@ class _OtpFormState extends State<OtpForm> with Helpers1{
                     obscureText: false,
                     style: TextStyle(fontSize: 16),
                     keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     textAlign: TextAlign.center,
                     decoration: otpInputDecoration,
                     maxLength: 1,
@@ -131,6 +169,7 @@ class _OtpFormState extends State<OtpForm> with Helpers1{
                   child: TextFormField(
                     controller: NewAccountGetxController.to.num2Controller,
                     focusNode: pin2FocusNode,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     obscureText: false,
                     style: TextStyle(fontSize: 16),
                     keyboardType: TextInputType.number,
@@ -154,6 +193,7 @@ class _OtpFormState extends State<OtpForm> with Helpers1{
                   child: TextFormField(
                     controller: NewAccountGetxController.to.num3Controller,
                     focusNode: pin3FocusNode,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     obscureText: false,
                     style: TextStyle(fontSize: 16),
                     keyboardType: TextInputType.number,
@@ -177,6 +217,7 @@ class _OtpFormState extends State<OtpForm> with Helpers1{
                   child: TextFormField(
                     controller: NewAccountGetxController.to.num6Controller,
                     focusNode: pin5FocusNode,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     obscureText: false,
                     style: TextStyle(fontSize: 16),
                     keyboardType: TextInputType.number,

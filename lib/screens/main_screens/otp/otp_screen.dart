@@ -65,6 +65,7 @@ class _OTPScreenState extends State<OTPScreen> with Helpers1 {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         // leadingWidth: 40,

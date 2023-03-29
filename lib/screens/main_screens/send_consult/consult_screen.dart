@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aphaa_app/api/controllers/hospital_controller.dart';
 import 'package:aphaa_app/api/controllers/quick_service_api_controller.dart';
 import 'package:aphaa_app/general/doctor_dropdown_item.dart';
@@ -8,6 +10,7 @@ import 'package:aphaa_app/model/doctor.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/main_screens/send_consult/text_area.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:aphaa_app/helper/helpers.dart' as myHelper;
@@ -16,6 +19,7 @@ import 'package:get/get.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
 import '../../../get/new_account_getx_controller.dart';
+import '../../../helper/keyboardoverlay.dart';
 import '../../../model/Clinic.dart';
 import '../../../model/api_response.dart';
 
@@ -32,6 +36,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
 
   List<Doctor> myDataDoctor = [];
   bool isLoading = false;
+  FocusNode numberFocusNode = FocusNode();
 
   late TextEditingController name;
   late TextEditingController email;
@@ -49,6 +54,17 @@ class _SendConsultScreenState extends State<SendConsultScreen>
     }
     email = TextEditingController();
     consultText = TextEditingController();
+    if(Platform.isIOS){
+      numberFocusNode.addListener(() {
+        bool hasFocus = numberFocusNode.hasFocus;
+        if (hasFocus) {
+          KeyboardOverlay.showOverlay(context);
+        } else {
+          KeyboardOverlay.removeOverlay();
+        }
+      });
+    }
+
     super.initState();
   }
 
@@ -159,6 +175,8 @@ class _SendConsultScreenState extends State<SendConsultScreen>
                           AppLocalizations.of(context)!.phone,
                           TextInputType.phone,
                           controler: phone,
+                          numberFocusNode: numberFocusNode,
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         ),
                         DropDownItem(
                           myData,
@@ -251,6 +269,12 @@ class _SendConsultScreenState extends State<SendConsultScreen>
   @override
   void deactivate() {
     QuickServiceGetxController.to.fromHome = false;
+
     super.deactivate();
+  }
+  @override
+  void dispose() {
+    numberFocusNode.dispose();
+    super.dispose();
   }
 }

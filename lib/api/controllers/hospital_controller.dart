@@ -907,7 +907,7 @@ class HospitalApiController with ApiHelper {
       consultTime24,
       consultSNo,
       resRemarks}) async {
-    Uri uri = Uri.parse('http://aiph.me:8000/api/clinic/clRes');
+    Uri uri = Uri.parse('http://aiph.me:8082/api/clinic/clRes');
     print({
       "patientCode": '$patientCode',
       "patientName": '$patientName',
@@ -953,7 +953,7 @@ class HospitalApiController with ApiHelper {
   }
 
   Future<billResponse?> setConsInv(map) async {
-    Uri uri = Uri.parse('http://aiph.me:8000/api/invoice/setConsInv/');
+    Uri uri = Uri.parse('http://aiph.me:8082/api/invoice/setConsInv/');
 
     var response = await http.post(uri, body: map);
 
@@ -967,7 +967,7 @@ class HospitalApiController with ApiHelper {
   }
 
   Future<ApiResponse> setCxlRes({resNo, resDate, doctorCode}) async {
-    Uri uri = Uri.parse('http://aiph.me:8000/api/clinic/cxlRes');
+    Uri uri = Uri.parse('http://aiph.me:8082/api/clinic/cxlRes');
 
     var response = await http.post(uri, body: {
       "resNo": '$resNo',

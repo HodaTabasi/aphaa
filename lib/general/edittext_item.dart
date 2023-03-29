@@ -8,15 +8,19 @@ class EditTextItem extends StatefulWidget {
   bool b = true;
   bool first = true;
   TextInputType type;
+  var numberFocusNode;
+  var inputFormatters;
 
   TextEditingController? controler;
-  EditTextItem(this.icon,this.hint, this.type,{this.controler ,this.b = true,}) ;
+  EditTextItem(this.icon,this.hint, this.type,{this.inputFormatters,this.numberFocusNode,this.controler ,this.b = true,}) ;
 
   @override
   State<EditTextItem> createState() => _EditTextItemState();
 }
 
 class _EditTextItemState extends State<EditTextItem> {
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,6 +54,8 @@ class _EditTextItemState extends State<EditTextItem> {
                 controller: widget.controler,
                 enabled: widget.b,
                 keyboardType: widget.type,
+                focusNode: widget.numberFocusNode,
+                inputFormatters: widget.inputFormatters,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: widget.hint,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
 import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
@@ -11,11 +13,14 @@ import '../../../general/edittext_item.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../helper/keyboardoverlay.dart';
 import '../../../model/Eligibility.dart';
 import 'package:aphaa_app/helper/helpers.dart';
 
 import '../../../model/sms/send_model.dart';
 import '../../main_screens/open_medocal/opening_medical_file.dart';
+
+import 'package:flutter/services.dart';
 
 class LoginScreen1 extends StatefulWidget {
   static String routeName = "/login1";
@@ -26,10 +31,27 @@ class LoginScreen1 extends StatefulWidget {
 
 class _LoginScreen1State extends State<LoginScreen1> with Helpers1 {
   var value = false;
+
+  FocusNode numberFocusNode = FocusNode();
+
   var _emailTextController = TextEditingController();
 
   // var _emailTextController = TextEditingController(text: "2320128214");
+@override
+  void initState() {
+    super.initState();
+    if(Platform.isIOS){
+      numberFocusNode.addListener(() {
+        bool hasFocus = numberFocusNode.hasFocus;
+        if (hasFocus) {
+          KeyboardOverlay.showOverlay(context);
+        } else {
+          KeyboardOverlay.removeOverlay();
+        }
+      });
+    }
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,8 +118,16 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1 {
           EditTextItem(
               'assets/images/id.svg',
               AppLocalizations.of(context)!.identity_number,
+              // TextInputType.numberWithOptions(
+              //   decimal: true,
+              //   signed: true,
+              //
+              // ),
               TextInputType.number,
-              controler: _emailTextController),
+              controler: _emailTextController,
+            numberFocusNode: numberFocusNode,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
           Padding(
             padding: EdgeInsets.only(left: 16.0.w, right: 0, top: 8.h),
             child: Row(
@@ -275,6 +305,8 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1 {
   @override
   void dispose() {
     _emailTextController.dispose();
+    numberFocusNode.dispose();
     super.dispose();
   }
+
 }

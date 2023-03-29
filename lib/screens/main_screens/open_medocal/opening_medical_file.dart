@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/helper/helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,6 +19,7 @@ import '../../../general/edittext_item.dart';
 import 'package:aphaa_app/helper/helpers.dart' as myHelper;
 
 import '../../../get/quick_service_getx_controller.dart';
+import '../../../helper/keyboardoverlay.dart';
 import '../../../model/IDTypes.dart';
 import '../../../model/Nationalities.dart';
 import '../../../model/api_response.dart';
@@ -53,6 +55,9 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
 
   List<Nationalities> myNatData = [];
   List<IDTypes> myIDData = [];
+
+  FocusNode numberFocusNode = FocusNode();
+  FocusNode numberFocusNode1 = FocusNode();
 
   // In this example, the restoration ID for the mixin is passed in through
   // the [StatefulWidget]'s constructor.
@@ -141,6 +146,27 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
     inId = TextEditingController();
     _insurance_date = TextEditingController();
     _imagePicker = ImagePicker();
+
+    if(Platform.isIOS){
+      numberFocusNode.addListener(() {
+        bool hasFocus = numberFocusNode.hasFocus;
+        if (hasFocus) {
+          KeyboardOverlay.showOverlay(context);
+        } else {
+          KeyboardOverlay.removeOverlay();
+        }
+      });
+
+      numberFocusNode1.addListener(() {
+        bool hasFocus = numberFocusNode1.hasFocus;
+        if (hasFocus) {
+          KeyboardOverlay.showOverlay(context);
+        } else {
+          KeyboardOverlay.removeOverlay();
+        }
+      });
+    }
+
 
     super.initState();
   }
@@ -242,11 +268,17 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
                       EditTextItem('assets/images/id.svg',
                           AppLocalizations.of(context)!.identity_iqama,
                           TextInputType.number,
-                          controler: inId),
+                          controler: inId,
+                        numberFocusNode: numberFocusNode1,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      ),
                       EditTextItem('assets/images/phone.svg',
                           AppLocalizations.of(context)!.phone,
                           TextInputType.phone,
-                          controler: phone),
+                          controler: phone,
+                        numberFocusNode: numberFocusNode,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      ),
                       EditTextItem(
                         'assets/images/Message.svg',
                         AppLocalizations.of(context)!.email,
@@ -415,5 +447,12 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
         _insurance_date.text =
         "${selectedDate.hYear}-${selectedDate.hMonth}-${selectedDate.hDay}";
       });
+  }
+
+  @override
+  void dispose() {
+    numberFocusNode.dispose();
+    numberFocusNode1.dispose();
+    super.dispose();
   }
 }

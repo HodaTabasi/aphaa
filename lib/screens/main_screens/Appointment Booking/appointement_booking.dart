@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/helper/helper.dart';
 import 'package:aphaa_app/model/time_avilable_response/AvailableTime.dart';
@@ -5,6 +7,7 @@ import 'package:aphaa_app/model/doctor.dart';
 import 'package:aphaa_app/general/doctor_dropdown_item.dart';
 import 'package:aphaa_app/screens/main_screens/Appointment%20Booking/time_appoiment_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/marked_date.dart';
 import 'package:flutter_calendar_carousel/classes/multiple_marked_dates.dart';
@@ -23,6 +26,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
 
 import '../../../get/new_account_getx_controller.dart';
 import '../../../get/quick_service_getx_controller.dart';
+import '../../../helper/keyboardoverlay.dart';
 import '../../../model/Clinic.dart';
 import '../../../model/api_response.dart';
 import '../../../preferences/shared_pref_controller.dart';
@@ -44,6 +48,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
   late TextEditingController email;
   late TextEditingController phone;
   late TextEditingController dateText;
+  FocusNode numberFocusNode = FocusNode();
 
 
   bool isLoading = false;
@@ -55,6 +60,18 @@ class _AppointmentBookingState extends State<AppointmentBooking>
     email = TextEditingController();
     phone = TextEditingController();
     dateText = TextEditingController();
+
+    if(Platform.isIOS){
+      numberFocusNode.addListener(() {
+        bool hasFocus = numberFocusNode.hasFocus;
+        if (hasFocus) {
+          KeyboardOverlay.showOverlay(context);
+        } else {
+          KeyboardOverlay.removeOverlay();
+        }
+      });
+    }
+
     super.initState();
   }
 
@@ -155,6 +172,9 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                       AppLocalizations.of(context)!.phone,
                       TextInputType.phone,
                       controler: phone,
+                      numberFocusNode: numberFocusNode,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
                     ),
                     DropDownItem(myData, 'assets/images/hospital.svg',
                         AppLocalizations.of(context)!.clenice_choesse),
@@ -524,4 +544,9 @@ class _AppointmentBookingState extends State<AppointmentBooking>
     super.deactivate();
   }
 
+  @override
+  void dispose() {
+    numberFocusNode.dispose();
+    super.dispose();
+  }
 }
