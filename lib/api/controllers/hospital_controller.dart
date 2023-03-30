@@ -348,7 +348,7 @@ class HospitalApiController with ApiHelper {
     };
     // final uri = Uri.parse("http://aiph.me:8000/api/patient/sickLeaves?patientCode=1/66600&pageNo=1&offset=1&rows=5&lang=AR");
     final uri = Uri.http(ApiSettings.HospitalBase,
-        '${ApiSettings.HospitalBase4}pymtPerms', queryParameters);
+        '${ApiSettings.HospitalBase4}pymtPermsFnl', queryParameters);
     print(uri);
     final response =
     await http.get(uri, headers: {'Content-Type': 'application/json'});
@@ -907,7 +907,7 @@ class HospitalApiController with ApiHelper {
       consultTime24,
       consultSNo,
       resRemarks}) async {
-    Uri uri = Uri.parse('http://aiph.me:8082/api/clinic/clRes');
+    Uri uri = Uri.parse('http://aiph.me:8082/api/clinic/clResFnl');
     print({
       "patientCode": '$patientCode',
       "patientName": '$patientName',
@@ -953,7 +953,7 @@ class HospitalApiController with ApiHelper {
   }
 
   Future<billResponse?> setConsInv(map) async {
-    Uri uri = Uri.parse('http://aiph.me:8082/api/invoice/setConsInv/');
+    Uri uri = Uri.parse('http://aiph.me:8082/api/invoice/setConsInvFnl/');
 
     var response = await http.post(uri, body: map);
 
@@ -967,7 +967,7 @@ class HospitalApiController with ApiHelper {
   }
 
   Future<ApiResponse> setCxlRes({resNo, resDate, doctorCode}) async {
-    Uri uri = Uri.parse('http://aiph.me:8082/api/clinic/cxlRes');
+    Uri uri = Uri.parse('http://aiph.me:8082/api/clinic/cxlResFnl');
 
     var response = await http.post(uri, body: {
       "resNo": '$resNo',
