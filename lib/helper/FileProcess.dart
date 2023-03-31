@@ -11,7 +11,8 @@ class FileProcess {
   static checkDocumentFolder() async {
     try {
       if (!isFolderCreated) {
-        directory = await getExternalStorageDirectory();
+        // directory = await getExternalStorageDirectory();
+        directory = await getApplicationDocumentsDirectory();
         await directory!.exists().then((value) {
           if (value) directory!.create();
           isFolderCreated = true;
