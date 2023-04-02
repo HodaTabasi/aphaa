@@ -62,14 +62,22 @@ class _PrintMedicalRecipesButtomSheetState
                   ),
                   Padding(
                     padding: EdgeInsets.all(16.0.r),
-                    child: Text(
-                      '${AppLocalizations.of(context)!.invoice_number} ${widget.prescriptionlist.invoiceNo}',
-                      style: TextStyle(
-                        color: Color(0xff2D2D2D),
-                        fontSize: 16.sp,
-                        fontFamily: 'Tajawal',
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${AppLocalizations.of(context)!.invoice_number} ${widget.prescriptionlist.invoiceNo}',
+                          style: TextStyle(
+                            color: Color(0xff2D2D2D),
+                            fontSize: 16.sp,
+                            fontFamily: 'Tajawal',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        IconButton(onPressed:(){
+                          Navigator.pop(context);
+                        },icon: Icon(Icons.close_rounded),iconSize: 30,color: Colors.red,)
+                      ],
                     ),
                   ),
                   ListView.builder(

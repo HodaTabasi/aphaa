@@ -207,7 +207,29 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                                       SizedBox(
                                         height: 20.h,
                                       ),
-                                      Text("لا يوجد مواعيد متاحة"),
+                                      Text(AppLocalizations.of(context)!.no_avilavle_date),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      // Visibility(
+                                      //   visible: NewAccountGetxController.to.currentDate !=null,
+                                      //   child: Padding(
+                                      //     padding: const EdgeInsets.all(8.0),
+                                      //     child: InkWell(
+                                      //       onTap: (){
+                                      //         NewAccountGetxController.to.getDoctorSchedules(
+                                      //             NewAccountGetxController.to.doctorCode, DateTime.now().month,DateTime.now().year);
+                                      //         NewAccountGetxController.to.changeLoading();
+                                      //       },
+                                      //       child: Text("عودة الى المواعيد المتاحة",style: TextStyle(
+                                      //           fontSize: 12,
+                                      //           fontWeight: FontWeight.bold,
+                                      //           color: Colors.red,
+                                      //           fontFamily: 'Tajawal'
+                                      //       ),),
+                                      //     ),
+                                      //   ),
+                                      // ),
                                     ],
                                   ))),
                           Visibility(
@@ -281,7 +303,7 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                                         SizedBox(
                                           height: 20.h,
                                         ),
-                                        Text("لا يوجد اوقات متاحة"),
+                                        Text(AppLocalizations.of(context)!.no_avilavle_time),
                                       ],
                                     ))),
                             Visibility(
@@ -381,9 +403,15 @@ class _AppointmentBookingState extends State<AppointmentBooking>
           pageScrollPhysics: const NeverScrollableScrollPhysics(),
           onCalendarChanged: (DateTime date) {
             print(" ${date.year} ${date.month}");
-            NewAccountGetxController.to.getDoctorSchedules(
-                NewAccountGetxController.to.doctorCode, date.month, date.year);
-          },
+            if(int.parse(NewAccountGetxController.to.initMonth!) <= date.month) {
+              NewAccountGetxController.to.currentDate = date;
+              NewAccountGetxController.to.getDoctorSchedules(
+                  NewAccountGetxController.to.doctorCode, date.month, date.year,isFirstTime: false);
+            }else{
+              NewAccountGetxController.to.getDoctorSchedules(
+                  NewAccountGetxController.to.doctorCode, date.month+1, date.year,isFirstTime: false);
+            }
+             },
           onDayPressed: (DateTime date, List<Event> events) async {
             this.setState(() {
               NewAccountGetxController.to.currentDate = date;
@@ -431,9 +459,10 @@ class _AppointmentBookingState extends State<AppointmentBooking>
             //   return null;
             // }
           },
+          firstDayOfWeek:1,
           weekFormat: false,
           // markedDatesMap: _markedDateMap,
-          height: 340.0.h,
+          height: 350.0.h,
           width: 350.h,
           todayButtonColor: Colors.white,
           todayBorderColor: Colors.green,
@@ -464,6 +493,8 @@ class _AppointmentBookingState extends State<AppointmentBooking>
             fontFamily: 'Tajawal',
             fontWeight: FontWeight.w700,
           ),
+          showWeekDays: true,
+          showIconBehindDayText: true,
           weekdayTextStyle: TextStyle(
             color: Colors.black,
             fontSize: 10.sp,

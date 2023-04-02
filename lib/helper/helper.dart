@@ -224,4 +224,57 @@ mixin Helpers implements Helpers1{
       },
     );
   }
+
+  showAlertDialog2(BuildContext context, {flag = false,message="",message2="شكرا لكم، تم استلام طلبكم  وسوف نقوم بالرد في اقرب وقت"}) {
+    Widget continueButton = Center(
+      child: TextButton(
+          child: Text(message,
+              style: TextStyle(
+                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.green)),
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+          }),
+    );
+
+
+    Widget continueButton3 = Center(
+      child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+            // Navigator.popAndPushNamed(context, ButtomNavigations.routeName);
+          },
+          child: Text("عودة",
+              style: TextStyle(
+                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Color(0xffF2F2F2),
+      content: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        padding: EdgeInsets.all(16),
+        child: Icon(
+          Icons.check_circle,
+          size: 60,
+          color: Colors.green,
+        ),
+      ),
+      actions: [
+        continueButton,
+        continueButton3
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 }

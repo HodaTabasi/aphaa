@@ -12,12 +12,13 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../get/new_account_getx_controller.dart';
 import '../../../get/quick_service_getx_controller.dart';
+import '../../../helper/helper.dart';
 import '../../in_level_screen/medical_recipes/medical_recipes.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../Appointment Booking/appointement_booking.dart';
-import 'dart:io' as Io;
+import 'package:aphaa_app/helper/helpers.dart' as myHelper ;
 
 class DoctorDetails extends StatefulWidget {
   static String routeName = "/doctor_details";
@@ -27,7 +28,7 @@ class DoctorDetails extends StatefulWidget {
   State<DoctorDetails> createState() => _DoctorDetailsState();
 }
 
-class _DoctorDetailsState extends State<DoctorDetails> {
+class _DoctorDetailsState extends State<DoctorDetails> with Helpers , myHelper.Helpers1{
   // late VideoPlayerController _controller;
   // bool v = false;
 
@@ -429,19 +430,24 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                           child: BtnLayout(
                               AppLocalizations.of(context)!.book_an_appointment,
                               () {
-                        if (SharedPrefController().token != null ||
-                            SharedPrefController().token.isNotEmpty) {
-                          NewAccountGetxController.to.doctorCode = snapshot.data!.doctorCode!;
-                          NewAccountGetxController.to.clinicCode = "14";
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      MyPersonalAppointmentBooking(snapshot.data!)));
-                        } else {
-                          Navigator.pushNamed(
-                              context, AppointmentBooking.routeName);
-                        }
+                                if(SharedPrefController().getValueFor(key: PrefKeysPatient.isLoggedIn.name)??false){
+                                  if (SharedPrefController().token != null ||
+                                      SharedPrefController().token.isNotEmpty) {
+                                    NewAccountGetxController.to.doctorCode = snapshot.data!.doctorCode!;
+                                    NewAccountGetxController.to.clinicCode = "14";
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MyPersonalAppointmentBooking(snapshot.data!)));
+                                  } else {
+                                    Navigator.pushNamed(
+                                        context, AppointmentBooking.routeName);
+                                  }
+                                }else{
+                                  showAlertDialog2(context,message: AppLocalizations.of(context)!.no_account);
+                                }
+
                       })),
                       // Padding(
                       //   padding: EdgeInsets.all(8.0.r),

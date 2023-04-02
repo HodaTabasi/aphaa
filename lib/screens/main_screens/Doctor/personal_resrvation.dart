@@ -157,7 +157,7 @@ class _MyPersonalAppointmentBookingState
                                           SizedBox(
                                             height: 20.h,
                                           ),
-                                          Text("لا يوجد مواعيد متاحة"),
+                                          Text(AppLocalizations.of(context)!.no_avilavle_date),
                                         ],
                                       ))),
                               Visibility(
@@ -231,7 +231,7 @@ class _MyPersonalAppointmentBookingState
                                             SizedBox(
                                               height: 20.h,
                                             ),
-                                            Text("لا يوجد اوقات متاحة"),
+                                            Text(AppLocalizations.of(context)!.no_avilavle_time),
                                           ],
                                         ))),
                                 Visibility(
@@ -332,8 +332,16 @@ class _MyPersonalAppointmentBookingState
           pageScrollPhysics: const NeverScrollableScrollPhysics(),
           onCalendarChanged: (DateTime date) {
             print(" ${date.year} ${date.month}");
-            NewAccountGetxController.to.getDoctorSchedules(
-                widget.doctor.doctorCode, date.month, date.year,clinicCode1:widget.doctor.clinicCode );
+            if(int.parse(NewAccountGetxController.to.initMonth!) <= date.month) {
+              NewAccountGetxController.to.currentDate = date;
+              NewAccountGetxController.to.getDoctorSchedules(
+                  NewAccountGetxController.to.doctorCode, date.month, date.year,clinicCode1:widget.doctor.clinicCode,isFirstTime: false);
+            }else{
+              NewAccountGetxController.to.getDoctorSchedules(
+                  NewAccountGetxController.to.doctorCode, date.month+1, date.year,clinicCode1:widget.doctor.clinicCode,isFirstTime: false);
+            }
+            // NewAccountGetxController.to.getDoctorSchedules(
+            //     widget.doctor.doctorCode, date.month, date.year,clinicCode1:widget.doctor.clinicCode,isFirstTime: false );
           },
           onDayPressed: (DateTime date, List<Event> events) async {
             this.setState(() {
@@ -384,9 +392,10 @@ class _MyPersonalAppointmentBookingState
             //   return null;
             // }
           },
+          firstDayOfWeek:1,
           weekFormat: false,
           // markedDatesMap: _markedDateMap,
-          height: 340.0.h,
+          height: 350.0.h,
           width: 350.h,
           todayButtonColor: Colors.white,
           todayBorderColor: Colors.green,
@@ -417,6 +426,8 @@ class _MyPersonalAppointmentBookingState
             fontFamily: 'Tajawal',
             fontWeight: FontWeight.w700,
           ),
+          showWeekDays: true,
+          showIconBehindDayText: true,
           weekdayTextStyle: TextStyle(
             color: Colors.black,
             fontSize: 10.sp,

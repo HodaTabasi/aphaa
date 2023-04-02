@@ -11,6 +11,8 @@ import 'package:aphaa_app/model/allDocResponse.dart';
 import 'package:aphaa_app/model/prescriptionListResponse/PrescriptionListItems.dart';
 import 'package:aphaa_app/model/doctor.dart';
 import 'package:aphaa_app/model/familly/FamillyResponse.dart';
+import 'package:intl/intl.dart';
+import '../../get/login_getx_controller.dart';
 import '../../model/AddAppoimentResult.dart';
 import '../../model/Appointment/AppointmentResponse.dart';
 import '../../model/ApprovalsResponse/ApprovalItem.dart';
@@ -857,6 +859,15 @@ class HospitalApiController with ApiHelper {
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var jsonArray = jsonResponse['availableDays'] as List;
+      String date = "${jsonResponse['resYear']}-${jsonResponse['resMonth']}-01 03:04:05";
+      // print(DateFormat("yyyy-M-dd hh:mm:ss").parse(date).toString());
+      if(jsonResponse['resYear'] != null && jsonResponse['resMonth'] != null){
+        NewAccountGetxController.to.initYear = jsonResponse['resYear'];
+        NewAccountGetxController.to.initMonth = jsonResponse['resMonth'];
+        NewAccountGetxController.to.currentDate = DateFormat("yyyy-M-dd hh:mm:ss").parse(date);
+      }else{
+        // NewAccountGetxController.to.currentDate = null;
+      }
       return jsonArray.map((jsonObject) {
         String s = jsonObject['availableDay'];
         return s;

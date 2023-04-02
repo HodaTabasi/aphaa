@@ -18,7 +18,7 @@ class FamillyItem extends StatelessWidget {
       onTap: (){
         print(famillyMember.medicFileNumber);
         SharedPrefController().setValuePCode(pCode: famillyMember.medicFileNumber!);
-        SharedPrefController().saveName(famillyMember.patientName!,"");
+        SharedPrefController().saveName(famillyMember.patientName!,"",famillyMember.patientIDNumber!);
         ChangeGetxController.to.changeName(famillyMember.patientName, "");
         Navigator.of(context)
             .pushNamedAndRemoveUntil(ButtomNavigations.routeName, (Route<dynamic> route) => false);

@@ -204,7 +204,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                   BottomNavigationBarItem(
                       icon: SvgPicture.asset(
                         'assets/images/appApp.svg',
-                        height: 45,
+                        height: 47.h,
                         semanticsLabel: 'Acme Logo',
                         // color: pageIndex == 2 ?Color(0xff0E4C8F) :Colors.grey,
                       ),

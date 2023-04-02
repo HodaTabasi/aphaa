@@ -180,7 +180,30 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                                           SizedBox(
                                             height: 20.h,
                                           ),
-                                          Text("لا يوجد مواعيد متاحة"),
+                                          Text(AppLocalizations.of(context)!.no_avilavle_date),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          // Visibility(
+                                          //   visible: NewAccountGetxController.to.currentDate !=null,
+                                          //   child: Padding(
+                                          //     padding: const EdgeInsets.all(8.0),
+                                          //     child: InkWell(
+                                          //       onTap: (){
+                                          //         print(NewAccountGetxController.to.currentDate);
+                                          //         NewAccountGetxController.to.getDoctorSchedules(
+                                          //             NewAccountGetxController.to.doctorCode, DateTime.now().month,DateTime.now().year);
+                                          //         NewAccountGetxController.to.changeLoading();
+                                          //       },
+                                          //       child: Text("المواعيد المتاحة",style: TextStyle(
+                                          //           fontSize: 14,
+                                          //           fontWeight: FontWeight.bold,
+                                          //           color: Colors.red,
+                                          //           fontFamily: 'Tajawal'
+                                          //       ),),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ],
                                       ))),
                               Visibility(
@@ -254,7 +277,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
                                             SizedBox(
                                               height: 20.h,
                                             ),
-                                            Text("لا يوجد اوقات متاحة"),
+                                            Text(AppLocalizations.of(context)!.no_avilavle_time),
                                           ],
                                         ))),
                                 Visibility(
@@ -358,9 +381,17 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
           pageScrollPhysics: const NeverScrollableScrollPhysics(),
           onCalendarChanged: (DateTime date) {
             print(" ${date.year} ${date.month}");
-            NewAccountGetxController.to.getDoctorSchedules(
-                NewAccountGetxController.to.doctorCode, date.month, date.year);
-          },
+            print(int.parse(NewAccountGetxController.to.initMonth!));
+            if(int.parse(NewAccountGetxController.to.initMonth!) <= date.month){
+              print(date.month-1);
+              NewAccountGetxController.to.currentDate = date;
+              NewAccountGetxController.to.getDoctorSchedules(
+                  NewAccountGetxController.to.doctorCode, date.month, date.year,isFirstTime: false);
+            }else{
+              NewAccountGetxController.to.getDoctorSchedules(
+                  NewAccountGetxController.to.doctorCode, date.month+1, date.year,isFirstTime: false);
+            }
+             },
           onDayPressed: (DateTime date, List<Event> events) async {
             this.setState(() {
               NewAccountGetxController.to.currentDate = date;
@@ -386,33 +417,11 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
 //      headerText: Container( /// Example for rendering custom header
 //        child: Text('Custom Header'),
 //      ),
-          customDayBuilder: (
-            /// you can provide your own build function to make custom day containers
-            bool isSelectable,
-            int index,
-            bool isSelectedDay,
-            bool isToday,
-            bool isPrevMonthDay,
-            TextStyle textStyle,
-            bool isNextMonthDay,
-            bool isThisMonthDay,
-            DateTime day,
-          ) {
-            /// If you return null, [CalendarCarousel] will build container for current [day] with default function.
-            /// This way you can build custom containers for specific days only, leaving rest as default.
 
-            // Example: every 15th of month, we have a flight, we can place an icon in the container like that:
-            // if (day.day == 15) {
-            //   return Center(
-            //     child: Icon(Icons.local_airport),
-            //   );
-            // } else {
-            //   return null;
-            // }
-          },
+          firstDayOfWeek:1,
           weekFormat: false,
           // markedDatesMap: _markedDateMap,
-          height: 340.0.h,
+          height: 350.0.h,
           width: 350.h,
           todayButtonColor: Colors.white,
           todayBorderColor: Colors.green,
@@ -449,9 +458,12 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
             fontFamily: 'Tajawal',
             fontWeight: FontWeight.bold,
           ),
+          // showOnlyCurrentMonthDate: true,
+          showWeekDays: true,
+          showIconBehindDayText: true,
           weekDayBackgroundColor: Color(0xffEBF6EF),
           weekDayPadding: EdgeInsets.all(5.5),
-          weekDayFormat: WeekdayFormat.standaloneShort,
+          weekDayFormat: WeekdayFormat.weekdays,
           dayPadding: 8.w,
           customGridViewPhysics: NeverScrollableScrollPhysics(),
           daysHaveCircularBorder: true,

@@ -40,7 +40,15 @@ class _InsuranceButtomSheetState extends State<InsuranceButtomSheet> {
                     indent: 100.w,
                     endIndent: 100.w,
                   ),
-                  SizedBox(height: 15.h,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(onPressed:(){
+                        Navigator.pop(context);
+                      },icon: Icon(Icons.close_rounded),iconSize: 30,color: Colors.red,)
+                    ],
+                  ),
+                  // SizedBox(height: 10.h,),
                   ListView.builder(
                     itemCount: snapshot.data!.length,
                       shrinkWrap: true,

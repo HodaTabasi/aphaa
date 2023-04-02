@@ -38,17 +38,20 @@ OutlineInputBorder outlineInputBorder() {
 }
 
 
-const paymentProfileId = "51457";
+
 //Live Key
-// const paymentServerKey = "SWJNMGNWTK-JG629T9BDR-MZGJNRLT2H";
-// const paymentClientKey = "CQKMTP-27R76T-GMP7P2-79NHQK";
-// const paymentProfileId = "52842";
+const paymentServerKey = "SWJNMGNWTK-JG629T9BDR-MZGJNRLT2H";
+const paymentClientKey = "CQKMTP-27R76T-GMP7P2-79NHQK";
+const paymentProfileId = "52842";
+const paymentCartIdLive = "52842";
+
 //////////
 //Test Key
-const paymentServerKey = "SBJNMGNWKT-JG9BRN92H6-KBMRJ2GLGB";
-const paymentClientKey = "C9KMTP-27NR6T-P2RQPM-RM97M6";
-const paymentCartIdTest = "51457";
-const paymentCartIdLive = "52842";
+// const paymentProfileId = "51457";
+// const paymentServerKey = "SBJNMGNWKT-JG9BRN92H6-KBMRJ2GLGB";
+// const paymentClientKey = "C9KMTP-27NR6T-P2RQPM-RM97M6";
+// const paymentCartIdTest = "51457";
+
 const paymentMerchantName = "مستشفى أبها الخاص العالمي";
 
 // List<Service> service = [

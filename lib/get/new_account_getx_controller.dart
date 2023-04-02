@@ -49,6 +49,9 @@ class NewAccountGetxController extends GetxController {
   String? resNo;
   String? resDate;
 
+  String? initYear;
+  String? initMonth;
+
 
   ///////////////
 
@@ -98,8 +101,11 @@ class NewAccountGetxController extends GetxController {
     return doctorsList;
   }
 
-  getDoctorSchedules(value,month,year,{clinicCode1}) async {
+  getDoctorSchedules(value,month,year,{clinicCode1,isFirstTime = true}) async {
     var data = await HospitalApiController().getDoctorSched(doctorCode: value,clinicCode: clinicCode1??clinicCode,month:month,year: year );
+    if(!isFirstTime){
+      data = await HospitalApiController().getDoctorSched(doctorCode: value,clinicCode: clinicCode1??clinicCode,month:month-1,year: year );
+    }
     avilableDate =  data;
     avilableTime = [];
     changeLoading();
@@ -178,6 +184,9 @@ class NewAccountGetxController extends GetxController {
     fromOpenFile = false;
     isChangeLoading = false;
     isChangeTimeLoading = false;
+    currentDate = null;
+    initMonth = null;
+    initYear = null;
     update();
   }
   clearDataBeforeSend(){
@@ -195,6 +204,9 @@ class NewAccountGetxController extends GetxController {
     fromOpenFile = false;
     isChangeLoading = false;
     isChangeTimeLoading = false;
+    currentDate = null;
+    initMonth = null;
+    initYear = null;
     // update();
   }
 }
