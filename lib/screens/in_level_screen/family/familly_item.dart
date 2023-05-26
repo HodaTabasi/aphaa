@@ -16,6 +16,7 @@ class FamillyItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return  InkWell(
       onTap: (){
+        print("dfsfsv ${famillyMember.medicFileNumber}");
         print(famillyMember.medicFileNumber);
         SharedPrefController().setValuePCode(pCode: famillyMember.medicFileNumber!);
         SharedPrefController().saveName(famillyMember.patientName!,"",famillyMember.patientIDNumber!);

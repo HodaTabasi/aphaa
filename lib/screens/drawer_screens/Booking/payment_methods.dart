@@ -160,6 +160,27 @@ class PaymentMethod with Helpers1 {
           //todo : here show  invalid card message
           showSnackBar(context, message: "failed transaction", error: true);
           print("failed transaction");
+
+          var map = {
+            'permsNo': '$permsNo',
+            'pymtDate': transactionDetails['paymentResult']["transactionTime"]
+                .toString()
+                .split("T")
+                .first,
+            'pymtRef': transactionDetails["transactionReference"],
+            'pymtStatus': transactionDetails['paymentResult']["responseStatus"],
+            'respCode': transactionDetails['paymentResult']["responseCode"],
+            'cartId': transactionDetails['paymentInfo']["paymentDescription"],
+            'custName': transactionDetails['billingDetails']["name"],
+            'custPhone': transactionDetails['billingDetails']["name"],
+            'paidAmt': '0.0',
+            'lang': SharedPrefController()
+                .getValueFor<String>(key: PrefKeys.lang.name) ??
+                "ar",
+          };
+          print(map);
+          doIt(map);
+
         }
       } else if (event["status"] == "error") {
         print(event);

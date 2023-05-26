@@ -230,7 +230,7 @@ class _DoctorDetailsState extends State<DoctorDetails> with Helpers , myHelper.H
                                 // height: 2
                                 // fontWeight: FontWeight.normal,
                               ),
-                              maxLines: 5,
+                              // maxLines: 1000,
                             ),
                           );
                         })),
@@ -277,7 +277,7 @@ class _DoctorDetailsState extends State<DoctorDetails> with Helpers , myHelper.H
                                 // height: 2
                                 // fontWeight: FontWeight.normal,
                               ),
-                              maxLines: 5,
+                              // maxLines: 5,
                             ),
                           );
                         })),
@@ -328,7 +328,7 @@ class _DoctorDetailsState extends State<DoctorDetails> with Helpers , myHelper.H
                                 // height: 2
                                 // fontWeight: FontWeight.normal,
                               ),
-                              maxLines: 5,
+                              // maxLines: 5,
                             ),
                           );
                         })),

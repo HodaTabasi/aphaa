@@ -8,12 +8,15 @@ import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/drawer_screens/buttom_navication.dart';
 import 'package:aphaa_app/screens/main_screens/quick_services/quick_services.dart';
 import 'package:aphaa_app/screens/splach/screen_2_splash.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'firebase_options.dart';
 import 'get/change_name_getx_controller.dart';
 import 'get/language_getx_controller.dart';
 import 'get/login_getx_controller.dart';
@@ -35,6 +38,12 @@ void main() async {
   HttpOverrides.global = new MyHttpOverrides();
   await SharedPrefController().initPref();
   FileProcess.checkDocumentFolder();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
   runApp(MyApp());
 }
 
