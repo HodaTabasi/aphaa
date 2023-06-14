@@ -57,6 +57,31 @@ mixin Helpers implements Helpers1{
       ),
     );
 
+    Widget continueButton4 = Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(
+            onPressed: () async {
+              showLoaderDialog(context);
+              /*resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode*/
+              PaymentPermssion? response = await HospitalApiController().getPymtPerms(doctorCode: NewAccountGetxController.to.doctorCode,resDate: NewAccountGetxController.to.resDate,resNo: NewAccountGetxController.to.resNo,patientCode: SharedPrefController().getValueFor(key: "p_code"));
+              Navigator.pop(context);
+              if(response?.permsStatus =="true"){
+                PaymentMethod paymentMethod = PaymentMethod(context);
+                paymentMethod.doPaymentConfiguration(response?.reqAmt,permsNo: response?.permsNo);
+                // paymentMethod.doPaymentConfiguration(NewAccountGetxController.to.timeResponse?.reqAmt,permsNo: response?.permsNo);
+                Navigator.pop(context);
+                paymentMethod.onBookClickApply(context,response?.reqAmt,permsNo: response?.permsNo);
+                // paymentMethod.onBookClick(context,NewAccountGetxController.to.timeResponse?.reqAmt,permsNo: response?.permsNo);
+              }
+            },
+            child: Text(AppLocalizations.of(context)!.continue_to_pay1,
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
+      ),
+    );
+
+
     Widget continueButton3 = Center(
       child: ElevatedButton(
           onPressed: () {
@@ -92,6 +117,7 @@ mixin Helpers implements Helpers1{
         continueButton,
         Visibility(visible: !flag,child: continueButton1),
         Visibility(visible: flag, child: continueButton2),
+        Visibility(visible: flag, child: continueButton4),
         continueButton3
       ],
     );

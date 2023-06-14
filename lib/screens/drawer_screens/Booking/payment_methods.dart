@@ -50,6 +50,30 @@ class PaymentMethod with Helpers1 {
     startPaymentWithCard(context, price, permsNo);
   }
 
+  void onBookClickApply(context, price, {permsNo}) {
+    //TODO : validate form
+    // if (cardNameController.text.isEmpty) {
+    //   //TODO : show error message for card name
+    //   return;
+    // }
+    // if (cardNumberController.text.isEmpty) {
+    //   //TODO : show error message for card number
+    //   return;
+    // }
+    // if (cardDateController.text.isEmpty) {
+    //   //TODO : show error message for card date
+    //   return;
+    // }
+    // if (cardCVVController.text.isEmpty) {
+    //   //TODO : show error message for cvv
+    //   return;
+    // }
+
+    //TODO : [if pass] Start payment by calling startCardPayment method and handle the transaction details
+
+    startPaymentWithApplePay(context, price, permsNo);
+  }
+
   void doPaymentConfiguration(price, {permsNo}) {
     ///todo this data required to show payment page
     ///todo: here you need to add user data if exist at lest [*** user name and email]
@@ -92,6 +116,7 @@ class PaymentMethod with Helpers1 {
         forceShippingInfo: false,
         cartDescription: "مستشفى أبها الخاص العالمي",
         merchantName: paymentMerchantName,
+        merchantApplePayIndentifier:merchantApplePayIndentifier,
         screentTitle: "Pay with Card",
         billingDetails: billingDetails,
         shippingDetails: shippingDetails,
@@ -103,6 +128,9 @@ class PaymentMethod with Helpers1 {
         merchantCountryCode: "SA",
         alternativePaymentMethods: apms,
         linkBillingNameWithCardHolderName: false);
+
+       configuration.simplifyApplePayValidation = true;
+
 
     //Options to show billing and shipping info
     configuration.showBillingInfo = true;
@@ -152,6 +180,83 @@ class PaymentMethod with Helpers1 {
             'paidAmt': transactionDetails["cartAmount"],
             'lang': SharedPrefController()
                     .getValueFor<String>(key: PrefKeys.lang.name) ??
+                "ar",
+          };
+          print(map);
+          doIt(map);
+        } else {
+          //todo : here show  invalid card message
+          showSnackBar(context, message: "failed transaction", error: true);
+          print("failed transaction");
+
+          var map = {
+            'permsNo': '$permsNo',
+            'pymtDate': transactionDetails['paymentResult']["transactionTime"]
+                .toString()
+                .split("T")
+                .first,
+            'pymtRef': transactionDetails["transactionReference"],
+            'pymtStatus': transactionDetails['paymentResult']["responseStatus"],
+            'respCode': transactionDetails['paymentResult']["responseCode"],
+            'cartId': transactionDetails['paymentInfo']["paymentDescription"],
+            'custName': transactionDetails['billingDetails']["name"],
+            'custPhone': transactionDetails['billingDetails']["name"],
+            'paidAmt': '0.0',
+            'lang': SharedPrefController()
+                .getValueFor<String>(key: PrefKeys.lang.name) ??
+                "ar",
+          };
+          print(map);
+          doIt(map);
+
+        }
+      } else if (event["status"] == "error") {
+        print(event);
+        print("dsfsd ${price}");
+        showSnackBar(context, message: event["message"], error: true);
+        // Handle error here.
+      } else if (event["status"] == "event") {
+        // Handle events here.
+      }
+    });
+  }
+
+  void startPaymentWithApplePay(context, price, permsNo) {
+    //test card data todo 4111111111111111  || name = Visa || cvv = 123
+    FlutterPaytabsBridge.startApplePayPayment(configuration, (event) {
+      // print(event);
+      if (event["status"] == "success") {
+        // Handle transaction details here.
+        var transactionDetails = event["data"];
+        print(transactionDetails.toString());
+
+        if (transactionDetails["isSuccess"]) {
+          print("successful transaction");
+          // String permNoq = permsNo;
+          // String transactionTime = transactionDetails['paymentResult']["transactionTime"].split['T'].first;
+          // String transactionReference = transactionDetails["transactionReference"];
+          // String responseStatus = transactionDetails['paymentResult']["responseStatus"];
+          // String responseCode = transactionDetails['paymentResult']["responseCode"];
+          // String paymentDescription = transactionDetails['paymentInfo']["paymentDescription"];
+          // String phone = transactionDetails['billingDetails']["phone"];
+          // String name = transactionDetails['billingDetails']["name"];
+          // String cartAmount = transactionDetails["cartAmount"];
+
+          var map = {
+            'permsNo': '$permsNo',
+            'pymtDate': transactionDetails['paymentResult']["transactionTime"]
+                .toString()
+                .split("T")
+                .first,
+            'pymtRef': transactionDetails["transactionReference"],
+            'pymtStatus': transactionDetails['paymentResult']["responseStatus"],
+            'respCode': transactionDetails['paymentResult']["responseCode"],
+            'cartId': transactionDetails['paymentInfo']["paymentDescription"],
+            'custName': transactionDetails['billingDetails']["name"],
+            'custPhone': transactionDetails['billingDetails']["name"],
+            'paidAmt': transactionDetails["cartAmount"],
+            'lang': SharedPrefController()
+                .getValueFor<String>(key: PrefKeys.lang.name) ??
                 "ar",
           };
           print(map);

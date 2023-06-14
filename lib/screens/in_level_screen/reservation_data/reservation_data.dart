@@ -353,7 +353,40 @@ class _ReservationDataState extends State<ReservationData> with Helpers1{
           ),
            SizedBox(height: 20.h,),
           BtnLayout(AppLocalizations.of(context)!.continue_to_pay, () {
-            onBookClick(context);
+            showModalBottomSheet(
+                isScrollControlled: false,
+                backgroundColor: Colors.white,
+                context: context,
+                shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.r),
+                    borderSide: BorderSide(color: Colors.transparent)),
+                builder: (context) => Container(
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              onBookClick(context);
+                            },
+                            child: Text(AppLocalizations.of(context)!.continue_to_pay,
+                                style: TextStyle(
+                                    fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              // onBookClickApply(context,response?.reqAmt,permsNo: response?.permsNo);
+                            },
+                            child: Text(AppLocalizations.of(context)!.continue_to_pay1,
+                                style: TextStyle(
+                                    fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
+                      )
+                    ],
+                  ),
+                ));
+
             // Navigator.pushNamed(context, PaymentScreen.routeName);
           }),
            SizedBox(height: 10.h,),
@@ -425,12 +458,16 @@ class _ReservationDataState extends State<ReservationData> with Helpers1{
         billingDetails: billingDetails,
         shippingDetails: shippingDetails,
         locale: PaymentSdkLocale.EN,
+        merchantApplePayIndentifier:merchantApplePayIndentifier,
         //PaymentSdkLocale.AR or PaymentSdkLocale.DEFAULT
         amount: instalation.price *0.15, //release her amount
         currencyCode: "SAR",
         merchantCountryCode: "SA",
         alternativePaymentMethods: apms,
         linkBillingNameWithCardHolderName: false);
+
+       configuration.simplifyApplePayValidation = true;
+
 
     //Options to show billing and shipping info
     configuration.showBillingInfo = true;
@@ -471,4 +508,81 @@ class _ReservationDataState extends State<ReservationData> with Helpers1{
       });
     });
   }
+
+  void startPaymentWithApplePay(context, price, permsNo) {
+    //test card data todo 4111111111111111  || name = Visa || cvv = 123
+    FlutterPaytabsBridge.startApplePayPayment(configuration, (event) {
+      // print(event);
+      if (event["status"] == "success") {
+        // Handle transaction details here.
+        var transactionDetails = event["data"];
+        print(transactionDetails.toString());
+
+        if (transactionDetails["isSuccess"]) {
+          print("successful transaction");
+          // String permNoq = permsNo;
+          // String transactionTime = transactionDetails['paymentResult']["transactionTime"].split['T'].first;
+          // String transactionReference = transactionDetails["transactionReference"];
+          // String responseStatus = transactionDetails['paymentResult']["responseStatus"];
+          // String responseCode = transactionDetails['paymentResult']["responseCode"];
+          // String paymentDescription = transactionDetails['paymentInfo']["paymentDescription"];
+          // String phone = transactionDetails['billingDetails']["phone"];
+          // String name = transactionDetails['billingDetails']["name"];
+          // String cartAmount = transactionDetails["cartAmount"];
+
+          var map = {
+            'permsNo': '$permsNo',
+            'pymtDate': transactionDetails['paymentResult']["transactionTime"]
+                .toString()
+                .split("T")
+                .first,
+            'pymtRef': transactionDetails["transactionReference"],
+            'pymtStatus': transactionDetails['paymentResult']["responseStatus"],
+            'respCode': transactionDetails['paymentResult']["responseCode"],
+            'cartId': transactionDetails['paymentInfo']["paymentDescription"],
+            'custName': transactionDetails['billingDetails']["name"],
+            'custPhone': transactionDetails['billingDetails']["name"],
+            'paidAmt': transactionDetails["cartAmount"],
+            'lang': SharedPrefController()
+                .getValueFor<String>(key: PrefKeys.lang.name) ??
+                "ar",
+          };
+          print(map);
+          // doIt(map);
+        } else {
+          //todo : here show  invalid card message
+          showSnackBar(context, message: "failed transaction", error: true);
+          print("failed transaction");
+
+          var map = {
+            'permsNo': '$permsNo',
+            'pymtDate': transactionDetails['paymentResult']["transactionTime"]
+                .toString()
+                .split("T")
+                .first,
+            'pymtRef': transactionDetails["transactionReference"],
+            'pymtStatus': transactionDetails['paymentResult']["responseStatus"],
+            'respCode': transactionDetails['paymentResult']["responseCode"],
+            'cartId': transactionDetails['paymentInfo']["paymentDescription"],
+            'custName': transactionDetails['billingDetails']["name"],
+            'custPhone': transactionDetails['billingDetails']["name"],
+            'paidAmt': '0.0',
+            'lang': SharedPrefController()
+                .getValueFor<String>(key: PrefKeys.lang.name) ??
+                "ar",
+          };
+          print(map);
+          // doIt(map);
+        }
+      } else if (event["status"] == "error") {
+        print(event);
+        print("dsfsd ${price}");
+        showSnackBar(context, message: event["message"], error: true);
+        // Handle error here.
+      } else if (event["status"] == "event") {
+        // Handle events here.
+      }
+    });
+  }
+
 }

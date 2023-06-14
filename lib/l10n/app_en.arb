@@ -172,7 +172,8 @@
            "booking_time":"booking time : ",
            "notes":"notes :  ",
 
-           "continue_to_pay":"continue to pay ",
+           "continue_to_pay":"continue to pay with Card",
+           "continue_to_pay1":"continue to pay with Apple Pay",
            "order_cost":"order cost ",
            "request_summary":"request summary : ",
            "add_a_new_payment_card":" add a new payment card",

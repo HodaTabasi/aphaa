@@ -211,7 +211,40 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                     if(response?.permsStatus =="true"){
                       PaymentMethod paymentMethod = PaymentMethod(context);
                       paymentMethod.doPaymentConfiguration(response?.reqAmt,permsNo: response?.permsNo);
-                      paymentMethod.onBookClick(context,response?.reqAmt,permsNo: response?.permsNo);
+                      showModalBottomSheet(
+                          isScrollControlled: false,
+                          backgroundColor: Colors.white,
+                          context: context,
+                          shape: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.r),
+                              borderSide: BorderSide(color: Colors.transparent)),
+                          builder: (context) => Container(
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: ElevatedButton(
+                                      onPressed: () async {
+                                        paymentMethod.onBookClick(context,response?.reqAmt,permsNo: response?.permsNo);
+                                      },
+                                      child: Text(AppLocalizations.of(context)!.continue_to_pay,
+                                          style: TextStyle(
+                                              fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: ElevatedButton(
+                                      onPressed: () async {
+                                        paymentMethod.onBookClickApply(context,response?.reqAmt,permsNo: response?.permsNo);
+                                      },
+                                      child: Text(AppLocalizations.of(context)!.continue_to_pay1,
+                                          style: TextStyle(
+                                              fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
+                                )
+                              ],
+                            ),
+                          ));
+
                     } else {
                       showSnackBar(context, message: response?.paymentNotice??"", error: true);
                     }
