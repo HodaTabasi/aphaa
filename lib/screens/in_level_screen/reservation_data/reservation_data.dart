@@ -370,17 +370,18 @@ class _ReservationDataState extends State<ReservationData> with Helpers1{
                               onBookClick(context);
                             },
                             child: Text(AppLocalizations.of(context)!.continue_to_pay,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: ElevatedButton(
                             onPressed: () async {
+                              startPaymentWithApplePay(context);
                               // onBookClickApply(context,response?.reqAmt,permsNo: response?.permsNo);
                             },
                             child: Text(AppLocalizations.of(context)!.continue_to_pay1,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
                       )
                     ],
@@ -509,7 +510,7 @@ class _ReservationDataState extends State<ReservationData> with Helpers1{
     });
   }
 
-  void startPaymentWithApplePay(context, price, permsNo) {
+  void startPaymentWithApplePay(context) {
     //test card data todo 4111111111111111  || name = Visa || cvv = 123
     FlutterPaytabsBridge.startApplePayPayment(configuration, (event) {
       // print(event);
@@ -530,53 +531,52 @@ class _ReservationDataState extends State<ReservationData> with Helpers1{
           // String name = transactionDetails['billingDetails']["name"];
           // String cartAmount = transactionDetails["cartAmount"];
 
-          var map = {
-            'permsNo': '$permsNo',
-            'pymtDate': transactionDetails['paymentResult']["transactionTime"]
-                .toString()
-                .split("T")
-                .first,
-            'pymtRef': transactionDetails["transactionReference"],
-            'pymtStatus': transactionDetails['paymentResult']["responseStatus"],
-            'respCode': transactionDetails['paymentResult']["responseCode"],
-            'cartId': transactionDetails['paymentInfo']["paymentDescription"],
-            'custName': transactionDetails['billingDetails']["name"],
-            'custPhone': transactionDetails['billingDetails']["name"],
-            'paidAmt': transactionDetails["cartAmount"],
-            'lang': SharedPrefController()
-                .getValueFor<String>(key: PrefKeys.lang.name) ??
-                "ar",
-          };
-          print(map);
+          // var map = {
+          //   'permsNo': '$permsNo',
+          //   'pymtDate': transactionDetails['paymentResult']["transactionTime"]
+          //       .toString()
+          //       .split("T")
+          //       .first,
+          //   'pymtRef': transactionDetails["transactionReference"],
+          //   'pymtStatus': transactionDetails['paymentResult']["responseStatus"],
+          //   'respCode': transactionDetails['paymentResult']["responseCode"],
+          //   'cartId': transactionDetails['paymentInfo']["paymentDescription"],
+          //   'custName': transactionDetails['billingDetails']["name"],
+          //   'custPhone': transactionDetails['billingDetails']["name"],
+          //   'paidAmt': transactionDetails["cartAmount"],
+          //   'lang': SharedPrefController()
+          //       .getValueFor<String>(key: PrefKeys.lang.name) ??
+          //       "ar",
+          // };
+          // print(map);
           // doIt(map);
         } else {
           //todo : here show  invalid card message
           showSnackBar(context, message: "failed transaction", error: true);
           print("failed transaction");
 
-          var map = {
-            'permsNo': '$permsNo',
-            'pymtDate': transactionDetails['paymentResult']["transactionTime"]
-                .toString()
-                .split("T")
-                .first,
-            'pymtRef': transactionDetails["transactionReference"],
-            'pymtStatus': transactionDetails['paymentResult']["responseStatus"],
-            'respCode': transactionDetails['paymentResult']["responseCode"],
-            'cartId': transactionDetails['paymentInfo']["paymentDescription"],
-            'custName': transactionDetails['billingDetails']["name"],
-            'custPhone': transactionDetails['billingDetails']["name"],
-            'paidAmt': '0.0',
-            'lang': SharedPrefController()
-                .getValueFor<String>(key: PrefKeys.lang.name) ??
-                "ar",
-          };
-          print(map);
+          // var map = {
+          //   'permsNo': '$permsNo',
+          //   'pymtDate': transactionDetails['paymentResult']["transactionTime"]
+          //       .toString()
+          //       .split("T")
+          //       .first,
+          //   'pymtRef': transactionDetails["transactionReference"],
+          //   'pymtStatus': transactionDetails['paymentResult']["responseStatus"],
+          //   'respCode': transactionDetails['paymentResult']["responseCode"],
+          //   'cartId': transactionDetails['paymentInfo']["paymentDescription"],
+          //   'custName': transactionDetails['billingDetails']["name"],
+          //   'custPhone': transactionDetails['billingDetails']["name"],
+          //   'paidAmt': '0.0',
+          //   'lang': SharedPrefController()
+          //       .getValueFor<String>(key: PrefKeys.lang.name) ??
+          //       "ar",
+          // };
+          // print(map);
           // doIt(map);
         }
       } else if (event["status"] == "error") {
         print(event);
-        print("dsfsd ${price}");
         showSnackBar(context, message: event["message"], error: true);
         // Handle error here.
       } else if (event["status"] == "event") {
