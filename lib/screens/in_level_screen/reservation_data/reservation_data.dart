@@ -18,9 +18,6 @@ import 'package:aphaa_app/helper/constant.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/drawer_screens/done/done_screen.dart';
 
-import '../../../api/controllers/hospital_controller.dart';
-import '../../../model/billResponse.dart';
-
 class ReservationData extends StatefulWidget {
   static String routeName = "/ReservationData";
   @override
@@ -373,7 +370,7 @@ class _ReservationDataState extends State<ReservationData> with Helpers1{
                               onBookClick(context);
                             },
                             child: Text(AppLocalizations.of(context)!.continue_to_pay,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
                       ),
                       Padding(
@@ -381,9 +378,10 @@ class _ReservationDataState extends State<ReservationData> with Helpers1{
                         child: ElevatedButton(
                             onPressed: () async {
                               startPaymentWithApplePay(context);
+                              // onBookClickApply(context,response?.reqAmt,permsNo: response?.permsNo);
                             },
                             child: Text(AppLocalizations.of(context)!.continue_to_pay1,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
                       )
                     ],
