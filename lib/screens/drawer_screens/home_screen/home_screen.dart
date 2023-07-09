@@ -43,6 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<Service> service = [
+      Service(
+          'assets/images/consult1.svg',
+          AppLocalizations.of(context)!.appointment,
+          'consult',
+          SendConsultScreen.routeName),
       Service('assets/images/secment.svg', AppLocalizations.of(context)!.vital_signs, '',
           VitalSigns.routeName),
       Service('assets/images/result.svg', AppLocalizations.of(context)!.test_results, '',
@@ -67,11 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       Service(
           'assets/images/paybook.svg', AppLocalizations.of(context)!.pay_book, '', PaymentRecord.routeName),
-      Service(
-          'assets/images/consult1.svg',
-          AppLocalizations.of(context)!.my_medical_consultation,
-          'consult',
-          SendConsultScreen.routeName),
+
     ];
 
     // image: 'assets/images/offers.svg',
