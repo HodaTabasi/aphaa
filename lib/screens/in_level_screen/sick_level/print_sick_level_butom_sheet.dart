@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:aphaa_app/general/download_btn.dart';
 import 'package:aphaa_app/helper/helpers.dart';
+import 'package:aphaa_app/helper/share_buttom_sheet.dart';
 import 'package:aphaa_app/model/SickLeaves/LeaveDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
+import '../../../general/edittext_item.dart';
 import '../../../helper/FileProcess.dart';
 import '../../../model/getPDF.dart';
 import '../../../preferences/shared_pref_controller.dart';
@@ -248,6 +250,7 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> w
                     visible: snapshot.data!.first.repStaus == "1",
                       child: InkWell(
                         onTap: () async {
+
                           showLoaderDialog(context);
                           PdfClass base64 = await HospitalApiController().getPdfFile(
                               patientCode:
@@ -261,7 +264,12 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> w
                             Navigator.pop(context);
                             File file =  await FileProcess.downloadFile(base64.pdfFile, snapshot.data!.first.fileName);
                             Navigator.pop(context);
-                            showSnackBarAction(widget.bottomSheetContext, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
+                            showModalBottomSheet(
+                              isScrollControlled: false,
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (_) => ShareButtomSheet(file.path) );
+                            // showSnackBarAction(widget.bottomSheetContext, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
                           }
                         },
                           child: downloadBtn())),

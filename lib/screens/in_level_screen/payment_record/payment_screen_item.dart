@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../helper/FileProcess.dart';
+import '../../../helper/share_buttom_sheet.dart';
 import '../../../model/getPDF.dart';
 import '../../../preferences/shared_pref_controller.dart';
 
@@ -263,7 +264,12 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
                     else {
                       Navigator.pop(context);
                       File file =  await FileProcess.downloadFile(base64.pdfFile, patientPaymentRecord.pdfName!.split("/").last);
-                      showSnackBarAction(context, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
+                      showModalBottomSheet(
+                          isScrollControlled: false,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (_) => ShareButtomSheet(file.path) );
+                      // showSnackBarAction(context, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
                     }
 
                     // showModalBottomSheet(

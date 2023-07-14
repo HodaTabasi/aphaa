@@ -9,6 +9,7 @@
    "exit1": "exit",
    "conferm": "confirm",
    "open": "open",
+   "share": "share",
    "cancel": "cancel",
   "no_doctor_found":"No Doctor Found",
   "welcome": "Welcome to the patient portal",

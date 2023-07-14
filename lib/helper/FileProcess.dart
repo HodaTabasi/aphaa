@@ -44,7 +44,10 @@ class FileProcess {
     String dir =
         directory!.path + "/" + fileName;
     File file = new File(dir);
-    if (!file.existsSync()) file.create();
+    if (!file.existsSync()){
+      print("object");
+      await file.create(recursive: true);
+    }
     await file.writeAsBytes(bytes);
     return file;
   }

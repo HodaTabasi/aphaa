@@ -1,5 +1,7 @@
+import 'package:aphaa_app/general/edittext_item.dart';
 import 'package:aphaa_app/general/readPdf.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../get/change_name_getx_controller.dart';
@@ -26,14 +28,14 @@ mixin Helpers1 {
         backgroundColor: error ? Colors.red : Colors.green,
         dismissDirection: DismissDirection.horizontal,
         action: SnackBarAction(
-          label: AppLocalizations.of(context)!.open,
+          label: AppLocalizations.of(context)!.share,
           textColor: Colors.white,
           // onPressed: onPressed ?? (){},
           onPressed: () {
             print(path);
             ChangeGetxController.to.filePath = path;
 
-            Navigator.pushNamed(context, ReadPdf.routeName);
+            // Navigator.pushNamed(context, ReadPdf.routeName);
             // Get.to(ReadPdf());
           },
         ),
