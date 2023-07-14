@@ -39,7 +39,7 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                   padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
                   child: Text.rich(
                     TextSpan(
-                      text: AppLocalizations.of(context)!.req_number,
+                      text: AppLocalizations.of(context)!.cons_no,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -47,7 +47,7 @@ class ScedualBookingItem extends StatelessWidget with Helpers1 {
                           fontFamily: 'Tajawal'),
                       children: <TextSpan>[
                         TextSpan(
-                          text: '  ${appointments.resNo}  ',
+                          text: '  ${appointments.consNo}  ',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.black45,

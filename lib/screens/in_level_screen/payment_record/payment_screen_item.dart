@@ -137,6 +137,52 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10.r,10.r, 10.r,10.r),
+                      child: Text.rich(
+                        TextSpan(
+                          text: AppLocalizations.of(context)!.cons_no ,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 12.sp,
+                              fontFamily: 'Tajawal'),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '  ${patientPaymentRecord.consNo}  ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black45,
+                                  fontSize: 12.sp,
+                                  fontFamily: 'Tajawal'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10.r,10.r, 10.r,10.r),
+                      child: Text.rich(
+                        TextSpan(
+                          text: AppLocalizations.of(context)!.exp_time ,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 12.sp,
+                              fontFamily: 'Tajawal'),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '  ${patientPaymentRecord.expTime}  ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black45,
+                                  fontSize: 12.sp,
+                                  fontFamily: 'Tajawal'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 Column(
@@ -227,6 +273,29 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
                           children: <TextSpan>[
                             TextSpan(
                               text: ' ${patientPaymentRecord.creditAmt} ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black45,
+                                  fontSize: 12.sp,
+                                  fontFamily: 'Tajawal'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.r,vertical: 10.r),
+                      child: Text.rich(
+                        TextSpan(
+                          text: AppLocalizations.of(context)!.cons_date,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 12.sp,
+                              fontFamily: 'Tajawal'),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: ' ${patientPaymentRecord.consDate} ',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black45,

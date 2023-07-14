@@ -11,6 +11,7 @@ class Appointments {
   String? y;
   String? patientCode;
   String? resNo;
+  String? consNo;
   String? date;
   String? reservationStatus;
 
@@ -24,6 +25,7 @@ class Appointments {
         this.y,
         this.patientCode,
         this.resNo,
+        this.consNo,
          this.date,
       this.reservationStatus});
 
@@ -70,6 +72,7 @@ Appointments.fromJson(Map<String, dynamic> json) {
     y = json['Y'];
     patientCode = json['patientCode'];
     resNo = json['resNo'];
+    consNo = json['consNo'];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,6 +90,7 @@ Appointments.fromJson(Map<String, dynamic> json) {
     data['Y'] = this.y;
     data['patientCode'] = this.patientCode;
     data['resNo'] = this.resNo;
+    data['consNo'] = this.consNo;
     return data;
   }
 }

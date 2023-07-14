@@ -4,6 +4,9 @@ class PatientPaymentRecord {
   String? invDate;
   String? doctorName;
   String? clinicName;
+  String? consNo;
+  String? consDate;
+  String? expTime;
   String? cashAmt;
   String? creditAmt;
   String? serviceType;
@@ -11,12 +14,21 @@ class PatientPaymentRecord {
   String? refNo;
   String? pdfName;
 
+  /*
+  * "consNo": "",
+            "consDate": "",
+            "expTime": "",
+            * */
+
   PatientPaymentRecord(
       {this.invType,
         this.invNo,
         this.invDate,
         this.doctorName,
         this.clinicName,
+        this.consNo,
+        this.consDate,
+        this.expTime,
         this.cashAmt,
         this.creditAmt,
         this.serviceType,
@@ -30,6 +42,9 @@ class PatientPaymentRecord {
     invDate = json['invDate'];
     doctorName = json['doctorName'];
     clinicName = json['clinicName'];
+    consNo = json['consNo'];
+    consDate = json['consDate'];
+    expTime = json['expTime'];
     cashAmt = json['cashAmt'];
     creditAmt = json['creditAmt'];
     serviceType = json['serviceType'];
@@ -45,6 +60,9 @@ class PatientPaymentRecord {
     data['invDate'] = this.invDate;
     data['doctorName'] = this.doctorName;
     data['clinicName'] = this.clinicName;
+    data['consNo'] = this.consNo ;
+    data['consDate'] =this.consDate;
+    data['expTime'] =this.expTime;
     data['cashAmt'] = this.cashAmt;
     data['creditAmt'] = this.creditAmt;
     data['serviceType'] = this.serviceType;
