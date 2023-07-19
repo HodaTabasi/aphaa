@@ -13,6 +13,7 @@ import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.
 import 'package:aphaa_app/screens/in_level_screen/test_results/test_results.dart';
 import 'package:aphaa_app/screens/in_level_screen/vaccinations/vaccinations.dart';
 import 'package:aphaa_app/screens/in_level_screen/vital_signs/vital_signs.dart';
+import 'package:aphaa_app/screens/main_screens/Appointment%20Booking/appointement_booking.dart';
 import 'package:aphaa_app/screens/main_screens/Doctor/my_doctor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,35 +44,49 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<Service> service = [
-      Service(
-          'assets/images/consult1.svg',
-          AppLocalizations.of(context)!.appointment,
-          'consult',
-          SendConsultScreen.routeName),
-      Service('assets/images/secment.svg', AppLocalizations.of(context)!.vital_signs, '',
-          VitalSigns.routeName),
-      Service('assets/images/result.svg', AppLocalizations.of(context)!.test_results, '',
-          TestResults.routeName),
-      Service('assets/images/dco40714.svg', AppLocalizations.of(context)!.ny_doctor, '',
-          MyDoctorsScreen.routeName),
-      Service('assets/images/40714.svg', AppLocalizations.of(context)!.insurance_approvals, '',
-          InsuranceApprovals.routeName),
-      Service('assets/images/407s14.svg', AppLocalizations.of(context)!.my_sick_leave, '',
-          SickLeave.routeName),
-      Service('assets/images/40697.svg', AppLocalizations.of(context)!.my_medical_recipes, '',
-          MedicalRecipes.routeName),
-      Service(
-          'assets/images/droup.svg', AppLocalizations.of(context)!.doctors, '', DoctorsScreen.routeName),
-      Service(
-          'assets/images/app_hestory.svg', AppLocalizations.of(context)!.appointment_book, '', RexcordBooking.routeName),
+      //عائلتي
       Service(
           'assets/images/family.svg', AppLocalizations.of(context)!.my_family, '', FamillyScreen.routeName),
+      //حجز موعد
+      Service(
+          'assets/images/calender_tool 1.svg',
+          AppLocalizations.of(context)!.appointment,
+          'consult',
+          MyAppointmentBooking.routeName),
+      //موافقات التامين
+      Service('assets/images/40714.svg', AppLocalizations.of(context)!.insurance_approvals, '',
+          InsuranceApprovals.routeName),
+      //سجل المواعيد
+      Service(
+          'assets/images/app_hestory.svg', AppLocalizations.of(context)!.appointment_book, '', RexcordBooking.routeName),
+      //نتائج الفحوصات
+      Service('assets/images/result.svg', AppLocalizations.of(context)!.test_results, '',
+          TestResults.routeName),
+      //وصفاتي الطبية
+      Service('assets/images/40697.svg', AppLocalizations.of(context)!.my_medical_recipes, '',
+          MedicalRecipes.routeName),
+     // التقارير
+      Service('assets/images/407s14.svg', AppLocalizations.of(context)!.my_sick_leave, '',
+          SickLeave.routeName),
+     //سجل المدفوعات
+      Service(
+          'assets/images/paybook.svg', AppLocalizations.of(context)!.pay_book, '', PaymentRecord.routeName),
 
+      //اطبائي
+      Service('assets/images/dco40714.svg', AppLocalizations.of(context)!.ny_doctor, '',
+          MyDoctorsScreen.routeName),
+
+      //جميع الاطباء
+      Service(
+          'assets/images/droup.svg', AppLocalizations.of(context)!.doctors, '', DoctorsScreen.routeName),
+
+      //المؤشرات الحيوية
+      Service('assets/images/secment.svg', AppLocalizations.of(context)!.vital_signs, '',
+          VitalSigns.routeName),
+      //العروض الطبية
       Service(
           'assets/images/offers.svg', AppLocalizations.of(context)!.medical_offers, 'offers', OfferScreen.routeName),
 
-      Service(
-          'assets/images/paybook.svg', AppLocalizations.of(context)!.pay_book, '', PaymentRecord.routeName),
 
     ];
 

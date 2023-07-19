@@ -40,64 +40,10 @@ class _ShareButtomSheetState extends State<ShareButtomSheet> {
             indent: 100.w,
             endIndent: 100.w,
           ),
-          // SizedBox(
-          //   height: 16.r,
-          // ),
-          // Text(
-          //   'شارك التقرير الطبي عبر :',
-          //   style: TextStyle(
-          //     color: Color(0xff2D2D2D),
-          //     fontSize: 15.sp,
-          //     fontFamily: 'Tajawal',
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // ),
+
           SizedBox(
             height: 20.h,
           ),
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     InkWell(
-          //         onTap: () {
-          //           whats = true;
-          //           setState(() {});
-          //         },
-          //         child: SvgPicture.asset(
-          //           'assets/images/whats.svg',
-          //           height: 40.h,
-          //           width: 40.w,
-          //         )),
-          //     SizedBox(
-          //       width: 20.h,
-          //     ),
-          //     InkWell(
-          //         onTap: () {
-          //           whats = false;
-          //           setState(() {});
-          //         },
-          //         child: Image.asset(
-          //           'assets/images/email.png',
-          //           height: 50.h,
-          //           width: 50.w,
-          //         )),
-          //     // SizedBox(
-          //     //   width: 20.h,
-          //     // ),
-          //     // InkWell(
-          //     //     onTap: () {},
-          //     //     child: Image.asset('assets/images/open.png',height: 50.h,width: 50.w,)
-          //     // ),
-          //   ],
-          // ),
-          // EditTextItem(
-          //     whats ? 'assets/images/phone.svg' : 'assets/images/Message.svg',
-          //     whats
-          //         ? '${AppLocalizations.of(context)!.phone}'
-          //         : '${AppLocalizations.of(context)!.email}',
-          //     whats ? TextInputType.number : TextInputType.emailAddress,
-          //     controler: TextEditingController()),
           BtnLayout('${AppLocalizations.of(context)!.share}', () {
             Share.shareFiles(['${widget.path}'], text: 'ShreFile');
           }),
@@ -111,6 +57,7 @@ class _ShareButtomSheetState extends State<ShareButtomSheet> {
             ),
           ),
           BtnLayout('${AppLocalizations.of(context)!.open}', () {
+            ChangeGetxController.to.filePath = widget.path;
             Navigator.pushNamed(context, ReadPdf.routeName);
           }),
         ],

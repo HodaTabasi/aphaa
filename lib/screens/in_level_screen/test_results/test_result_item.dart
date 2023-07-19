@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../helper/share_buttom_sheet.dart';
 
@@ -143,6 +144,40 @@ class TestResultItem extends StatelessWidget with Helpers1 {
                   showLoaderDialog(context);
                   PdfClass base64 = await HospitalApiController().getPdfFile(
                       patientCode:
+                      SharedPrefController().getValueFor(key: "p_code"),
+                      clinicCode: serviceTest!.clinicCode,
+                      serviceType: serviceTest!.serviceType,
+                      fileName: serviceTest!.fileName);
+                  if (base64 == null)
+                    showSnackBar(context, message: AppLocalizations.of(context)!.no_file_find,error: true);
+                  else {
+                    File file =  await FileProcess.downloadFile(base64.pdfFile, serviceTest!.fileName);
+                    Navigator.pop(context);
+                    Share.shareFiles(['${file.path}'], text: 'ShreFile');
+
+                    // showSnackBarAction(context, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
+                  }
+
+                  // showModalBottomSheet(
+                  //   isScrollControlled: true,
+                  //   backgroundColor: Colors.transparent,
+                  //   context: context,
+                  //   builder: (context) => PrintMedicalRecipesButtomSheet(),
+                  // );
+                },
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(8.r, 0, 16.r, 10.r),
+                  child: SvgPicture.asset(
+                    'assets/images/share_file.svg',
+                    semanticsLabel: 'Acme Logo',
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () async {
+                  showLoaderDialog(context);
+                  PdfClass base64 = await HospitalApiController().getPdfFile(
+                      patientCode:
                           SharedPrefController().getValueFor(key: "p_code"),
                       clinicCode: serviceTest!.clinicCode,
                       serviceType: serviceTest!.serviceType,
@@ -152,12 +187,12 @@ class TestResultItem extends StatelessWidget with Helpers1 {
                   else {
                     File file =  await FileProcess.downloadFile(base64.pdfFile, serviceTest!.fileName);
                     Navigator.pop(context);
-                    showModalBottomSheet(
-                        isScrollControlled: false,
-                        backgroundColor: Colors.transparent,
-                        context: context,
-                        builder: (_) => ShareButtomSheet(file.path) );
-                    // showSnackBarAction(context, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
+                    // showModalBottomSheet(
+                    //     isScrollControlled: false,
+                    //     backgroundColor: Colors.transparent,
+                    //     context: context,
+                    //     builder: (_) => ShareButtomSheet(file.path) );
+                    showSnackBarAction(context, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
                   }
 
                   // showModalBottomSheet(

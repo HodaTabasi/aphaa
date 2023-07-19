@@ -39,16 +39,37 @@ mixin Helpers implements Helpers1{
         child: ElevatedButton(
             onPressed: () async {
          showLoaderDialog(context);
+         PaymentMethod paymentMethod = PaymentMethod(context);
     /*resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode*/
        PaymentPermssion? response = await HospitalApiController().getPymtPerms(doctorCode: NewAccountGetxController.to.doctorCode,resDate: NewAccountGetxController.to.resDate,resNo: NewAccountGetxController.to.resNo,patientCode: SharedPrefController().getValueFor(key: "p_code"));
       Navigator.pop(context);
-    if(response?.permsStatus =="true"){
-      PaymentMethod paymentMethod = PaymentMethod(context);
-      paymentMethod.doPaymentConfiguration(response?.reqAmt,permsNo: response?.permsNo);
-      // paymentMethod.doPaymentConfiguration(NewAccountGetxController.to.timeResponse?.reqAmt,permsNo: response?.permsNo);
-      Navigator.pop(context);
-      paymentMethod.onBookClick(context,response?.reqAmt,permsNo: response?.permsNo);
-      // paymentMethod.onBookClick(context,NewAccountGetxController.to.timeResponse?.reqAmt,permsNo: response?.permsNo);
+         paymentMethod.doPaymentConfiguration(response?.reqAmt,permsNo: response?.permsNo);
+         if(response?.permsStatus =="true"){
+      if(response?.reqAmt == null || response?.reqAmt == "0"){
+        //TODO 1قطع فاتورة حتى لو صفر
+        var map = {
+          'permsNo': '${response?.permsNo}',
+              'lang': SharedPrefController()
+                  .getValueFor<String>(key: PrefKeys.lang.name) ??
+              "ar",
+              };
+        paymentMethod.doIt(map);
+      }else {
+        // paymentMethod.doPaymentConfiguration(NewAccountGetxController.to.timeResponse?.reqAmt,permsNo: response?.permsNo);
+        Navigator.pop(context);
+        paymentMethod.onBookClick(context,response?.reqAmt,permsNo: response?.permsNo);
+        // paymentMethod.onBookClick(context,NewAccountGetxController.to.timeResponse?.reqAmt,permsNo: response?.permsNo);
+
+      }
+      }else {
+      //TODO قطع فاتورة حتى لو فاضية
+           var map = {
+             'permsNo': '${response?.permsNo}',
+             'lang': SharedPrefController()
+                 .getValueFor<String>(key: PrefKeys.lang.name) ??
+                 "ar",
+           };
+           paymentMethod.doIt(map);
     }
                },
             child: Text(AppLocalizations.of(context)!.continue_to_pay,
@@ -63,18 +84,37 @@ mixin Helpers implements Helpers1{
         child: ElevatedButton(
             onPressed: () async {
               showLoaderDialog(context);
+              PaymentMethod paymentMethod = PaymentMethod(context);
               /*resDate: appointments.resDate,resNo: appointments.resNo,doctorCode: appointments.doctor?.doctorCode*/
               PaymentPermssion? response = await HospitalApiController().getPymtPerms(doctorCode: NewAccountGetxController.to.doctorCode,resDate: NewAccountGetxController.to.resDate,resNo: NewAccountGetxController.to.resNo,patientCode: SharedPrefController().getValueFor(key: "p_code"));
+              paymentMethod.doPaymentConfiguration(response?.reqAmt,permsNo: response?.permsNo);
               Navigator.pop(context);
               if(response?.permsStatus =="true"){
-                PaymentMethod paymentMethod = PaymentMethod(context);
-                paymentMethod.doPaymentConfiguration(response?.reqAmt,permsNo: response?.permsNo);
-                // paymentMethod.doPaymentConfiguration(NewAccountGetxController.to.timeResponse?.reqAmt,permsNo: response?.permsNo);
-                Navigator.pop(context);
-                paymentMethod.onBookClickApply(context,response?.reqAmt,permsNo: response?.permsNo);
-                // paymentMethod.onBookClick(context,NewAccountGetxController.to.timeResponse?.reqAmt,permsNo: response?.permsNo);
+                if(response?.reqAmt == null || response?.reqAmt == "0"){
+                  //TODO 1قطع فاتورة حتى لو صفر
+                  var map = {
+                    'permsNo': '${response?.permsNo}',
+                    'lang': SharedPrefController()
+                        .getValueFor<String>(key: PrefKeys.lang.name) ??
+                        "ar",
+                  };
+                  paymentMethod.doIt(map);
+                }else {
+                  Navigator.pop(context);
+                  paymentMethod.onBookClickApply(context,response?.reqAmt,permsNo: response?.permsNo);
+                }
+              }else {
+                //TODO قطع فاتورة حتى لو فاضية
+                var map = {
+                  'permsNo': '${response?.permsNo}',
+                  'lang': SharedPrefController()
+                      .getValueFor<String>(key: PrefKeys.lang.name) ??
+                      "ar",
+                };
+                paymentMethod.doIt(map);
               }
-            },
+
+              },
             child: Text(AppLocalizations.of(context)!.continue_to_pay1,
                 style: TextStyle(
                     fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),

@@ -28,14 +28,13 @@ mixin Helpers1 {
         backgroundColor: error ? Colors.red : Colors.green,
         dismissDirection: DismissDirection.horizontal,
         action: SnackBarAction(
-          label: AppLocalizations.of(context)!.share,
+          label: AppLocalizations.of(context)!.open,
           textColor: Colors.white,
           // onPressed: onPressed ?? (){},
           onPressed: () {
             print(path);
             ChangeGetxController.to.filePath = path;
-
-            // Navigator.pushNamed(context, ReadPdf.routeName);
+            Navigator.pushNamed(context, ReadPdf.routeName);
             // Get.to(ReadPdf());
           },
         ),

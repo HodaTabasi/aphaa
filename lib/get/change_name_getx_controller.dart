@@ -28,5 +28,5 @@ class ChangeGetxController extends GetxController {
     this.pCode.value = SharedPrefController().getValueFor(key: 'p_code');
   }
 
-  get getName => "${firstName.value}  {${pCode.value}}";
+  get getName => "${firstName.value}  [${pCode.value}]";
 }

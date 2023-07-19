@@ -15,6 +15,7 @@ import '../../../api/controllers/hospital_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/dropdown_item.dart';
 import '../../../get/new_account_getx_controller.dart';
+import '../../../get/quick_service_getx_controller.dart';
 import '../../../model/AddAppoimentResult.dart';
 import '../../../model/Clinic.dart';
 import '../../../model/doctor.dart';
@@ -83,7 +84,21 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: widget.flag!
+      appBar: QuickServiceGetxController.to.fromHome?
+      AppBar(
+        elevation: 0,
+        // leadingWidth: 40,
+        title: Text(AppLocalizations.of(context)!.appointment,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: 'Tajawal',
+              fontWeight: FontWeight.bold,
+            )),
+        titleSpacing: 2,
+        centerTitle: true,
+      )
+          :(widget.flag ?? true)
           ? null
           : AppBar(
               elevation: 0,
@@ -548,6 +563,7 @@ class _MyAppointmentBookingState extends State<MyAppointmentBooking>
 
   @override
   void deactivate() {
+    QuickServiceGetxController.to.fromHome = false;
     NewAccountGetxController.to.clearDataBeforeSend();
     super.deactivate();
   }
