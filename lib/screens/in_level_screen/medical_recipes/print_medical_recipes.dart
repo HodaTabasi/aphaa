@@ -142,25 +142,27 @@ class _PrintMedicalRecipesButtomSheetState
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding:  EdgeInsets.all(8.0.r),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      AppLocalizations.of(context)!
-                                          .times_of_use,
-                                      style: TextStyle(
-                                        color: Color(0xff2D2D2D),
-                                        fontSize: 15.sp,
-                                        fontFamily: 'Tajawal',
-                                        fontWeight: FontWeight.bold,
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width / 5.r,
+                                      child: Text(
+                                        AppLocalizations.of(context)!
+                                            .times_of_use,
+                                        style: TextStyle(
+                                          color: Color(0xff2D2D2D),
+                                          fontSize: 14.sp,
+                                          fontFamily: 'Tajawal',
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.r,
+                                      width: MediaQuery.of(context).size.width / 2.r,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           color: Color(0xffF7F8FB),
@@ -191,18 +193,20 @@ class _PrintMedicalRecipesButtomSheetState
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.how_to_use,
-                                      style: TextStyle(
-                                        color: Color(0xff2D2D2D),
-                                        fontSize: 15.sp,
-                                        fontFamily: 'Tajawal',
-                                        fontWeight: FontWeight.bold,
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width / 5.r,
+                                      child: Text(
+                                        AppLocalizations.of(context)!.how_to_use,
+                                        style: TextStyle(
+                                          color: Color(0xff2D2D2D),
+                                          fontSize: 14.sp,
+                                          fontFamily: 'Tajawal',
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.r,
+                                      width: MediaQuery.of(context).size.width / 2.r,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           color: Color(0xffF7F8FB),
@@ -243,8 +247,7 @@ class _PrintMedicalRecipesButtomSheetState
                                       ),
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.r,
+                                      width: MediaQuery.of(context).size.width / 2.r,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           color: Color(0xffF7F8FB),
@@ -285,8 +288,7 @@ class _PrintMedicalRecipesButtomSheetState
                                       ),
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.r,
+                                      width: MediaQuery.of(context).size.width / 2.r,
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
                                           color: Color(0xffF7F8FB),

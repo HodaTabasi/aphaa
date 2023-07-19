@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         AppLocalizations.of(context)!.no_data,
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontFamily: 'Tajawal',
                           fontWeight: FontWeight.bold,
                         ),
