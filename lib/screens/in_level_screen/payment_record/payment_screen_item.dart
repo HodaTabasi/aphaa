@@ -366,7 +366,7 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
                   }
                   },
                 child: SvgPicture.asset(
-                  'assets/images/share_file.svg',
+                  'assets/images/arrow.svg',
                   semanticsLabel: 'Acme Logo',
                 ),
               ),

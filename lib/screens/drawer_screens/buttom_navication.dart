@@ -8,7 +8,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../get/change_name_getx_controller.dart';
+import '../../get/quick_service_getx_controller.dart';
 import '../in_level_screen/recordbookings/RecordBooking.dart';
+import '../main_screens/send_consult/consult_screen.dart';
 import 'Booking/my_appointment_booking.dart';
 import 'home_screen/home_screen.dart';
 import 'offers/offers_screen.dart';
@@ -29,14 +31,18 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
     HomeScreen(),
     RexcordBooking(fromInLevel: false),
     MyAppointmentBooking(flag: true),
-    OfferScreen(),
+    SendConsultScreen(),
+    // OfferScreen(),
     ProfileScreen(),
   ];
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ChangeGetxController.to.changeName(SharedPrefController().getValueFor(key: PrefKeysPatient.firstName.name), "");
+      ChangeGetxController.to.changeName(
+          SharedPrefController()
+              .getValueFor(key: PrefKeysPatient.firstName.name),
+          "");
     });
 
     super.initState();
@@ -100,66 +106,71 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                           )
                         ])),
                   )
-                : AppBar(
-                    elevation: 0,
-                    // leadingWidth: 40,
-                    title: Text(pageName[pageIndex],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.sp,
-                          fontFamily: 'Tajawal',
-                          fontWeight: FontWeight.bold,
-                        )),
-                    titleSpacing: 2,
-                    centerTitle: true,
-              leading:
-                Padding(
-                  padding: EdgeInsets.all(8.0.r),
-                  child: CircleAvatar(
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      width: 34.w,
-                      height: 30.h,
-                    ),
-                    backgroundColor: Colors.white,
-                  ),
-                ),
-                    actions: [
-                      InkWell(
-                        onTap: (){
-                          Navigator.pushNamedAndRemoveUntil(context, ButtomNavigations.routeName, (route) => false);
-                        },
-                        child: Visibility(
-                          visible: pageName[pageIndex] == AppLocalizations.of(context)!.add_appointment,
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0.r),
-                            child: Text(AppLocalizations.of(context)!.exit1,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontFamily: 'Tajawal',
-                                  fontWeight: FontWeight.w600,
-                                )),
+                : pageIndex == 3
+                    ? null
+                    : AppBar(
+                        elevation: 0,
+                        // leadingWidth: 40,
+                        title: Text(pageName[pageIndex],
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                              fontFamily: 'Tajawal',
+                              fontWeight: FontWeight.bold,
+                            )),
+                        titleSpacing: 2,
+                        centerTitle: true,
+                        leading: Padding(
+                          padding: EdgeInsets.all(8.0.r),
+                          child: CircleAvatar(
+                            child: Image.asset(
+                              'assets/images/logo.png',
+                              width: 34.w,
+                              height: 30.h,
+                            ),
+                            backgroundColor: Colors.white,
                           ),
                         ),
-                      )
-                    ],
+                        actions: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  ButtomNavigations.routeName,
+                                  (route) => false);
+                            },
+                            child: Visibility(
+                              visible: pageName[pageIndex] ==
+                                  AppLocalizations.of(context)!.add_appointment,
+                              child: Padding(
+                                padding: EdgeInsets.all(16.0.r),
+                                child: Text(AppLocalizations.of(context)!.exit1,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontFamily: 'Tajawal',
+                                      fontWeight: FontWeight.w600,
+                                    )),
+                              ),
+                            ),
+                          )
+                        ],
 
-                    // leading: Container(
-                    //     margin: const EdgeInsets.all(15.0),
-                    //     padding: const EdgeInsets.all(5.0),
-                    //     // alignment: Alignment.bottomLeft,
-                    //     // width: 80,
-                    //     // height: 500,
-                    //     decoration: BoxDecoration(
-                    //         color: const Color(0xff006F2C),
-                    //         borderRadius: BorderRadius.circular(5)),
-                    //     child: const Icon(
-                    //       Icons.arrow_back_ios,
-                    //       color: Colors.white,
-                    //       size: 15,
-                    //     )),
-                  ),
+                        // leading: Container(
+                        //     margin: const EdgeInsets.all(15.0),
+                        //     padding: const EdgeInsets.all(5.0),
+                        //     // alignment: Alignment.bottomLeft,
+                        //     // width: 80,
+                        //     // height: 500,
+                        //     decoration: BoxDecoration(
+                        //         color: const Color(0xff006F2C),
+                        //         borderRadius: BorderRadius.circular(5)),
+                        //     child: const Icon(
+                        //       Icons.arrow_back_ios,
+                        //       color: Colors.white,
+                        //       size: 15,
+                        //     )),
+                      ),
             body: WillPopScope(child: pages[pageIndex], onWillPop: onWillPop),
             // resizeToAvoidBottomInset: false,
 
@@ -176,11 +187,13 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
               child: BottomNavigationBar(
                 backgroundColor: Colors.white,
                 onTap: (val) {
+                  if (val == 3) {
+                    QuickServiceGetxController.to.fromHome = true;
+                  }
 
-                    setState(() {
-                      pageIndex = val;
-                    });
-
+                  setState(() {
+                    pageIndex = val;
+                  });
                 },
 
                 elevation: 10,
@@ -191,7 +204,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                   BottomNavigationBarItem(
                       icon: SvgPicture.asset('assets/images/apphome.svg',
                           color:
-                          pageIndex == 0 ? Color(0xff0E4C8F) : Colors.grey,
+                              pageIndex == 0 ? Color(0xff0E4C8F) : Colors.grey,
                           semanticsLabel: 'Acme Logo'),
                       label: ''),
                   BottomNavigationBarItem(
@@ -211,9 +224,11 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                       label: ''),
                   BottomNavigationBarItem(
                       icon: SvgPicture.asset(
-                        'assets/images/appoffers.svg',
+                        'assets/images/consult1.svg',
                         semanticsLabel: 'Acme Logo',
                         color: pageIndex == 3 ? Color(0xff0E4C8F) : Colors.grey,
+                        width: 27.w,
+                        height: 27.h,
                       ),
                       label: ''),
                   BottomNavigationBarItem(
@@ -223,15 +238,15 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                         color: pageIndex == 4 ? Color(0xff0E4C8F) : Colors.grey,
                       ),
                       label: ''),
-
-
                 ],
               ),
             ));
       },
     );
   }
+
   DateTime? currentBackPressTime;
+
   Future<bool> onWillPop() {
     DateTime now = DateTime.now();
     if (currentBackPressTime == null ||
@@ -249,10 +264,10 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            content:  Text(AppLocalizations.of(context)!.dialog_m),
+            content: Text(AppLocalizations.of(context)!.dialog_m),
             actions: <Widget>[
               TextButton(
-                child:  Text(
+                child: Text(
                   AppLocalizations.of(context)!.exit,
                   style: TextStyle(color: Colors.red),
                 ),
@@ -261,7 +276,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                 },
               ),
               TextButton(
-                child:  Text(
+                child: Text(
                   AppLocalizations.of(context)!.cancel,
                   style: TextStyle(color: Colors.black),
                 ),
@@ -275,5 +290,5 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
           );
         });
   }
-  // exit(0);
+// exit(0);
 }

@@ -36,7 +36,7 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1 {
 
   var _emailTextController = TextEditingController();
 
-  // var _emailTextController = TextEditingController(text: "2320128214");
+  // var _emailTextController = TextEditingController(text: "2341952600");
 @override
   void initState() {
     super.initState();
@@ -50,7 +50,6 @@ class _LoginScreen1State extends State<LoginScreen1> with Helpers1 {
         }
       });
     }
-
   }
   @override
   Widget build(BuildContext context) {

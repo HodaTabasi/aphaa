@@ -122,10 +122,13 @@ class _ProfileScreenState extends State<ProfileScreen> with myHelper.Helpers1 {
           //     'assets/images/EditSquare.svg',
           //     AppLocalizations.of(context)!.edit_profile,
           //     () => Navigator.pushNamed(context, EditProfile.routeName)),
-          TextItem(
-              'assets/images/pagemetrecord.svg',
-              AppLocalizations.of(context)!.pay_book,
-              () => Navigator.pushNamed(context, PaymentRecord.routeName)),
+          Opacity(
+            opacity: 0,
+            child: TextItem(
+                'assets/images/pagemetrecord.svg',
+                AppLocalizations.of(context)!.pay_book,
+                () => Navigator.pushNamed(context, PaymentRecord.routeName)),
+          ),
           // TextItem(
           //     'assets/images/editf.svg',
           //     AppLocalizations.of(context)!.edit_insurance_data,

@@ -27,6 +27,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
 import '../../../get/new_account_getx_controller.dart';
 import '../../../get/quick_service_getx_controller.dart';
 import '../../../helper/keyboardoverlay.dart';
+import '../../../model/AddAppoimentResult.dart';
 import '../../../model/Clinic.dart';
 import '../../../model/api_response.dart';
 import '../../../preferences/shared_pref_controller.dart';
@@ -162,9 +163,9 @@ class _AppointmentBookingState extends State<AppointmentBooking>
                       controler: name,
                     ),
                     EditTextItem(
-                      'assets/images/Message.svg',
-                      AppLocalizations.of(context)!.email,
-                      TextInputType.emailAddress,
+                      'assets/images/id.svg',
+                      AppLocalizations.of(context)!.identity_iqama,
+                      TextInputType.number,
                       controler: email,
                     ),
                     EditTextItem(
@@ -546,11 +547,42 @@ class _AppointmentBookingState extends State<AppointmentBooking>
     showSnackBar(context, message: AppLocalizations.of(context)!.enter_required_data, error: true);
     return false;
   }
-
+/*
+*
+* AddAppoimentResult? response = await HospitalApiController().addAppoitment(
+        patientCode: SharedPrefController().getValueFor(key: "p_code"),
+        clinicCode: clinicCode,
+        doctorCode: doctorCode,
+        patientName: SharedPrefController()
+            .getValueFor(key: PrefKeysPatient.firstName.name),
+        consultTime24: avilableTime.consultTime24,
+        patientId: SharedPrefController()
+            .getValueFor(key: PrefKeysPatient.identityNumber.name),
+        patientMOB: SharedPrefController()
+            .getValueFor(key: PrefKeysPatient.mobile.name),
+        resDate: dateText,
+        consultSNo: avilableTime.consultSNo,
+        resRemarks: "lap-lap");
+        *
+        *
+        * */
   Future<void> _sendConsult(AvailableTime avilableTime) async {
     showLoaderDialog(context);
-    ApiResponse apiResponse = await QuickServiceApiController().appointment(email: email.text,mobile: phone.text,name: name.text,date: dateText.text,clinic: QuickServiceGetxController.to.clinicName,doctor: QuickServiceGetxController.to.doctorName,time: avilableTime.consultTime24,cost: "3.1");
-    if (apiResponse.success) {
+    AddAppoimentResult? response = await HospitalApiController().addAppoitment(
+        patientCode:null,
+        clinicCode: QuickServiceGetxController.to.clinicName,
+        doctorCode: QuickServiceGetxController.to.doctorName,
+        patientId: email.text,
+        consultTime24: avilableTime.consultTime24,
+      consultSNo: avilableTime.consultSNo,
+      patientMOB: phone.text,
+      patientName: name.text,
+      resDate:  dateText.text,
+      resRemarks: 'lap-lap',
+    );
+    // ApiResponse apiResponse = await QuickServiceApiController().appointment(email: email.text,mobile: phone.text,name: name.text,date: dateText.text,clinic: QuickServiceGetxController.to.clinicName,doctor: QuickServiceGetxController.to.doctorName,time: avilableTime.consultTime24,cost: "3.1");
+    // if (apiResponse.success) {
+    if(response?.resStatusCode == "1"){
       Navigator.pop(context);
       NewAccountGetxController.to.GroupValue = -1;
       this.dateText.text = "";
@@ -563,8 +595,8 @@ class _AppointmentBookingState extends State<AppointmentBooking>
       Navigator.pop(context);
       showSnackBar(
         context,
-        message: apiResponse.message,
-        error: !apiResponse.success,
+        message: response!.resStatusDesc!,
+        error: true,
       );
     }
   }

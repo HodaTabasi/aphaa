@@ -18,18 +18,18 @@ mixin Helpers implements Helpers1{
       child: TextButton(
           child: Text(flag?message:AppLocalizations.of(context)!.thanks,
               style: TextStyle(
-                  fontSize: 16, fontFamily: 'Tajawal', color: Colors.green)),
+                  fontSize: 14.sp, fontFamily: 'Tajawal', color: Colors.green)),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
           }),
     );
     Widget continueButton1 = Center(
       child: Padding(
-        padding:  EdgeInsets.all(16.0.r),
+        padding:  EdgeInsets.symmetric(horizontal: 0.0.r),
         child: Text(
           message2,
           style: TextStyle(
-              fontSize: 16.sp, fontFamily: 'Tajawal', color: Colors.black45),
+              fontSize: 14.sp, fontFamily: 'Tajawal', color: Colors.black45),
           textAlign: TextAlign.center,
         ),
       ),
@@ -37,7 +37,7 @@ mixin Helpers implements Helpers1{
 
     Widget continueButton2 = Center(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:  EdgeInsets.symmetric(vertical: 5.0.r),
         child: InkWell(
           onTap: () async {
             showLoaderDialog(context);
@@ -80,7 +80,7 @@ mixin Helpers implements Helpers1{
                 width: 5,
               ),
               SvgPicture.asset(
-                  'assets/images/card_pay.svg',height: 50.h,width: 80.w),
+                  'assets/images/card_pay.svg',height: 30.h,width: 30.w),
               SizedBox(
                 width: 8,
               ),
@@ -88,7 +88,7 @@ mixin Helpers implements Helpers1{
                   AppLocalizations.of(context)!
                       .continue_to_pay,
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14.sp,
                       fontFamily: 'Tajawal',
                       color: Colors.black))
             ],
@@ -177,14 +177,14 @@ mixin Helpers implements Helpers1{
 
         },
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding:  EdgeInsets.symmetric(vertical: 5.0.r),
           child: Row(
             children: [
               SizedBox(
                 width: 5,
               ),
               SvgPicture.asset(
-                  'assets/images/apple_pay.svg',height: 50.h,width: 80.w),
+                  'assets/images/apple_pay.svg',height: 30.h,width: 30.w),
               SizedBox(
                 width: 8,
               ),
@@ -192,7 +192,7 @@ mixin Helpers implements Helpers1{
                   AppLocalizations.of(context)!
                       .continue_to_pay1,
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14.sp,
                       fontFamily: 'Tajawal',
                       color: Colors.black))
             ],
@@ -268,20 +268,48 @@ mixin Helpers implements Helpers1{
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
         ),
-        padding: EdgeInsets.all(16),
-        child: Icon(
-          Icons.check_circle,
-          size: 60,
-          color: Colors.green,
+        // padding: EdgeInsets.all(8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.check_circle,
+                  size: 40.r,
+                  color: Colors.green,
+                ),
+                continueButton,
+              ],
+            ),
+            Divider(
+              color: Colors.grey.shade500,
+            ),
+            Visibility(
+              visible: flag,
+              child: Text(
+               'طريقة الدفع',
+                style: TextStyle(
+                    fontSize: 14.sp, fontFamily: 'Tajawal', color: Colors.black45),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Visibility(visible: !flag,child: continueButton1),
+            Visibility(visible: flag, child: continueButton2),
+            Visibility(visible: flag, child: continueButton4),
+            Divider(
+              color: Colors.grey.shade500,
+            ),
+            continueButton3
+          ],
         ),
       ),
-      actions: [
-        continueButton,
-        Visibility(visible: !flag,child: continueButton1),
-        Visibility(visible: flag, child: continueButton2),
-        Visibility(visible: flag, child: continueButton4),
-        continueButton3
-      ],
+      // actions: [
+      //   Visibility(visible: !flag,child: continueButton1),
+      //   Visibility(visible: flag, child: continueButton2),
+      //   Visibility(visible: flag, child: continueButton4),
+      //   continueButton3
+      // ],
     );
 
     // show the dialog

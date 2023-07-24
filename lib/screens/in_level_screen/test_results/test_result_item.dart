@@ -166,9 +166,9 @@ class TestResultItem extends StatelessWidget with Helpers1 {
                   // );
                 },
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(8.r, 0, 16.r, 10.r),
+                  padding: EdgeInsets.fromLTRB(8.r, 0, 10.r, 10.r),
                   child: SvgPicture.asset(
-                    'assets/images/share_file.svg',
+                    'assets/images/arrow.svg',
                     semanticsLabel: 'Acme Logo',
                   ),
                 ),

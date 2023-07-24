@@ -84,8 +84,11 @@ class _HomeScreenState extends State<HomeScreen> {
       Service('assets/images/secment.svg', AppLocalizations.of(context)!.vital_signs, '',
           VitalSigns.routeName),
       //العروض الطبية
+      // Service(
+      //     'assets/images/offers.svg', AppLocalizations.of(context)!.medical_offers, 'offers', OfferScreen.routeName),
+
       Service(
-          'assets/images/offers.svg', AppLocalizations.of(context)!.medical_offers, 'offers', OfferScreen.routeName),
+          'assets/images/consult1.svg', AppLocalizations.of(context)!.consultation_request, 'consult', SendConsultScreen.routeName),
 
 
     ];
@@ -98,53 +101,52 @@ class _HomeScreenState extends State<HomeScreen> {
     //
     return  ListView(
           children: [
+            // SizedBox(
+            //   height: 200.h,
+            //   child:  FutureBuilder<List<Offers>>(
+            //     future: AppApiController().getOffers(),
+            //     builder: (context, snapshot) {
+            //       if (snapshot.connectionState == ConnectionState.waiting) {
+            //         return const Center(child: CircularProgressIndicator());
+            //       } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+            //         return ListView.builder(
+            //           scrollDirection: Axis.horizontal,
+            //           itemCount: snapshot.data!.length,
+            //           shrinkWrap: true,
+            //           // physics: NeverScrollableScrollPhysics(),
+            //           itemBuilder: (context, index) {
+            //             return Center(child: InkWell(
+            //                 onTap: (){
+            //                   Navigator.pushNamed(context, OfferDetails.routeName,arguments:{"data":snapshot.data![index]} );
+            //                 },
+            //                 child: SliderWidget(offers: snapshot.data![index],)));
+            //           },
+            //         );
+            //       } else {
+            //         return Center(
+            //           child: Text(
+            //             AppLocalizations.of(context)!.no_data,
+            //             style: TextStyle(
+            //               color: Colors.black,
+            //               fontSize: 16.sp,
+            //               fontFamily: 'Tajawal',
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           ),
+            //         );
+            //       }
+            //     },
+            //   ),
+            // ),
             SizedBox(
               height: 200.h,
-              child:  FutureBuilder<List<Offers>>(
-                future: AppApiController().getOffers(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                    return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: snapshot.data!.length,
-                      shrinkWrap: true,
-                      // physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return Center(child: InkWell(
-                            onTap: (){
-                              Navigator.pushNamed(context, OfferDetails.routeName,arguments:{"data":snapshot.data![index]} );
-                            },
-                            child: SliderWidget(offers: snapshot.data![index],)));
-                      },
-                    );
-                  } else {
-                    return Center(
-                      child: Text(
-                        AppLocalizations.of(context)!.no_data,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontFamily: 'Tajawal',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    );
-                  }
-                },
-              ),
+              child: Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 16.0.r,vertical: 8.r),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.r),
+                    child: Image.asset("assets/images/offer_image.jpeg",fit: BoxFit.fill,)),
+              )
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Text(AppLocalizations.of(context)!.medical_file,
-            //       style:  TextStyle(
-            //         color: Colors.black,
-            //         fontSize: 16.sp,
-            //         fontFamily: 'Tajawal',
-            //         fontWeight: FontWeight.bold,
-            //       )),
-            // ),
             SizedBox(
               height: 8.h,
             ),
