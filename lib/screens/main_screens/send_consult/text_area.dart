@@ -5,8 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TextAreaWidget extends StatefulWidget {
 
   TextEditingController controller;
+  String consultNote;
   bool first = true;
-  TextAreaWidget(this.controller);
+  TextAreaWidget(this.controller,this.consultNote);
 
   @override
   State<TextAreaWidget> createState() => _TextAreaWidgetState();
@@ -33,7 +34,7 @@ class _TextAreaWidgetState extends State<TextAreaWidget> {
                 borderSide:  BorderSide(
                     color: widget.first?Color(0xff0E4C8F):widget.controller.text.isNotEmpty?Color(0xff0E4C8F):Colors.red, width: 0.5.w),
               ),
-              hintText: AppLocalizations.of(context)!.consult_note,
+              hintText: widget.consultNote,
               hintStyle: TextStyle(
                 color: Colors.grey.shade700,
                 fontSize: 13.sp,

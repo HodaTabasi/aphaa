@@ -105,7 +105,8 @@ class _DropDownItenState extends State<DropDownItem> {
                           .indexWhere((element) => element.clinicName == val);
 
                         global = val!;
-                        QuickServiceGetxController.to.clinicName = widget.myData.where((element) => element.clinicCode == widget.myData[index].clinicCode).toList().first.clinicName!;
+                        QuickServiceGetxController.to.clinicName = widget.myData.where((element) => element.clinicCode == widget.myData[index].clinicCode).toList().first.clinicCode!;
+                        // QuickServiceGetxController.to.clinicName = widget.myData.where((element) => element.clinicCode == widget.myData[index].clinicCode).toList().first.clinicName!;
                         NewAccountGetxController.to.clinicCode = widget.myData[index].clinicCode!;
                         NewAccountGetxController.to.changeBoolisUpdateCliniceCode(true);
                         NewAccountGetxController.to.changeDropDownValue(widget.myData[index].clinicCode, widget.dropIntValue) ;

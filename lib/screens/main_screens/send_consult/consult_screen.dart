@@ -22,6 +22,7 @@ import '../../../get/new_account_getx_controller.dart';
 import '../../../helper/keyboardoverlay.dart';
 import '../../../model/Clinic.dart';
 import '../../../model/api_response.dart';
+import 'gender_selected.dart';
 
 class SendConsultScreen extends StatefulWidget {
   static String routeName = "/send_consult";
@@ -39,9 +40,14 @@ class _SendConsultScreenState extends State<SendConsultScreen>
   FocusNode numberFocusNode = FocusNode();
 
   late TextEditingController name;
-  late TextEditingController email;
   late TextEditingController phone;
+  late TextEditingController id;
   late TextEditingController consultText;
+  late TextEditingController height;
+  late TextEditingController weight;
+  late TextEditingController age;
+  late TextEditingController disease;
+  late TextEditingController alagy;
 
   @override
   void initState() {
@@ -52,8 +58,13 @@ class _SendConsultScreenState extends State<SendConsultScreen>
       name = TextEditingController();
       phone = TextEditingController();
     }
-    email = TextEditingController();
+    id = TextEditingController();
     consultText = TextEditingController();
+    weight = TextEditingController();
+    height = TextEditingController();
+    age = TextEditingController();
+    disease = TextEditingController();
+    alagy = TextEditingController();
     if(Platform.isIOS){
       numberFocusNode.addListener(() {
         bool hasFocus = numberFocusNode.hasFocus;
@@ -71,34 +82,8 @@ class _SendConsultScreenState extends State<SendConsultScreen>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    getListsData();
   }
 
-  getListsData() async {
-    isLoading = true;
-    myData = await HospitalApiController().getClList() ?? [];
-    setState(() {
-      isLoading = false;
-    });
-    // Future.delayed(Duration.zero, () async {
-    //   await HospitalApiController()
-    //       .getClDrs(clinicCode: myData[0].clinicCode)
-    //       .then((value) {
-    //     // Navigator.pop(context);
-    //     NewAccountGetxController.to.changeMyDoctorList(value!.doctors!);
-    //     myDataDoctor = value.doctors!;
-    //   });
-    //
-    //   // NewAccountGetxController().changeDropDownValue(myData[0].clinicCode, 2,context: context);
-    //   // print("ff aa s ${id}");
-    // });
-    // HospitalApiController().getClDrs();
-  }
-
-  // Future<void> getAllDoctors() async {
-  //   myDataDoctor = await AppApiController().getAllDoctors();
-  //   setState(() {});
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -132,11 +117,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
               )),
         ),
       ),
-      body: isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : GetBuilder<NewAccountGetxController>(
+      body: GetBuilder<NewAccountGetxController>(
               builder: (value) => ListView(
                 children: [
                   SizedBox(
@@ -165,10 +146,10 @@ class _SendConsultScreenState extends State<SendConsultScreen>
                           controler: name,
                         ),
                         EditTextItem(
-                          'assets/images/Message.svg',
-                          AppLocalizations.of(context)!.email,
-                          TextInputType.emailAddress,
-                          controler: email,
+                          'assets/images/id.svg',
+                          AppLocalizations.of(context)!.identity_number,
+                          TextInputType.number,
+                          controler: id,
                         ),
                         EditTextItem(
                           'assets/images/phone.svg',
@@ -178,19 +159,36 @@ class _SendConsultScreenState extends State<SendConsultScreen>
                           numberFocusNode: numberFocusNode,
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         ),
-                        DropDownItem(
-                          myData,
-                          'assets/images/hospital.svg',
-                          AppLocalizations.of(context)!.clenice_choesse,
-                          dropIntValue: 3,
+                        //
+                        GenderSelected('assets/images/phone.svg',),
+                        EditTextItem(
+                          'assets/images/age.svg',
+                          AppLocalizations.of(context)!.age,
+                          TextInputType.number,
+                          controler: age,
+                          // numberFocusNode: numberFocusNode,
+                          // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         ),
-                        DoctorDropDownItem(
-                          value.getListDoctor(),
-                          'assets/images/docgreen.svg',
-                          AppLocalizations.of(context)!.dovtor_choesse,
-                          dropIntValue: 2,
+                        EditTextItem(
+                          'assets/images/higt1h.svg',
+                          AppLocalizations.of(context)!.height,
+                          TextInputType.number,
+                          controler: height,
+                          // numberFocusNode: numberFocusNode,
+                          // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         ),
-                        TextAreaWidget(consultText)
+                        EditTextItem(
+                          'assets/images/weight.svg',
+                          AppLocalizations.of(context)!.weight,
+                          TextInputType.number,
+                          controler: weight,
+                          // numberFocusNode: numberFocusNode,
+                          // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        ),
+
+                        TextAreaWidget(disease,AppLocalizations.of(context)!.disaese),
+                        TextAreaWidget(alagy,AppLocalizations.of(context)!.alagy),
+                        TextAreaWidget(consultText,AppLocalizations.of(context)!.consult_note)
                       ],
                     ),
                   ),
@@ -214,23 +212,16 @@ class _SendConsultScreenState extends State<SendConsultScreen>
   }
 
   bool _checkData() {
-    if (email.text.isNotEmpty &&
+    if (id.text.isNotEmpty &&
         phone.text.isNotEmpty &&
         consultText.text.isNotEmpty &&
+        age.text.isNotEmpty &&
+        alagy.text.isNotEmpty &&
         name.text.isNotEmpty &&
-        QuickServiceGetxController.to.clinicName.isNotEmpty &&
-        QuickServiceGetxController.to.doctorName.isNotEmpty) {
+        height.text.isNotEmpty &&
+        weight.text.isNotEmpty &&
+        disease.text.isNotEmpty ) {
       return true;
-    }else if(QuickServiceGetxController.to.clinicName.isEmpty){
-      showSnackBar(context,
-          message: AppLocalizations.of(context)!.select_clinic,
-          error: true);
-      return false;
-    } else if(QuickServiceGetxController.to.doctorName.isEmpty){
-      showSnackBar(context,
-          message: AppLocalizations.of(context)!.select_doctor,
-          error: true);
-      return false;
     }
     showSnackBar(context,
         message: AppLocalizations.of(context)!.enter_required_data,
@@ -240,19 +231,24 @@ class _SendConsultScreenState extends State<SendConsultScreen>
 
   Future<void> _sendConsult() async {
     showLoaderDialog(context);
-    ApiResponse apiResponse = await QuickServiceApiController().consultation(
-        email: email.text,
-        mobile: phone.text,
-        name: name.text,
-        description: consultText.text,
-        clinic: QuickServiceGetxController.to.clinicName,
-        doctors_id: QuickServiceGetxController.to.doctorName);
+    ApiResponse apiResponse = await HospitalApiController().sendConsultation(
+      patientName: name.text,
+      patientMOB: phone.text,
+      patientId: id.text,
+      patientAge: age.text,
+      patientGender: QuickServiceGetxController.to.gender?'1':'2',
+      patientHight: height.text,
+      patientWeight: weight.text,
+      patientConsult: consultText.text,
+      chrDisease: disease.text,
+      patientAlgy: alagy.text,
+    );
     Navigator.pop(context);
     if (apiResponse.success) {
       QuickServiceGetxController.to.clinicName = "";
      QuickServiceGetxController.to.doctorName = "";
      name.text = "";
-     email.text = "";
+     id.text = "";
      phone.text = "";
      setState(() {
      });

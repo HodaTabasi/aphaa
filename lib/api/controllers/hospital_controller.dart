@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:aphaa_app/api/api_settings.dart';
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
@@ -39,29 +40,7 @@ import 'package:http/http.dart' as http;
 import '../../model/getPDF.dart';
 
 class HospitalApiController with ApiHelper {
-  // Future<List<FamilyMember>> getFamilyMembers(patientCode) async {
-  //   print(patientCode);
-  //   final queryParameters = {
-  //     // 'patientCode': '$patientCode',
-  //     'patientCode': '0/372081',
-  //     'pageNo': '1',
-  //     'offset': '1',
-  //     'rows': '7',
-  //     'lang': SharedPrefController()
-  //         .getValueFor<String>(key: PrefKeys.lang.name),
-  //   };
-  //
-  //   final uri =
-  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}familyMembers', queryParameters);
-  //   final response = await http.get(uri);
-  //   print(response.body);
-  //   if (response.statusCode == 200) {
-  //     var jsonResponse = jsonDecode(response.body);
-  //     var jsonArray = jsonResponse['familyMembers'] as List;
-  //     return jsonArray.map((jsonObject) => FamilyMember.fromJson(jsonObject)).toList();
-  //   }
-  //   return [];
-  // }
+
 
   Future<FamillyResponse?> getFamilyMembers(
       {patientCode, page = 1, offset = 1}) async {
@@ -143,27 +122,6 @@ class HospitalApiController with ApiHelper {
     return null;
   }
 
-  // Future<List<Appointments>> getNextAppt({patientCode,page = 1,offset = 1}) async {
-  //   final queryParameters = {
-  //     // 'patientCode': '$patientCode',
-  //     'patientCode': '0/32230',
-  //     'pageNo': '$page',
-  //     'offset': '$offset',
-  //     'rows': '7',
-  //     'lang': SharedPrefController()
-  //         .getValueFor<String>(key: PrefKeys.lang.name),
-  //   };
-  //   final uri =
-  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}nextAppt', queryParameters);
-  //   final response = await http.get(uri);
-  //   if (response.statusCode == 200) {
-  //     var jsonResponse = jsonDecode(response.body);
-  //     var jsonArray = jsonResponse['myNextAppointments'] as List;
-  //     return jsonArray.map((jsonObject) => Appointments.fromJson(jsonObject)).toList();
-  //   }
-  //   return [];
-  //
-  // }
 
   Future<AppointmentResponse?> getNextAppt(
       {patientCode, page = 1, offset = 1}) async {
@@ -213,48 +171,8 @@ class HospitalApiController with ApiHelper {
     return null;
   }
 
-  // Future<List<Appointments>> getPrevAppt({patientCode,page = 1,offset = 1}) async {
-  //   final queryParameters = {
-  //     'patientCode': '$patientCode',
-  //     // 'patientCode': '0/32230',
-  //     'pageNo': '1',
-  //     'offset': '1',
-  //     'rows': '7',
-  //     'lang': SharedPrefController()
-  //         .getValueFor<String>(key: PrefKeys.lang.name),
-  //   };
-  //   final uri =
-  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}prevAppt', queryParameters);
-  //   final response = await http.get(uri);
-  //   if (response.statusCode == 200) {
-  //     var jsonResponse = jsonDecode(response.body);
-  //     var jsonArray = jsonResponse['myPrevAppointments'] as List;
-  //     return jsonArray.map((jsonObject) => Appointments.fromJson(jsonObject)).toList();
-  //   }
-  //   return [];
-  //
-  // }
 
-  // Future<List<prescriptionList>> getRxList({patientCode,page = 1,offset = 1}) async {
-  //   final queryParameters = {
-  //     'patientCode': '$patientCode',
-  //     // 'patientCode': '0/32230',
-  //     'pageNo': '1',
-  //     'offset': '1',
-  //     'rows': '7',
-  //     'lang': SharedPrefController()
-  //         .getValueFor<String>(key: PrefKeys.lang.name),
-  //   };
-  //   final uri =
-  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}rxList', queryParameters);
-  //   final response = await http.get(uri);
-  //   if (response.statusCode == 200) {
-  //     var jsonResponse = jsonDecode(response.body);
-  //     var jsonArray = jsonResponse['prescriptionList'] as List;
-  //     return jsonArray.map((jsonObject) => prescriptionList.fromJson(jsonObject)).toList();
-  //   }
-  //   return [];
-  // }
+
 
   Future<PrescriptionListResponse?> getRxList(
       {patientCode, page = 1, offset = 1}) async {
@@ -383,27 +301,6 @@ class HospitalApiController with ApiHelper {
     return [];
   }
 
-  // Future<List<Approvals>> getSrvApvl({patientCode,page = 1,offset = 1}) async {
-  //   final queryParameters = {
-  //     'patientCode': '0/7702',
-  //     // 'patientCode': '$patientCode',
-  //     'pageNo': '$page',
-  //     'offset': '$offset',
-  //     'rows': '7',
-  //     'lang': SharedPrefController()
-  //         .getValueFor<String>(key: PrefKeys.lang.name),
-  //   };
-  //   final uri =
-  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}srvApvl', queryParameters);
-  //   final response = await http.get(uri);
-  //   if (response.statusCode == 200) {
-  //     var jsonResponse = jsonDecode(response.body);
-  //     var jsonArray = jsonResponse['approvals'] as List;
-  //     return jsonArray.map((jsonObject) => Approvals.fromJson(jsonObject)).toList();
-  //   }
-  //   return [];
-  // }
-
   Future<ApprovalsResponse?> getSrvApvl(
       {patientCode, page = 1, offset = 1}) async {
     final queryParameters = {
@@ -450,27 +347,6 @@ class HospitalApiController with ApiHelper {
     return [];
   }
 
-  // Future<List<Doctor>> getVisitedDrs({patientCode,page = 1,offset = 1}) async {
-  //   final queryParameters = {
-  //     // 'patientCode': '$patientCode',
-  //     'patientCode': '0/32230',
-  //     'pageNo': '$page',
-  //     'offset': '$offset',
-  //     'rows': '7',
-  //     'lang': SharedPrefController()
-  //         .getValueFor<String>(key: PrefKeys.lang.name),
-  //   };
-  //
-  //   final uri =
-  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}visitedDrs', queryParameters);
-  //   final response = await http.get(uri);
-  //   if (response.statusCode == 200) {
-  //     var jsonResponse = jsonDecode(response.body);
-  //     var jsonArray = jsonResponse['doctors'] as List;
-  //     return jsonArray.map((jsonObject) => Doctor.fromJson(jsonObject)).toList();
-  //   }
-  //   return [];
-  // }
 
   Future<VisitedDrsResponse?> getVisitedDrs(
       {patientCode, page = 1, offset = 1}) async {
@@ -494,27 +370,6 @@ class HospitalApiController with ApiHelper {
     }
     return null;
   }
-
-  // Future<List<VitalSign>> getPtVS({patientCode,page = 1,offset = 1}) async {
-  //   final queryParameters = {
-  //     'patientCode': '0/32230',
-  //     // 'patientCode': '$patientCode',
-  //     'pageNo': '$page',
-  //     'offset': '$offset',
-  //     'rows': '7',
-  //     'lang': SharedPrefController()
-  //         .getValueFor<String>(key: PrefKeys.lang.name),
-  //   };
-  //   final uri =
-  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase1}PtVS', queryParameters);
-  //   final response = await http.get(uri);
-  //   if (response.statusCode == 200) {
-  //     var jsonResponse = jsonDecode(response.body);
-  //     var jsonArray = jsonResponse['vitalSigns'] as List;
-  //     return jsonArray.map((jsonObject) => VitalSign.fromJson(jsonObject)).toList();
-  //   }
-  //   return [];
-  // }
 
   Future<VitalSignResponse?> getPtVS(
       {patientCode, page = 1, offset = 1}) async {
@@ -710,30 +565,6 @@ class HospitalApiController with ApiHelper {
     return null;
   }
 
-  // Future<List<Doctor>>getClDrs({clinicCode="",flag = false}) async {
-  //   final queryParameters = {
-  //     'clinicCode': '$clinicCode',
-  //     'pageNo': '1',
-  //     'offset': '1',
-  //     'rows': '${flag?7:100}',
-  //     'lang': SharedPrefController()
-  //         .getValueFor<String>(key: PrefKeys.lang.name),
-  //   };
-  //
-  //   final uri =
-  //   Uri.http(ApiSettings.HospitalBase, '${ApiSettings.HospitalBase3}clDrs', queryParameters);
-  //
-  //   print(uri);
-  //   final response = await http.get(uri);
-  //   var jsonResponse = jsonDecode(response.body);
-  //   print(response.body);
-  //   if (response.statusCode == 200) {
-  //     var jsonArray = jsonResponse['doctors'] as List;
-  //     return jsonArray.map((jsonObject) => Doctor.fromJson(jsonObject))
-  //         .toList();
-  //   }
-  //   return [];
-  // }
 
   Future<List<Clinic>?> getClList({page = 1, offset = 1}) async {
     final queryParameters = {
@@ -1046,5 +877,60 @@ class HospitalApiController with ApiHelper {
 
     }
     return null;
+  }
+
+  Future<ApiResponse> sendConsultation(
+      {patientName,
+        patientId,
+        patientMOB,
+        patientGender,
+        patientHight,
+        patientWeight,
+        patientAge,
+        chrDisease,
+        patientAlgy,
+        patientConsult}) async {
+    Uri uri = Uri.parse('http://aiph.me:8082/api/clinic/setConsFnl');
+    print({
+    'patientName':patientName,
+    'patientId':patientId,
+    'patientMOB':patientMOB,
+    'patientGender':patientGender,
+    'patientHight':patientHight,
+    'patientWeight':patientWeight,
+    'patientAge':patientAge,
+    'chrDisease':chrDisease,
+    'patientAlgy':patientAlgy,
+    'patientConsult':patientConsult,
+
+      "lang":
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
+    });
+    var response = await http.post(uri, body: {
+      'patientName':patientName,
+      'patientId':patientId,
+      'patientMOB':patientMOB,
+      'patientGender':patientGender,
+      'patientHight':patientHight,
+      'patientWeight':patientWeight,
+      'patientAge':patientAge,
+      'chrDisease':chrDisease,
+      'patientAlgy':patientAlgy,
+      'patientConsult':patientConsult,
+
+      "lang":
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
+    });
+
+    print(response.body);
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      var jsonResponse = jsonDecode(response.body);
+      ApiResponse responses = ApiResponse(message: jsonResponse['consMsg'], success: jsonResponse['consFlag']);
+
+      return responses;
+    }else {
+      return failedResponse;
+    }
+    // return null;
   }
 }

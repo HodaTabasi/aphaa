@@ -7,6 +7,7 @@
   "dialog_mm": "Are you sure to cancel the appointment reservation?",
    "exit": "exit",
    "exit1": "exit",
+   "age": "age",
    "conferm": "confirm",
    "open": "open",
    "share": "share",
@@ -34,7 +35,10 @@
   "select_clinic":"select clinic from list",
   "select_doctor":"select doctor from list",
   "something_wrong":"Something Wrong in server try again later",
-
+  "disaese":"Mention all chronic diseases that you suffer from?",
+  "alagy":"Are you allergic to any medications, foods or certain disinfectants?",
+  "male":"Male",
+  "female":"Female",
 
    "head_of_consult_screen":"To request a consultation, please enter the following information:",
    "pasent_name":"Patient Name",

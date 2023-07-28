@@ -94,7 +94,7 @@ class NewAccountGetxController extends GetxController {
   }
   void changeglobal(value){
     global = value;
-    QuickServiceGetxController.to.doctorName = this.doctorsList.where((element) => element.doctorCode == value).toList().first.doctorName!;
+    QuickServiceGetxController.to.doctorName = this.doctorsList.where((element) => element.doctorCode == value).toList().first.doctorCode!;
     update();
   }
   List<Doctor> getListDoctor(){

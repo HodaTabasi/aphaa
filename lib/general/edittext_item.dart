@@ -37,7 +37,9 @@ class _EditTextItemState extends State<EditTextItem> {
               padding:  EdgeInsets.symmetric(horizontal: 14.0.r),
               child:  SvgPicture.asset(
                   widget.icon,
-                  semanticsLabel: 'Acme Logo'
+                  semanticsLabel: 'Acme Logo',
+                width: 24.w,
+                height: 24.h,
               ),
             ),
              VerticalDivider(

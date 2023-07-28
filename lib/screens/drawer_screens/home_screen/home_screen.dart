@@ -86,9 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
       //العروض الطبية
       // Service(
       //     'assets/images/offers.svg', AppLocalizations.of(context)!.medical_offers, 'offers', OfferScreen.routeName),
-
+//استشاراتي الطبية
       Service(
-          'assets/images/consult1.svg', AppLocalizations.of(context)!.consultation_request, 'consult', SendConsultScreen.routeName),
+          'assets/images/consult1.svg', AppLocalizations.of(context)!.my_medical_consultation, 'consult', SendConsultScreen.routeName),
 
 
     ];

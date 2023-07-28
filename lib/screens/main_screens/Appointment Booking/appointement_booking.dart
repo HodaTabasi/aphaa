@@ -568,8 +568,10 @@ class _AppointmentBookingState extends State<AppointmentBooking>
         * */
   Future<void> _sendConsult(AvailableTime avilableTime) async {
     showLoaderDialog(context);
+    print(QuickServiceGetxController.to.clinicName);
+    print(QuickServiceGetxController.to.doctorName);
     AddAppoimentResult? response = await HospitalApiController().addAppoitment(
-        patientCode:null,
+        // patientCode:null,
         clinicCode: QuickServiceGetxController.to.clinicName,
         doctorCode: QuickServiceGetxController.to.doctorName,
         patientId: email.text,

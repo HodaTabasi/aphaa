@@ -24,21 +24,13 @@ class ApiSettings {
   static const String HospitalBase = 'aiph.me:8082';
   // static const String HospitalBase = 'aiph.me:8000';
   static const String HospitalBase1 = '/api/patient/';
-  // static const String images = '${HospitalBase}radReports/';
 
   /////////////////////////////////////
   static const String HospitalBase2 = '/api/doctor/';
 
-  // static const String images = '${_baseUrl}student/images/{id}';
-  // static const String images = '${_baseUrl}student/images/{id}';
-  // static const String images = '${_baseUrl}student/images/{id}';
 
  ///////////////////////////////////
   static const String HospitalBase3 = '/api/clinic/';
   static const String HospitalBase4 = '/api/invoice/';
-
-// static const String images = '${_baseUrl}student/images/{id}';
-// static const String images = '${_baseUrl}student/images/{id}';
-// static const String images = '${_baseUrl}student/images/{id}';
 
 }
