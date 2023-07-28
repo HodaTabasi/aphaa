@@ -26,6 +26,7 @@ import '../../model/Nationalities.dart';
 import '../../model/PaymentDitails.dart';
 import '../../model/PaymentPermssion.dart';
 import '../../model/billResponse.dart';
+import '../../model/consultaions/consult_response.dart';
 import '../../model/lab_rad_result/LabReportsResponse.dart';
 import '../../model/VitalSign/VitalSignResponse.dart';
 import '../../model/VitalSign/vitalSignsDils.dart';
@@ -465,6 +466,30 @@ class HospitalApiController with ApiHelper {
       // return jsonArray
       //     .map((jsonObject) => PatientPaymentRecord.fromJson(jsonObject))
       //     .toList();
+    }
+    return null;
+  }
+
+  Future<ConsultResponse?> getConsultation(
+      {patientCode, page = 1, offset = 1}) async {
+    final queryParameters = {
+      // 'patientCode': '0/595907',
+      'patientId': '2342922727',
+      'pageNo': '$page',
+      'offset': '$offset',
+      'rows': '7',
+      'lang':
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) ??
+          'ar',
+    };
+
+    final uri = Uri.http(ApiSettings.HospitalBase,
+        '${ApiSettings.HospitalBase3}getConsDtl', queryParameters);
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      print(response.body);
+      return ConsultResponse.fromJson(jsonResponse);
     }
     return null;
   }

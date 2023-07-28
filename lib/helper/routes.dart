@@ -4,6 +4,7 @@ import 'package:aphaa_app/screens/auth/login/login_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/offers/offers_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/profile/profile_screen.dart';
+import 'package:aphaa_app/screens/in_level_screen/consultation_list/consult_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/edit_insurance_data/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/edit_profile/edit_profile.dart';
 import 'package:aphaa_app/screens/in_level_screen/family/family_screen.dart';
@@ -87,4 +88,5 @@ final Map<String, WidgetBuilder> routes = {
   ChangePassword.routeName: (context) => ChangePassword(),
   OTPScreen.routeName: (context) => OTPScreen(),
   LoginDoneScreens.routeName: (context) => LoginDoneScreens(),
+  ConsultScreen.routeName: (context) => ConsultScreen(),
 };

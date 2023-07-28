@@ -15,6 +15,7 @@ import '../../../model/service.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../in_level_screen/consultation_list/consult_screen.dart';
 import '../../in_level_screen/recordbookings/RecordBooking.dart';
 import '../../in_level_screen/sick_level/sick_leave.dart';
 import '../../main_screens/Doctor/doctors_screen.dart';
@@ -73,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       //استشاراتي الطبية
       Service(
-          'assets/images/consult1.svg', AppLocalizations.of(context)!.my_medical_consultation, 'consult', SendConsultScreen.routeName),
+          'assets/images/consult1.svg', AppLocalizations.of(context)!.my_medical_consultation, 'consult', ConsultScreen.routeName),
 
 
     ];

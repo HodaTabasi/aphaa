@@ -75,7 +75,6 @@
     "insurance_companies":"شركات التأمين",
     "medical_insurance_validity_check":"فحص صلاحية التامين الطبي",
     "employer":"جهة العمل",
-    "residency_number":"رقم الاقامة",
 
     "enter_login_information_access_services":"ادخل بيانات الدخول، للوصول لخدماتنا :",
     "remember_me_later":"تذكرني لاحقا",
@@ -87,6 +86,8 @@
     "share":"مشاركة",
    "cons_no":"رقم الكشف :  ",
    "cons_date":"تاريخ الكشف: ",
+   "cons_date1":"تاريخ الاستشارة: ",
+   "doc_reply_date1":"تاريخ الرد: ",
    "exp_time":"الوقت المتوقع:  ",
     "vital_signs":"المؤشرات الحيوية",
     "test_results":"نتائج الفحوصات",
@@ -123,6 +124,10 @@
     "profile_personly":"الملف الشخصي ",
     "save_change":"حفظ التعديلات ",
     "file_No":"رقم الملف : ",
+    "const_No":"رقم الاستشارة : ",
+    "not_replay":"لم يتم الرد  ",
+    "replay":" تم الرد اضغط لتفاصيل ",
+    "re_doc":" رد الدكتور ",
 
     "residency_number":"رقم الإقامة :",
     "the_name":"الاسم :",
