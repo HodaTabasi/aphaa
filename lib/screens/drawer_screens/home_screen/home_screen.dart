@@ -1,30 +1,20 @@
-
-import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/get/quick_service_getx_controller.dart';
 import 'package:aphaa_app/screens/drawer_screens/Booking/my_appointment_booking.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/my_medical_file_item.dart';
-import 'package:aphaa_app/general/slider_wedgit.dart';
-import 'package:aphaa_app/screens/drawer_screens/offers/offers_screen.dart';
-import 'package:aphaa_app/screens/drawer_screens/profile/profile_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/Insurance_approvals/Insurance_approvals.dart';
 import 'package:aphaa_app/screens/in_level_screen/family/family_screen.dart';
 import 'package:aphaa_app/screens/in_level_screen/medical_recipes/medical_recipes.dart';
 import 'package:aphaa_app/screens/in_level_screen/payment_record/payment_record.dart';
 import 'package:aphaa_app/screens/in_level_screen/test_results/test_results.dart';
-import 'package:aphaa_app/screens/in_level_screen/vaccinations/vaccinations.dart';
 import 'package:aphaa_app/screens/in_level_screen/vital_signs/vital_signs.dart';
-import 'package:aphaa_app/screens/main_screens/Appointment%20Booking/appointement_booking.dart';
 import 'package:aphaa_app/screens/main_screens/Doctor/my_doctor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../api/controllers/App_api_controller.dart';
-import '../../../model/offer.dart';
 import '../../../model/service.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../in_level_screen/offer_ditails/offer_details.dart';
 import '../../in_level_screen/recordbookings/RecordBooking.dart';
 import '../../in_level_screen/sick_level/sick_leave.dart';
 import '../../main_screens/Doctor/doctors_screen.dart';
@@ -38,9 +28,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
-
   @override
   Widget build(BuildContext context) {
     List<Service> service = [
@@ -83,22 +70,14 @@ class _HomeScreenState extends State<HomeScreen> {
       //المؤشرات الحيوية
       Service('assets/images/secment.svg', AppLocalizations.of(context)!.vital_signs, '',
           VitalSigns.routeName),
-      //العروض الطبية
-      // Service(
-      //     'assets/images/offers.svg', AppLocalizations.of(context)!.medical_offers, 'offers', OfferScreen.routeName),
-//استشاراتي الطبية
+
+      //استشاراتي الطبية
       Service(
           'assets/images/consult1.svg', AppLocalizations.of(context)!.my_medical_consultation, 'consult', SendConsultScreen.routeName),
 
 
     ];
 
-    // image: 'assets/images/offers.svg',
-    // name: AppLocalizations.of(context)!.medical_offers,
-    // prsee: () {
-    // QuickServiceGetxController.to.fromHome = true;
-    // Navigator.pushNamed(context, OfferScreen.routeName);
-    //
     return  ListView(
           children: [
             // SizedBox(
@@ -170,8 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       QuickServiceGetxController.to.fromHome = true;
 
                     Navigator.pushNamed(context, service[index].routsName);
-                  }
-                      ,
+                  },
                 );
               },
             ),

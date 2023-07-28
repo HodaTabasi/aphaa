@@ -17,7 +17,7 @@ class QuickServiceGetxController extends GetxController {
    String? nationality;
    String requestType = "1";
    var img;
-   bool gender = true;
+   bool gender = false;
    void changeClinicName(name){
      clinicName = name;
    }

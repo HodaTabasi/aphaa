@@ -49,7 +49,7 @@ class AuthApiController with ApiHelper {
       if (response.statusCode == 200) {
         var jsonObject = jsonResponse['items'];
         Patient student = Patient.fromJson(jsonObject);
-        SharedPrefController().save(student: student);
+        // SharedPrefController().save(student: student);
         SharedPrefController().setValuePCode(pCode: jsonObject["p_code"]);
         ChangeGetxController.to.changeName(student.firstName, student.lastName);
       }
@@ -73,7 +73,7 @@ class AuthApiController with ApiHelper {
         var jsonObject = jsonResponse['items'];
         Patient student = Patient.fromJson(jsonObject);
         SharedPrefController().setPassword(password);
-        SharedPrefController().save(student: student);
+        // SharedPrefController().save(student: student);
         SharedPrefController().setValuePCode(pCode:student.p_code!);
         ChangeGetxController.to.changeName(student.firstName, student.lastName);
       }

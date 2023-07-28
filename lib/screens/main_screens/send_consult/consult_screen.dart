@@ -21,6 +21,7 @@ import '../../../general/edittext_item.dart';
 import '../../../get/new_account_getx_controller.dart';
 import '../../../helper/keyboardoverlay.dart';
 import '../../../model/Clinic.dart';
+import '../../../model/Eligibility.dart';
 import '../../../model/api_response.dart';
 import 'gender_selected.dart';
 
@@ -52,19 +53,27 @@ class _SendConsultScreenState extends State<SendConsultScreen>
   @override
   void initState() {
     if(QuickServiceGetxController.to.fromHome){
-      name = TextEditingController(text: SharedPrefController().getValueFor(key: PrefKeysPatient.firstName.name));
-      phone = TextEditingController(text:SharedPrefController().getValueFor(key: PrefKeysPatient.mobile.name));
+      Eligibility eg =  SharedPrefController().getEligibility();
+      name = TextEditingController(text: eg.patientName);
+      phone = TextEditingController(text:eg.patientMOB);
+      weight = TextEditingController(text: eg.patientWeight);
+      height = TextEditingController(text: eg.patientHight);
+      age = TextEditingController(text: eg.patientAge);
+      disease = TextEditingController(text: eg.chrDisease);
+      alagy = TextEditingController(text: eg.patientAlgy);
+      QuickServiceGetxController.to.gender = eg.patientGender == "1"?false:true;
     }else {
       name = TextEditingController();
       phone = TextEditingController();
+      weight = TextEditingController();
+      height = TextEditingController();
+      age = TextEditingController();
+      disease = TextEditingController();
+      alagy = TextEditingController();
     }
     id = TextEditingController();
     consultText = TextEditingController();
-    weight = TextEditingController();
-    height = TextEditingController();
-    age = TextEditingController();
-    disease = TextEditingController();
-    alagy = TextEditingController();
+
     if(Platform.isIOS){
       numberFocusNode.addListener(() {
         bool hasFocus = numberFocusNode.hasFocus;
@@ -160,7 +169,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         ),
                         //
-                        GenderSelected('assets/images/phone.svg',),
+                        GenderSelected(QuickServiceGetxController.to.gender,'assets/images/phone.svg',),
                         EditTextItem(
                           'assets/images/age.svg',
                           AppLocalizations.of(context)!.age,

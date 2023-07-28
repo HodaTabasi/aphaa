@@ -26,6 +26,8 @@ class FireBaseAuthController with Helpers1{
     ChangeGetxController.to.changeName(name[0], name[1]);
     SharedPrefController().saveName(name[0], name[1],NewAccountGetxController.to.identityNumber);
     SharedPrefController().save1(NewAccountGetxController.to.identityNumber,eg.patientMOB);
+    SharedPrefController().save1(NewAccountGetxController.to.identityNumber,eg.patientMOB);
+    SharedPrefController().saveEligibility(eligibility: eg);
     Navigator.pushReplacementNamed(context, ButtomNavigations.routeName);
   }
 

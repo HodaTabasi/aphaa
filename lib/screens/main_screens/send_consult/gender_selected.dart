@@ -10,15 +10,16 @@ class GenderSelected extends StatefulWidget {
   String icon;
 
   bool first = true;
+  bool gender = false;
 
-  GenderSelected(this.icon) ;
+  GenderSelected(this.gender,this.icon) ;
 
   @override
   State<GenderSelected> createState() => _GenderSelectedState();
 }
 
 class _GenderSelectedState extends State<GenderSelected> {
-bool gender = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,22 +59,22 @@ bool gender = false;
                   Expanded(
                     child: RadioListTile(
                       title: Text(AppLocalizations.of(context)!.male),
-                      value: true, groupValue: gender, onChanged: (value) {
+                      value: true, groupValue: widget.gender, onChanged: (value) {
                       setState(() {
-                        gender = value as bool;
-                        QuickServiceGetxController.to.gender = gender;
+                        widget.gender = value as bool;
+                        QuickServiceGetxController.to.gender = widget.gender;
                       });
                     },),
                   ),
                   Expanded(
                     child: RadioListTile(
                       title: Text(AppLocalizations.of(context)!.female),
-                      value: false, groupValue: gender, onChanged:(value) {
+                      value: false, groupValue: widget.gender, onChanged:(value) {
 
                       setState(() {
                         // QuickServiceGetxController.to.geander = value as bool;
-                        gender = value as bool;
-                        QuickServiceGetxController.to.gender = gender;
+                        widget.gender = value as bool;
+                        QuickServiceGetxController.to.gender = widget.gender;
                       });
                       },),
                   ),
