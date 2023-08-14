@@ -142,15 +142,19 @@ class TestResultItem extends StatelessWidget with Helpers1 {
               InkWell(
                 onTap: () async {
                   showLoaderDialog(context);
-                  PdfClass base64 = await HospitalApiController().getPdfFile(
+                  PdfClass? base64 = await HospitalApiController().getPdfFile(
                       patientCode:
                       SharedPrefController().getValueFor(key: "p_code"),
                       clinicCode: serviceTest!.clinicCode,
                       serviceType: serviceTest!.serviceType,
                       fileName: serviceTest!.fileName);
-                  if (base64 == null)
-                    showSnackBar(context, message: AppLocalizations.of(context)!.no_file_find,error: true);
-                  else {
+                  // Navigator.pop(context);
+                  if (base64 == null) {
+                    Navigator.pop(context);
+                    showSnackBar(context,
+                        message: AppLocalizations.of(context)!.no_file_find,
+                        error: true);
+                  }else {
                     File file =  await FileProcess.downloadFile(base64.pdfFile, serviceTest!.fileName);
                     Navigator.pop(context);
                     Share.shareFiles(['${file.path}'], text: 'ShreFile');
@@ -176,15 +180,19 @@ class TestResultItem extends StatelessWidget with Helpers1 {
               InkWell(
                 onTap: () async {
                   showLoaderDialog(context);
-                  PdfClass base64 = await HospitalApiController().getPdfFile(
+                  PdfClass? base64 = await HospitalApiController().getPdfFile(
                       patientCode:
                           SharedPrefController().getValueFor(key: "p_code"),
                       clinicCode: serviceTest!.clinicCode,
                       serviceType: serviceTest!.serviceType,
                       fileName: serviceTest!.fileName);
-                  if (base64 == null)
-                    showSnackBar(context, message: AppLocalizations.of(context)!.no_file_find,error: true);
-                  else {
+                  // Navigator.pop(context);
+                  if (base64 == null) {
+                    Navigator.pop(context);
+                    showSnackBar(context,
+                        message: AppLocalizations.of(context)!.no_file_find,
+                        error: true);
+                  }else {
                     File file =  await FileProcess.downloadFile(base64.pdfFile, serviceTest!.fileName);
                     Navigator.pop(context);
                     // showModalBottomSheet(

@@ -13,9 +13,14 @@ mixin Helpers1 {
       {required String message, bool error = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        behavior: SnackBarBehavior.floating,
         content: Text(message),
         backgroundColor: error ? Colors.red : Colors.green,
         dismissDirection: DismissDirection.horizontal,
+        margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height - 100,
+            right: 20,
+            left: 20),
       ),
     );
   }

@@ -555,10 +555,15 @@ class HospitalApiController with ApiHelper {
     final uri = Uri.http(ApiSettings.HospitalBase,
         '${ApiSettings.HospitalBase1}pdfFile', queryParameters);
     final response = await http.get(uri);
-    print(response.body);
+    // print(response.body);
+    print(response.statusCode);
     if (response.statusCode == 200) {
+
       var jsonResponse = jsonDecode(response.body);
       return PdfClass.fromJson(jsonResponse['pdfFile']);
+    }else if(response.statusCode == 500){
+      print("ddsgsd");
+      return null;
     }
   }
 

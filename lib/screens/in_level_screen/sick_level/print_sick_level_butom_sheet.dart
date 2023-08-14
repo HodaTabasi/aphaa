@@ -252,15 +252,19 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> w
                         onTap: () async {
 
                           showLoaderDialog(context);
-                          PdfClass base64 = await HospitalApiController().getPdfFile(
+                          PdfClass? base64 = await HospitalApiController().getPdfFile(
                               patientCode:
                               SharedPrefController().getValueFor(key: "p_code"),
                               clinicCode: snapshot.data!.first.clinic!.clinicCode,
                               serviceType: snapshot.data!.first.serviceType,
                               fileName: snapshot.data!.first.fileName);
-                          if (base64 == null)
-                            showSnackBar(context, message: AppLocalizations.of(context)!.no_file_find,error: true);
-                          else {
+                          // Navigator.pop(context);
+                          if (base64 == null) {
+                            Navigator.pop(context);
+                            showSnackBar(context,
+                                message: AppLocalizations.of(context)!
+                                    .no_file_find, error: true);
+                          }else {
                             Navigator.pop(context);
                             File file =  await FileProcess.downloadFile(base64.pdfFile, snapshot.data!.first.fileName);
                             Navigator.pop(context);
