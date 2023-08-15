@@ -38,14 +38,15 @@ OutlineInputBorder outlineInputBorder() {
 }
 
 
-
+//TODO IOS UPDATED
 //Live Key
 const paymentServerKey = "SWJNMGNWTK-JG629T9BDR-MZGJNRLT2H";
 const paymentClientKey = "CQKMTP-27R76T-GMP7P2-79NHQK";
 const paymentProfileId = "52842";
 const paymentCartIdLive = "52842";
 // const merchantName = "merchant.com.aph.med.aphaaApp";
-const merchantApplePayIndentifier = "aiph.mapp@aph.med.sa";
+const merchantApplePayIndentifier = "merchant.com.aph.med.aphaaApp";
+// const merchantApplePayIndentifier = "aiph.mapp@aph.med.sa";
 
 //////////
 //Test Key

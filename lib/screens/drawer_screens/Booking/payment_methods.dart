@@ -116,7 +116,7 @@ class PaymentMethod with Helpers1 {
         forceShippingInfo: false,
         cartDescription: "مستشفى أبها الخاص العالمي",
         merchantName: paymentMerchantName,
-        merchantApplePayIndentifier:merchantApplePayIndentifier,
+        merchantApplePayIndentifier:merchantApplePayIndentifier.trim(),
         screentTitle: "Pay with Card",
         billingDetails: billingDetails,
         shippingDetails: shippingDetails,
