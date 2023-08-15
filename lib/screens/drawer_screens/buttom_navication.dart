@@ -31,7 +31,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
     HomeScreen(),
     RexcordBooking(fromInLevel: false),
     MyAppointmentBooking(flag: true),
-    SendConsultScreen(),
+    SendConsultScreen(fromHome: true,),
     // OfferScreen(),
     ProfileScreen(),
   ];

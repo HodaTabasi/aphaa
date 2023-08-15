@@ -151,7 +151,7 @@ class TestResultItem extends StatelessWidget with Helpers1 {
                   // Navigator.pop(context);
                   if (base64 == null) {
                     Navigator.pop(context);
-                    showSnackBar(context,
+                    showSnackBarFloating(context,
                         message: AppLocalizations.of(context)!.no_file_find,
                         error: true);
                   }else {

@@ -27,6 +27,9 @@ import 'gender_selected.dart';
 
 class SendConsultScreen extends StatefulWidget {
   static String routeName = "/send_consult";
+  bool fromHome = false;
+
+  SendConsultScreen({this.fromHome = false});
 
   @override
   State<SendConsultScreen> createState() => _SendConsultScreenState();
@@ -88,10 +91,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
+
 
 
   @override
@@ -108,7 +108,8 @@ class _SendConsultScreenState extends State<SendConsultScreen>
               fontWeight: FontWeight.bold,
             )),
         titleSpacing: 2,
-        leading: InkWell(
+        centerTitle: widget.fromHome,
+        leading: widget.fromHome ?null:InkWell(
           onTap: () => Navigator.of(context, rootNavigator: true).pop(),
           child: Container(
               margin: EdgeInsets.all(15.0.r),
@@ -221,6 +222,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
   }
 
   bool _checkData() {
+
     if (id.text.isNotEmpty &&
         phone.text.isNotEmpty &&
         consultText.text.isNotEmpty &&
@@ -230,6 +232,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
         height.text.isNotEmpty &&
         weight.text.isNotEmpty &&
         disease.text.isNotEmpty ) {
+      print("object1");
       return true;
     }
     showSnackBar(context,
@@ -239,6 +242,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
   }
 
   Future<void> _sendConsult() async {
+
     showLoaderDialog(context);
     ApiResponse apiResponse = await HospitalApiController().sendConsultation(
       patientName: name.text,
@@ -261,7 +265,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
      phone.text = "";
      setState(() {
      });
-     Navigator.pop(context);
+     // Navigator.pop(context);
       // showAlertDialog1(context);
     }
 

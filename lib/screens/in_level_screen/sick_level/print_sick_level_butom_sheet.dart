@@ -261,7 +261,7 @@ class _PrintButtomSheetSickLevelState extends State<PrintButtomSheetSickLevel> w
                           // Navigator.pop(context);
                           if (base64 == null) {
                             Navigator.pop(context);
-                            showSnackBar(context,
+                            showSnackBarFloating(context,
                                 message: AppLocalizations.of(context)!
                                     .no_file_find, error: true);
                           }else {
