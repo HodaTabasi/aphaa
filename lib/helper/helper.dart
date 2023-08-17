@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aphaa_app/helper/helpers.dart';
 import 'package:aphaa_app/screens/drawer_screens/Booking/payment_methods.dart';
 import 'package:aphaa_app/screens/drawer_screens/buttom_navication.dart';
@@ -296,7 +298,7 @@ mixin Helpers implements Helpers1{
             ),
             Visibility(visible: !flag,child: continueButton1),
             Visibility(visible: flag, child: continueButton2),
-            Visibility(visible: flag, child: continueButton4),
+            Visibility(visible: flag && Platform.isIOS, child: continueButton4),
             Divider(
               color: Colors.grey.shade500,
             ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aphaa_app/model/Appointment/Appointments.dart';
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:flutter/material.dart';
@@ -425,6 +427,7 @@ class _SelectPaymentWayState extends State<SelectPaymentWay> {
                   ],
                 ),
               ),
+              if(Platform.isIOS)
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(

@@ -464,9 +464,10 @@ class HospitalApiController with ApiHelper {
 
   Future<ConsultResponse?> getConsultation(
       {patientCode, page = 1, offset = 1}) async {
+    print(patientCode);
     final queryParameters = {
-      // 'patientCode': '0/595907',
-      'patientId': '2342922727',
+      'patientId': '$patientCode',
+      // 'patientId': '2342922727',
       'pageNo': '$page',
       'offset': '$offset',
       'rows': '7',
@@ -477,7 +478,9 @@ class HospitalApiController with ApiHelper {
 
     final uri = Uri.http(ApiSettings.HospitalBase,
         '${ApiSettings.HospitalBase3}getConsDtl', queryParameters);
+
     final response = await http.get(uri);
+    print(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       print(response.body);

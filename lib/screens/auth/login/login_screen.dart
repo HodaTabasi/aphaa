@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../api/controllers/auth_api_controller.dart';
-import '../../../firebase/fb_auth_controller.dart';
 import '../../../general/btn_layout.dart';
 import '../../../general/edittext_item.dart';
 import '../../../general/password_item.dart';

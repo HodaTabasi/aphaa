@@ -62,9 +62,10 @@ class _SendConsultScreenState extends State<SendConsultScreen>
       weight = TextEditingController(text: eg.patientWeight);
       height = TextEditingController(text: eg.patientHight);
       age = TextEditingController(text: eg.patientAge);
+      id = TextEditingController(text:SharedPrefController().getValueFor(key: PrefKeysPatient.identityNumber.name));
       disease = TextEditingController(text: eg.chrDisease);
       alagy = TextEditingController(text: eg.patientAlgy);
-      QuickServiceGetxController.to.gender = eg.patientGender == "1"?false:true;
+      QuickServiceGetxController.to.gender = eg.patientGender == "1"?true:false;
     }else {
       name = TextEditingController();
       phone = TextEditingController();
@@ -73,8 +74,9 @@ class _SendConsultScreenState extends State<SendConsultScreen>
       age = TextEditingController();
       disease = TextEditingController();
       alagy = TextEditingController();
+      id = TextEditingController();
     }
-    id = TextEditingController();
+    // id = TextEditingController();
     consultText = TextEditingController();
 
     if(Platform.isIOS){
@@ -242,7 +244,6 @@ class _SendConsultScreenState extends State<SendConsultScreen>
   }
 
   Future<void> _sendConsult() async {
-
     showLoaderDialog(context);
     ApiResponse apiResponse = await HospitalApiController().sendConsultation(
       patientName: name.text,
