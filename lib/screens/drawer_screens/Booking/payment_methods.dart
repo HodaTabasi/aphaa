@@ -115,7 +115,7 @@ class PaymentMethod with Helpers1 {
         transactionClass: PaymentSdkTransactionClass.ECOM,
         forceShippingInfo: false,
         cartDescription: "مستشفى أبها الخاص العالمي",
-        merchantName: paymentMerchantName,
+        merchantName: /*paymentMerchantName*/merchantName,
         merchantApplePayIndentifier:merchantApplePayIndentifier.trim(),
         screentTitle: "Pay with Card",
         billingDetails: billingDetails,
