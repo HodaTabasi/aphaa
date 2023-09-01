@@ -31,6 +31,7 @@ import '../screens/drawer_screens/done/done_screen.dart';
 import '../screens/in_level_screen/Insurance_approvals/Insurance_approvals.dart';
 import '../screens/in_level_screen/recordbookings/RecordBooking.dart';
 import '../screens/in_level_screen/reservation_data/reservation_data.dart';
+import '../screens/in_level_screen/send_vital_sign/send_vital_signs_screen.dart';
 import '../screens/in_level_screen/sick_level/sick_leave.dart';
 import '../screens/in_level_screen/test_results/test_results.dart';
 import '../screens/main_screens/Doctor/doctor_details.dart';
@@ -89,4 +90,5 @@ final Map<String, WidgetBuilder> routes = {
   OTPScreen.routeName: (context) => OTPScreen(),
   LoginDoneScreens.routeName: (context) => LoginDoneScreens(),
   ConsultScreen.routeName: (context) => ConsultScreen(),
+  SendVitalSigns.routeName: (context) => SendVitalSigns(),
 };

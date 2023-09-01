@@ -18,6 +18,7 @@ class ApiSettings {
   static const String allContact = '${_baseUrl}contact';
   static const String sendSMS = '${_baseUrl}otp/generate';
   static const String cheakSMS = '${_baseUrl}otp/check';
+  static const String addVSignal = '${_baseUrl}setPtVs';
 
   //////////////////////////////////////
 

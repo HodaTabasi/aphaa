@@ -17,6 +17,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../in_level_screen/consultation_list/consult_screen.dart';
 import '../../in_level_screen/recordbookings/RecordBooking.dart';
+import '../../in_level_screen/send_vital_sign/send_vital_signs_screen.dart';
 import '../../in_level_screen/sick_level/sick_leave.dart';
 import '../../main_screens/Doctor/doctors_screen.dart';
 import '../../main_screens/send_consult/consult_screen.dart';
@@ -67,6 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
       //جميع الاطباء
       Service(
           'assets/images/droup.svg', AppLocalizations.of(context)!.doctors, '', DoctorsScreen.routeName),
+
+      //ارسال مؤشرات حيوية
+      Service('assets/images/secment.svg', AppLocalizations.of(context)!.vital_signs1, '',
+          SendVitalSigns.routeName),
+
+      //ارسال استشارة طبية
+      Service(
+          'assets/images/consult1.svg', AppLocalizations.of(context)!.my_medical_consultation1, 'consult', SendConsultScreen.routeName),
 
       //المؤشرات الحيوية
       Service('assets/images/secment.svg', AppLocalizations.of(context)!.vital_signs, '',

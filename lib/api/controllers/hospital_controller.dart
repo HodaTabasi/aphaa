@@ -688,8 +688,7 @@ class HospitalApiController with ApiHelper {
     return null;
   }
 
-  Future<List<String>> getDoctorSched(
-      {clinicCode, doctorCode, month, year}) async {
+  Future<List<String>> getDoctorSched({clinicCode, doctorCode, month, year}) async {
     final queryParameters = {
       'clinicCode': '$clinicCode',
       'doctorCode': '$doctorCode',
@@ -729,8 +728,7 @@ class HospitalApiController with ApiHelper {
     return [];
   }
 
-  Future<TimeAvilableResponse?> getDoctorSchedDtl(
-      {clinicCode, doctorCode, availableDay, pId = ''}) async {
+  Future<TimeAvilableResponse?> getDoctorSchedDtl({clinicCode, doctorCode, availableDay, pId = ''}) async {
     final queryParameters = {
       'clinicCode': '$clinicCode',
       'doctorCode': '$doctorCode',
@@ -945,6 +943,52 @@ class HospitalApiController with ApiHelper {
       ApiResponse responses = ApiResponse(
           message: jsonResponse['consMsg'],
           success: jsonResponse['consFlag'] == "true" ? true : false);
+
+      return responses;
+    } else {
+      return failedResponse;
+    }
+    // return null;
+  }
+
+  Future<ApiResponse> setPtVs(
+      {patientCode,
+        bt,
+        bp,
+        hr,
+        wt,
+        dia,
+        note}) async {
+    Uri uri = Uri.parse('http://aiph.me:8082/api/patient/setPtVS');
+    print({
+      'patientCode': patientCode,
+      'bt': bt,
+      'bp': bp,
+      'hr': hr,
+      'wt': wt,
+      'dia': dia,
+      'note': note,
+      "lang":
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
+    });
+    var response = await http.post(uri, body: {
+      'patientCode': patientCode,
+      'bt': '$bt',
+      'bp': '$bp',
+      'hr': '$hr',
+      'wt': '$wt',
+      'dia': '$dia',
+      'note': '$note',
+      "lang":
+      SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name),
+    });
+
+    print(response.body);
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      var jsonResponse = jsonDecode(response.body);
+      ApiResponse responses = ApiResponse(
+          message: jsonResponse['vsMsg'],
+          success: jsonResponse['vsFlag'] == "true" ? true : false);
 
       return responses;
     } else {
