@@ -75,6 +75,7 @@ class PaymentMethod with Helpers1 {
   }
 
   void doPaymentConfiguration(price, {permsNo}) {
+    print("fdfd$merchantApplePayIndentifier");
     ///todo this data required to show payment page
     ///todo: here you need to add user data if exist at lest [*** user name and email]
     bool? isLogin = SharedPrefController()
@@ -127,13 +128,13 @@ class PaymentMethod with Helpers1 {
         currencyCode: "SAR",
         merchantCountryCode: "SA",
         alternativePaymentMethods: apms,
-        linkBillingNameWithCardHolderName: false);
+        linkBillingNameWithCardHolderName: true);
 
        configuration.simplifyApplePayValidation = true;
 
 
     //Options to show billing and shipping info
-    configuration.showBillingInfo = true;
+    configuration.showBillingInfo = false;
     configuration.showShippingInfo = false;
 
     //Set merchant logo from the project assets:
@@ -285,7 +286,6 @@ class PaymentMethod with Helpers1 {
           };
           print(map);
           doIt(map);
-
         }
       } else if (event["status"] == "error") {
         print(event);

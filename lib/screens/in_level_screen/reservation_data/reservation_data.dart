@@ -454,7 +454,7 @@ class _ReservationDataState extends State<ReservationData> with Helpers1{
         transactionClass: PaymentSdkTransactionClass.ECOM,
         forceShippingInfo: false,
         cartDescription: "مستشفى أبها الخاص العالمي",
-        merchantName: paymentMerchantName,
+        merchantName:  /*paymentMerchantName*/merchantName,
         screentTitle: "Pay with Card",
         billingDetails: billingDetails,
         shippingDetails: shippingDetails,

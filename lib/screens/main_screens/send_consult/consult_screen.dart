@@ -172,7 +172,7 @@ class _SendConsultScreenState extends State<SendConsultScreen>
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         ),
                         //
-                        GenderSelected(QuickServiceGetxController.to.gender,'assets/images/phone.svg',),
+                        GenderSelected(QuickServiceGetxController.to.gender,'assets/images/gender.svg',),
                         EditTextItem(
                           'assets/images/age.svg',
                           AppLocalizations.of(context)!.age,
