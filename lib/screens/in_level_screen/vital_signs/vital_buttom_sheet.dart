@@ -64,10 +64,10 @@ class _VitalButtomSheetState extends State<VitalButtomSheet> {
                         visible: snapshot.data![index].signValue!.isNotEmpty,
                         child: Row(
                           children: [
-                            SvgPicture.asset(
-                              images[index],
-                              semanticsLabel: 'Acme Logo',
-                            ),
+                            // SvgPicture.asset(
+                            //   images[index],
+                            //   semanticsLabel: 'Acme Logo',
+                            // ),
                             Padding(
                               padding:  EdgeInsets.all(8.0.r),
                               child: Text('${snapshot.data![index].signName}',
