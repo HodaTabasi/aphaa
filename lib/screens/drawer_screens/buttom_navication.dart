@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:aphaa_app/preferences/shared_pref_controller.dart';
 import 'package:aphaa_app/screens/drawer_screens/profile/profile_screen.dart';
+import 'package:aphaa_app/screens/in_level_screen/consultation_list/CallPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -34,6 +35,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
     SendConsultScreen(fromHome: true,),
     // OfferScreen(),
     ProfileScreen(),
+    CallPage(),
   ];
 
   @override
@@ -56,6 +58,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
       AppLocalizations.of(context)!.add_appointment,
       AppLocalizations.of(context)!.offers,
       AppLocalizations.of(context)!.profile_personly,
+      AppLocalizations.of(context)!.vedio_call,
     ];
 
     return GetX<ChangeGetxController>(
@@ -207,6 +210,7 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                               pageIndex == 0 ? Color(0xff0E4C8F) : Colors.grey,
                           semanticsLabel: 'Acme Logo'),
                       label: ''),
+
                   BottomNavigationBarItem(
                       icon: SvgPicture.asset(
                         'assets/images/appdate.svg',
@@ -238,6 +242,16 @@ class _ButtomNavigationsState extends State<ButtomNavigations> {
                         color: pageIndex == 4 ? Color(0xff0E4C8F) : Colors.grey,
                       ),
                       label: ''),
+                  BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        'assets/images/vedio_call.svg',
+                        semanticsLabel: 'Acme Logo',
+                        width: 30.w,
+                        height: 30.h,
+                        color: pageIndex == 5 ? Color(0xff0E4C8F) : Colors.grey,
+                      ),
+                      label: ''),
+
                 ],
               ),
             ));

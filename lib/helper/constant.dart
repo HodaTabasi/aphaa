@@ -63,3 +63,8 @@ const paymentMerchantName = "مستشفى أبها الخاص العالمي";
 //   Service('assets/images/doctor.svg','الأطباء','ابحث عن طبيب في القائمة',''),
 //   Service('assets/images/report.svg','فتح ملف طبي','اضغط لفتح ملف طبي جديد',''),
 // ];
+
+//vedio call informations
+const String appId = "060dc284805045008af67ecae27e27d2";
+const String token = "007eJxTYEjqe/hCWmiZSMbhtTHblwX9EHzZ+JBBNmq+UtWOz4rfvz5RYDAwM0hJNrIwsTAwNTAxNTCwSEwzM09NTkw1MgeiFKO8pq8pDYGMDGuWXWVkZIBAEJ+FoSS1uISBAQC50iGb";
+const String channelName  = "test";

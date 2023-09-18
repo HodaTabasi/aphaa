@@ -42,7 +42,7 @@ class _SendVitalSignsState extends State<SendVitalSigns> with Helpers, myHelper.
   @override
   void initState() {
     bt = TextEditingController();
-    bp = TextEditingController();
+    bp = TextEditingController(text:"120/80");
     hr = TextEditingController();
     wt = TextEditingController();
     dia = TextEditingController();
@@ -138,7 +138,7 @@ class _SendVitalSignsState extends State<SendVitalSigns> with Helpers, myHelper.
                 EditTextItem(
                   'assets/images/diabetes.svg',
                   AppLocalizations.of(context)!.diabetes,
-                  TextInputType.phone,
+                  TextInputType.text,
                   controler: dia,
                   numberFocusNode: numberFocusNode,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -146,7 +146,7 @@ class _SendVitalSignsState extends State<SendVitalSigns> with Helpers, myHelper.
                 EditTextItem(
                   'assets/images/pressure.svg',
                   AppLocalizations.of(context)!.pressure,
-                  TextInputType.phone,
+                  TextInputType.text,
                   controler: bp,
                   numberFocusNode: numberFocusNode1,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -154,7 +154,7 @@ class _SendVitalSignsState extends State<SendVitalSigns> with Helpers, myHelper.
                 EditTextItem(
                   'assets/images/thermometer.svg',
                   AppLocalizations.of(context)!.thermometer,
-                  TextInputType.phone,
+                  TextInputType.text,
                   controler: bt,
                   numberFocusNode: numberFocusNode2,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -162,7 +162,7 @@ class _SendVitalSignsState extends State<SendVitalSigns> with Helpers, myHelper.
                 EditTextItem(
                   'assets/images/weight.svg',
                   AppLocalizations.of(context)!.weight,
-                  TextInputType.phone,
+                  TextInputType.number,
                   controler: wt,
                   numberFocusNode: numberFocusNode3,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -170,7 +170,7 @@ class _SendVitalSignsState extends State<SendVitalSigns> with Helpers, myHelper.
                 EditTextItem(
                   'assets/images/heart1.svg',
                   AppLocalizations.of(context)!.heart,
-                  TextInputType.phone,
+                  TextInputType.text,
                   controler: hr,
                   numberFocusNode: numberFocusNode4,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],

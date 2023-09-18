@@ -76,23 +76,51 @@ mixin Helpers implements Helpers1{
               paymentMethod.doIt(map);
             }
           },
-          child: Row(
+          child: Column(
             children: [
-              SizedBox(
-                width: 5,
+              Row(
+                children: [
+                  SizedBox(
+                    width: 5,
+                  ),
+                  // SvgPicture.asset(
+                  //     'assets/images/card_pay.svg',height: 30.h,width: 30.w),
+                  // SizedBox(
+                  //   width: 8,
+                  // ),
+                  Text(
+                      AppLocalizations.of(context)!
+                          .continue_to_pay,
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          fontFamily: 'Tajawal',
+                          color: Colors.black))
+                ],
               ),
-              SvgPicture.asset(
-                  'assets/images/card_pay.svg',height: 30.h,width: 30.w),
               SizedBox(
-                width: 8,
+                height: 5.h,
               ),
-              Text(
-                  AppLocalizations.of(context)!
-                      .continue_to_pay,
-                  style: TextStyle(
-                      fontSize: 14.sp,
-                      fontFamily: 'Tajawal',
-                      color: Colors.black))
+              Visibility(
+                visible: true,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      SvgPicture.asset(
+                          'assets/images/visa2.svg',height: 30.h,width: 30.w),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      SvgPicture.asset(
+                          'assets/images/master.svg',height: 25.h,width: 25.w),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      SvgPicture.asset(
+                          'assets/images/mada.svg',height: 30.h,width: 30.w),
+
+                    ],
+                  ))
             ],
           ),
         ),

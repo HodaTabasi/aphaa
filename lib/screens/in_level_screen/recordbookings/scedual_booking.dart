@@ -19,7 +19,7 @@ import '../../drawer_screens/Booking/payment_methods.dart';
 class ScedualBookingItem extends StatelessWidget with Helpers1 {
   Appointments appointments;
 
-  bool group_value = false;
+  bool group_value = true;
 
   ScedualBookingItem(this.appointments);
 
@@ -399,31 +399,56 @@ class _SelectPaymentWayState extends State<SelectPaymentWay> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Row(
+                child: Column(
                   children: [
-                    Radio(
-                        value: true,
-                        groupValue: widget.group_value,
-                        onChanged: (val) {
-                          widget.group_value = true;
-                          setState(() {
-                          });
-                        }),
-                    SizedBox(
-                      width: 5,
+                    Row(
+                      children: [
+                        Radio(
+                            value: true,
+                            groupValue: widget.group_value,
+                            onChanged: (val) {
+                              widget.group_value = true;
+                              setState(() {
+                              });
+                            }),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        // SvgPicture.asset(
+                        //     'assets/images/card_pay.svg',height: 50.h,width: 80.w),
+                        // SizedBox(
+                        //   width: 8,
+                        // ),
+                        Text(
+                            AppLocalizations.of(context)!
+                                .continue_to_pay,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Tajawal',
+                                color: Colors.black))
+                      ],
                     ),
-                    SvgPicture.asset(
-                        'assets/images/card_pay.svg',height: 50.h,width: 80.w),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                        AppLocalizations.of(context)!
-                            .continue_to_pay,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Tajawal',
-                            color: Colors.black))
+                    Visibility(
+                        visible: widget.group_value,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            SvgPicture.asset(
+                                'assets/images/visa2.svg',height: 30.h,width: 30.w),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            SvgPicture.asset(
+                                'assets/images/master.svg',height: 25.h,width: 25.w),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            SvgPicture.asset(
+                                'assets/images/mada.svg',height: 30.h,width: 30.w),
+
+                          ],
+                        ))
                   ],
                 ),
               ),
