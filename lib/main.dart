@@ -20,7 +20,6 @@ import 'firebase_options.dart';
 import 'get/change_name_getx_controller.dart';
 import 'get/language_getx_controller.dart';
 import 'get/login_getx_controller.dart';
-import 'helper/SizeConfig.dart';
 import 'helper/constant.dart';
 import 'helper/routes.dart';
 
@@ -35,7 +34,7 @@ class MyHttpOverrides extends HttpOverrides {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  HttpOverrides.global = new MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   await SharedPrefController().initPref();
   FileProcess.checkDocumentFolder();
 
@@ -110,6 +109,7 @@ class _MyAppState extends State<MyApp> {
                 // Notice that the counter didn't reset back to zero; the application
                 // is not restarted.
                 primarySwatch: colorCustom,
+
               ),
               initialRoute: SharedPrefController().isFirstLancsh
                   ? SharedPrefController()
