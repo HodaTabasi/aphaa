@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/service.dart';
+// import '../model/service.dart';
 import 'SizeConfig.dart';
 
 MaterialColor colorCustom = MaterialColor(0xFF058638, color);
@@ -44,7 +44,7 @@ const paymentServerKey = "SWJNMGNWTK-JG629T9BDR-MZGJNRLT2H";
 const paymentClientKey = "CQKMTP-27R76T-GMP7P2-79NHQK";
 const paymentProfileId = "52842";
 const paymentCartIdLive = "52842";
-const merchantName = "aiph.mapp@aph.med.sa";
+const merchantName =  paymentMerchantName;//"aiph.mapp@aph.med.sa";
 const merchantApplePayIndentifier = "merchant.com.aph.med.aphaaApp";
 // const merchantApplePayIndentifier = "aiph.mapp@aph.med.sa";
 

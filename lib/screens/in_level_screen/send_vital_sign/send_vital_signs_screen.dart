@@ -138,7 +138,7 @@ class _SendVitalSignsState extends State<SendVitalSigns> with Helpers, myHelper.
                 EditTextItem(
                   'assets/images/diabetes.svg',
                   AppLocalizations.of(context)!.diabetes,
-                  TextInputType.text,
+                  TextInputType.number,
                   controler: dia,
                   numberFocusNode: numberFocusNode,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -146,15 +146,18 @@ class _SendVitalSignsState extends State<SendVitalSigns> with Helpers, myHelper.
                 EditTextItem(
                   'assets/images/pressure.svg',
                   AppLocalizations.of(context)!.pressure,
-                  TextInputType.text,
+                  TextInputType.numberWithOptions(
+                      signed:true,
+                       decimal: true
+                  ),
                   controler: bp,
                   numberFocusNode: numberFocusNode1,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  inputFormatters: [FilteringTextInputFormatter.singleLineFormatter],
                 ),
                 EditTextItem(
                   'assets/images/thermometer.svg',
                   AppLocalizations.of(context)!.thermometer,
-                  TextInputType.text,
+                  TextInputType.number,
                   controler: bt,
                   numberFocusNode: numberFocusNode2,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -170,10 +173,10 @@ class _SendVitalSignsState extends State<SendVitalSigns> with Helpers, myHelper.
                 EditTextItem(
                   'assets/images/heart1.svg',
                   AppLocalizations.of(context)!.heart,
-                  TextInputType.text,
+                  TextInputType.number,
                   controler: hr,
                   numberFocusNode: numberFocusNode4,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  inputFormatters: [FilteringTextInputFormatter.singleLineFormatter],
                 ),
                 TextAreaWidget(note, AppLocalizations.of(context)!.notes),
                 SizedBox(height: 10.h),

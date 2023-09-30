@@ -12,7 +12,7 @@ import 'package:flutter_paytabs_bridge/PaymentSdkTransactionType.dart';
 import 'package:flutter_paytabs_bridge/flutter_paytabs_bridge.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
-import '../../../get/new_account_getx_controller.dart';
+// import '../../../get/new_account_getx_controller.dart';
 import '../../../helper/constant.dart';
 import '../../../model/billResponse.dart';
 import '../../../preferences/shared_pref_controller.dart';
@@ -75,10 +75,7 @@ class PaymentMethod with Helpers1 {
   }
 
   void doPaymentConfiguration(price, {permsNo}) {
-    print("fdfd$merchantApplePayIndentifier");
-    ///todo this data required to show payment page
-    ///todo: here you need to add user data if exist at lest [*** user name and email]
-    bool? isLogin = SharedPrefController()
+   bool? isLogin = SharedPrefController()
         .getValueFor<bool>(key: PrefKeysPatient.isLoggedIn.name);
     if (isLogin != null && !isLogin) {
       return;
@@ -87,12 +84,12 @@ class PaymentMethod with Helpers1 {
         "${SharedPrefController().getValueFor<String>(key: PrefKeysPatient.firstName.name)}  ${SharedPrefController().getValueFor<String>(key: PrefKeysPatient.lastName.name)}";
     var email = SharedPrefController()
             .getValueFor<String>(key: PrefKeysPatient.email.name) ??
-        "t@t.com";
+        "hoda.angel.1994@gmail.com";
     var mobile = SharedPrefController()
             .getValueFor<String>(key: PrefKeysPatient.mobile.name) ??
         "+970111111111";
     if (email.isEmpty) {
-      email = "t@t.com";
+      email = "hoda.angel.1994@gmail.com";
     }
     print("$firstName $email , $mobile");
     var billingDetails = BillingDetails("$firstName", "$email", "$mobile",
@@ -103,6 +100,7 @@ class PaymentMethod with Helpers1 {
     //todo this data required to show alternativePaymentMethods
     List<PaymentSdkAPms> apms = [];
     apms.add(PaymentSdkAPms.AMAN);
+    apms.add(PaymentSdkAPms.APPLE_PAY);
 
     configuration = PaymentSdkConfigurationDetails(
         profileId: paymentProfileId,
@@ -116,14 +114,16 @@ class PaymentMethod with Helpers1 {
         transactionClass: PaymentSdkTransactionClass.ECOM,
         forceShippingInfo: false,
         cartDescription: "مستشفى أبها الخاص العالمي",
-        merchantName: /*paymentMerchantName*/merchantName,
-        merchantApplePayIndentifier:merchantApplePayIndentifier.trim(),
-        screentTitle: "Pay with Card",
+        merchantName: merchantName,
+        // merchantName: /*paymentMerchantName*/merchantName,
+         screentTitle: "Pay with Card",
         billingDetails: billingDetails,
         shippingDetails: shippingDetails,
         locale: PaymentSdkLocale.EN,
         //PaymentSdkLocale.AR or PaymentSdkLocale.DEFAULT
         amount: double.parse("${price}"),
+        // amount: double.tryParse("${price}") ?? 0,
+        merchantApplePayIndentifier:merchantApplePayIndentifier,
         //release her amount
         currencyCode: "SAR",
         merchantCountryCode: "SA",
@@ -289,7 +289,6 @@ class PaymentMethod with Helpers1 {
         }
       } else if (event["status"] == "error") {
         print(event);
-        print("dsfsd ${price}");
         showSnackBar(context, message: event["message"], error: true);
         // Handle error here.
       } else if (event["status"] == "event") {

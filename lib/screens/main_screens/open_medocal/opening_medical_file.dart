@@ -65,9 +65,9 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
   String? get restorationId => widget.restorationId;
 
   final RestorableDateTime _selectedDate =
-      RestorableDateTime(DateTime(2021, 7, 25));
+  RestorableDateTime(DateTime(2021, 7, 25));
   late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
-      RestorableRouteFuture<DateTime?>(
+  RestorableRouteFuture<DateTime?>(
     onComplete: _selectDate,
     onPresent: (NavigatorState navigator, Object? arguments) {
       return navigator.restorablePush(
@@ -79,9 +79,9 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
   var selectedDate = new HijriCalendar.now();
 
   static Route<DateTime> _datePickerRoute(
-    BuildContext context,
-    Object? arguments,
-  ) {
+      BuildContext context,
+      Object? arguments,
+      ) {
     return DialogRoute<DateTime>(
       context: context,
       builder: (BuildContext context) {
@@ -110,7 +110,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
         _selectedDate.value = newSelectedDate;
         setState(() {
           _insurance_date.text =
-              "${_selectedDate.value.year}-${_selectedDate.value.month}-${_selectedDate.value.day}";
+          "${_selectedDate.value.year}-${_selectedDate.value.month}-${_selectedDate.value.day}";
         });
         // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         //   content: Text(
@@ -208,157 +208,157 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
 
       body: isLoading
           ? Center(
-              child: CircularProgressIndicator(),
-            )
+        child: CircularProgressIndicator(),
+      )
           : ListView(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0.r),
+            child: Text(
+              AppLocalizations.of(context)!
+                  .to_open_medical_file_please_enter_data,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 15.sp,
+                fontFamily: 'Tajawal',
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.start,
+            ),
+          ),
+          Form(
+            child: Column(
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: EdgeInsets.all(16.0.r),
-                  child: Text(
-                    AppLocalizations.of(context)!
-                        .to_open_medical_file_please_enter_data,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15.sp,
-                      fontFamily: 'Tajawal',
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Form(
-                  child: Column(
-                    children: [
-                      EditTextItem(
-                        'assets/images/Profile.svg',
-                        AppLocalizations.of(context)!.first_pasent_name,
-                        TextInputType.name,
-                        controler: firstName,
+                EditTextItem(
+                  'assets/images/Profile.svg',
+                  AppLocalizations.of(context)!.first_pasent_name,
+                  TextInputType.name,
+                  controler: firstName,
 
-                      ),
-                      EditTextItem(
-                        'assets/images/Profile.svg',
-                        AppLocalizations.of(context)!.second_pasent_name,
-                        TextInputType.name,
-                        controler: medileName,
-                      ),
-                      EditTextItem(
-                        'assets/images/Profile.svg',
-                        AppLocalizations.of(context)!.last_pasent_name,
-                        TextInputType.name,
-                        controler: lastName,
-                      ),
-                      DropDownNationalitiesItem(
-                        myNatData,
-                        'assets/images/nasinality.svg',
-                        AppLocalizations.of(context)!.nat_choesse,
-                        jobRoleCtrl,
-                        dropIntValue: 1,
-                      ),
-                      DropDownIDTypeItem(
-                        myIDData,
-                        'assets/images/idtype.svg',
-                        AppLocalizations.of(context)!.id_choesse,
-                        jobRoleCtrl1,
-                        dropIntValue: 2,
-                      ),
-                      EditTextItem('assets/images/id.svg',
-                          AppLocalizations.of(context)!.identity_iqama,
-                          TextInputType.number,
-                          controler: inId,
-                        numberFocusNode: numberFocusNode1,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      ),
-                      EditTextItem('assets/images/phone.svg',
-                          AppLocalizations.of(context)!.phone,
-                          TextInputType.phone,
-                          controler: phone,
-                        numberFocusNode: numberFocusNode,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      ),
-                      EditTextItem(
-                        'assets/images/Message.svg',
-                        AppLocalizations.of(context)!.email,
-                        TextInputType.emailAddress,
-                        controler: _pEmail,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          _selectedDate1(context);
-                          // _restorableDatePickerRouteFuture.present();
-                        },
-                        child: EditTextItem('assets/images/Calendar.svg',
-                            AppLocalizations.of(context)!.dob_end_date,
-                            TextInputType.name,
-                            b: false, controler: _insurance_date),
-                      ),
-                      InkWell(
-                        onTap: () async {
-                          await _pickImage();
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 90.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
-                            border: Border.all(
-                                color: Color(0xff0E4C8F), width: 0.5.w),
-                          ),
-                          margin: EdgeInsets.all(16.r),
-                          child: Column(
+                ),
+                EditTextItem(
+                  'assets/images/Profile.svg',
+                  AppLocalizations.of(context)!.second_pasent_name,
+                  TextInputType.name,
+                  controler: medileName,
+                ),
+                EditTextItem(
+                  'assets/images/Profile.svg',
+                  AppLocalizations.of(context)!.last_pasent_name,
+                  TextInputType.name,
+                  controler: lastName,
+                ),
+                DropDownNationalitiesItem(
+                  myNatData,
+                  'assets/images/nasinality.svg',
+                  AppLocalizations.of(context)!.nat_choesse,
+                  jobRoleCtrl,
+                  dropIntValue: 1,
+                ),
+                DropDownIDTypeItem(
+                  myIDData,
+                  'assets/images/idtype.svg',
+                  AppLocalizations.of(context)!.id_choesse,
+                  jobRoleCtrl1,
+                  dropIntValue: 2,
+                ),
+                EditTextItem('assets/images/id.svg',
+                  AppLocalizations.of(context)!.identity_iqama,
+                  TextInputType.number,
+                  controler: inId,
+                  numberFocusNode: numberFocusNode1,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                ),
+                EditTextItem('assets/images/phone.svg',
+                  AppLocalizations.of(context)!.phone,
+                  TextInputType.phone,
+                  controler: phone,
+                  numberFocusNode: numberFocusNode,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                ),
+                EditTextItem(
+                  'assets/images/Message.svg',
+                  AppLocalizations.of(context)!.email,
+                  TextInputType.emailAddress,
+                  controler: _pEmail,
+                ),
+                InkWell(
+                  onTap: () {
+                    _selectedDate1(context);
+                    // _restorableDatePickerRouteFuture.present();
+                  },
+                  child: EditTextItem('assets/images/Calendar.svg',
+                      AppLocalizations.of(context)!.dob_end_date,
+                      TextInputType.name,
+                      b: false, controler: _insurance_date),
+                ),
+                InkWell(
+                  onTap: () async {
+                    await _pickImage();
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 90.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      border: Border.all(
+                          color: Color(0xff0E4C8F), width: 0.5.w),
+                    ),
+                    margin: EdgeInsets.all(16.r),
+                    child: Column(
+                      children: [
+                        // LinearProgressIndicator(
+                        //   minHeight: 10,
+                        //   backgroundColor: Colors.green.shade200,
+                        //   color: Colors.green.shade700,
+                        //   value: _progressValue,
+                        // ),
+                        Expanded(
+                          child: _pickedImage != null
+                              ? Image.file(File(_pickedImage!.path))
+                              : Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
                             children: [
-                              // LinearProgressIndicator(
-                              //   minHeight: 10,
-                              //   backgroundColor: Colors.green.shade200,
-                              //   color: Colors.green.shade700,
-                              //   value: _progressValue,
-                              // ),
-                              Expanded(
-                                child: _pickedImage != null
-                                    ? Image.file(File(_pickedImage!.path))
-                                    : Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Spacer(),
-                                          SvgPicture.asset(
-                                              'assets/images/Upload.svg',
-                                              semanticsLabel: 'Acme Logo'),
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          Text(
-                                              AppLocalizations.of(context)!
-                                                  .attach_a_copy_of_your_id,
-                                              style: TextStyle(
-                                                color: Colors.grey.shade700,
-                                                fontSize: 13.sp,
-                                                fontFamily: 'Tajawal',
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                          Spacer(),
-                                        ],
-                                      ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                  'assets/images/Upload.svg',
+                                  semanticsLabel: 'Acme Logo'),
+                              SizedBox(
+                                height: 10.h,
                               ),
+                              Text(
+                                  AppLocalizations.of(context)!
+                                      .attach_a_copy_of_your_id,
+                                  style: TextStyle(
+                                    color: Colors.grey.shade700,
+                                    fontSize: 13.sp,
+                                    fontFamily: 'Tajawal',
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              Spacer(),
                             ],
                           ),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                BtnLayout(AppLocalizations.of(context)!.opening_medical_file,
-                    () => _performUpload()),
-                Image.asset(
-                  "assets/images/image1.png",
-                  fit: BoxFit.fitWidth,
-                ),
+                )
               ],
             ),
+          ),
+          const SizedBox(height: 10),
+          BtnLayout(AppLocalizations.of(context)!.opening_medical_file,
+                  () => _performUpload()),
+          Image.asset(
+            "assets/images/image1.png",
+            fit: BoxFit.fitWidth,
+          ),
+        ],
+      ),
     );
   }
 
