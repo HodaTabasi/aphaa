@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aphaa_app/general/btn_layout.dart';
 import 'package:aphaa_app/general/edittext_item.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../general/readPdf.dart';
 import '../get/change_name_getx_controller.dart';
+import 'helpers.dart';
 
 class ShareButtomSheet extends StatefulWidget {
   String path;
@@ -18,7 +21,7 @@ class ShareButtomSheet extends StatefulWidget {
   State<ShareButtomSheet> createState() => _ShareButtomSheetState();
 }
 
-class _ShareButtomSheetState extends State<ShareButtomSheet> {
+class _ShareButtomSheetState extends State<ShareButtomSheet> with Helpers1{
   bool whats = false;
 
   @override
@@ -44,8 +47,23 @@ class _ShareButtomSheetState extends State<ShareButtomSheet> {
           SizedBox(
             height: 20.h,
           ),
-          BtnLayout('${AppLocalizations.of(context)!.share}', () {
-            Share.shareFiles(['${widget.path}'], text: 'ShreFile');
+          BtnLayout('${AppLocalizations.of(context)!.share}', () async {
+
+            if(Platform.isAndroid) {
+              Share.shareFiles(['${widget.path}'], text: 'ShreFile');
+            }else {
+              if (widget.path != null) {
+                await Share.shareXFiles(
+                  [XFile(widget.path)],
+                  sharePositionOrigin: Rect.fromCircle(
+                    radius: MediaQuery.of(context).size.width * 0.25,
+                    center: const Offset(0, 0),
+                  ),
+                );
+              } else {
+                showSnackBarAction(context, message: "Failed to share",error: true);
+              }
+            }
           }),
           Text(
             '${AppLocalizations.of(context)!.or}',

@@ -364,7 +364,21 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
                   }else {
                     Navigator.pop(context);
                     File file =  await FileProcess.downloadFile(base64.pdfFile, patientPaymentRecord.pdfName!.split("/").last);
-                    Share.shareFiles(['${file.path}'], text: 'ShreFile');
+                    if(Platform.isAndroid) {
+                      Share.shareFiles(['${file.path}'], text: 'ShreFile');
+                    }else {
+                      if (file != null) {
+                        await Share.shareXFiles(
+                          [XFile(file.path)],
+                          sharePositionOrigin: Rect.fromCircle(
+                            radius: MediaQuery.of(context).size.width * 0.25,
+                            center: const Offset(0, 0),
+                          ),
+                        );
+                      } else {
+                        showSnackBarAction(context, message: "Failed to share",error: true);
+                      }
+                    }
                     // showSnackBarAction(context, message: "${AppLocalizations.of(context)!.download_successfully}",error: false,path:file.path );
                   }
                   },

@@ -111,6 +111,11 @@ class _MyAppState extends State<MyApp> {
                 primarySwatch: colorCustom,
 
               ),
+              builder:(context,child){
+                return MediaQuery(
+                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                    child: child!);
+              },
               initialRoute: SharedPrefController().isFirstLancsh
                   ? SharedPrefController()
                           .getValueFor(key: PrefKeysPatient.isLoggedIn.name)??false
