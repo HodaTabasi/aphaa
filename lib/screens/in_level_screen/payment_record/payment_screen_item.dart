@@ -388,6 +388,7 @@ class PaymentScreenItem extends StatelessWidget with Helpers1{
                 ),
               ),
             ),
+
               SizedBox(
                 width: 8.w,
               ),
