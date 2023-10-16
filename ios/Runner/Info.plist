@@ -13,7 +13,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
+	<string>7.0</string>
 	<key>CFBundleName</key>
 	<string>مستشفى ابها الخاص</string>
 	<key>CFBundlePackageType</key>
@@ -36,11 +36,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow app to access to this feature</string>
+	<string>The camera is used to photograph the person’s identity in order to open a medical file for him inside the hospital, and this data is never shared. It is only collected for tasks within the application that are related to the patient’s health.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow app to access to this feature</string>
+	<string>for person’s identity in order to open a medical file for him inside the hospital, and this data is never shared. It is only collected for tasks within the application that are related to the patient’s health.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow app to access to this feature</string>
+	<string>The photo is used to upload the person’s identity in order to open a medical file for him inside the hospital, and this data is never shared. It is only collected for tasks within the application that are related to the patient’s health.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

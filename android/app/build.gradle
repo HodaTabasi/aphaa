@@ -57,8 +57,8 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         multiDexEnabled true
         compileSdkVersion 33
-        versionCode 60
-        versionName "1.1"
+        versionCode 62
+        versionName "1.2"
     }
 
 //    buildTypes {
