@@ -1,8 +1,5 @@
-import 'package:aphaa_app/screens/auth/login/login_screen.dart';
-import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../general/btn_layout.dart';
 
@@ -64,7 +61,7 @@ class LoginDoneScreens extends StatelessWidget {
           SizedBox(height: 30.h,),
           Spacer(),
           BtnLayout(AppLocalizations.of(context)!.login, () {
-                Navigator.pushNamed(context, LoginScreen.routeName);
+                //Navigator.pushNamed(context, LoginScreen.routeName);
           }),
           Spacer(),
           Image.asset(

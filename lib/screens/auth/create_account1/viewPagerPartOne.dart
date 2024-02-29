@@ -1,3 +1,4 @@
+import 'package:aphaa_app/screens/auth/create_account1/Choosere.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,8 +7,8 @@ import '../../../api/controllers/hospital_controller.dart';
 import '../../../get/new_account_getx_controller.dart';
 import '../../../model/Eligibility.dart';
 import '../../main_screens/open_medocal/opening_medical_file.dart';
-import '../create_account/Choosere.dart';
-import '../create_account/text_filed.dart';
+//import '../create_account/Choosere.dart';
+import 'text_filed.dart';
 
 import 'package:aphaa_app/helper/helpers.dart' as myHelper ;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

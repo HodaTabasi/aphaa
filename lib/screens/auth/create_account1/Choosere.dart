@@ -1,7 +1,7 @@
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:flutter/material.dart';
 
-import 'btn_layout.dart';
+import '../create_account1/btn_layout.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

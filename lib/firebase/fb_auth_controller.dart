@@ -1,21 +1,13 @@
 import 'package:aphaa_app/get/new_account_getx_controller.dart';
 import 'package:aphaa_app/model/Eligibility.dart';
-import 'package:aphaa_app/screens/main_screens/change_password/change_password.dart';
-import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
-import '../api/controllers/auth_api_controller.dart';
 import '../get/change_name_getx_controller.dart';
-import '../get/login_getx_controller.dart';
-import '../model/api_response.dart';
 import '../preferences/shared_pref_controller.dart';
-import '../screens/auth/create_account/create_account_next.dart';
 import 'package:aphaa_app/helper/helpers.dart';
 
 import '../screens/drawer_screens/buttom_navication.dart';
-//
-import '../helper/helpers.dart';
 
 class FireBaseAuthController with Helpers1{
 

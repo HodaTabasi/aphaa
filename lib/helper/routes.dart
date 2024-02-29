@@ -1,6 +1,6 @@
 import 'package:aphaa_app/general/readPdf.dart';
-import 'package:aphaa_app/screens/auth/create_account/create_account.dart';
-import 'package:aphaa_app/screens/auth/login/login_screen.dart';
+//import 'package:aphaa_app/screens/auth/create_account/create_account.dart';
+//import 'package:aphaa_app/screens/auth/login/login_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/home_screen/home_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/offers/offers_screen.dart';
 import 'package:aphaa_app/screens/drawer_screens/profile/profile_screen.dart';
@@ -22,7 +22,7 @@ import 'package:aphaa_app/screens/main_screens/forget_pass/forget_password.dart'
 import 'package:aphaa_app/screens/main_screens/open_medocal/opening_medical_file.dart';
 import 'package:aphaa_app/screens/main_screens/otp/otp_screen.dart';
 import 'package:flutter/widgets.dart';
-import '../screens/auth/create_account/create_account_next.dart';
+//import '../screens/auth/create_account/create_account_next.dart';
 import '../screens/auth/create_account1/new_account_first.dart';
 import '../screens/auth/login1/login_screen.dart';
 import '../screens/drawer_screens/Booking/my_appointment_booking.dart';
@@ -40,7 +40,7 @@ import '../screens/main_screens/quick_services/quick_services.dart';
 import '../screens/main_screens/select_lang/select_language.dart';
 import '../screens/main_screens/send_consult/consult_screen.dart';
 import '../screens/splach/screen_2_splash.dart';
-import '../screens/splach/splash_screen.dart';
+//import '../screens/splach/splash_screen.dart';
 
 // We use name route
 // All our routes will be available here
@@ -58,12 +58,12 @@ final Map<String, WidgetBuilder> routes = {
   SendConsultScreen.routeName: (context) => SendConsultScreen(),
   //////////
   DoctorDetails.routeName: (context) => DoctorDetails(),
-  LoginScreen.routeName: (context) => LoginScreen(),
-  CreateAccount.routeName: (context) => CreateAccount(),
+  //LoginScreen.routeName: (context) => LoginScreen(),
+  //CreateAccount.routeName: (context) => CreateAccount(),
   ////////////
   HomeScreen.routeName: (context) => HomeScreen(),
   ForgetPassword.routeName: (context) => ForgetPassword(),
-  CreateAccountNext.routeName: (context) => CreateAccountNext(),
+  //CreateAccountNext.routeName: (context) => CreateAccountNext(),
   VitalSigns.routeName: (context) => VitalSigns(),
   ////////
   MedicalRecipes.routeName: (context) => MedicalRecipes(),
