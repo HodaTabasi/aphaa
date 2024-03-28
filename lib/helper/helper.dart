@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:aphaa_app/helper/helpers.dart';
 import 'package:aphaa_app/screens/drawer_screens/Booking/payment_methods.dart';
-import 'package:aphaa_app/screens/drawer_screens/buttom_navication.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -80,7 +79,7 @@ mixin Helpers implements Helpers1{
             children: [
               Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   // SvgPicture.asset(
@@ -108,12 +107,12 @@ mixin Helpers implements Helpers1{
                     children: [
                       SvgPicture.asset(
                           'assets/images/visa2.svg',height: 30.h,width: 30.w),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       SvgPicture.asset(
                           'assets/images/master.svg',height: 25.h,width: 25.w),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       SvgPicture.asset(
@@ -210,12 +209,12 @@ mixin Helpers implements Helpers1{
           padding:  EdgeInsets.symmetric(vertical: 5.0.r),
           child: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               SvgPicture.asset(
                   'assets/images/apple_pay.svg',height: 30.h,width: 30.w),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Text(
@@ -287,13 +286,13 @@ mixin Helpers implements Helpers1{
             // Navigator.popAndPushNamed(context, ButtomNavigations.routeName);
           },
           child: Text(AppLocalizations.of(context)!.back,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      backgroundColor: Color(0xffF2F2F2),
+      backgroundColor: const Color(0xffF2F2F2),
       content: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -355,7 +354,7 @@ mixin Helpers implements Helpers1{
     Widget continueButton = Center(
       child: TextButton(
           child: Text(flag?message:'تـم الــإرســـال بـــنـــجــاح!',
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.green)),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
@@ -366,7 +365,7 @@ mixin Helpers implements Helpers1{
         padding: const EdgeInsets.all(16.0),
         child: Text(
           message2,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 16, fontFamily: 'Tajawal', color: Colors.black45),
           textAlign: TextAlign.center,
         ),
@@ -380,20 +379,20 @@ mixin Helpers implements Helpers1{
             Navigator.pop(context);
             // Navigator.popAndPushNamed(context, ButtomNavigations.routeName);
           },
-          child: Text("عودة",
+          child: const Text("عودة",
               style: TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      backgroundColor: Color(0xffF2F2F2),
+      backgroundColor: const Color(0xffF2F2F2),
       content: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
         ),
-        padding: EdgeInsets.all(16),
-        child: Icon(
+        padding: const EdgeInsets.all(16),
+        child: const Icon(
           Icons.check_circle,
           size: 60,
           color: Colors.green,
@@ -419,7 +418,7 @@ mixin Helpers implements Helpers1{
     Widget continueButton = Center(
       child: TextButton(
           child: Text(AppLocalizations.of(context)!.this_date_is_not_available,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.black)),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
@@ -429,13 +428,13 @@ mixin Helpers implements Helpers1{
       child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: Colors.red),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
               Navigator.pop(context);
             },
             child: Text(
               AppLocalizations.of(context)!.ok,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.white),
               textAlign: TextAlign.center,
             ),
@@ -444,13 +443,13 @@ mixin Helpers implements Helpers1{
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      backgroundColor: Color(0xffF2F2F2),
+      backgroundColor: const Color(0xffF2F2F2),
       content: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
         ),
-        padding: EdgeInsets.all(16),
-        child: Icon(
+        padding: const EdgeInsets.all(16),
+        child: const Icon(
           Icons.error,
           size: 60,
           color: Colors.red,
@@ -475,7 +474,7 @@ mixin Helpers implements Helpers1{
     Widget continueButton = Center(
       child: TextButton(
           child: Text(message,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.green)),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
@@ -489,20 +488,20 @@ mixin Helpers implements Helpers1{
             Navigator.pop(context);
             // Navigator.popAndPushNamed(context, ButtomNavigations.routeName);
           },
-          child: Text("عودة",
+          child: const Text("عودة",
               style: TextStyle(
                   fontSize: 16, fontFamily: 'Tajawal', color: Colors.white))),
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      backgroundColor: Color(0xffF2F2F2),
+      backgroundColor: const Color(0xffF2F2F2),
       content: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
         ),
-        padding: EdgeInsets.all(16),
-        child: Icon(
+        padding: const EdgeInsets.all(16),
+        child: const Icon(
           Icons.check_circle,
           size: 60,
           color: Colors.green,
