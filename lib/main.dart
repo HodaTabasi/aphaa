@@ -109,7 +109,10 @@ class _MyAppState extends State<MyApp> {
                 // Notice that the counter didn't reset back to zero; the application
                 // is not restarted.
                 primarySwatch: colorCustom,
-
+                primaryColor: Colors.blue,
+                textTheme: const TextTheme(
+                  titleLarge: TextStyle(color: Colors.purple),
+                ),
               ),
               builder:(context,child){
                 return MediaQuery(

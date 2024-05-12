@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:jhijri_picker/jhijri_picker.dart';
 
 import '../../../api/controllers/hospital_controller.dart';
 import '../../../api/controllers/quick_service_api_controller.dart';
@@ -18,14 +19,15 @@ import '../../../general/edittext_item.dart';
 
 import 'package:aphaa_app/helper/helpers.dart' as myHelper;
 
+import '../../../get/language_getx_controller.dart';
 import '../../../get/quick_service_getx_controller.dart';
 import '../../../helper/keyboardoverlay.dart';
 import '../../../model/IDTypes.dart';
 import '../../../model/Nationalities.dart';
 import '../../../model/api_response.dart';
 
-import 'package:hijri/hijri_calendar.dart';
-import 'package:hijri_picker/hijri_picker.dart';
+// import 'package:hijri/hijri_calendar.dart';
+// import 'package:hijri_picker/hijri_picker.dart';
 
 class OpeningMedicalFile extends StatefulWidget {
   static String routeName = "/open_media_file";
@@ -76,7 +78,7 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
       );
     },
   );
-  var selectedDate = new HijriCalendar.now();
+  var selectedDate = JDateModel().dateTime;
 
   static Route<DateTime> _datePickerRoute(
       BuildContext context,
@@ -287,7 +289,8 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
                 ),
                 InkWell(
                   onTap: () {
-                    _selectedDate1(context);
+                    openDialog(context);
+                    // _selectedDate1(context);
                     // _restorableDatePickerRouteFuture.present();
                   },
                   child: EditTextItem('assets/images/Calendar.svg',
@@ -426,27 +429,46 @@ class _OpeningMedicalFileState extends State<OpeningMedicalFile>
     );
   }
 
-  Future<void> _selectedDate1(BuildContext context) async {
-    final HijriCalendar? picked = await showHijriDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      lastDate: new HijriCalendar()
-        ..hYear = 1500
-        ..hMonth = 9
-        ..hDay = 25,
-      firstDate: new HijriCalendar()
-        ..hYear = 1356
-        ..hMonth = 12
-        ..hDay = 25,
-      initialDatePickerMode: DatePickerMode.day,
-    );
-    if (picked != null)
-      setState(() {
-        selectedDate = picked;
-        _selectedDate.value =  selectedDate.hijriToGregorian(selectedDate.hYear, selectedDate.hMonth, selectedDate.hDay);
-        _insurance_date.text =
-        "${selectedDate.hYear}-${selectedDate.hMonth}-${selectedDate.hDay}";
-      });
+  // Future<void> _selectedDate1(BuildContext context) async {
+  //   final HijriCalendar? picked = await showHijriDatePicker(
+  //     context: context,
+  //     initialDate: selectedDate,
+  //     lastDate:  HijriCalendar()
+  //       ..hYear = 1500
+  //       ..hMonth = 9
+  //       ..hDay = 25,
+  //     firstDate:  HijriCalendar()
+  //       ..hYear = 1356
+  //       ..hMonth = 12
+  //       ..hDay = 25,
+  //     initialDatePickerMode: DatePickerMode.day,
+  //   );
+  //   if (picked != null)
+  //     setState(() {
+  //       selectedDate = picked;
+  //       _selectedDate.value =  selectedDate.hijriToGregorian(selectedDate.hYear, selectedDate.hMonth, selectedDate.hDay);
+  //       _insurance_date.text =
+  //       "${selectedDate.hYear}-${selectedDate.hMonth}-${selectedDate.hDay}";
+  //     });
+  // }
+
+  // final val = openDialog(context);
+  openDialog(BuildContext context)async{
+    return await showGlobalDatePicker(
+        context: context,
+        pickerType:PickerType.JHijri,
+        locale: const Locale('ar'),
+        onChange: (val){
+          print(val);
+          setState(() {
+            selectedDate ;
+            _insurance_date.text =
+            "${val.date.year}-${val.date.month}-${val.date.day}";
+
+          });
+        },
+    okButtonText: LanguageGetxController.to.language.value == 'ar' ? 'حسنا' : 'Ok',
+    cancelButtonText: LanguageGetxController.to.language.value == 'ar' ? 'الغاء الامر' : 'Cancel');
   }
 
   @override
